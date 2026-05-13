@@ -127,7 +127,7 @@ class OnboardingScreen extends StatelessWidget {
 
                                 color:
                                 controller.currentPage.value == index
-                                    ? const Color(0xff4D5DFA)
+                                    ? const Color(0xff054239)
                                     : Colors.grey.shade300,
                               ),
                             ),
@@ -149,7 +149,7 @@ class OnboardingScreen extends StatelessWidget {
                             style: ElevatedButton.styleFrom(
 
                               backgroundColor:
-                              const Color(0xff4D5DFA),
+                              const Color(0xff054239),
 
                               elevation: 0,
 

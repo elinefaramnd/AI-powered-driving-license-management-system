@@ -7,33 +7,33 @@ class OnboardingController extends GetxController {
   final List<Map<String, String>> onboardingData = [
 
     {
-      'image': 'assets/images/onboarding1.jpg',
+      'image': 'assets/images/onboarding1.gif',
 
       'title':
-      'Get your driving license easier than ever',
+      'احصل على رخصة القيادة بسهولة أكثر من أي وقت مضى',
 
       'description':
-      'Our app simplifies every step of the driving license process to give you a smooth and stress-free experience',
+      'يبسط تطبيقنا كل خطوة من خطوات عملية الحصول على رخصة القيادة ليمنحك تجربة سلسة وخالية من التوتر',
     },
 
     {
-      'image': 'assets/images/onboarding2.jpg',
+      'image': 'assets/images/onboarding2.gif',
 
       'title':
-      'Fast, secure and simple payments',
+      'مدفوعات سريعة وآمنة وبسيطة',
 
       'description':
-      'Pay your application fees safely and quickly with an easy payment experience designed for your convenience',
+      'ادفع رسوم طلبك بأمان وسرعة من خلال تجربة دفع سهلة مصممة لراحتك'
     },
 
     {
-      'image': 'assets/images/onboarding3.png',
+      'image': 'assets/images/onboarding3.gif',
 
       'title':
-      'AI assistant ready to help you anytime',
+      'مساعد الذكاء الاصطناعي جاهز لمساعدتك في أي وقت',
 
       'description':
-      'Our smart AI chatbot answers your questions instantly and guides you through every step of your journey',
+      'يجيب روبوت الدردشة الذكي الخاص بنا على أسئلتك على الفور ويرشدك خلال كل خطوة من رحلتك',
     },
   ];
 
