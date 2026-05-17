@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../splash/splash_screen.dart';
+
 class OnboardingController extends GetxController {
 
   var currentPage = 0.obs;
@@ -45,6 +47,7 @@ class OnboardingController extends GetxController {
 
     } else {
 
+      //Get.offAllNamed('/signIn');
       Get.offAllNamed('/signIn');
     }
   }

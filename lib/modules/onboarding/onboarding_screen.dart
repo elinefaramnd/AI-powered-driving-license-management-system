@@ -164,8 +164,8 @@ class OnboardingScreen extends StatelessWidget {
 
                               controller.currentPage.value ==
                                   controller.onboardingData.length - 1
-                                  ? "Get Started"
-                                  : "Next",
+                                  ? "أبدأ"
+                                  : "التالي",
 
                               style: const TextStyle(
 
