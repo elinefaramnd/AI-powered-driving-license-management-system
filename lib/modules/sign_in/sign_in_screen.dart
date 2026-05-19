@@ -8,22 +8,18 @@ import 'sign_in_controller.dart';
 
 class SignInScreen extends StatelessWidget {
   SignInScreen({super.key});
-
   final SignInController controller = Get.put(SignInController());
-
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-
     return Scaffold(
       body: Container(
         width: double.infinity,
-
+        height: double.infinity,
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomRight,
-
             colors: [
               Color(0xffeaf8f3),
               Color(0xffFEFEFE)],
@@ -34,20 +30,15 @@ class SignInScreen extends StatelessWidget {
           child: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
-
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
-
                 children: [
                   const SizedBox(height: 67),
-
                  Center(child: Image.asset("assets/images/logo.png",width: 70,height: 70,)),
-
                   const SizedBox(height: 35),
                     Center(
                       child: const Text(
                         "مرحباً بعودتك",
-
                         style: TextStyle(
                           fontSize: 25,
 
@@ -140,7 +131,7 @@ class SignInScreen extends StatelessWidget {
                   ),
                 ),
 
-                  const SizedBox(height: 26),
+                  const SizedBox(height: 12),
                   Obx(() => Container(
                     width: double.infinity,
                     height: 50,

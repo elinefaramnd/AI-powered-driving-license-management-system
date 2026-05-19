@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
 
       debugShowCheckedModeBanner: false,
 
-      initialRoute: '/',
+      initialRoute: '/signIn',
 
         getPages: [
           GetPage(name: '/signIn', page: ()=>SignInScreen(),binding: SignInBindings()),
