@@ -52,10 +52,10 @@ class VerificationController extends GetxController {
         );
       } else {
         print(response.body);
-        Get.snackbar("error", data['message'] ?? "invalide code");
+        Get.snackbar("error", data['message'] ?? "كود غير صالح");
       }
     } catch (e) {
-      Get.snackbar("error", ": $e");
+      Get.snackbar("خطأ", ": $e");
     } finally {
       isLoading.value = false;
     }

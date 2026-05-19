@@ -36,15 +36,15 @@ class ProfileController extends GetxController {
       } else {
 
         Get.snackbar(
-          "Error",
-          data["message"] ?? "Failed",
+          "خطأ",
+          data["message"] ?? "فشل",
         );
       }
 
     } catch (e) {
 
       Get.snackbar(
-        "Error",
+        "خطأ",
         e.toString(),
       );
 

@@ -1,21 +1,15 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../configuration/http_helpers.dart';
 import '../sign_in/sign_in_screen.dart';
-
 class ResetPasswordController extends GetxController {
   late String resetToken;
   final String email = Get.arguments['email'];
-
   final passwordController =
   TextEditingController();
-
   final confirmPasswordController =
   TextEditingController();
-
   RxBool obscurePassword = true.obs;
 
   RxBool obscureConfirmPassword = true.obs;
@@ -42,12 +36,12 @@ class ResetPasswordController extends GetxController {
     final confirmPassword = confirmPasswordController.text.trim();
 
     if (password.isEmpty || confirmPassword.isEmpty) {
-      Get.snackbar("Error", "Please fill all fields");
+      Get.snackbar("خطأ", "الرجاء ملىء جميع الحقول");
       return;
     }
 
     if (password != confirmPassword) {
-      Get.snackbar("Error", "Passwords do not match");
+      Get.snackbar("خطأ", "كلمة المرور غير متطابقة");
       return;
     }
     isLoading.value = true;

@@ -38,7 +38,7 @@ class ForgetPasswordController extends GetxController {
         final data = jsonDecode(response.body);
         print(response.body);
         print(response.statusCode);
-        Get.snackbar("error", data['message'] ?? 'An error occurred');
+        Get.snackbar("error", data['message'] ?? 'حدث خطأ');
       }
     } catch (e) {
       Get.snackbar("error", ":$e");

@@ -62,11 +62,7 @@ class SignInController extends GetxController {
           'تم تسجيل الدخول بنجاح',
           '',
           messageText: Text(
-            res['message'].toString(),
-            style: const TextStyle(fontSize: 13, color: Colors.white),
-          ),
-          backgroundColor: AppColors.primaryColor.withOpacity(0.8),
-          colorText: Colors.white,
+            res['message'].toString(),),
         );
 
         Get.offNamed('/home');
@@ -74,16 +70,12 @@ class SignInController extends GetxController {
         Get.snackbar(
           'فشل تسجيل الدخول',
           res['message'].toString(),
-          backgroundColor: Colors.red.withOpacity(0.8),
-          colorText: Colors.white,
         );
       }
     } catch (e) {
       Get.snackbar(
         'Exception',
-        'An error occurred',
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
+        'حدث خطأ',
       );
     } finally {
       isLoading.value = false;

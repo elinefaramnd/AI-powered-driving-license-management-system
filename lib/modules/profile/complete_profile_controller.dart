@@ -72,7 +72,7 @@ class CompleteProfileController extends GetxController{
       final body = {
         "name": nameController.text,
         "national_id": nationalNumController.text,
-        "birth_date": birthDateController.text, // لاحقاً نحوله ISO
+        "birth_date": birthDateController.text,
         "governorate": governorateController.text,
         "address": addressController.text,
       };
@@ -85,8 +85,7 @@ class CompleteProfileController extends GetxController{
       final data = jsonDecode(response.body);
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-        Get.snackbar("Success", data["message"] ?? "Done",
-          backgroundColor: AppColors.primaryColor.withOpacity(0.8),
+        Get.snackbar("Success", data["message"] ?? "تم",
             margin:  EdgeInsets.symmetric(
               horizontal: 20,
               vertical: 10,
@@ -97,8 +96,7 @@ class CompleteProfileController extends GetxController{
             ));
         Get.offNamed('/home');
       } else {
-        Get.snackbar("Error", data["message"] ?? "Failed",
-            backgroundColor: Colors.red.withOpacity(0.8),
+        Get.snackbar("خطأ", data["message"] ?? "فشل",
             margin:  EdgeInsets.symmetric(
               horizontal: 20,
               vertical: 10,
@@ -109,7 +107,7 @@ class CompleteProfileController extends GetxController{
             ));
       }
     } catch (e) {
-      Get.snackbar("Error", e.toString());
+      Get.snackbar("خطأ", e.toString());
     } finally {
       isLoading.value = false;
     }

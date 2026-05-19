@@ -74,9 +74,8 @@ class SignUpController extends GetxController {
       Map<String, dynamic> res = jsonDecode(response.body);
       print(jsonEncode(data));
       if (response.statusCode == 200 || response.statusCode == 201) {
-        Get.snackbar('تم انشاء الحساب بنجاح', res['message'].toString(), backgroundColor:  AppColors.primaryColor.withOpacity(0.8),
-          colorText: Colors.white,
-          snackPosition: SnackPosition.BOTTOM,
+        Get.snackbar('تم انشاء الحساب بنجاح', res['message'].toString(),
+          snackPosition: SnackPosition.TOP,
           margin: const EdgeInsets.symmetric(
             horizontal: 20,
             vertical: 10,
@@ -109,9 +108,8 @@ class SignUpController extends GetxController {
       }
     } catch (e) {
       print('Register Error: $e');
-      Get.snackbar('Exception', 'An error occurred during the registration process', backgroundColor: Colors.red.withOpacity(0.8),
-        colorText: Colors.white,
-        snackPosition: SnackPosition.BOTTOM,
+      Get.snackbar('Exception', 'An error occurred during the registration process',
+        snackPosition: SnackPosition.TOP,
         margin: const EdgeInsets.symmetric(
           horizontal: 20,
           vertical: 10,
