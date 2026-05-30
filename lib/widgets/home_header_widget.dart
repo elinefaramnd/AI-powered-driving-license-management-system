@@ -96,7 +96,7 @@ class HomeHeaderWidget extends StatelessWidget {
               SizedBox(
                 width: size.width * 0.10,
                 child: Image.asset(
-                  "assets/images/home_logo.png",
+                  "assets/images/logo.png",
                   fit: BoxFit.contain,
                 ),
               ),

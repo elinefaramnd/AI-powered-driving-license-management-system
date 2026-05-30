@@ -4,7 +4,7 @@ import '../app_theme/app_colors.dart';
 class CustomTextField2 extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
-  final IconData suffixIcon ;
+  final IconData suffixIcon;
   final bool obscureText;
   final Widget? prefixIcon;
   final TextInputType keyboardType;
@@ -34,23 +34,16 @@ class CustomTextField2 extends StatelessWidget {
         cursorColor: AppColors.primaryColor,
         decoration: InputDecoration(
           hintText: hintText,
-          hintStyle: TextStyle(
-            fontSize: hintFontSize ?? 15,
-          ),
+          hintStyle: TextStyle(fontSize: hintFontSize ?? 15),
           hintTextDirection: TextDirection.rtl,
           prefixIcon: prefixIcon,
           suffixIcon: Icon(suffixIcon, color: AppColors.primaryColor),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: AppColors.primaryColor,
-              width: 2,
-            ),
+            borderSide: BorderSide(color: AppColors.primaryColor, width: 2),
             borderRadius: BorderRadius.circular(10),
           ),
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: AppColors.Gray,
-            ),
+            borderSide: BorderSide(color: AppColors.Gray),
             borderRadius: BorderRadius.circular(10),
           ),
         ),

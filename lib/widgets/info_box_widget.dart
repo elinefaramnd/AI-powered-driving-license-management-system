@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 class InfoBoxWidget extends StatelessWidget {
   final String title;
 
-  const InfoBoxWidget({
-    super.key,
-    required this.title,
-  });
+  const InfoBoxWidget({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -16,9 +13,7 @@ class InfoBoxWidget extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
       ),
-      child: Center(
-        child: Text(title),
-      ),
+      child: Center(child: Text(title)),
     );
   }
 }

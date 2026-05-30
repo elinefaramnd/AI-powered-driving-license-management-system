@@ -1,32 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../app_theme/app_colors.dart';
 import '../modules/home_page/home_controller.dart';
+import '../modules/logout/logout_controller.dart';
 import 'drawer_item_widget.dart';
 
 class HomeDrawerWidget extends StatelessWidget {
-  final HomeController controller;
-
-  const HomeDrawerWidget({
-    super.key,
-    required this.controller,
-  });
-
+  const HomeDrawerWidget({super.key});
   @override
   Widget build(BuildContext context) {
-
+    final controller = Get.find<HomeController>();
+    final logoutController = Get.put(LogOutController());
     final size = MediaQuery.of(context).size;
     final scale = size.width / 375;
-
     return Drawer(
       width: size.width * 0.65,
-
       child: Container(
         color: AppColors.primaryColor,
-
         child: SafeArea(
           child: Column(
             children: [
-              SizedBox(height: scale*12),
+              SizedBox(height: scale * 12),
               Text(
                 "SYRTAK",
                 style: TextStyle(
@@ -50,64 +44,105 @@ class HomeDrawerWidget extends StatelessWidget {
                       index: 0,
                       controller: controller,
                     ),
-
                     DrawerItemWidget(
                       icon: Icons.list_alt,
                       title: "طلباتي",
                       index: 1,
                       controller: controller,
+                      onTap: () {
+                        Get.toNamed("/order_screen");
+                      },
                     ),
-
-                    DrawerItemWidget(
-                      icon: Icons.add_circle_outline,
-                      title: "طلب إصدار جديد",
-                      index: 2,
-                      controller: controller,
+                    Theme(
+                      data: Theme.of(
+                        context,
+                      ).copyWith(dividerColor: Colors.transparent),
+                      child: Obx(() {
+                        return ExpansionTile(
+                          onExpansionChanged: (value) {
+                            controller.isServicesExpanded.value = value;
+                          },
+                          tilePadding: EdgeInsets.symmetric(
+                            horizontal: size.width * .04,
+                          ),
+                          childrenPadding: EdgeInsets.zero,
+                          iconColor: Colors.white,
+                          collapsedIconColor: Colors.white,
+                          leading: Icon(
+                            Icons.dashboard_customize_outlined,
+                            color: Colors.white,
+                            size: 22 * scale,
+                          ),
+                          title: Text(
+                            "الخدمات",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 14 * scale,
+                            ),
+                          ),
+                          trailing: Icon(
+                            controller.isServicesExpanded.value
+                                ? Icons.keyboard_arrow_down
+                                : Icons.keyboard_arrow_left,
+                            color: Colors.white,
+                          ),
+                          children: [
+                            DrawerItemWidget(
+                              icon: Icons.add_circle_outline,
+                              title: "طلب إصدار جديد",
+                              index: 2,
+                              controller: controller,
+                              onTap: controller.openNewApplication,
+                            ),
+                            DrawerItemWidget(
+                              icon: Icons.refresh,
+                              title: "تجديد رخصة",
+                              index: 8,
+                              controller: controller,
+                              onTap: () {},
+                            ),
+                            DrawerItemWidget(
+                              icon: Icons.description_outlined,
+                              title: "بدل فاقد / تالف",
+                              index: 9,
+                              controller: controller,
+                              onTap: () {},
+                            ),
+                          ],
+                        );
+                      }),
                     ),
-
                     DrawerItemWidget(
                       icon: Icons.calendar_today_outlined,
                       title: "مواعيدي",
                       index: 3,
                       controller: controller,
                     ),
-
                     DrawerItemWidget(
                       icon: Icons.fact_check_outlined,
                       title: "اختباراتي ونتائجي",
                       index: 4,
                       controller: controller,
                     ),
-
                     DrawerItemWidget(
                       icon: Icons.badge_outlined,
                       title: "رخصي",
                       index: 5,
                       controller: controller,
                     ),
-
                     DrawerItemWidget(
                       icon: Icons.gavel_outlined,
                       title: "غراماتي",
                       index: 6,
                       controller: controller,
+                      onTap: () {
+                        Get.toNamed("/fines_screen");
+                      },
                     ),
                     DrawerItemWidget(
                       icon: Icons.credit_card_rounded,
                       title: "الدفع الإلكتروني",
                       index: 7,
-                      controller: controller,
-                    ),
-                    DrawerItemWidget(
-                      icon: Icons.refresh,
-                      title: "تجديد رخصة",
-                      index: 8,
-                      controller: controller,
-                    ),
-                    DrawerItemWidget(
-                      icon: Icons.description_outlined,
-                      title: "بدل فاقد / تالف",
-                      index: 9,
                       controller: controller,
                     ),
                     DrawerItemWidget(
@@ -127,6 +162,9 @@ class HomeDrawerWidget extends StatelessWidget {
                       title: "الملف الشخصي",
                       index: 12,
                       controller: controller,
+                      onTap: () {
+                        Get.toNamed('showPro');
+                      },
                     ),
                     DrawerItemWidget(
                       icon: Icons.settings_outlined,
@@ -147,8 +185,9 @@ class HomeDrawerWidget extends StatelessWidget {
                       endIndent: size.width * 0.05,
                     ),
                     ListTile(
-                      onTap: controller.logout,
-
+                      onTap: () {
+                        logoutController.logout();
+                      },
                       leading: Icon(
                         Icons.logout,
                         color: Colors.red,

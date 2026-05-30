@@ -8,10 +8,7 @@ class LineWidget extends StatelessWidget {
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.only(bottom: 28),
-        child: Container(
-          height: 1.5,
-          color: Colors.grey.shade300,
-        ),
+        child: Container(height: 1.5, color: Colors.grey.shade300),
       ),
     );
   }

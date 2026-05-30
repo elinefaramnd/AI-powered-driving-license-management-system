@@ -6,62 +6,63 @@ import '../../widgets/build_profile_item.dart';
 import 'profile_controller.dart';
 
 class ProfileScreen extends StatelessWidget {
-
   ProfileScreen({super.key});
 
-  final ProfileController controller =
-  Get.put(ProfileController());
+  final ProfileController controller = Get.put(ProfileController());
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: AppColors.primaryColor),
+          onPressed: () => Get.back(),
+        ),
+      ),
       body: SafeArea(
         child: Obx(() {
           if (controller.isLoading.value) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return const Center(child: CircularProgressIndicator());
           }
           final user = controller.userData;
           return Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 24,
-            ),
+            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.06),
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  const SizedBox(height: 40),
+                  SizedBox(height: screenHeight * 0.012),
                   Container(
-                    width: 60,
-                    height: 60,
+                    width: screenWidth * 0.15,
+                    height: screenWidth * 0.15,
                     decoration: BoxDecoration(
-                      color: AppColors.primaryColor
-                          .withOpacity(0.1),
+                      color: AppColors.primaryColor.withOpacity(0.1),
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(
+                    child: Icon(
                       Icons.person,
-                      size: 35,
+                      size: screenWidth * 0.09,
                       color: AppColors.primaryColor,
                     ),
                   ),
-                  const SizedBox(height: 20),
+                   SizedBox(height:screenHeight * 0.025),
                   Text(
                     user["name"] ?? "",
-                    style: const TextStyle(
-                      fontSize: 21,
+                    style: TextStyle(
+                      fontSize: screenWidth * 0.052,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(height: 6),
+                  SizedBox(height: screenHeight * 0.007),
                   Text(
                     user["email"] ?? "",
-                    style: TextStyle(
-                      color: Colors.grey.shade600,
-                    ),
+                    style: TextStyle(color: Colors.grey.shade600),
                   ),
-                  const SizedBox(height: 35),
+                   SizedBox(height: screenHeight * 0.06),
                   buildProfileItem(
                     title: "الرقم الوطني",
                     value: user["national_id"] ?? "",
@@ -89,39 +90,33 @@ class ProfileScreen extends StatelessWidget {
                     value: user["address"] ?? "",
                     icon: Icons.home_outlined,
                   ),
-                  const SizedBox(height: 25),
+                   SizedBox(height: screenHeight * 0.03),
 
                   SizedBox(
-
                     width: double.infinity,
                     height: 55,
 
                     child: ElevatedButton(
-
-                      onPressed: () {Get.toNamed("/updatePro",
-                          arguments: user);},
+                      onPressed: () {
+                        Get.toNamed("/updatePro", arguments: user);
+                      },
 
                       style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                        AppColors.primaryColor,
+                        backgroundColor: AppColors.primaryColor,
 
                         shape: RoundedRectangleBorder(
-                          borderRadius:
-                          BorderRadius.circular(14),
+                          borderRadius: BorderRadius.circular(14),
                         ),
                       ),
 
-                      child: const Text(
+                      child:  Text(
                         "تعديل المعلومات",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                        ),
+                        style: TextStyle(color: Colors.white, fontSize: screenWidth * 0.04, ),
                       ),
                     ),
                   ),
 
-                  const SizedBox(height: 30),
+                   SizedBox(height: screenHeight * 0.035),
                 ],
               ),
             ),
@@ -130,5 +125,4 @@ class ProfileScreen extends StatelessWidget {
       ),
     );
   }
-
 }

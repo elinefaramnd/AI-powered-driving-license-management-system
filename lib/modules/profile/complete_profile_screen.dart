@@ -1,14 +1,15 @@
-import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_2/widgets/outlined_textField_widget.dart';
 import '../../app_theme/app_colors.dart';
-import '../../widgets/app_button.dart';
+import '../../widgets/profile/complete_profileButton.dart';
+import '../../widgets/profile/dropdown_widget.dart';
+import '../../widgets/profile/profile_error_text.dart';
 import 'complete_profile_controller.dart';
+
 class CompleteProfileScreen extends StatelessWidget {
   CompleteProfileScreen({super.key});
-  final CompleteProfileController controller =
-  Get.put(CompleteProfileController());
+  final CompleteProfileController controller = Get.put(CompleteProfileController(),);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,13 +17,10 @@ class CompleteProfileScreen extends StatelessWidget {
         width: double.infinity,
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 24,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 24),
             child: SingleChildScrollView(
               child: Column(
-                crossAxisAlignment:
-                CrossAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   const SizedBox(height: 50),
                   Center(
@@ -36,17 +34,12 @@ class CompleteProfileScreen extends StatelessWidget {
                       child: Icon(Icons.text_snippet_outlined, size: 25),
                     ),
                   ),
-                  const SizedBox(height: 20,),
-
+                  const SizedBox(height: 20),
                   Center(
                     child: const Text(
-
                       "اكمال الملف الشخصي",
-
                       style: TextStyle(
-
                         fontSize: 24,
-
                         fontWeight: FontWeight.w700,
                       ),
                     ),
@@ -74,40 +67,18 @@ class CompleteProfileScreen extends StatelessWidget {
                     suffixIcon: Icons.email_outlined,
                     keyboardType: TextInputType.emailAddress,
                   ),
-                  Obx(() => controller.nameError.value.isNotEmpty
-                      ? Padding(
-                    padding: const EdgeInsets.only(top: 4, right: 8),
-                    child: Text(
-                      controller.nameError.value,
-                      style: const TextStyle(
-                        color: Colors.red,
-                        fontSize: 12,
-                      ),
-                    ),
-                  )
-                      : const SizedBox()),
+                  ProfileErrorText(error: controller.nameError),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text("الرقم الوطني"),
                   ),
-              CustomTextField2(
-                controller: controller.nationalNumController,
-                hintText: '',
-                suffixIcon: Icons.badge_outlined,
-                keyboardType: TextInputType.number,
-              ),
-                  Obx(() => controller.nationalIdError.value.isNotEmpty
-                      ? Padding(
-                    padding: const EdgeInsets.only(top: 4, right: 8),
-                    child: Text(
-                      controller.nationalIdError.value,
-                      style: const TextStyle(
-                        color: Colors.red,
-                        fontSize: 12,
-                      ),
-                    ),
-                  )
-                      : const SizedBox()),
+                  CustomTextField2(
+                    controller: controller.nationalNumController,
+                    hintText: '',
+                    suffixIcon: Icons.badge_outlined,
+                    keyboardType: TextInputType.number,
+                  ),
+                  ProfileErrorText(error: controller.nationalIdError),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text("تاريخ الميلاد"),
@@ -133,10 +104,9 @@ class CompleteProfileScreen extends StatelessWidget {
                           );
                         },
                       );
-
                       if (pickedDate != null) {
                         controller.birthDateController.text =
-                        "${pickedDate.toIso8601String().split('T')[0]}";
+                            "${pickedDate.toIso8601String().split('T')[0]}";
                       }
                     },
                     child: AbsorbPointer(
@@ -148,48 +118,13 @@ class CompleteProfileScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Obx(() => controller.birthDateError.value.isNotEmpty
-                      ? Padding(
-                    padding: const EdgeInsets.only(top: 4, right: 8),
-                    child: Text(
-                      controller.birthDateError.value,
-                      style: const TextStyle(
-                        color: Colors.red,
-                        fontSize: 12,
-                      ),
-                    ),
-                  )
-                      : const SizedBox()),
+                  ProfileErrorText(error: controller.birthDateError),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text("المحافظة"),
                   ),
-                  Obx(
-                        () => DropdownSearch<String>(
-                      items: (filter, loadProps) => controller.provinces,
-                      selectedItem: controller.selectedGovernorate.value,
-                      popupProps: PopupProps.menu(
-                        showSearchBox: true,
-                      ),
-                      onSelected: (value) {
-                        controller.selectedGovernorate.value = value ?? '';
-                        controller.governorateController.text = value ?? '';
-                        print(value);
-                      },
-                    ),
-                  ),
-                  Obx(() => controller.governorateError.value.isNotEmpty
-                      ? Padding(
-                    padding: const EdgeInsets.only(top: 4, right: 8),
-                    child: Text(
-                      controller.governorateError.value,
-                      style: const TextStyle(
-                        color: Colors.red,
-                        fontSize: 12,
-                      ),
-                    ),
-                  )
-                      : const SizedBox()),
+                  const GovernorateDropdown(),
+                  ProfileErrorText(error: controller.governorateError),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text("العنوان"),
@@ -200,44 +135,10 @@ class CompleteProfileScreen extends StatelessWidget {
                     suffixIcon: Icons.email_outlined,
                     keyboardType: TextInputType.emailAddress,
                   ),
-                  Obx(() => controller.addressError.value.isNotEmpty
-                      ? Padding(
-                    padding: const EdgeInsets.only(top: 4, right: 8),
-                    child: Text(
-                      controller.addressError.value,
-                      style: const TextStyle(
-                        color: Colors.red,
-                        fontSize: 12,
-                      ),
-                    ),
-                  )
-                      : const SizedBox()),
-                  SizedBox(height: 20,),
-                  Obx(() => AppButton(
-                      text: "",
-                      onPressed: controller.isLoading.value
-                          ? () {}
-                          : controller.completeProfile,
-
-                      child: controller.isLoading.value
-                          ? const SizedBox(
-                        width: 22,
-                        height: 22,
-                        child: CircularProgressIndicator(
-                          color: Colors.white,
-                          strokeWidth: 2,
-                        ),
-                      )
-                          : const Text(
-                        "حفظ و متابعة",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 20,)
+                  ProfileErrorText(error: controller.addressError),
+                  SizedBox(height: 20),
+                  const CompleteProfileButton(),
+                  SizedBox(height: 20),
                 ],
               ),
             ),

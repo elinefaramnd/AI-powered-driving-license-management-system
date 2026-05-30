@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 class BottomSectionWidget extends StatelessWidget {
   const BottomSectionWidget({super.key});
 
@@ -10,7 +9,6 @@ class BottomSectionWidget extends StatelessWidget {
       child: Center(child: Text(title)),
     );
   }
-
   @override
   Widget build(BuildContext context) {
     return Row(

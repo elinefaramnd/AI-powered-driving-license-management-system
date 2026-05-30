@@ -39,6 +39,8 @@ dependencies:
   http: ^1.6.0
   get_storage: ^2.1.1
   dropdown_search: ^7.0.0
+  image_picker: ^1.2.2
+  file_picker: ^10.1.9
 
 dev_dependencies:
   flutter_test:

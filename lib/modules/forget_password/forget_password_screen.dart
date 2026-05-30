@@ -5,12 +5,10 @@ import '../../widgets/outlined_textField_widget.dart';
 import 'forget_password_controller.dart';
 
 class ForgetPasswordScreen extends StatelessWidget {
-
   ForgetPasswordScreen({super.key});
-
-  final ForgetPasswordController controller =
-  Get.put(ForgetPasswordController());
-
+  final ForgetPasswordController controller = Get.put(
+    ForgetPasswordController(),
+  );
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,24 +17,23 @@ class ForgetPasswordScreen extends StatelessWidget {
           width: double.infinity,
           child: SafeArea(
             child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 24,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 24),
               child: Column(
-                crossAxisAlignment:
-                CrossAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   const SizedBox(height: 70),
                   Center(
                     child: Container(
-                    width:50,
-                    height:50,
-                    decoration:BoxDecoration(
-                      color:Colors.grey.shade300,
-                      borderRadius: BorderRadius.circular(40),),
-                        child: Icon(Icons.lock_outline,size: 30,))
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade300,
+                        borderRadius: BorderRadius.circular(40),
+                      ),
+                      child: Icon(Icons.lock_outline, size: 30),
+                    ),
                   ),
-                  const SizedBox(height: 30,),
+                  const SizedBox(height: 30),
                   Center(
                     child: const Text(
                       "استعادة كلمة المرور",
@@ -73,28 +70,28 @@ class ForgetPasswordScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 35),
                   Obx(
-                        () => AppButton(
+                    () => AppButton(
                       text: "",
                       onPressed: controller.isLoading.value
                           ? () {}
                           : controller.sendForgetRequest,
                       child: controller.isLoading.value
                           ? const SizedBox(
-                        width: 22,
-                        height: 22,
-                        child: CircularProgressIndicator(
-                          color: Colors.white,
-                          strokeWidth: 2,
-                        ),
-                      )
+                              width: 22,
+                              height: 22,
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                                strokeWidth: 2,
+                              ),
+                            )
                           : const Text(
-                        "ارسال رمز التحقق ",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500
-                        ),
-                      ),
+                              "ارسال رمز التحقق ",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
                     ),
                   ),
                 ],

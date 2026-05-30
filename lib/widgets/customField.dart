@@ -1,83 +1,3 @@
-// import 'package:flutter/material.dart';
-//
-// Widget customField({
-//
-//   required String hint,
-//
-//   required TextEditingController controller,
-//
-//   bool isPassword = false,
-//
-//   bool obscure = false,
-//
-//   VoidCallback? onTap,
-// }) {
-//
-//   return TextField(
-//
-//     controller: controller,
-//
-//     obscureText: obscure,
-//     textAlign: TextAlign.left,
-//     textDirection: TextDirection.ltr,
-//
-//     decoration: InputDecoration(
-//
-//       hintText: hint,
-//       hintStyle: TextStyle(
-//         color: Colors.grey.shade500,
-//         fontSize: 15,
-//       ),
-//
-//       contentPadding: const EdgeInsets.symmetric(
-//         horizontal: 13,
-//         vertical: 13,
-//       ),
-//
-//       filled: false,
-//
-//       enabledBorder: OutlineInputBorder(
-//
-//         borderRadius: BorderRadius.circular(14),
-//
-//         borderSide: BorderSide(
-//
-//           color: Colors.grey.shade300,
-//           width: 1.2,
-//         ),
-//       ),
-//
-//       focusedBorder: const OutlineInputBorder(
-//
-//         borderRadius: BorderRadius.all(
-//           Radius.circular(14),
-//         ),
-//
-//         borderSide: BorderSide(
-//
-//           color: Color(0xff0B5D46),
-//           width: 1.5,
-//         ),
-//       ),
-//
-//       suffixIcon: isPassword
-//           ? IconButton(
-//
-//         onPressed: onTap,
-//
-//         icon: Icon(
-//
-//           obscure
-//               ? Icons.visibility_off_outlined
-//               : Icons.visibility_outlined,
-//
-//           color: Colors.grey.shade500,
-//         ),
-//       )
-//           : null,
-//     ),
-//   );
-// }
 import 'package:flutter/material.dart';
 
 Widget customField({
@@ -104,20 +24,11 @@ Widget customField({
     decoration: InputDecoration(
       hintText: hint,
 
-      hintStyle: TextStyle(
-        color: Colors.grey.shade500,
-        fontSize: 15,
-      ),
+      hintStyle: TextStyle(color: Colors.grey.shade500, fontSize: 15),
 
-      prefixIcon: Icon(
-        icon,
-        color: Colors.grey.shade600,
-      ),
+      prefixIcon: Icon(icon, color: Colors.grey.shade600),
 
-      contentPadding: const EdgeInsets.symmetric(
-        horizontal: 13,
-        vertical: 13,
-      ),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 13, vertical: 13),
 
       filled: true,
       fillColor: Colors.grey.shade100,
@@ -139,16 +50,16 @@ Widget customField({
 
       suffixIcon: isPassword
           ? IconButton(
-        onPressed: onTap,
+              onPressed: onTap,
 
-        icon: Icon(
-          obscure
-              ? Icons.visibility_off_outlined
-              : Icons.visibility_outlined,
+              icon: Icon(
+                obscure
+                    ? Icons.visibility_off_outlined
+                    : Icons.visibility_outlined,
 
-          color: Colors.grey.shade500,
-        ),
-      )
+                color: Colors.grey.shade500,
+              ),
+            )
           : null,
     ),
   );

@@ -34,14 +34,11 @@ class VerificationController extends GetxController {
     try {
       final response = await HttpHelper.postData(
         url: 'auth/verify-forgot-password-otp',
-        body: {
-          'email': email,
-          'code': otpCode.value},
+        body: {'email': email, 'code': otpCode.value},
       );
       final data = jsonDecode(response.body);
       if (response.statusCode == 200) {
-        String resetToken =
-        data['data']['reset_token'];
+        String resetToken = data['data']['reset_token'];
 
         Get.toNamed(
           '/resetPass',
@@ -61,4 +58,3 @@ class VerificationController extends GetxController {
     }
   }
 }
-

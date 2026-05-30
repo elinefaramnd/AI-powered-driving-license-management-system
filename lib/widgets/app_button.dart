@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 class AppButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;

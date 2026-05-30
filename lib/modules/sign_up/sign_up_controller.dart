@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../app_theme/app_colors.dart';
+import 'package:get_storage/get_storage.dart';
 import '../../configuration/http_helpers.dart';
 
 class SignUpController extends GetxController {
@@ -10,7 +10,6 @@ class SignUpController extends GetxController {
   final phoneController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
-
   bool obscurePassword = true;
   bool obscureConfirmPassword = true;
   RxString nameError = ''.obs;
@@ -23,12 +22,10 @@ class SignUpController extends GetxController {
     obscurePassword = !obscurePassword;
     update();
   }
-
   void toggleConfirmPasswordVisibility() {
     obscureConfirmPassword = !obscureConfirmPassword;
     update();
   }
-
   signUp(BuildContext context) async {
     String? token;
     String name = nameController.text;
@@ -36,9 +33,7 @@ class SignUpController extends GetxController {
     String email = emailController.text.trim();
     String password = passwordController.text;
     String confirmPassword = confirmPasswordController.text;
-
-
-    if (name.isEmpty || phone.isEmpty ||email.isEmpty || password.isEmpty || confirmPassword.isEmpty) {
+    if (name.isEmpty || phone.isEmpty || email.isEmpty || password.isEmpty || confirmPassword.isEmpty) {
       nameError.value = name.isEmpty ? 'مطلوب' : '';
       phoneError.value = phone.isEmpty ? 'مطلوب' : '';
       emailError.value = email.isEmpty ? 'مطلوب' : '';
@@ -46,7 +41,6 @@ class SignUpController extends GetxController {
       confirmPasswordError.value = confirmPassword.isEmpty ? 'مطلوب' : '';
       return;
     }
-
     if (!email.contains('@') || !email.contains('.')) {
       emailError.value = 'بريد إلكتروني غير صالح';
       return;
@@ -68,59 +62,47 @@ class SignUpController extends GetxController {
     };
     isLoading.value = true;
     try {
-      var response = await HttpHelper.postData(url: 'auth/register', body: data);
+      var response = await HttpHelper.postData(
+        url: 'auth/register',
+        body: data,
+      );
       print("Response Status Code: ${response.statusCode}");
       print("Response Body: ${response.body}");
       Map<String, dynamic> res = jsonDecode(response.body);
       print(jsonEncode(data));
       if (response.statusCode == 200 || response.statusCode == 201) {
-        Get.snackbar('تم انشاء الحساب بنجاح', res['message'].toString(),
+        GetStorage box = GetStorage();
+        box.write('name', name);
+        Get.snackbar(
+          'تم انشاء الحساب بنجاح',
+          res['message'].toString(),
           snackPosition: SnackPosition.TOP,
-          margin: const EdgeInsets.symmetric(
-            horizontal: 20,
-            vertical: 10,
-          ),
-
-          padding: const EdgeInsets.symmetric(
-            horizontal: 12,
-            vertical: 8,
-          ),);
-        Get.offNamed(
-          '/accountVerify',
-          arguments: {
-            'email': email,
-          },
+          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         );
+        Get.offNamed('/accountVerify', arguments: {'email': email});
       } else {
         print(jsonEncode(data));
-        Get.snackbar('خطأ', res['message'].toString(),
-          backgroundColor:  Colors.red.withOpacity(0.8),
+        Get.snackbar(
+          'خطأ',
+          res['message'].toString(),
+          backgroundColor: Colors.red.withOpacity(0.8),
           colorText: Colors.white,
-          snackPosition: SnackPosition.BOTTOM,
-          margin: const EdgeInsets.symmetric(
-            horizontal: 20,
-            vertical: 10,
-          ),
-          padding: const EdgeInsets.symmetric(
-            horizontal: 12,
-            vertical: 8,
-          ),);
+          snackPosition: SnackPosition.TOP,
+          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        );
       }
     } catch (e) {
       print('Register Error: $e');
-      Get.snackbar('Exception', 'An error occurred during the registration process',
+      Get.snackbar(
+        'Exception',
+        'An error occurred during the registration process',
         snackPosition: SnackPosition.TOP,
-        margin: const EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 10,
-        ),
-
-        padding: const EdgeInsets.symmetric(
-          horizontal: 12,
-          vertical: 8,
-        ),);
-    }
-    finally {
+        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      );
+    } finally {
       isLoading.value = false;
     }
   }

@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import '../../configuration/http_helpers.dart';
 
 class ForgetPasswordController extends GetxController {
-
   final emailController = TextEditingController();
   var isLoading = false.obs;
   @override
@@ -14,6 +13,7 @@ class ForgetPasswordController extends GetxController {
     emailController.dispose();
     super.onClose();
   }
+
   Future<void> sendForgetRequest() async {
     final email = emailController.text.trim();
 
@@ -31,9 +31,10 @@ class ForgetPasswordController extends GetxController {
       );
 
       if (response.statusCode == 200) {
-        Get.toNamed('/emailVerify',  arguments: {
-          'email': emailController.text.trim(),
-        },);
+        Get.toNamed(
+          '/emailVerify',
+          arguments: {'email': emailController.text.trim()},
+        );
       } else {
         final data = jsonDecode(response.body);
         print(response.body);
