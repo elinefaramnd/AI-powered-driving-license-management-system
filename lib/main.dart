@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:project_2/modules/profile/update_profile_screen.dart';
 import 'package:project_2/widgets/chat_bot_controller.dart';
 import 'modules/account_verification/account_verification_screen.dart';
+import 'modules/appointment/AvailableTestsPage.dart';
 import 'modules/create_application/upload_documents_page.dart';
 import 'modules/fines/fines_screen.dart';
 import 'modules/forget_password/forget_password_screen.dart';
@@ -55,6 +56,8 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/order_screen',page: () => OrdersScreen(),),
           GetPage(name: '/order_details',page: () => OrderDetailsScreen(),),
           GetPage(name: '/fines_screen',page: () => FinesScreen(),),
+          GetPage(name: '/available_tests_page',page: () => AvailableTestsPage(),),
+
         ]
 
     );

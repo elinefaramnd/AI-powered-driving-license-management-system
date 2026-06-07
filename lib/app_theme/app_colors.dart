@@ -6,5 +6,6 @@ class AppColors {
   static const primary = Color(0xFF0B4642);
   static const darkGreen = Color(0xFF042E2B);
   static const gold = Color(0xff988561);
-  static const background = Color(0xFFF6F7F7);
+  static const background = Color(0xffF4F4F4);
+  //0xFFF6F7F7   background
 }
