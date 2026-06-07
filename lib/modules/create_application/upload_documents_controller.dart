@@ -17,23 +17,23 @@ class UploadDocumentsController extends GetxController {
   RxMap<int, File?> uploadedFiles = <int, File?>{}.obs;
   final box = GetStorage();
   int get uploadedCount {
-    return uploadedIds.length;
+    return documents.where((doc) {
+      final latest = doc["latest_document"];
+      return uploadedIds.contains(doc["id"]) ||
+          (latest != null && latest is Map && latest.isNotEmpty);
+    }).length;
   }
-
   int get remaining {
     return documents.length - uploadedCount;
   }
-
   bool get canSubmit {
     return remaining == 0 && documents.isNotEmpty;
   }
-
   @override
   void onInit() {
     super.onInit();
     getRequiredDocuments();
   }
-
   Future<void> getRequiredDocuments() async {
     try {
       loading.value = true;
@@ -49,7 +49,6 @@ class UploadDocumentsController extends GetxController {
       loading.value = false;
     }
   }
-
   Future<void> uploadDocument(int requiredId) async {
     try {
       final file = await DocumentPickerService.pick();
@@ -87,10 +86,9 @@ class UploadDocumentsController extends GetxController {
       loading.value = false;
     }
   }
-
   Future<void> submitDocuments() async {
     if (!canSubmit) {
-      Get.snackbar("تنبيه", "ارفعي كل الوثائق أولاً");
+      Get.snackbar("تنبيه", "ارفع كل الوثائق أولاً");
       return;
     }
     try {
@@ -101,11 +99,9 @@ class UploadDocumentsController extends GetxController {
       final data = jsonDecode(response.body);
       if (response.statusCode == 200 || response.statusCode == 201) {
         submitted.value = true;
-
         if (Get.isRegistered<HomeController>()) {
           await Get.find<HomeController>().getCurrentApplication();
         }
-
         Get.snackbar("نجاح", "تم إرسال الوثائق بنجاح، الطلب قيد المعالجة");
       } else {
         Get.snackbar("خطأ", data["message"]);

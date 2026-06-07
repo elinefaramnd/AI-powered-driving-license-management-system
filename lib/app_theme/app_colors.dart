@@ -7,5 +7,7 @@ class AppColors {
   static const darkGreen = Color(0xFF042E2B);
   static const gold = Color(0xff988561);
   static const background = Color(0xffF4F4F4);
+  static const cardBackground = Color(0xffF4F4F4);
+
   //0xFFF6F7F7   background
 }

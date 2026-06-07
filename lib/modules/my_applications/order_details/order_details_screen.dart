@@ -22,6 +22,7 @@ class OrderDetailsScreen extends StatelessWidget {
       backgroundColor: AppColors.background,
       appBar: AppBar(
         backgroundColor: Colors.white,
+        centerTitle: true,
         title: const Text("تفاصيل الطلب"),
       ),
       body: Obx(() {
