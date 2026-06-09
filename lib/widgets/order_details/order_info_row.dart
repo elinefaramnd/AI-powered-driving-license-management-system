@@ -15,10 +15,11 @@ class OrderInfoRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final w = MediaQuery.of(context).size.width;
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 16,
-        vertical: 10,
+      padding:  EdgeInsets.symmetric(
+        horizontal: w * 0.044, // 16
+        vertical: w * 0.028,
       ),
       child: Row(
         children: [
@@ -26,9 +27,9 @@ class OrderInfoRow extends StatelessWidget {
             child: Text(
               value,
               textAlign: TextAlign.left,
-              style: const TextStyle(
+              style:  TextStyle(
                 fontWeight: FontWeight.w500,
-                fontSize: 13,
+                fontSize: w * 0.036,
               ),
             ),
           ),
@@ -37,20 +38,20 @@ class OrderInfoRow extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: const TextStyle(
+                style:  TextStyle(
                   fontWeight: FontWeight.w600,
-                  fontSize: 15,
+                  fontSize:  w * 0.042,
                 ),
               ),
             ],
           ),
-          const SizedBox(width: 13),
+           SizedBox(width: w * 0.036),
           Container(
-            width: 35,
-            height: 35,
+            width: w * 0.097,
+            height: w * 0.097,
             decoration: BoxDecoration(
               color: const Color(0xffF2F7F6),
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular( w * 0.035),
             ),
             child: Icon(
               icon,

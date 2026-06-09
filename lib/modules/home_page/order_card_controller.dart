@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../app_theme/app_colors.dart';
 import '../../widgets/order_action_button.dart';
+import '../payment/payment_screen.dart';
 import 'home_controller.dart';
 
 class OrderCardController extends GetxController {
@@ -83,7 +84,13 @@ class OrderCardController extends GetxController {
       return section(
         text: "بانتظار دفع الرسوم للانتقال للمرحلة التالية",
         button: OrderActionButton(
-          onPressed: () {},
+          onPressed: () {
+            Get.to(
+                  () => PaymentScreen(
+                applicationId: home.applicationId.value,
+              ),
+            );
+          },
           text: "دفع الرسوم",
           icon: Icons.credit_card_outlined,
           color: AppColors.primary,
