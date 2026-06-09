@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../app_theme/app_colors.dart';
-import '../modules/chat_bot/chat_bot_screen.dart';
-import 'chat_bot_controller.dart';
+
+import '../../app_theme/app_colors.dart';
+import '../../modules/chat_bot/chat_bot_controller.dart';
 
 class ChatBotWidget extends StatelessWidget {
   ChatBotWidget({super.key});
-  final ChatBotController controller = Get.find();
+  final ChatController controller = Get.find();
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -137,7 +137,9 @@ class ChatBotWidget extends StatelessWidget {
             ),
 
             child: IconButton(
-              onPressed: () {Get.to(() => ChatBotScreen());},
+              onPressed: () {
+                controller.openChatScreen();
+              },
               icon: Icon(
                 Icons.chat_bubble_outline,
                 color: Colors.white,
