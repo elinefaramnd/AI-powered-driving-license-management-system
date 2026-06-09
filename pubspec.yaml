@@ -41,6 +41,7 @@ dependencies:
   dropdown_search: ^7.0.0
   image_picker: ^1.2.2
   file_picker: ^10.1.9
+  url_launcher: ^6.3.2
 
 dev_dependencies:
   flutter_test:
