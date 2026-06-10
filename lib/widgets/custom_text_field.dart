@@ -21,16 +21,24 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Padding(
-      padding: const EdgeInsets.only(bottom: 15),
+      padding: EdgeInsets.only(bottom: size.height * 0.018),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: size.width * 0.04,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
           Container(
             decoration: BoxDecoration(
               color: const Color(0xFFF1F1F1),
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(size.width * 0.05),
             ),
             child: TextField(
               cursorColor: AppColors.primaryColor,
@@ -38,11 +46,23 @@ class CustomTextField extends StatelessWidget {
               obscureText: obscure,
               decoration: InputDecoration(
                 hintText: hintText,
-                hintStyle: const TextStyle(fontSize: 15, color: Colors.grey),
+                hintStyle: TextStyle(
+                  fontSize: size.width * 0.038,
+                  color: Colors.grey,
+                ),
                 border: InputBorder.none,
-                prefixIcon: icon != null ? Icon(icon, color: Colors.grey[700], size: 20) : null,
+                prefixIcon: icon != null
+                    ? Icon(
+                  icon,
+                  color: Colors.grey[700],
+                  size: size.width * 0.05,
+                )
+                    : null,
                 suffixIcon: suffixIcon,
-                contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                contentPadding: EdgeInsets.symmetric(
+                  horizontal: size.width * 0.04,
+                  vertical: size.height * 0.018,
+                ),
               ),
             ),
           ),

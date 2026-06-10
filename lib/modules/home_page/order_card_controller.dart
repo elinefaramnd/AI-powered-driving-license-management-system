@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../app_theme/app_colors.dart';
-import '../../widgets/order_action_button.dart';
-import '../../widgets/payment_widgets/pay_button.dart';
+import '../../widgets/home_widget/order_action_button.dart';
+import '../payment/payment_screen.dart';
 import 'home_controller.dart';
 
 class OrderCardController extends GetxController {
@@ -83,13 +83,37 @@ class OrderCardController extends GetxController {
     if (status == "payment_pending") {
       return section(
         text: "بانتظار دفع الرسوم للانتقال للمرحلة التالية",
-        button: SizedBox(
+        button: OrderActionButton(
+          onPressed: () {
+            Get.to(
+                  () => PaymentScreen(
+                applicationId: home.applicationId.value,
+              ),
+            );
+          },
+          text: "دفع الرسوم",
+          icon: Icons.credit_card_outlined,
+          color: AppColors.primary,
           width: width * .47,
           height: height * .055,
-          child: PayButton(
-            applicationId: home.applicationId.value,
-            isEnabled: home.applicationId.value > 0,
-          ),
+        ),
+      );
+    }if (status == "appointment_pending") {
+      return section(
+        text: "تمت الموافقة على طلبك، يمكنك الآن حجز موعد الاختبار",
+        button: OrderActionButton(
+          onPressed: () {
+        if (home.applicationId.value > 0) {
+          Get.toNamed(
+            '/available_tests_page',
+            arguments: home.applicationId.value,
+          );}
+          },
+          text: "حجز موعد",
+          icon: Icons.calendar_month_outlined,
+          color: AppColors.primary,
+          width: width * .47,
+          height: height * .055,
         ),
       );
     }

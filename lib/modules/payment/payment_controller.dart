@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:project_2/widgets/app_snackbar.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'payment_service.dart';
 
@@ -26,22 +27,12 @@ class PaymentController extends GetxController {
           feeAmount.value = double.tryParse(fee['amount'].toString()) ?? 0.0;
         }
       } else {
-        Get.snackbar(
-          'Error',
-          response['message'] ?? 'Failed to get fee',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.red,
-          colorText: Colors.white,
-        );
+        AppSnackbar.show('خطأ',
+          response['message'] ?? 'فشل الدفع',);
       }
     } catch (e) {
-      Get.snackbar(
-        'Error',
-        'Failed to get fee: $e',
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
-      );
+      AppSnackbar.show('خطأ',
+        'فشل: $e',);
     } finally {
       isLoading.value = false;
     }
@@ -63,33 +54,18 @@ class PaymentController extends GetxController {
           checkoutUrl.value = data['checkout_url'];
           return true;
         } else {
-          Get.snackbar(
-            'Error',
-            'No checkout URL received',
-            snackPosition: SnackPosition.BOTTOM,
-            backgroundColor: Colors.red,
-            colorText: Colors.white,
-          );
+          AppSnackbar.show('خطأ',
+            'No checkout URL received',);
           return false;
         }
       } else {
-        Get.snackbar(
-          'Error',
-          response['message'] ?? 'Failed to create payment',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.red,
-          colorText: Colors.white,
-        );
+        AppSnackbar.show('خطأ',
+          response['message'] ?? 'Failed to create payment',);
         return false;
       }
     } catch (e) {
-      Get.snackbar(
-        'Error',
-        'Failed to create payment: $e',
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
-      );
+      AppSnackbar.show('Error',
+        'Failed to create payment: $e',);
       return false;
     } finally {
       isCreatingPayment.value = false;
@@ -106,23 +82,13 @@ class PaymentController extends GetxController {
       final bool launched = await launchUrl(url);
       
       if (!launched) {
-        Get.snackbar(
-          'Error',
-          'Could not launch checkout page',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.red,
-          colorText: Colors.white,
-        );
+        AppSnackbar.show('Error',
+          'Could not launch checkout page',);
       }
     } catch (e) {
       debugPrint('Launch URL error: $e');
-      Get.snackbar(
-        'Error',
-        'Failed to open checkout: $e',
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
-      );
+      AppSnackbar.show('Error',
+        'Failed to open checkout: $e',);
     }
   }
 
@@ -137,25 +103,14 @@ class PaymentController extends GetxController {
         final data = response['data'];
         final status = data['status'] ?? 'pending';
         paymentStatus.value = status;
-
         if (status == 'completed' || status == 'paid') {
           _stopStatusCheck();
-          Get.snackbar(
-            'Success',
-            'Payment completed successfully!',
-            snackPosition: SnackPosition.BOTTOM,
-            backgroundColor: Colors.green,
-            colorText: Colors.white,
-          );
+          AppSnackbar.show('نجاح',
+            'تم إكمال عملية الدفع بنجاح',);
         } else if (status == 'failed' || status == 'cancelled') {
           _stopStatusCheck();
-          Get.snackbar(
-            'Payment Failed',
-            'Payment was not successful. Please try again.',
-            snackPosition: SnackPosition.BOTTOM,
-            backgroundColor: Colors.red,
-            colorText: Colors.white,
-          );
+          AppSnackbar.show('فشل الدفع',
+            'الرجاء المحاولة لاحقا',);
         }
       }
     } catch (e) {

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project_2/widgets/payment_widgets/amount_card.dart';
-import 'package:project_2/widgets/payment_widgets/order_info_card.dart';
-import 'package:project_2/widgets/payment_widgets/payment_bottom_bar.dart';
-import 'package:project_2/widgets/payment_widgets/payment_dialogs.dart';
-import 'package:project_2/widgets/payment_widgets/payment_method_card.dart';
-import 'package:project_2/widgets/payment_widgets/payment_status_card.dart';
-import 'package:project_2/widgets/payment_widgets/security_note.dart';
 import '../../app_theme/app_colors.dart';
+import '../../widgets/payment_widget/amount_card.dart';
+import '../../widgets/payment_widget/order_info_card.dart';
+import '../../widgets/payment_widget/payment_bottom_bar.dart';
+import '../../widgets/payment_widget/payment_dialogs.dart';
+import '../../widgets/payment_widget/payment_method_card.dart';
+import '../../widgets/payment_widget/payment_status_card.dart';
+import '../../widgets/payment_widget/security_note.dart';
 import '../home_page/home_controller.dart';
 import 'payment_controller.dart';
 

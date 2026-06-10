@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
+import 'package:project_2/widgets/app_snackbar.dart';
 
 import '../../configuration/http_helpers.dart';
 
@@ -26,7 +27,7 @@ class VerificationController extends GetxController {
 
   Future<void> verifyCodeAndProceed() async {
     if (otpCode.value.length != 6) {
-      Get.snackbar("error", "Please enter a 6-digit code");
+      AppSnackbar.show("error", "Please enter a 6-digit code");
       return;
     }
     isLoading.value = true;
@@ -49,10 +50,10 @@ class VerificationController extends GetxController {
         );
       } else {
         print(response.body);
-        Get.snackbar("error", data['message'] ?? "كود غير صالح");
+        AppSnackbar.show("خطأ", data['message'] ?? "كود غير صالح");
       }
     } catch (e) {
-      Get.snackbar("خطأ", ": $e");
+      AppSnackbar.show("خطأ", ": $e");
     } finally {
       isLoading.value = false;
     }

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:project_2/widgets/app_snackbar.dart';
 
 import '../../configuration/http_helpers.dart';
 
@@ -80,13 +81,13 @@ class UpdateProfileController extends GetxController {
       final data = jsonDecode(response.body);
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-        Get.snackbar("نجاح", data["message"] ?? "تم التعديل بنجاح");
+        AppSnackbar.show("نجاح", data["message"] ?? "تم التعديل بنجاح");
         Get.offAllNamed("/showPro");
       } else {
-        Get.snackbar("خطأ", data["message"] ?? "فشل التعديل");
+        AppSnackbar.show("خطأ", data["message"] ?? "فشل التعديل");
       }
     } catch (e) {
-      Get.snackbar("خطأ", e.toString());
+      AppSnackbar.show("خطأ", e.toString());
     } finally {
       isLoading.value = false;
     }

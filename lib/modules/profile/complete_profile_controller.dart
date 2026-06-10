@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:project_2/widgets/app_snackbar.dart';
 import '../../configuration/http_helpers.dart';
 
 class CompleteProfileController extends GetxController {
@@ -84,23 +85,14 @@ class CompleteProfileController extends GetxController {
       );
       final data = jsonDecode(response.body);
       if (response.statusCode == 200 || response.statusCode == 201) {
-        Get.snackbar(
-          "Success",
-          data["message"] ?? "تم",
-          margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-        );
+        AppSnackbar.show('نجاح',data["message"] ?? "تم",);
         Get.offNamed('/home');
       } else {
-        Get.snackbar(
-          "خطأ",
-          data["message"] ?? "فشل",
-          margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-        );
+        AppSnackbar.show('خطأ',
+          data["message"] ?? "فشل",);
       }
     } catch (e) {
-      Get.snackbar("خطأ", e.toString());
+      AppSnackbar.show("خطأ", e.toString());
     } finally {
       isLoading.value = false;
     }

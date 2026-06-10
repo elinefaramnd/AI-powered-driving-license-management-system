@@ -1,8 +1,5 @@
-
 import 'package:flutter/material.dart';
-
 import '../app_theme/app_colors.dart';
-
 class UploadButton extends StatelessWidget {
   final dynamic controller;
   final dynamic doc;
@@ -16,13 +13,19 @@ class UploadButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("uploaded = $uploaded");
     return SizedBox(
+      height: 42,
       width: double.infinity,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: controller.submitted.value
-              ? Colors.grey.shade400
-              : AppColors.primaryColor,
+          backgroundColor: uploaded ? Colors.white : AppColors.primaryColor,
+
+          foregroundColor: uploaded ? AppColors.primaryColor : Colors.white,
+
+          side: BorderSide(
+            color: uploaded ? AppColors.primaryColor : Colors.transparent,
+          ),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(14),
           ),
@@ -30,16 +33,9 @@ class UploadButton extends StatelessWidget {
         onPressed: controller.submitted.value
             ? null
             : () async {
-          await controller.uploadDocument(doc["id"]);
-        },
-        child: Text(
-          uploaded ? "تغيير" : "رفع",
-          style: TextStyle(
-            color: controller.submitted.value
-                ? Colors.white70
-                : Colors.white,
-          ),
-        ),
+                await controller.uploadDocument(doc["id"]);
+              },
+        child: Text(uploaded ? "استبدال الملف" : "رفع الملف"),
       ),
     );
   }

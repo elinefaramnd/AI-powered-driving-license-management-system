@@ -1,21 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:get/get.dart';
-
 import '../../app_theme/app_colors.dart';
 import 'account_verification_controller.dart';
+
 class OtpVerificationScreen extends StatelessWidget {
   OtpVerificationScreen({super.key});
+
   final EmailVerificationController controller = Get.put(
     EmailVerificationController(),
   );
+
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Scaffold(
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        decoration: const BoxDecoration (
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomRight,
@@ -25,65 +29,79 @@ class OtpVerificationScreen extends StatelessWidget {
         child: SafeArea(
           child: Column(
             children: [
-              const SizedBox(height: 70),
+              SizedBox(height: size.height * 0.12),
+
               Center(
                 child: Container(
-                  width: 50,
-                  height: 50,
+                  width: size.width * 0.13,
+                  height: size.width * 0.13,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
+                    borderRadius: BorderRadius.circular(size.width * 0.08),
                     color: AppColors.primaryColor,
                   ),
                   child: Icon(
                     Icons.mark_email_read_outlined,
                     color: Colors.white,
-                    size: 30,
+                    size: size.width * 0.08,
                   ),
                 ),
               ),
-              const SizedBox(height: 45),
-              const Text(
+
+              SizedBox(height: size.height * 0.055),
+
+              Text(
                 "تحقق من البريد الإلكتروني",
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w800),
+                style: TextStyle(
+                  fontSize: size.width * 0.06,
+                  fontWeight: FontWeight.w800,
+                ),
               ),
-              const SizedBox(height: 12),
+
+              SizedBox(height: size.height * 0.015),
+
               Text(
                 "أدخل رمز التحقق المرسل إلى بريدك الإلكتروني",
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 15,
+                  fontSize: size.width * 0.039,
                   color: Colors.grey.shade600,
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              const SizedBox(height: 10),
+
+              SizedBox(height: size.height * 0.012),
+
               Text(
                 controller.email,
-                style: const TextStyle(
+                style: TextStyle(
                   color: AppColors.primaryColor,
                   fontWeight: FontWeight.bold,
-                  fontSize: 15,
+                  fontSize: size.width * 0.039,
                 ),
               ),
-              const SizedBox(height: 45),
+
+              SizedBox(height: size.height * 0.055),
+
               OtpTextField(
                 numberOfFields: 6,
                 borderColor: AppColors.primaryColor,
                 focusedBorderColor: AppColors.primaryColor,
                 showFieldAsBox: true,
-                fieldWidth: 42,
+                fieldWidth: size.width * 0.12,
                 cursorColor: AppColors.primaryColor,
                 onSubmit: (code) {
                   controller.updateCode(code);
                 },
               ),
-              const SizedBox(height: 45),
+
+              SizedBox(height: size.height * 0.055),
+
               Container(
-                width: 270,
-                height: 55,
+                width: size.width * 0.70,
+                height: size.height * 0.065,
                 decoration: BoxDecoration(
                   color: AppColors.primaryColor,
-                  borderRadius: BorderRadius.circular(15),
+                  borderRadius: BorderRadius.circular(size.width * 0.04),
                 ),
                 child: ElevatedButton(
                   onPressed: () {
@@ -95,11 +113,11 @@ class OtpVerificationScreen extends StatelessWidget {
                   ),
                   child: Obx(() {
                     return controller.isLoading.value
-                        ? const CircularProgressIndicator(color: Colors.white)
-                        : const Text(
+                        ? const CircularProgressIndicator(color: Colors.white,)
+                        : Text(
                             "تحقق الآن",
                             style: TextStyle(
-                              fontSize: 17,
+                              fontSize: size.width * 0.04,
                               fontWeight: FontWeight.w700,
                               color: Colors.white,
                             ),

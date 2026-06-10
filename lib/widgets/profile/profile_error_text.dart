@@ -8,15 +8,17 @@ class ProfileErrorText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Obx(
       () => error.value.isNotEmpty
           ? Padding(
-              padding: const EdgeInsets.only(top: 4, right: 8),
+              padding: EdgeInsets.only(top: size.height * 0.005,
+                right: size.width * 0.02,),
 
               child: Text(
                 error.value,
 
-                style: const TextStyle(color: Colors.red, fontSize: 12),
+                style: TextStyle(color: Colors.red,  fontSize: size.width * 0.03,),
               ),
             )
           : const SizedBox(),

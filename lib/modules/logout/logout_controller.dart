@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:project_2/widgets/app_snackbar.dart';
 import '../../app_theme/app_colors.dart';
 import '../../configuration/http_helpers.dart';
 
@@ -25,32 +26,17 @@ class LogOutController extends GetxController {
 
           if (response.statusCode == 200 || response.statusCode == 201) {
             Get.back();
-            Get.snackbar(
-              'تم تسجيل الخروج',
-              res['message'] ?? 'تم تسجيل الخروج بنجاح',
-              snackPosition: SnackPosition.TOP,
-              colorText: Colors.black,
-            );
+            AppSnackbar.show('تم تسجيل الخروج', res['message'] ?? 'تم تسجيل الخروج بنجاح',);
             Get.offAllNamed('/signIn');
           } else {
             Get.back();
-            Get.snackbar(
-              'فشل تسجيل الخروج',
-              res['message'] ?? 'حدث خطأ غير متوقع',
-              snackPosition: SnackPosition.TOP,
-              backgroundColor: Colors.red,
-              colorText: Colors.black,
-            );
+            AppSnackbar.show('فشل تسجيل الخروج',
+              res['message'] ?? 'حدث خطأ غير متوقع',);
           }
         } catch (e) {
           Get.back();
-          Get.snackbar(
-            'خطأ',
-            'حدث خطأ أثناء العملية',
-            snackPosition: SnackPosition.TOP,
-            backgroundColor: Colors.red,
-            colorText: Colors.black,
-          );
+          AppSnackbar.show('خطأ',
+            'حدث خطأ أثناء العملية',);
         }
       },
       onCancel: () {

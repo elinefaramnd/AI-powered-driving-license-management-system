@@ -10,6 +10,7 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: const Color(0xffF8FAF9),
 
@@ -28,23 +29,23 @@ class SplashScreen extends StatelessWidget {
 
             children: [
               Container(
-                width: 120,
-                height: 120,
+                width: size.width * 0.32,
+                height: size.width * 0.32,
 
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
+                  borderRadius: BorderRadius.circular(size.width * 0.075),
                 ),
 
                 child: Image.asset("assets/images/logo.png"),
               ),
 
-              const SizedBox(height: 25),
+              SizedBox(height: size.height * 0.03),
 
-              const Text(
+               Text(
                 "سيرتك",
 
                 style: TextStyle(
-                  fontSize: 42,
+                  fontSize: size.width * 0.105,
 
                   fontWeight: FontWeight.bold,
 
@@ -52,11 +53,11 @@ class SplashScreen extends StatelessWidget {
                 ),
               ),
 
-              const Text(
+               Text(
                 "SYRTAK",
 
                 style: TextStyle(
-                  fontSize: 22,
+                  fontSize: size.width * 0.055,
 
                   fontWeight: FontWeight.w700,
 

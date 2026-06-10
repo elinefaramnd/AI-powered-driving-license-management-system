@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:get/get.dart';
+import 'package:project_2/widgets/app_snackbar.dart';
 import '../../configuration/http_helpers.dart';
 
 class ProfileController extends GetxController {
@@ -18,10 +19,10 @@ class ProfileController extends GetxController {
       if (response.statusCode == 200 || response.statusCode == 201) {
         userData.value = data["data"];
       } else {
-        Get.snackbar("خطأ", data["message"] ?? "فشل");
+        AppSnackbar.show("خطأ", data["message"] ?? "فشل");
       }
     } catch (e) {
-      Get.snackbar("خطأ", e.toString());
+      AppSnackbar.show("خطأ", e.toString());
     } finally {
       isLoading.value = false;
     }

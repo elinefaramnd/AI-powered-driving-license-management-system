@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../app_theme/app_colors.dart';
-import '../../widgets/build_profile_item.dart';
+import '../../widgets/profile/build_profile_item.dart';
 import 'profile_controller.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -64,28 +64,33 @@ class ProfileScreen extends StatelessWidget {
                   ),
                    SizedBox(height: screenHeight * 0.06),
                   buildProfileItem(
+                    context: context,
                     title: "الرقم الوطني",
                     value: user["national_id"] ?? "",
                     icon: Icons.badge_outlined,
                   ),
 
                   buildProfileItem(
+                    context: context,
                     title: "تاريخ الميلاد",
                     value: user["birth_date"] ?? "",
                     icon: Icons.calendar_month,
                   ),
                   buildProfileItem(
+                    context: context,
                     title: "رقم الهاتف",
                     value: user["phone"] ?? "",
                     icon: Icons.phone,
                   ),
                   buildProfileItem(
+                    context: context,
                     title: "المحافظة",
                     value: user["governorate"] ?? "",
                     icon: Icons.location_on_outlined,
                   ),
 
                   buildProfileItem(
+                    context: context,
                     title: "العنوان",
                     value: user["address"] ?? "",
                     icon: Icons.home_outlined,

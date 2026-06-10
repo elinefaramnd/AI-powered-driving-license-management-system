@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:project_2/widgets/app_snackbar.dart';
 import '../../configuration/http_helpers.dart';
 
 class SignUpController extends GetxController {
@@ -73,35 +74,18 @@ class SignUpController extends GetxController {
       if (response.statusCode == 200 || response.statusCode == 201) {
         GetStorage box = GetStorage();
         box.write('name', name);
-        Get.snackbar(
-          'تم انشاء الحساب بنجاح',
-          res['message'].toString(),
-          snackPosition: SnackPosition.TOP,
-          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-        );
+        AppSnackbar.show('تم انشاء الحساب بنجاح',
+            res['message'].toString(),);
         Get.offNamed('/accountVerify', arguments: {'email': email});
       } else {
         print(jsonEncode(data));
-        Get.snackbar(
-          'خطأ',
-          res['message'].toString(),
-          backgroundColor: Colors.red.withOpacity(0.8),
-          colorText: Colors.white,
-          snackPosition: SnackPosition.TOP,
-          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-        );
+        AppSnackbar.show('خطأ',
+            res['message'].toString(),);
       }
     } catch (e) {
       print('Register Error: $e');
-      Get.snackbar(
-        'Exception',
-        'An error occurred during the registration process',
-        snackPosition: SnackPosition.TOP,
-        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      );
+      AppSnackbar.show('خطأ',
+          'An error occurred during the registration process',);
     } finally {
       isLoading.value = false;
     }

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:project_2/widgets/app_snackbar.dart';
 import '../../configuration/http_helpers.dart';
 import '../sign_in/sign_in_screen.dart';
 
@@ -33,12 +34,12 @@ class ResetPasswordController extends GetxController {
     final confirmPassword = confirmPasswordController.text.trim();
 
     if (password.isEmpty || confirmPassword.isEmpty) {
-      Get.snackbar("خطأ", "الرجاء ملىء جميع الحقول");
+      AppSnackbar.show("خطأ", "الرجاء ملىء جميع الحقول");
       return;
     }
 
     if (password != confirmPassword) {
-      Get.snackbar("خطأ", "كلمة المرور غير متطابقة");
+      AppSnackbar.show("خطأ", "كلمة المرور غير متطابقة");
       return;
     }
     isLoading.value = true;
@@ -54,14 +55,14 @@ class ResetPasswordController extends GetxController {
       );
       final data = jsonDecode(response.body);
       if (response.statusCode == 200) {
-        Get.snackbar("Success", data['message']);
+        AppSnackbar.show("Success", data['message']);
         Get.to(() => SignInScreen());
       } else {
         print(response.body);
-        Get.snackbar("Error", data['message']);
+        AppSnackbar.show("Error", data['message']);
       }
     } catch (e) {
-      Get.snackbar("Error", "Server error: $e");
+      AppSnackbar.show("Error", "Server error: $e");
     } finally {
       isLoading.value = false;
     }

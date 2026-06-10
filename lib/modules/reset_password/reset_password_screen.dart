@@ -9,34 +9,35 @@ class ResetPasswordScreen extends StatelessWidget {
   final ResetPasswordController controller = Get.put(ResetPasswordController());
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       body: Container(
         width: double.infinity,
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
+            padding: EdgeInsets.symmetric(horizontal: size.width * 0.06),
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  const SizedBox(height: 70),
+                  SizedBox(height: size.height * 0.12),
                   Center(
                     child: Container(
-                      width: 50,
-                      height: 50,
+                      width: size.width * 0.125,
+                      height: size.width * 0.125,
                       decoration: BoxDecoration(
                         color: Colors.grey.shade300,
-                        borderRadius: BorderRadius.circular(40),
+                        borderRadius: BorderRadius.circular(size.width * 0.1),
                       ),
-                      child: Icon(Icons.lock_outline, size: 25),
+                      child: Icon(Icons.lock_outline, size: size.width * 0.062,),
                     ),
                   ),
-                  const SizedBox(height: 30),
+                  SizedBox(height: size.height * 0.036),
                   Center(
-                    child: const Text(
+                    child: Text(
                       "إعادة تعيين كلمة المرور",
                       style: TextStyle(
-                        fontSize: 24,
+                        fontSize: size.width * 0.06,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
@@ -47,22 +48,22 @@ class ResetPasswordScreen extends StatelessWidget {
                       "أدخل بياناتك لإنشاء كلمة مرور جديدة",
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: 15,
+                        fontSize: size.width * 0.039,
                         fontWeight: FontWeight.w400,
                         color: Colors.grey.shade600,
                       ),
                     ),
                   ),
-                  const SizedBox(height: 18),
+                  SizedBox(height: size.height * 0.024),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(size.width * 0.03),
                     child: Text("كلمة المرور الجديدة"),
                   ),
                   Obx(
                     () => CustomTextField2(
                       controller: controller.passwordController,
                       hintText: '........',
-                      hintFontSize: 28,
+                      hintFontSize: size.width * 0.07,
                       prefixIcon: IconButton(
                         icon: Icon(
                           controller.obscurePassword.value
@@ -77,14 +78,14 @@ class ResetPasswordScreen extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(size.width * 0.03,),
                     child: Text("تأكيد كلمة المرور الجديدة"),
                   ),
                   Obx(
                     () => CustomTextField2(
                       controller: controller.confirmPasswordController,
                       hintText: '........',
-                      hintFontSize: 28,
+                      hintFontSize: size.width * 0.07,
                       prefixIcon: IconButton(
                         icon: Icon(
                           controller.obscureConfirmPassword.value
@@ -98,7 +99,7 @@ class ResetPasswordScreen extends StatelessWidget {
                       suffixIcon: Icons.lock_outline,
                     ),
                   ),
-                  const SizedBox(height: 25),
+                  SizedBox(height: size.height * 0.04),
                   Obx(
                     () => AppButton(
                       text: "",
@@ -106,19 +107,19 @@ class ResetPasswordScreen extends StatelessWidget {
                           ? () {}
                           : controller.reset,
                       child: controller.isLoading.value
-                          ? const SizedBox(
-                              width: 22,
-                              height: 22,
+                          ? SizedBox(
+                        width: size.width * 0.055,
+                        height: size.width * 0.055,
                               child: CircularProgressIndicator(
                                 color: Colors.white,
                                 strokeWidth: 2,
                               ),
                             )
-                          : const Text(
+                          : Text(
                               "حفظ كلمة المرور",
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 16,
+                                fontSize: size.width * 0.045,
                               ),
                             ),
                     ),

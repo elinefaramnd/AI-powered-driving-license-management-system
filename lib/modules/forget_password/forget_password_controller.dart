@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:project_2/widgets/app_snackbar.dart';
 
 import '../../configuration/http_helpers.dart';
 
@@ -18,7 +19,7 @@ class ForgetPasswordController extends GetxController {
     final email = emailController.text.trim();
 
     if (email.isEmpty) {
-      Get.snackbar("خطأ", "يرجى إدخال البريد الإلكتروني");
+      AppSnackbar.show("خطأ", "يرجى إدخال البريد الإلكتروني");
       return;
     }
 
@@ -39,10 +40,10 @@ class ForgetPasswordController extends GetxController {
         final data = jsonDecode(response.body);
         print(response.body);
         print(response.statusCode);
-        Get.snackbar("error", data['message'] ?? 'حدث خطأ');
+        AppSnackbar.show("خطأ", data['message'] ?? 'حدث خطأ');
       }
     } catch (e) {
-      Get.snackbar("error", ":$e");
+      AppSnackbar.show("خطأ", ":$e");
     } finally {
       isLoading.value = false;
     }

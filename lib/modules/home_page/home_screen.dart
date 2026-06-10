@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../app_theme/app_colors.dart';
-import '../../widgets/chat_bot_widget.dart';
-import '../../widgets/home_drawer_widget.dart';
-import '../../widgets/home_header_widget.dart';
-import '../../widgets/order_card_widget.dart';
-import '../../widgets/services_grid_widget.dart';
-import '../../widgets/timeline_card_widget.dart';
+import '../../widgets/chat_bot_widget/chat_bot.dart';
+import '../../widgets/home_widget/home_drawer_widget.dart';
+import '../../widgets/home_widget/home_header_widget.dart';
+import '../../widgets/home_widget/order_card_widget.dart';
+import '../../widgets/home_widget/services_grid_widget.dart';
+import '../../widgets/home_widget/timeline_card_widget.dart';
 import 'home_controller.dart';
 
 class HomeScreen extends StatelessWidget {
