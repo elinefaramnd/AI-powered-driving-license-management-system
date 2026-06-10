@@ -98,6 +98,24 @@ class OrderCardController extends GetxController {
           height: height * .055,
         ),
       );
+    }if (status == "appointment_pending") {
+      return section(
+        text: "تمت الموافقة على طلبك، يمكنك الآن حجز موعد الاختبار",
+        button: OrderActionButton(
+          onPressed: () {
+        if (home.applicationId.value > 0) {
+          Get.toNamed(
+            '/available_tests_page',
+            arguments: home.applicationId.value,
+          );}
+          },
+          text: "حجز موعد",
+          icon: Icons.calendar_month_outlined,
+          color: AppColors.primary,
+          width: width * .47,
+          height: height * .055,
+        ),
+      );
     }
     return const SizedBox();
   }
