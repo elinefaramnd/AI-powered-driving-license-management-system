@@ -10,43 +10,44 @@ class VerificationScreen extends StatelessWidget {
   final VerificationController controller = Get.put(VerificationController());
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
           width: double.infinity,
           child: SafeArea(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
+              padding: EdgeInsets.symmetric(horizontal: size.width * 0.06),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 70),
+                  SizedBox(height: size.height * 0.12),
                   Center(
                     child: Container(
-                      width: 50,
-                      height: 50,
+                      width: size.width * 0.125,
+                      height: size.width * 0.125,
                       decoration: BoxDecoration(
                         color: Colors.grey.shade300,
-                        borderRadius: BorderRadius.circular(40),
+                        borderRadius: BorderRadius.circular(size.width * 0.1),
                       ),
-                      child: Icon(Icons.verified_user_outlined, size: 25),
+                      child: Icon(Icons.verified_user_outlined, size: size.width * 0.062,),
                     ),
                   ),
-                  const SizedBox(height: 30),
-                  const Text(
+                  SizedBox(height: size.height * 0.039),
+                   Text(
                     "تأكيد رمز الاستعادة",
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
+                    style: TextStyle(fontSize: size.width * 0.06, fontWeight: FontWeight.w700),
                   ),
                   const SizedBox(height: 10),
                   Text(
                     "أدخل رمز التحقق المرسل إلى بريدك الإلكتروني",
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 15, color: Colors.grey.shade600),
+                    style: TextStyle(fontSize: size.width * 0.037, color: Colors.grey.shade600),
                   ),
-                  const SizedBox(height: 40),
+                  SizedBox(height: size.height * 0.06),
                   OtpTextField(
                     numberOfFields: 6,
-                    fieldWidth: 42,
+                    fieldWidth: size.width * 0.12,
                     borderColor: AppColors.primaryColor,
                     focusedBorderColor: AppColors.primaryColor,
                     cursorColor: AppColors.primaryColor,
@@ -54,29 +55,29 @@ class VerificationScreen extends StatelessWidget {
                     onCodeChanged: controller.updateCode,
                     onSubmit: controller.submitCode,
                   ),
-                  const SizedBox(height: 35),
+                  SizedBox(height: size.height * 0.043),
                   Obx(
-                    () => AppButton(
+                        () => AppButton(
                       text: "",
                       onPressed: controller.isLoading.value
                           ? () {}
                           : controller.verifyCodeAndProceed,
                       child: controller.isLoading.value
-                          ? const SizedBox(
-                              width: 22,
-                              height: 22,
-                              child: CircularProgressIndicator(
-                                color: Colors.white,
-                                strokeWidth: 2,
-                              ),
-                            )
-                          : const Text(
-                              "تأكيد",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                              ),
-                            ),
+                          ? SizedBox(
+                        width: size.width * 0.055,
+                        height: size.width * 0.055,
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                          strokeWidth: 2,
+                        ),
+                      )
+                          : Text(
+                        "تأكيد",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: size.width * 0.045,
+                        ),
+                      ),
                     ),
                   ),
                 ],

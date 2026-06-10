@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import '../app_theme/app_colors.dart';
 class AppButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
@@ -18,22 +20,23 @@ class AppButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return SizedBox(
       width: double.infinity,
       height: height,
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: backgroundColor,
+          backgroundColor: AppColors.primaryColor,
           elevation: 0,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadius),
           ),
         ),
         child: child ?? Text(text,
-          style: const TextStyle(
+          style: TextStyle(
             color: Colors.white,
-            fontSize: 18,
+            fontSize: size.width * 0.046,
             fontWeight: FontWeight.w600,
           ),
         ),

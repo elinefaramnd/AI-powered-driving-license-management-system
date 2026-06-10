@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../app_theme/app_colors.dart';
-import '../modules/fines/fines_controller.dart';
+
+import '../../app_theme/app_colors.dart';
+import '../../modules/fines/fines_controller.dart';
 
 class FinesSummaryCard extends GetView<FinesController> {
   const FinesSummaryCard({super.key});

@@ -8,6 +8,7 @@ class CompleteProfileButton extends StatelessWidget {
   const CompleteProfileButton({super.key});
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     final controller = Get.find<CompleteProfileController>();
     return Obx(
       () => AppButton(
@@ -26,17 +27,17 @@ class CompleteProfileButton extends StatelessWidget {
           controller.completeProfile();
         },
         child: controller.isLoading.value
-            ? const SizedBox(
-                width: 22,
-                height: 22,
+            ? SizedBox(
+                width: size.width * 0.06,
+                height: size.width * 0.06,
                 child: CircularProgressIndicator(
                   color: Colors.white,
                   strokeWidth: 2,
                 ),
               )
-            : const Text(
+            : Text(
                 "حفظ و متابعة",
-                style: TextStyle(color: Colors.white, fontSize: 16),
+                style: TextStyle(color: Colors.white, fontSize: size.width * 0.041,),
               ),
       ),
     );

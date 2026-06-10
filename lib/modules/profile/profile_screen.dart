@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../app_theme/app_colors.dart';
-import '../../widgets/build_profile_item.dart';
+import '../../widgets/profile/build_profile_item.dart';
 import 'profile_controller.dart';
 
 class ProfileScreen extends StatelessWidget {

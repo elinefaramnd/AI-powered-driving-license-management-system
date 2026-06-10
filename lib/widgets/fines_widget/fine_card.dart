@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../app_theme/app_colors.dart';
-import '../modules/fines/fine_model.dart';
-import '../modules/fines/fines_controller.dart';
+
+import '../../app_theme/app_colors.dart';
+import '../../modules/fines/fine_model.dart';
+import '../../modules/fines/fines_controller.dart';
 
 class FineCard extends GetView<FinesController> {
   final FineModel fine;

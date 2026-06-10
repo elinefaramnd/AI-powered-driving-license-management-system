@@ -12,53 +12,54 @@ class CompleteProfileScreen extends StatelessWidget {
   final CompleteProfileController controller = Get.put(CompleteProfileController(),);
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       body: Container(
         width: double.infinity,
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
+            padding: EdgeInsets.symmetric(horizontal: size.width * 0.06,),
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  const SizedBox(height: 50),
+                  SizedBox(height:  size.height * 0.06),
                   Center(
                     child: Container(
-                      width: 50,
-                      height: 50,
+                      width: size.width * 0.13,
+                      height: size.width * 0.13,
                       decoration: BoxDecoration(
                         color: Colors.grey.shade300,
-                        borderRadius: BorderRadius.circular(40),
+                        borderRadius: BorderRadius.circular(size.width * 0.10,),
                       ),
-                      child: Icon(Icons.text_snippet_outlined, size: 25),
+                      child: Icon(Icons.text_snippet_outlined, size: size.width * 0.065,),
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  SizedBox(height: size.height * 0.025),
                   Center(
-                    child: const Text(
+                    child: Text(
                       "اكمال الملف الشخصي",
                       style: TextStyle(
-                        fontSize: 24,
+                        fontSize: size.width * 0.062,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
                   ),
-                  const SizedBox(height: 10),
+                   SizedBox(height: size.height * 0.012),
                   Center(
                     child: Text(
                       "اكمل بياناتك الأساسية لتتمكن من استخدام رخص القيادة",
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: 15,
+                        fontSize: size.width * 0.039,
                         fontWeight: FontWeight.w400,
                         color: Colors.grey.shade600,
                       ),
                     ),
                   ),
-                  const SizedBox(height: 18),
+                  SizedBox(height: size.height * 0.022),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(size.width * 0.02),
                     child: Text("الاسم الكامل"),
                   ),
                   CustomTextField2(
@@ -69,7 +70,7 @@ class CompleteProfileScreen extends StatelessWidget {
                   ),
                   ProfileErrorText(error: controller.nameError),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding:  EdgeInsets.all(size.width * 0.02),
                     child: Text("الرقم الوطني"),
                   ),
                   CustomTextField2(
@@ -106,7 +107,7 @@ class CompleteProfileScreen extends StatelessWidget {
                       );
                       if (pickedDate != null) {
                         controller.birthDateController.text =
-                            "${pickedDate.toIso8601String().split('T')[0]}";
+                        "${pickedDate.toIso8601String().split('T')[0]}";
                       }
                     },
                     child: AbsorbPointer(
@@ -120,13 +121,13 @@ class CompleteProfileScreen extends StatelessWidget {
                   ),
                   ProfileErrorText(error: controller.birthDateError),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(size.width * 0.02),
                     child: Text("المحافظة"),
                   ),
                   const GovernorateDropdown(),
                   ProfileErrorText(error: controller.governorateError),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(size.width * 0.02),
                     child: Text("العنوان"),
                   ),
                   CustomTextField2(
@@ -136,9 +137,9 @@ class CompleteProfileScreen extends StatelessWidget {
                     keyboardType: TextInputType.emailAddress,
                   ),
                   ProfileErrorText(error: controller.addressError),
-                  SizedBox(height: 20),
+                  SizedBox(height:  size.height * 0.025),
                   const CompleteProfileButton(),
-                  SizedBox(height: 20),
+                  SizedBox(height:  size.height * 0.025),
                 ],
               ),
             ),

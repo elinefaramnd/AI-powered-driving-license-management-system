@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import '../../configuration/http_helpers.dart';
+import '../../widgets/app_snackbar.dart';
 class ApplicationController extends GetxController {
   RxList services = [].obs;
   RxList licenses = [].obs;
@@ -37,11 +39,16 @@ class ApplicationController extends GetxController {
   Future<void> createDraft() async {
     try {
       if (serviceTypeId.value == 0) {
-        Get.snackbar("تنبيه", "اختر نوع الخدمة");
+        AppSnackbar.show(
+          "تنبيه",
+          "اختر نوع الخدمة",
+        );
         return;
       }
       if (licenseTypeId.value == 0) {
-        Get.snackbar("تنبيه", "اختر نوع الرخصة");
+        AppSnackbar.show(
+            "تنبيه", "اختر نوع الرخصة"
+        );
         return;
       }
       loading.value = true;
@@ -60,7 +67,9 @@ class ApplicationController extends GetxController {
         print("CREATED ID => $id");
         Get.toNamed("/upload_documents", arguments: id);
       } else {
-        Get.snackbar("خطأ", data["message"]);
+        AppSnackbar.show(
+            "خطأ",data["message"]
+        );
       }
     } catch (e) {
       Get.snackbar("خطأ", e.toString());

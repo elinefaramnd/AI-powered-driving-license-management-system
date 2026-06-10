@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import '../../configuration/http_helpers.dart';
+import '../../widgets/app_snackbar.dart';
 
 class EmailVerificationController extends GetxController {
   RxString otpCode = ''.obs;
@@ -43,25 +44,16 @@ class EmailVerificationController extends GetxController {
         box.write('token', token);
         box.write('userId', userId);
         box.write('roleId', roleId);
-        Get.snackbar(
-          "نجاح",
-          data['message'],
-          colorText: Colors.black,
-        );
+        AppSnackbar.show('نجاح', data['message']);
         Get.offNamed('/completePro');
       } else {
-        Get.snackbar(
-          "Error",
-          data['message'] ?? "Invalid code",
-          backgroundColor: Colors.red,
-          colorText: Colors.white,
-        );
+        AppSnackbar.show('خطأ', data['message']?? "يرجى إدخال الكود الصحيح",);
       }
     } catch (e) {
       print(e);
       Get.snackbar(
-        "Exception",
-        "Something went wrong",
+        "خطأ",
+        "خطأ ما حدث",
         backgroundColor: Colors.red,
         colorText: Colors.white,
       );

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../app_theme/app_colors.dart';
-import '../modules/home_page/home_controller.dart';
-import '../modules/logout/logout_controller.dart';
+import '../../app_theme/app_colors.dart';
+import '../../modules/home_page/home_controller.dart';
+import '../../modules/logout/logout_controller.dart';
 import 'drawer_item_widget.dart';
 
 class HomeDrawerWidget extends StatelessWidget {

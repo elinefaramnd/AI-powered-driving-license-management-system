@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../app_theme/app_colors.dart';
-import '../modules/chat_bot/chat_bot_screen.dart';
-import 'chat_bot_controller.dart';
+
+import '../../app_theme/app_colors.dart';
+import '../../modules/chat_bot/chat_bot_screen.dart';
+import '../../modules/home_page/chat_bot_controller.dart';
 
 class ChatBotWidget extends StatelessWidget {
   ChatBotWidget({super.key});

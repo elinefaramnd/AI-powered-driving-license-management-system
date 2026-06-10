@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_2/configuration/http_helpers.dart' show HttpHelper;
+import 'package:project_2/widgets/app_snackbar.dart';
 import '../create_application/create_application_step1.dart';
 
 class HomeController extends GetxController {
@@ -46,7 +47,7 @@ class HomeController extends GetxController {
 
   void openUploadDocuments() {
     if (applicationId.value <= 0) {
-      Get.snackbar("تنبيه", "لا يوجد طلب حالياً");
+      AppSnackbar.show("تنبيه", "لا يوجد طلب حالياً");
       return;
     }
     Get.toNamed("/upload_documents", arguments: applicationId.value);

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../widgets/empty_fines_widget.dart';
+import '../../widgets/fines_widget/empty_fines_widget.dart';
 import '../../widgets/fines_widget/fine_card.dart';
 import '../../widgets/fines_widget/fines_summary_card.dart';
 import 'fines_controller.dart';

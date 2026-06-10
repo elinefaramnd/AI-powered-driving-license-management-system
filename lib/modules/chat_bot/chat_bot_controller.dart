@@ -152,6 +152,7 @@ class ChatController extends GetxController {
       backgroundColor: Colors.red.withOpacity(0.9),
       colorText: Colors.white,
     );
+
   }
 }
 

@@ -5,6 +5,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import '../../configuration/http_helpers.dart';
 import '../../helpers/document_picker_service.dart';
+import '../../widgets/app_snackbar.dart';
 import '../home_page/home_controller.dart';
 
 class UploadDocumentsController extends GetxController {
@@ -75,20 +76,28 @@ class UploadDocumentsController extends GetxController {
       print("HEADERS: ${response.headers}");
       if (response.statusCode == 200 || response.statusCode == 201) {
         uploadedIds.add(requiredId);
-        Get.snackbar("نجاح", "تم رفع الوثيقة");
+        AppSnackbar.show(
+            "نجاح", "تم رفع الوثيقة"
+        );
       } else {
         final body = await response.stream.bytesToString();
-        Get.snackbar("خطأ", body);
+        AppSnackbar.show(
+            "خطأ", body
+        );
       }
     } catch (e) {
-      Get.snackbar("خطأ", e.toString());
+      AppSnackbar.show(
+          "خطأ",  e.toString()
+      );
     } finally {
       loading.value = false;
     }
   }
   Future<void> submitDocuments() async {
     if (!canSubmit) {
-      Get.snackbar("تنبيه", "ارفع كل الوثائق أولاً");
+      AppSnackbar.show(
+          "تنبيه","ارفع كل الوثائق أولاً"
+      );
       return;
     }
     try {
@@ -102,9 +111,9 @@ class UploadDocumentsController extends GetxController {
         if (Get.isRegistered<HomeController>()) {
           await Get.find<HomeController>().getCurrentApplication();
         }
-        Get.snackbar("نجاح", "تم إرسال الوثائق بنجاح، الطلب قيد المعالجة");
+        AppSnackbar.show("نجاح", "تم إرسال الوثائق بنجاح، الطلب قيد المعالجة");
       } else {
-        Get.snackbar("خطأ", data["message"]);
+        AppSnackbar.show("خطأ", data["message"]);
         print(data["message"]);
         print(response.statusCode);
       }

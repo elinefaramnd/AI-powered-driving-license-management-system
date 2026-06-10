@@ -39,12 +39,13 @@ class OrderCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Container(
-      margin: const EdgeInsets.only(bottom: 14),
-      padding: const EdgeInsets.all(16),
+      margin: EdgeInsets.only(bottom: size.height * 0.01),
+      padding: EdgeInsets.all(size.width * 0.04),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(18),
+        borderRadius: BorderRadius.circular(size.width * 0.045),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,8 +53,21 @@ class OrderCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              Container(
+                padding:  EdgeInsets.symmetric(
+                  horizontal: size.width * 0.025,
+                  vertical: size.height * 0.006,
+                ),
+                decoration: BoxDecoration(
+                  color: getStatusColor().withOpacity(0.15),
+                  borderRadius: BorderRadius.circular(size.width * 0.05),
+                ),
+                child: Text(
+                  getStatusText(),
+                  style: TextStyle(color: getStatusColor(), fontSize: size.width * 0.03,),
+                ),
+              ),
               Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     order.serviceType,
@@ -65,23 +79,9 @@ class OrderCard extends StatelessWidget {
                   ),
                 ],
               ),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 5,
-                ),
-                decoration: BoxDecoration(
-                  color: getStatusColor().withOpacity(0.15),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Text(
-                  getStatusText(),
-                  style: TextStyle(color: getStatusColor(), fontSize: 12),
-                ),
-              ),
             ],
           ),
-          const SizedBox(height: 10),
+          SizedBox(height: size.height * 0.012),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -89,13 +89,13 @@ class OrderCard extends StatelessWidget {
               const Text("رقم الطلب", style: TextStyle(color: Colors.grey)),
             ],
           ),
-          const SizedBox(height: 12),
+          SizedBox(height: size.height * 0.015),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xff054239),
-              minimumSize: const Size(double.infinity, 40),
+              minimumSize: Size(double.infinity, size.height * 0.05),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(size.width * 0.03),
               ),
             ),
             onPressed: () {

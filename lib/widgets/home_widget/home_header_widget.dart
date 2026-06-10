@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../app_theme/app_colors.dart';
-import '../modules/home_page/home_controller.dart';
+
+import '../../app_theme/app_colors.dart';
+import '../../modules/home_page/home_controller.dart';
 
 class HomeHeaderWidget extends StatelessWidget {
   final HomeController controller;

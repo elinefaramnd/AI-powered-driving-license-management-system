@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:project_2/widgets/app_snackbar.dart';
 import '../../configuration/http_helpers.dart';
 
 class SignInController extends GetxController {
@@ -47,10 +48,10 @@ class SignInController extends GetxController {
         );
         Get.offNamed('/home');
       } else {
-        Get.snackbar('فشل تسجيل الدخول', res['message'].toString());
+        AppSnackbar.show('فشل تسجيل الدخول', res['message'].toString());
       }
     } catch (e) {
-      Get.snackbar('Exception', 'حدث خطأ');
+      AppSnackbar.show('Exception', 'حدث خطأ');
     } finally {
       isLoading.value = false;
     }
