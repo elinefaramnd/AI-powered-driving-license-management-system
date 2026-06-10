@@ -45,6 +45,15 @@ class HomeDrawerWidget extends StatelessWidget {
                       controller: controller,
                     ),
                     DrawerItemWidget(
+                      icon: Icons.person_outline,
+                      title: "الملف الشخصي",
+                      index: 12,
+                      controller: controller,
+                      onTap: () {
+                        Get.toNamed('showPro');
+                      },
+                    ),
+                    DrawerItemWidget(
                       icon: Icons.list_alt,
                       title: "طلباتي",
                       index: 1,
@@ -53,6 +62,59 @@ class HomeDrawerWidget extends StatelessWidget {
                         Get.toNamed("/order_screen");
                       },
                     ),
+                    DrawerItemWidget(
+                      icon: Icons.calendar_today_outlined,
+                      title: "مواعيدي",
+                      index: 3,
+                      controller: controller,
+                    ),
+
+                     DrawerItemWidget(
+                      icon: Icons.fact_check_outlined,
+                      title: "اختباراتي ونتائجي",
+                      index: 4,
+                      controller: controller,
+                      onTap: () {
+                        Get.toNamed("/test_results");
+                      },
+                    ),
+                    DrawerItemWidget(
+                      icon: Icons.badge_outlined,
+                      title: "رخصي",
+                      index: 5,
+                      controller: controller,
+                      onTap: () {
+                        Get.toNamed("/my_licenses");
+                      },
+                    ),
+                    DrawerItemWidget(
+                      icon: Icons.gavel_outlined,
+                      title: "غراماتي",
+                      index: 6,
+                      controller: controller,
+                      onTap: () {
+                        Get.toNamed("/fines_screen");
+                      },
+                    ),
+                    DrawerItemWidget(
+                      icon: Icons.credit_card_rounded,
+                      title: "الدفع الإلكتروني",
+                      index: 7,
+                      controller: controller,
+                    ),
+                    DrawerItemWidget(
+                      icon: Icons.lock_open,
+                      title: "فك حجز رخصة",
+                      index: 10,
+                      controller: controller,
+                    ),
+                    DrawerItemWidget(
+                      icon: Icons.notifications_none,
+                      title: "الإشعارات",
+                      index: 11,
+                      controller: controller,
+                    ),
+                    
                     Theme(
                       data: Theme.of(
                         context,
@@ -112,59 +174,15 @@ class HomeDrawerWidget extends StatelessWidget {
                         );
                       }),
                     ),
+                    
+                   
+                    
+                    
                     DrawerItemWidget(
-                      icon: Icons.calendar_today_outlined,
-                      title: "مواعيدي",
-                      index: 3,
+                      icon: Icons.support_agent,
+                      title: "المساعدة والدعم",
+                      index: 14,
                       controller: controller,
-                    ),
-                    DrawerItemWidget(
-                      icon: Icons.fact_check_outlined,
-                      title: "اختباراتي ونتائجي",
-                      index: 4,
-                      controller: controller,
-                    ),
-                    DrawerItemWidget(
-                      icon: Icons.badge_outlined,
-                      title: "رخصي",
-                      index: 5,
-                      controller: controller,
-                    ),
-                    DrawerItemWidget(
-                      icon: Icons.gavel_outlined,
-                      title: "غراماتي",
-                      index: 6,
-                      controller: controller,
-                      onTap: () {
-                        Get.toNamed("/fines_screen");
-                      },
-                    ),
-                    DrawerItemWidget(
-                      icon: Icons.credit_card_rounded,
-                      title: "الدفع الإلكتروني",
-                      index: 7,
-                      controller: controller,
-                    ),
-                    DrawerItemWidget(
-                      icon: Icons.lock_open,
-                      title: "فك حجز رخصة",
-                      index: 10,
-                      controller: controller,
-                    ),
-                    DrawerItemWidget(
-                      icon: Icons.notifications_none,
-                      title: "الإشعارات",
-                      index: 11,
-                      controller: controller,
-                    ),
-                    DrawerItemWidget(
-                      icon: Icons.person_outline,
-                      title: "الملف الشخصي",
-                      index: 12,
-                      controller: controller,
-                      onTap: () {
-                        Get.toNamed('showPro');
-                      },
                     ),
                     DrawerItemWidget(
                       icon: Icons.settings_outlined,
@@ -174,7 +192,13 @@ class HomeDrawerWidget extends StatelessWidget {
                     ),
                     DrawerItemWidget(
                       icon: Icons.support_agent,
-                      title: "المساعدة والدعم",
+                      title: "الأسئلة الشائعة (FAQ)",
+                      index: 14,
+                      controller: controller,
+                    ),
+                    DrawerItemWidget(
+                      icon: Icons.support_agent,
+                      title: "privacy and policy",
                       index: 14,
                       controller: controller,
                     ),

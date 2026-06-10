@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../app_theme/app_colors.dart';
 import '../../widgets/order_action_button.dart';
+import '../../widgets/payment_widgets/pay_button.dart';
 import 'home_controller.dart';
 
 class OrderCardController extends GetxController {
@@ -82,13 +83,13 @@ class OrderCardController extends GetxController {
     if (status == "payment_pending") {
       return section(
         text: "بانتظار دفع الرسوم للانتقال للمرحلة التالية",
-        button: OrderActionButton(
-          onPressed: () {},
-          text: "دفع الرسوم",
-          icon: Icons.credit_card_outlined,
-          color: AppColors.primary,
+        button: SizedBox(
           width: width * .47,
           height: height * .055,
+          child: PayButton(
+            applicationId: home.applicationId.value,
+            isEnabled: home.applicationId.value > 0,
+          ),
         ),
       );
     }

@@ -9,6 +9,8 @@ import 'modules/forget_password/forget_password_screen.dart';
 import 'modules/home_page/home_binding.dart';
 import 'modules/home_page/home_screen.dart';
 import 'modules/my_applications/my_orders/orders_screen.dart';
+import 'modules/my_licenses/my_licenses_screen.dart';
+import 'modules/test_results/test_results_screen.dart';
 import 'modules/my_applications/order_details/order_details_screen.dart';
 import 'modules/onboarding/onboarding_screen.dart';
 import 'modules/profile/complete_profile_screen.dart';
@@ -55,6 +57,8 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/order_screen',page: () => OrdersScreen(),),
           GetPage(name: '/order_details',page: () => OrderDetailsScreen(),),
           GetPage(name: '/fines_screen',page: () => FinesScreen(),),
+          GetPage(name: '/my_licenses',page: () => MyLicensesScreen(),),
+          GetPage(name: '/test_results',page: () => TestResultsScreen(),),
         ]
 
     );

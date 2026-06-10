@@ -136,7 +136,9 @@ class ChatBotWidget extends StatelessWidget {
             ),
 
             child: IconButton(
-              onPressed: () {},
+              onPressed: () {
+                controller.openChatScreen();
+              },
               icon: Icon(
                 Icons.chat_bubble_outline,
                 color: Colors.white,
