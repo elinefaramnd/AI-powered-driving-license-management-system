@@ -22,6 +22,7 @@ class HomeScreen extends StatelessWidget {
         key: controller.scaffoldKey,
         backgroundColor: const Color(0xFFF6F7F7),
         drawer: const HomeDrawerWidget(),
+        drawerEnableOpenDragGesture: controller.canUseServices,
         body: Stack(
           children: [
             SafeArea(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:project_2/widgets/app_snackbar.dart';
 
 import '../../app_theme/app_colors.dart';
 import '../../modules/home_page/home_controller.dart';
@@ -25,14 +26,27 @@ class HomeHeaderWidget extends StatelessWidget {
 
       child: Row(
         children: [
-          IconButton(
-            onPressed: controller.openDrawer,
-            icon: Icon(
-              Icons.menu,
-              color: AppColors.primary,
-              size: 24 * scale,
-            ),
-          ),
+          Obx(() {
+            final canUse = controller.canUseServices;
+            final profileStatus = controller.profileStatus.value;
+
+            return IconButton(
+              onPressed: canUse
+                  ? controller.openDrawer
+                  : () {
+                AppSnackbar.show( "تنبيه",  profileStatus == "pending_review"
+                ? "الحساب قيد المراجعة حالياً"
+                    : profileStatus == "rejected"
+                ? "تم رفض الملف، يرجى التعديل"
+                    : "يرجى إكمال الملف الشخصي أولاً",);
+              },
+              icon: Icon(
+                Icons.menu,
+                color: canUse ? AppColors.primary : Colors.grey,
+                size: 24 * scale,
+              ),
+            );
+          }),
 
           Stack(
             children: [

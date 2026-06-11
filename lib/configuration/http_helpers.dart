@@ -4,7 +4,7 @@ import 'package:http/http.dart';
 import 'package:http/http.dart ' as http;
 
 //String? token;
-const String baseurl = 'http://192.168.10.33:9000/api/';
+const String baseurl = 'https://capsule-congress-laurel.ngrok-free.dev/api/';
 const String imgURL = 'http://192.168.10.33:8000';
 
 class HttpHelper {

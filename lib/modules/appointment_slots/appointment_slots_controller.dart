@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
+import 'package:project_2/widgets/app_snackbar.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../configuration/http_helpers.dart';
 
@@ -77,18 +78,16 @@ class AppointmentSlotsController extends GetxController {
 
       if (decoded["success"] == true) {
         Get.back(result: true);
-        Get.snackbar(
+        AppSnackbar.show(
           "تم الحجز",
           "تم حجز الموعد بنجاح",
-          snackPosition: SnackPosition.TOP,
         );
 
         print(res.body);
       }else{
-        Get.snackbar(
+        AppSnackbar.show(
           " خطأ",
           decoded['message'],
-          snackPosition: SnackPosition.TOP,
         );
 
         print(res.body);

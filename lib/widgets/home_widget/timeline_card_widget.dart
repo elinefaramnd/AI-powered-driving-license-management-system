@@ -21,6 +21,8 @@ class TimelineCardWidget extends StatelessWidget {
       bool createActive = false;
       bool docsActive = false;
       bool paymentActive = false;
+      bool testsDone = false;
+      bool testsActive = false;
       if (!hasApplication || status.isEmpty || status == "-") {
         createDone = false;
         docsDone = false;
@@ -33,6 +35,12 @@ class TimelineCardWidget extends StatelessWidget {
         createDone = true;
         docsDone = true;
         paymentActive = true;
+      }else if (status == "appointment_pending" || status == "in_testing") {
+        createDone = true;
+        docsDone = true;
+        paymentDone = true;
+
+        testsActive = true;
       }
       return Container(
         padding: EdgeInsets.all(w * 0.035),
@@ -77,7 +85,12 @@ class TimelineCardWidget extends StatelessWidget {
                   active: paymentActive,
                 ),
                 LineWidget(),
-                const StepWidget(title: "الاختبارات", icon: Icons.quiz),
+                StepWidget(
+                  title: "الاختبارات",
+                  icon: Icons.quiz,
+                  done: testsDone,
+                  active: testsActive,
+                ),
                 LineWidget(),
                 const StepWidget(title: "إصدار رخصة", icon: Icons.badge),
               ],

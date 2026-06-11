@@ -13,6 +13,8 @@ class OrderCardWidget extends StatelessWidget {
     final controller = Get.find<HomeController>();
     final orderController = Get.put(OrderCardController());
     final size = MediaQuery.of(context).size;
+    final canUse = controller.profileStatus.value == "approved";
+    final profileStatus = controller.profileStatus.value;
     return Container(
       height: size.height * 0.39,
       padding: EdgeInsets.all(size.width * 0.035),

@@ -7,6 +7,7 @@ import '../create_application/create_application_step1.dart';
 
 class HomeController extends GetxController {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  bool get canUseServices => profileStatus.value == "approved";
   RxBool loadingOrder = false.obs;
   RxBool hasApplication = true.obs;
   RxInt applicationId = 0.obs;
@@ -16,12 +17,14 @@ class HomeController extends GetxController {
   RxString status = '-'.obs;
   RxBool loadingServices = false.obs;
   var isServicesExpanded = false.obs;
+  var profileStatus = "incomplete".obs;
   RxList<Map<String, dynamic>> services = <Map<String, dynamic>>[].obs;
   var selectedIndex = 0.obs;
   var notificationsCount = 3.obs;
   @override
   void onInit() {
     super.onInit();
+    getProfileStatus();
     getCurrentApplication();
     getServices();
   }
@@ -108,6 +111,19 @@ class HomeController extends GetxController {
       print(e);
     } finally {
       loadingServices.value = false;
+    }
+  }
+
+  Future<void> getProfileStatus() async {
+    try {
+      final response = await HttpHelper.gettData(url:"profile/status");
+      final data = jsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        profileStatus.value = data["data"]["profile_status"];
+      }
+    } catch (e) {
+      print(e);
     }
   }
 }

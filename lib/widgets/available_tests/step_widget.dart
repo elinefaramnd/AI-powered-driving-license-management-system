@@ -46,17 +46,32 @@ class StepWidget extends StatelessWidget {
                 Positioned(
                   bottom: -2,
                   right: -2,
-                  child: Container(
+                  child: done
+                      ? Container(
+                    width: size.width * 0.045,
+                    height: size.width * 0.045,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: AppColors.primaryColor
+                    ),
+                    child: Icon(
+                      Icons.check,
+                      size: size.width * 0.027,
+                      color: Colors.white,
+                    ),
+                  )
+                      : Container(
                     width: size.width * 0.045,
                     height: size.width * 0.045,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: done
-                          ? AppColors.primaryColor
-                          : Colors.grey.shade400,
+                      color: Colors.grey.shade400,
                     ),
-                    child: Icon(
-                      done ? Icons.check : Icons.lock,
+                    child: Icon(done
+                        ? Icons.check_circle
+                        : active
+                        ? Icons.check
+                        : Icons.lock,
                       size: size.width * 0.027,
                       color: Colors.white,
                     ),

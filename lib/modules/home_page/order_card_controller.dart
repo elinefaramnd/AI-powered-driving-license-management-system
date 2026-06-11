@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:project_2/widgets/app_snackbar.dart';
 import '../../app_theme/app_colors.dart';
 import '../../widgets/home_widget/order_action_button.dart';
 import '../payment/payment_screen.dart';
@@ -7,6 +8,8 @@ import 'home_controller.dart';
 
 class OrderCardController extends GetxController {
   final home = Get.find<HomeController>();
+  final profileStatus = Get.find<HomeController>().profileStatus;
+  bool get canUseServices => profileStatus.value == "approved";
   Widget buildStep({required double width, required double height}) {
     final status = home.currentApplicationStatus.value;
     final hasApplication = home.hasApplication.value;
@@ -34,10 +37,19 @@ class OrderCardController extends GetxController {
       return section(
         text: "بانتظار رفع الوثائق المطلوبة لإكمال الطلب",
         button: OrderActionButton(
-          onPressed: home.openUploadDocuments,
+          onPressed: canUseServices
+              ? home.openUploadDocuments
+              : () {
+            AppSnackbar.show(
+              "تنبيه",
+              _message(),
+            );
+          },
           text: "تكملة الطلب",
           icon: Icons.upload_file,
-          color: AppColors.primaryColor,
+          color: canUseServices
+              ? AppColors.primaryColor
+              : Colors.grey.shade400,
           width: width * .5,
           height: height * .055,
         ),
@@ -47,10 +59,19 @@ class OrderCardController extends GetxController {
       return section(
         text: "ابدأ بإنشاء طلب جديد وستظهر هنا حالة الطلب والخطوات القادمة",
         button: OrderActionButton(
-          onPressed: home.openNewApplication,
+          onPressed: canUseServices
+              ?  home.openNewApplication
+              : () {
+            AppSnackbar.show(
+              "تنبيه",
+              _message(),
+            );
+          },
           text: "إنشاء طلب",
           icon: Icons.add_circle_outline,
-          color: AppColors.primaryColor,
+          color: canUseServices
+              ? AppColors.primaryColor
+              : Colors.grey.shade400,
           width: width * .47,
           height: height * .055,
         ),
@@ -63,9 +84,19 @@ class OrderCardController extends GetxController {
           width: width * .47,
           height: height * .055,
           child: ElevatedButton.icon(
-            onPressed: home.openOrderDetails,
+            onPressed: canUseServices
+                ?  home.openOrderDetails
+                : () {
+              AppSnackbar.show(
+                "تنبيه",
+                _message(),
+              );
+            },
+
             style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.primary,
+              backgroundColor: canUseServices
+            ? AppColors.primaryColor
+                : Colors.grey.shade400,
               elevation: 0,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(width * .03),
@@ -85,15 +116,24 @@ class OrderCardController extends GetxController {
         text: "بانتظار دفع الرسوم للانتقال للمرحلة التالية",
         button: OrderActionButton(
           onPressed: () {
+            canUseServices
+                ?
             Get.to(
                   () => PaymentScreen(
                 applicationId: home.applicationId.value,
               ),
-            );
+            ):() {
+              AppSnackbar.show(
+                "تنبيه",
+                _message(),
+              );
+            };
           },
           text: "دفع الرسوم",
           icon: Icons.credit_card_outlined,
-          color: AppColors.primary,
+          color: canUseServices
+              ? AppColors.primaryColor
+              : Colors.grey.shade400,
           width: width * .47,
           height: height * .055,
         ),
@@ -104,19 +144,71 @@ class OrderCardController extends GetxController {
         button: OrderActionButton(
           onPressed: () {
         if (home.applicationId.value > 0) {
-          Get.toNamed(
+          canUseServices
+              ? Get.toNamed(
             '/available_tests_page',
             arguments: home.applicationId.value,
-          );}
+          ):() {
+            AppSnackbar.show(
+              "تنبيه",
+              _message(),
+            );
+          };}
           },
           text: "حجز موعد",
           icon: Icons.calendar_month_outlined,
-          color: AppColors.primaryColor,
+          color: canUseServices
+              ? AppColors.primaryColor
+              : Colors.grey.shade400,
           width: width * .47,
           height: height * .055,
         ),
       );
     }
+    if (status == "in_testing") {
+      return section(
+        text: "مرحلة الاختبارات مفعّلة لديك، يمكنك حجز موعد اختبار أو متابعة المواعيد الحالية حسب حالتها.",        button: SizedBox(
+          width: width * .47,
+          height: height * .055,
+          child: ElevatedButton.icon(
+            onPressed: canUseServices
+                ?  home.openOrderDetails
+                : () {
+              AppSnackbar.show(
+                "تنبيه",
+                _message(),
+              );
+            },
+
+            style: ElevatedButton.styleFrom(
+              backgroundColor: canUseServices
+            ? AppColors.primaryColor
+                : Colors.grey.shade400,
+              elevation: 0,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(width * .03),
+              ),
+            ),
+            icon: const Icon(Icons.schedule_outlined, color: Colors.white),
+            label: const Text(
+              "عرض التفاصيل",
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        ),
+      );
+    }
     return const SizedBox();
+  }
+  String _message() {
+    final status = profileStatus.value;
+
+    if (status == "pending_review") {
+      return "الحساب قيد المراجعة حالياً";
+    } else if (status == "rejected") {
+      return "تم رفض الملف، يرجى تعديله";
+    } else {
+      return "يرجى إكمال الملف الشخصي أولاً";
+    }
   }
 }
