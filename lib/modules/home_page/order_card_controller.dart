@@ -111,7 +111,7 @@ class OrderCardController extends GetxController {
           },
           text: "حجز موعد",
           icon: Icons.calendar_month_outlined,
-          color: AppColors.primary,
+          color: AppColors.primaryColor,
           width: width * .47,
           height: height * .055,
         ),
