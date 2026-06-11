@@ -2,8 +2,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:file_picker/file_picker.dart';
-import '../modules/chat_bot/chat_bot_screen.dart';
-import '../app_theme/app_colors.dart';
+import 'package:project_2/app_theme/app_colors.dart';
+import 'package:project_2/modules/chat_bot/chat_bot_screen.dart';
+
 
 class ChatMessage {
   final String text;

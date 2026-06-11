@@ -100,7 +100,7 @@ class ChatController extends GetxController {
 
   Future<void> pickFile() async {
     try {
-      FilePickerResult? result = await FilePicker.platform.pickFiles(
+      FilePickerResult? result = await FilePicker.pickFiles(
         type: FileType.any,
         allowMultiple: false,
       );
