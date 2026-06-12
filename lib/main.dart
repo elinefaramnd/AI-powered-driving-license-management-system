@@ -23,6 +23,8 @@ import 'modules/sign_in/sign_in_screen.dart';
 import 'modules/sign_up/sign_up_screen.dart';
 import 'modules/splash/splash_screen.dart';
 import 'modules/verification/verification_screen.dart';
+import 'modules/settings_support/settings_screen.dart';
+import 'modules/settings_support/screens/change_password_screen.dart';
 
 void main() {
   Get.put(ChatBotController());
@@ -63,6 +65,8 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/my_licenses',page: () => MyLicensesScreen(),),
           GetPage(name: '/test_results',page: () => TestResultsScreen(),),
           GetPage(name: '/available_tests_page',page: () => AvailableTestsPage(),),
+          GetPage(name: '/settings',page: () => SettingsScreen(),),
+          GetPage(name: '/settings/password',page: () => ChangePasswordScreen(),),
 
         ]
 

@@ -191,6 +191,9 @@ class HomeDrawerWidget extends StatelessWidget {
                       title: "الإعدادات",
                       index: 13,
                       controller: controller,
+                      onTap: () {
+                        Get.toNamed('/settings');
+                      },
                     ),
                     DrawerItemWidget(
                       icon: Icons.support_agent,
