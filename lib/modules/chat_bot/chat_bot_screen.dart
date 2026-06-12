@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:project_2/modules/chat_bot/chat_bot_controller.dart';
 import '../../app_theme/app_colors.dart';
 
-
 class ChatBotScreen extends StatelessWidget {
   ChatBotScreen({super.key});
 

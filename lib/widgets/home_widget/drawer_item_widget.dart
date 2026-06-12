@@ -39,6 +39,7 @@ class DrawerItemWidget extends StatelessWidget {
         child: ListTile(
           onTap: () {
             controller.selectMenu(index);
+            Navigator.of(context).pop();
             if (onTap != null) {
               onTap!();
             }
