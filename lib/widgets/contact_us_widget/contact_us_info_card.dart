@@ -30,8 +30,8 @@ class ContactUsInfoCard extends StatelessWidget {
           _InfoRow(
             w: w,
             icon: Icons.phone_rounded,
-            iconColor: const Color(0xFF2E7D32),
-            iconBg: const Color(0xFFE8F5E9),
+            iconColor: AppColors.darkGreen,
+            iconBg: AppColors.lightGreenBg,
             label: 'الهاتف',
             value: info.phone,
             copyable: true,
@@ -40,8 +40,8 @@ class ContactUsInfoCard extends StatelessWidget {
           _InfoRow(
             w: w,
             icon: Icons.email_rounded,
-            iconColor: const Color(0xFF1565C0),
-            iconBg: const Color(0xFFE3F2FD),
+            iconColor: AppColors.mediumGreen,
+            iconBg: AppColors.lightGreenBg,
             label: 'البريد الإلكتروني',
             value: info.email,
             copyable: true,
@@ -50,8 +50,8 @@ class ContactUsInfoCard extends StatelessWidget {
           _InfoRow(
             w: w,
             icon: Icons.access_time_rounded,
-            iconColor: const Color(0xFFE65100),
-            iconBg: const Color(0xFFFFF3E0),
+            iconColor: AppColors.primary,
+            iconBg: AppColors.lightGreenBg,
             label: 'ساعات العمل',
             value: info.workingHours,
             copyable: false,
@@ -60,8 +60,8 @@ class ContactUsInfoCard extends StatelessWidget {
           _InfoRow(
             w: w,
             icon: Icons.location_on_rounded,
-            iconColor: const Color(0xFF6A1B9A),
-            iconBg: const Color(0xFFF3E5F5),
+            iconColor: AppColors.darkGreen,
+            iconBg: AppColors.lightGreenBg,
             label: 'العنوان',
             value: info.address,
             copyable: false,

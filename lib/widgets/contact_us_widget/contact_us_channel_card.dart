@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_2/app_theme/app_colors.dart';
 import 'package:project_2/modules/contact_us/contact_us_model.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'contact_us_clipboard_helper.dart';
 
 class ContactUsChannelCard extends StatelessWidget {
@@ -9,16 +10,25 @@ class ContactUsChannelCard extends StatelessWidget {
   final ContactChannel channel;
   const ContactUsChannelCard({super.key, required this.w, required this.h, required this.channel});
 
+  Future<void> _handleTap() async {
+    final isPhone = channel.type == 'phone';
+    copyToClipboard(channel.value);
+    if (isPhone) {
+      final uri = Uri(scheme: 'tel', path: channel.value);
+      if (await canLaunchUrl(uri)) {
+        await launchUrl(uri);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final isPhone = channel.type == 'phone';
     final iconData = isPhone ? Icons.phone_in_talk_rounded : Icons.alternate_email_rounded;
-    final gradientColors = isPhone
-        ? [const Color(0xFF43A047), const Color(0xFF2E7D32)]
-        : [const Color(0xFF1E88E5), const Color(0xFF1565C0)];
+    final gradientColors = [AppColors.mediumGreen, AppColors.darkGreen];
 
     return GestureDetector(
-      onTap: () => copyToClipboard(channel.value),
+      onTap: _handleTap,
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: w * 0.045, vertical: h * 0.018),
         decoration: BoxDecoration(
@@ -70,24 +80,24 @@ class ContactUsChannelCard extends StatelessWidget {
             ),
             SizedBox(width: w * 0.03),
             Container(
-              width: w * 0.13,
-              height: w * 0.13,
+              width: w * 0.1,
+              height: w * 0.1,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: gradientColors,
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
-                borderRadius: BorderRadius.circular(15),
+                borderRadius: BorderRadius.circular(12),
                 boxShadow: [
                   BoxShadow(
                     color: gradientColors.last.withOpacity(0.3),
-                    blurRadius: 10,
-                    offset: const Offset(0, 4),
+                    blurRadius: 8,
+                    offset: const Offset(0, 3),
                   ),
                 ],
               ),
-              child: Icon(iconData, color: Colors.white, size: w * 0.06),
+              child: Icon(iconData, color: Colors.white, size: w * 0.045),
             ),
           ],
         ),
