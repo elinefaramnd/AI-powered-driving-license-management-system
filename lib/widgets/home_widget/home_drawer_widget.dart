@@ -202,10 +202,13 @@ class HomeDrawerWidget extends StatelessWidget {
                       controller: controller,
                     ),
                     DrawerItemWidget(
-                      icon: Icons.support_agent,
-                      title: "privacy and policy",
-                      index: 14,
+                      icon: Icons.shield_outlined,
+                      title: "سياسة الخصوصية",
+                      index: 15,
                       controller: controller,
+                      onTap: () {
+                        Get.toNamed('/privacy_policy');
+                      },
                     ),
                     SizedBox(height: size.height * 0.015),
                     Divider(

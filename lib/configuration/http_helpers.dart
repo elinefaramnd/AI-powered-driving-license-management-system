@@ -4,7 +4,7 @@ import 'package:http/http.dart';
 import 'package:http/http.dart ' as http;
 
 //String? token;
-const String baseurl = 'http://192.168.1.18:8000/api/';
+const String baseurl = 'http://192.168.1.133:8000/api/';
 const String imgURL = 'http://192.168.1.18:8000';
 
 class HttpHelper {

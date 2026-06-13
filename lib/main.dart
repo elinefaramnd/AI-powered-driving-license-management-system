@@ -25,6 +25,8 @@ import 'modules/splash/splash_screen.dart';
 import 'modules/verification/verification_screen.dart';
 import 'modules/settings_support/settings_screen.dart';
 import 'modules/settings_support/screens/change_password_screen.dart';
+import 'modules/privacy_policy/privacy_policy_screen.dart';
+import 'modules/privacy_policy/privacy_policy_controller.dart';
 
 void main() {
   Get.put(ChatBotController());
@@ -67,6 +69,7 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/available_tests_page',page: () => AvailableTestsPage(),),
           GetPage(name: '/settings',page: () => SettingsScreen(),),
           GetPage(name: '/settings/password',page: () => ChangePasswordScreen(),),
+          GetPage(name: '/privacy_policy', page: () => PrivacyPolicyScreen(), binding: BindingsBuilder(() { Get.lazyPut(() => PrivacyPolicyController(), fenix: true); })),
 
         ]
 
