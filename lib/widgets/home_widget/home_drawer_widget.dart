@@ -210,6 +210,15 @@ class HomeDrawerWidget extends StatelessWidget {
                         Get.toNamed('/privacy_policy');
                       },
                     ),
+                    DrawerItemWidget(
+                      icon: Icons.headset_mic_rounded,
+                      title: "تواصل معنا",
+                      index: 16,
+                      controller: controller,
+                      onTap: () {
+                        Get.toNamed('/contact_us');
+                      },
+                    ),
                     SizedBox(height: size.height * 0.015),
                     Divider(
                       color: Colors.white.withOpacity(0.15),
