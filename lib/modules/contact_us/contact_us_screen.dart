@@ -70,6 +70,37 @@ class ContactUsScreen extends StatelessWidget {
                             child: ContactUsChannelCard(w: w, h: h, channel: ch),
                           ),
                         ),
+                        SizedBox(height: h * 0.028),
+                        SizedBox(
+                          width: double.infinity,
+                          height: h * 0.065,
+                          child: ElevatedButton(
+                            onPressed: () => Get.toNamed('/send_message'),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColors.primary,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                              elevation: 0,
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(Icons.send_rounded,
+                                    color: Colors.white, size: 20),
+                                SizedBox(width: w * 0.025),
+                                Text(
+                                  'إرسال رسالة',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: w * 0.042,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
                         SizedBox(height: h * 0.025),
                       ],
                     ),
