@@ -196,10 +196,13 @@ class HomeDrawerWidget extends StatelessWidget {
                       },
                     ),
                     DrawerItemWidget(
-                      icon: Icons.support_agent,
-                      title: "الأسئلة الشائعة (FAQ)",
-                      index: 14,
+                      icon: Icons.help_outline_rounded,
+                      title: "الأسئلة الشائعة",
+                      index: 17,
                       controller: controller,
+                      onTap: () {
+                        Get.toNamed('/faq');
+                      },
                     ),
                     DrawerItemWidget(
                       icon: Icons.shield_outlined,

@@ -31,6 +31,8 @@ import 'modules/contact_us/contact_us_screen.dart';
 import 'modules/contact_us/contact_us_controller.dart';
 import 'modules/send_message/send_message_screen.dart';
 import 'modules/send_message/send_message_controller.dart';
+import 'modules/faq/faq_screen.dart';
+import 'modules/faq/faq_controller.dart';
 
 void main() {
   Get.put(ChatBotController());
@@ -76,6 +78,7 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/privacy_policy', page: () => PrivacyPolicyScreen(), binding: BindingsBuilder(() { Get.lazyPut(() => PrivacyPolicyController(), fenix: true); })),
           GetPage(name: '/contact_us', page: () => ContactUsScreen(), binding: BindingsBuilder(() { Get.lazyPut(() => ContactUsController(), fenix: true); })),
           GetPage(name: '/send_message', page: () => const SendMessageScreen(), binding: BindingsBuilder(() { Get.lazyPut(() => SendMessageController(), fenix: true); })),
+          GetPage(name: '/faq', page: () => FaqScreen(), binding: BindingsBuilder(() { Get.lazyPut(() => FaqController(), fenix: true); })),
 
         ]
 
