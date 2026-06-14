@@ -23,6 +23,16 @@ import 'modules/sign_in/sign_in_screen.dart';
 import 'modules/sign_up/sign_up_screen.dart';
 import 'modules/splash/splash_screen.dart';
 import 'modules/verification/verification_screen.dart';
+import 'modules/settings_support/settings_screen.dart';
+import 'modules/settings_support/screens/change_password_screen.dart';
+import 'modules/privacy_policy/privacy_policy_screen.dart';
+import 'modules/privacy_policy/privacy_policy_controller.dart';
+import 'modules/contact_us/contact_us_screen.dart';
+import 'modules/contact_us/contact_us_controller.dart';
+import 'modules/send_message/send_message_screen.dart';
+import 'modules/send_message/send_message_controller.dart';
+import 'modules/faq/faq_screen.dart';
+import 'modules/faq/faq_controller.dart';
 
 void main() {
   Get.put(ChatBotController());
@@ -63,6 +73,12 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/my_licenses',page: () => MyLicensesScreen(),),
           GetPage(name: '/test_results',page: () => TestResultsScreen(),),
           GetPage(name: '/available_tests_page',page: () => AvailableTestsPage(),),
+          GetPage(name: '/settings',page: () => SettingsScreen(),),
+          GetPage(name: '/settings/password',page: () => ChangePasswordScreen(),),
+          GetPage(name: '/privacy_policy', page: () => PrivacyPolicyScreen(), binding: BindingsBuilder(() { Get.lazyPut(() => PrivacyPolicyController(), fenix: true); })),
+          GetPage(name: '/contact_us', page: () => ContactUsScreen(), binding: BindingsBuilder(() { Get.lazyPut(() => ContactUsController(), fenix: true); })),
+          GetPage(name: '/send_message', page: () => const SendMessageScreen(), binding: BindingsBuilder(() { Get.lazyPut(() => SendMessageController(), fenix: true); })),
+          GetPage(name: '/faq', page: () => FaqScreen(), binding: BindingsBuilder(() { Get.lazyPut(() => FaqController(), fenix: true); })),
 
         ]
 

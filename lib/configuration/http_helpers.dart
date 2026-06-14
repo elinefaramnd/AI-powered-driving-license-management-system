@@ -4,9 +4,8 @@ import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 
 //String? token;
-
-const String baseurl = 'https://capsule-congress-laurel.ngrok-free.dev/api/';
-const String imgURL = 'http://192.168.10.33:8000';
+const String baseurl = 'http://172.20.10.3:8000/api/';
+const String imgURL = 'http://172.20.10.3:8000';
 
 class HttpHelper {
   static Future<Response> postData({

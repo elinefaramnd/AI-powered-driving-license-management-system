@@ -191,18 +191,36 @@ class HomeDrawerWidget extends StatelessWidget {
                       title: "الإعدادات",
                       index: 13,
                       controller: controller,
+                      onTap: () {
+                        Get.toNamed('/settings');
+                      },
                     ),
                     DrawerItemWidget(
-                      icon: Icons.support_agent,
-                      title: "الأسئلة الشائعة (FAQ)",
-                      index: 14,
+                      icon: Icons.help_outline_rounded,
+                      title: "الأسئلة الشائعة",
+                      index: 17,
                       controller: controller,
+                      onTap: () {
+                        Get.toNamed('/faq');
+                      },
                     ),
                     DrawerItemWidget(
-                      icon: Icons.support_agent,
-                      title: "privacy and policy",
-                      index: 14,
+                      icon: Icons.shield_outlined,
+                      title: "سياسة الخصوصية",
+                      index: 15,
                       controller: controller,
+                      onTap: () {
+                        Get.toNamed('/privacy_policy');
+                      },
+                    ),
+                    DrawerItemWidget(
+                      icon: Icons.headset_mic_rounded,
+                      title: "تواصل معنا",
+                      index: 16,
+                      controller: controller,
+                      onTap: () {
+                        Get.toNamed('/contact_us');
+                      },
                     ),
                     SizedBox(height: size.height * 0.015),
                     Divider(
