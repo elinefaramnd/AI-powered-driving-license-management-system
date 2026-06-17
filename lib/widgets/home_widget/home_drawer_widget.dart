@@ -51,6 +51,7 @@ class HomeDrawerWidget extends StatelessWidget {
                       controller: controller,
                       onTap: () {
                         Get.toNamed('showPro');
+
                       },
                     ),
                     DrawerItemWidget(
@@ -67,6 +68,12 @@ class HomeDrawerWidget extends StatelessWidget {
                       title: "مواعيدي",
                       index: 3,
                       controller: controller,
+                      onTap: (){
+                        Get.toNamed(
+                          '/appointments',
+                          arguments: controller.applicationId.value,
+                        );
+                      },
                     ),
 
                      DrawerItemWidget(

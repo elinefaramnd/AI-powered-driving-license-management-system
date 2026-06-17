@@ -11,6 +11,7 @@ import 'modules/forget_password/forget_password_screen.dart';
 import 'modules/home_page/home_binding.dart';
 import 'modules/home_page/home_screen.dart';
 import 'modules/my_applications/my_orders/orders_screen.dart';
+import 'modules/my_appointments/my_appointments_screen.dart';
 import 'modules/my_licenses/my_licenses_screen.dart';
 import 'modules/test_results/test_results_screen.dart';
 import 'modules/my_applications/order_details/order_details_screen.dart';
@@ -79,6 +80,7 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/contact_us', page: () => ContactUsScreen(), binding: BindingsBuilder(() { Get.lazyPut(() => ContactUsController(), fenix: true); })),
           GetPage(name: '/send_message', page: () => const SendMessageScreen(), binding: BindingsBuilder(() { Get.lazyPut(() => SendMessageController(), fenix: true); })),
           GetPage(name: '/faq', page: () => FaqScreen(), binding: BindingsBuilder(() { Get.lazyPut(() => FaqController(), fenix: true); })),
+          GetPage(name: '/appointments',page: () => MyAppointmentsScreen(),),
 
         ]
 
