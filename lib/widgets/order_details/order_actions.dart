@@ -1,58 +1,49 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '../../app_theme/app_colors.dart';
+import '../../modules/payment/payment_screen.dart';
 
 class OrderActions extends StatelessWidget {
-  const OrderActions({super.key});
+  final String status;
+  final int applicationId;
+
+  const OrderActions({
+    super.key,
+    required this.status,
+    required this.applicationId,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final w = MediaQuery.of(context).size.width;
     final h = MediaQuery.of(context).size.height;
-    return Row(
-      children: [
-        // Expanded(
-        //   child: SizedBox(
-        //     height: h * 0.057,
-        //     child: OutlinedButton.icon(
-        //       onPressed: () {},
-        //       icon: const Icon(
-        //         Icons.share,
-        //         color: AppColors.primaryColor,
-        //       ),
-        //       label: const Text(
-        //         "مشاركة التفاصيل",
-        //         style: TextStyle(
-        //           color: AppColors.primaryColor,
-        //         ),
-        //       ),
-        //       style: OutlinedButton.styleFrom(
-        //         shape: RoundedRectangleBorder(
-        //           borderRadius: BorderRadius.circular(16),
-        //         ),
-        //       ),
-        //     ),
-        //   ),
-        // ),
-        //
-        // SizedBox(width:  w * 0.03),
-        //
-        // Expanded(
-        //   child: SizedBox(
-        //     height: h * 0.057,
-        //     child: ElevatedButton.icon(
-        //       onPressed: () {},
-        //       icon: const Icon(Icons.download),
-        //       label: const Text("تحميل المرفقات"),
-        //       style: ElevatedButton.styleFrom(
-        //         backgroundColor: AppColors.primaryColor,
-        //         foregroundColor: Colors.white,
-        //         shape: RoundedRectangleBorder(
-        //           borderRadius: BorderRadius.circular(w * 0.04),
-        //         ),
-        //       ),
-        //     ),
-        //   ),
-        // ),
-      ],
+
+    if (status != 'payment_pending') {
+      return const SizedBox.shrink();
+    }
+
+    return SizedBox(
+      width: double.infinity,
+      height: h * 0.057,
+      child: ElevatedButton.icon(
+        onPressed: () {
+          Get.to(() => PaymentScreen(applicationId: applicationId));
+        },
+        icon: const Icon(Icons.payment, color: Colors.white),
+        label: const Text(
+          "دفع الرسوم",
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppColors.primaryColor,
+          foregroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+        ),
+      ),
     );
   }
 }

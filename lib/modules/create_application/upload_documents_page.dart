@@ -7,11 +7,24 @@ import '../../widgets/uploading_documents/remaining_docs.dart';
 import 'upload_documents_controller.dart';
 class UploadDocumentsPage extends StatelessWidget {
   const UploadDocumentsPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     print("GET ARGUMENT => ${Get.arguments}");
     print("TYPE => ${Get.arguments.runtimeType}");
-    final controller = Get.put(UploadDocumentsController(Get.arguments));
+    final int applicationId;
+    final String flow;
+    if (Get.arguments is int) {
+      applicationId = Get.arguments;
+      flow = "new";
+    } else if (Get.arguments is Map<String, dynamic>) {
+      applicationId = Get.arguments["applicationId"];
+      flow = Get.arguments["flow"] ?? "new";
+    } else {
+      applicationId = 0;
+      flow = "new";
+    }
+    final controller = Get.put(UploadDocumentsController(applicationId, flow));
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(

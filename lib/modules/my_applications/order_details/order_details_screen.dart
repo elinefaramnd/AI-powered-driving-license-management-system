@@ -56,7 +56,10 @@ class OrderDetailsScreen extends StatelessWidget {
                   ),
                 ),
               SizedBox(height: h * 0.025),
-              const OrderActions(),
+              OrderActions(
+                status: order.status,
+                applicationId: order.id,
+              ),
             ],
           ),
         );

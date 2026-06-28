@@ -163,7 +163,9 @@ class HomeDrawerWidget extends StatelessWidget {
                               title: "تجديد رخصة",
                               index: 8,
                               controller: controller,
-                              onTap: () {},
+                              onTap: () {
+                                Get.toNamed("/renew_license");
+                              },
                             ),
                             DrawerItemWidget(
                               icon: Icons.description_outlined,

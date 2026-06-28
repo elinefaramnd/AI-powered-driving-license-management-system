@@ -10,7 +10,8 @@ import '../home_page/home_controller.dart';
 
 class UploadDocumentsController extends GetxController {
   final int applicationId;
-  UploadDocumentsController(this.applicationId);
+  final String flow;
+  UploadDocumentsController(this.applicationId, this.flow);
   RxBool loading = false.obs;
   RxBool submitted = false.obs;
   RxList documents = [].obs;
