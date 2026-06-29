@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../app_theme/app_colors.dart';
+import '../../widgets/custom_app_bar.dart';
 import '../../widgets/my_appointments_widget/appointment_card.dart';
 import '../../widgets/my_appointments_widget/appointment_header.dart';
 import 'my_appointments_controller.dart';
@@ -17,31 +18,9 @@ class MyAppointmentsScreen extends StatelessWidget {
       textDirection: TextDirection.rtl,
       child: Scaffold(
         backgroundColor: AppColors.background,
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 0,
-          centerTitle: true,
-          automaticallyImplyLeading: false,
-          title: const Text(
-            "مواعيدي",
-            style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-            ),
+          appBar: const CustomAppBar(
+            title: "مواعيدي",
           ),
-
-          actions: [
-            IconButton(
-              onPressed: () {
-                Get.back();
-              },
-              icon: const Icon(
-                Icons.arrow_forward,
-                color: Colors.black,
-              ),
-            ),
-          ],
-        ),
         body: Obx(() {
           if (controller.isLoading.value) {
             return const Center(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../app_theme/app_colors.dart';
+import '../../widgets/custom_app_bar.dart';
 import '../../widgets/uploading_documents/bottom_section.dart';
 import '../../widgets/uploading_documents/documents_list.dart';
 import '../../widgets/uploading_documents/remaining_docs.dart';
@@ -14,17 +15,8 @@ class UploadDocumentsPage extends StatelessWidget {
     final controller = Get.put(UploadDocumentsController(Get.arguments));
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        centerTitle: true,
-        title: Text(
-          "رفع الوثائق",
-          style: TextStyle(
-            color: AppColors.primaryColor,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+      appBar: const CustomAppBar(
+        title:  "رفع الوثائق",
       ),
       body: Obx(() {
         if (controller.loading.value) {

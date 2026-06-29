@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../app_theme/app_colors.dart';
+import '../../widgets/custom_app_bar.dart';
 import '../../widgets/payment_widget/amount_card.dart';
 import '../../widgets/payment_widget/order_info_card.dart';
 import '../../widgets/payment_widget/payment_bottom_bar.dart';
@@ -27,13 +28,8 @@ class PaymentScreen extends StatelessWidget {
       textDirection: TextDirection.rtl,
       child: Scaffold(
         backgroundColor: AppColors.background,
-        appBar: AppBar(
-          centerTitle: true,
-          title: const Text('دفع الرسوم',style: TextStyle(fontWeight: FontWeight.bold),),
-          // titleTextStyle: TextStyle(fontWeight: FontWeight.bold),
-          backgroundColor: Colors.white,
-          foregroundColor: Colors.black,
-          elevation: 0,
+        appBar: const CustomAppBar(
+          title:"دفع الرسوم",
         ),
         body: Obx(() {
           if (controller.isLoading.value) {

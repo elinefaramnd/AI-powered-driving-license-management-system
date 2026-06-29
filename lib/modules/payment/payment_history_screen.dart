@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../widgets/custom_app_bar.dart';
 import 'payment_service.dart';
 
 class PaymentHistoryScreen extends StatelessWidget {
@@ -18,12 +19,8 @@ class PaymentHistoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffF5F5F5),
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text('سجل المدفوعات'),
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
-        elevation: 0,
+      appBar: const CustomAppBar(
+        title:'سجل المدفوعات',
       ),
       body: FutureBuilder<List<dynamic>>(
         future: _fetchPayments(),

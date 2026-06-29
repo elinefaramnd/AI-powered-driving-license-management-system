@@ -5,6 +5,7 @@ import '../../widgets/available_tests/locked_test_card.dart';
 import '../../widgets/available_tests/main_test_card.dart';
 import '../../widgets/available_tests/order_info_card.dart';
 import '../../widgets/available_tests/progress_tracker.dart';
+import '../../widgets/custom_app_bar.dart';
 import 'AvailableTestsController.dart';
 
 class AvailableTestsPage extends StatelessWidget {
@@ -16,18 +17,8 @@ class AvailableTestsPage extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: const Color(0xffF7F7F4),
-      appBar: AppBar(
-        centerTitle: true,
-        elevation: 0,
-        backgroundColor: Colors.white,
-        title: Text(
-          "الاختبارات المتاحة",
-          style: TextStyle(
-            color: AppColors.primaryColor,
-            fontWeight: FontWeight.bold,
-            fontSize: MediaQuery.of(context).size.width * .05,
-          ),
-        ),
+      appBar: const CustomAppBar(
+        title:  "الاختبارات المتاحة",
       ),
       body: Obx(() {
         if (controller.loading.value) {

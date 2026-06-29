@@ -5,6 +5,7 @@ import '../../widgets/create_application/application_header.dart';
 import '../../widgets/create_application/service_selector.dart';
 import '../../widgets/create_application/license_selector.dart';
 import '../../widgets/create_application/submit_button.dart';
+import '../../widgets/custom_app_bar.dart';
 import 'application_controller.dart';
 class CreateApplicationStep1 extends StatelessWidget {
   CreateApplicationStep1({super.key});
@@ -14,19 +15,8 @@ class CreateApplicationStep1 extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: const Color(0xffF7F7F4),
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-        surfaceTintColor: Colors.white,
-        iconTheme: IconThemeData(color: AppColors.primary),
-        title: Text(
-          "طلب إصدار جديد",
-          style: TextStyle(
-            color: AppColors.primary,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        centerTitle: true,
+      appBar: const CustomAppBar(
+        title: "طلب إصدار جديد",
       ),
       body: Obx(() {
         if (controller.pageLoading.value) {

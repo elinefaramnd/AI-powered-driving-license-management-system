@@ -6,6 +6,7 @@ import '../../widgets/appointment_slots_widget/center_map_card.dart';
 import '../../widgets/appointment_slots_widget/confirm_booking_button.dart';
 import '../../widgets/appointment_slots_widget/date_selector.dart';
 import '../../widgets/appointment_slots_widget/slot_card.dart';
+import '../../widgets/custom_app_bar.dart';
 import 'appointment_slots_controller.dart';
 
 class AppointmentSlotsPage extends StatelessWidget {
@@ -34,21 +35,10 @@ class AppointmentSlotsPage extends StatelessWidget {
       ),
     );
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        centerTitle: true,
-        iconTheme: IconThemeData(color: AppColors.primaryColor),
-        title:Text(
-          controller.isReschedule
-              ? "تعديل موعد الاختبار"
-              : "حجز موعد الاختبار",
-          style: TextStyle(
-            color: AppColors.primaryColor,
-            fontWeight: FontWeight.bold,
-            fontSize: size.width * .05,
-          ),
-        ),
+      appBar: CustomAppBar(
+        title:  controller.isReschedule
+            ? "تعديل موعد الاختبار"
+            : "حجز موعد الاختبار",
       ),
       backgroundColor:AppColors.background,
       body: Obx(() {

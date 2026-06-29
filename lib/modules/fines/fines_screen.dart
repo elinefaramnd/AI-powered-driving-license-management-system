@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../widgets/custom_app_bar.dart';
 import '../../widgets/fines_widget/empty_fines_widget.dart';
 import '../../widgets/fines_widget/fine_card.dart';
 import '../../widgets/fines_widget/fines_summary_card.dart';
@@ -11,10 +12,8 @@ class FinesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffF5F5F5),
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text("غراماتي"),
-        backgroundColor: Colors.white,
+      appBar: const CustomAppBar(
+        title:  "غراماتي",
       ),
       body: Obx(() {
         if (controller.loading.value) {

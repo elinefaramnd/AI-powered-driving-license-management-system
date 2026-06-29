@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../app_theme/app_colors.dart';
+import '../../../widgets/custom_app_bar.dart';
 import '../settings_controller.dart';
 import '../../../widgets/settings_widget/password_field_widget.dart';
 
@@ -21,21 +22,8 @@ class ChangePasswordScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: AppColors.primaryColor),
-          onPressed: () => Get.back(),
-        ),
-        title: const Text(
-          'تغيير كلمة المرور',
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        centerTitle: true,
+      appBar: const CustomAppBar(
+        title:'تغيير كلمة المرور',
       ),
       body: SafeArea(
         child: SingleChildScrollView(

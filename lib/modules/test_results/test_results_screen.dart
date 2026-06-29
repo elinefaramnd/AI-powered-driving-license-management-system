@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../app_theme/app_colors.dart';
+import '../../widgets/custom_app_bar.dart';
 import 'test_result_card.dart';
 import 'test_results_controller.dart';
 
@@ -13,37 +14,8 @@ class TestResultsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
-          onPressed: () => Get.back(),
-          icon: Icon(
-            Icons.arrow_back_ios_new,
-            color: AppColors.primaryColor,
-            size: 20,
-          ),
-        ),
-        title: Text(
-          'اختباراتي ونتائجي',
-          style: TextStyle(
-            color: AppColors.primaryColor,
-            fontSize: 20,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        centerTitle: true,
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.notifications_none_outlined,
-              color: AppColors.primaryColor,
-              size: 24,
-            ),
-          ),
-          const SizedBox(width: 8),
-        ],
+      appBar: const CustomAppBar(
+        title:'اختباراتي ونتائجي',
       ),
       body: Obx(() {
         if (controller.loading.value) {

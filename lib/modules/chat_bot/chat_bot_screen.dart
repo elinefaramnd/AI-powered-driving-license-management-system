@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_2/modules/chat_bot/chat_bot_controller.dart';
 import '../../app_theme/app_colors.dart';
+import '../../widgets/custom_app_bar.dart';
 
 class ChatBotScreen extends StatelessWidget {
   ChatBotScreen({super.key});
@@ -16,36 +17,9 @@ class ChatBotScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: AppBar(
-        backgroundColor: AppColors.primaryColor,
-        elevation: 0,
-        centerTitle: true,
-        title: Text(
-          'المساعد الذكي',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: size.width * 0.045,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        leading: IconButton(
-          onPressed: () => Get.back(),
-          icon: Icon(
-            Icons.arrow_back_ios,
-            color: Colors.white,
-            size: size.width * 0.05,
-          ),
-        ),
-        // actions: [
-        //   IconButton(
-        //     onPressed: () {},
-        //     icon: Icon(
-        //       Icons.more_vert,
-        //       color: Colors.white,
-        //       size: size.width * 0.06,
-        //     ),
-        //   ),
-        // ],
+
+      appBar: const CustomAppBar(
+        title:  'المساعد الذكي',
       ),
       body: Column(
         children: [

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:project_2/app_theme/app_colors.dart';
 
 import 'order_model.dart';
 
@@ -92,7 +93,7 @@ class OrderCard extends StatelessWidget {
           SizedBox(height: size.height * 0.015),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xff054239),
+              backgroundColor: AppColors.primaryColor,
               minimumSize: Size(double.infinity, size.height * 0.05),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(size.width * 0.03),

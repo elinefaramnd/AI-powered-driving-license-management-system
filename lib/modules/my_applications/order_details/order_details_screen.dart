@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../app_theme/app_colors.dart';
+import '../../../widgets/custom_app_bar.dart';
 import '../../../widgets/order_details/document_card_widget.dart';
 import '../../../widgets/order_details/documents_section_header.dart';
 import '../../../widgets/order_details/empty_documents_widget.dart';
@@ -20,10 +21,8 @@ class OrderDetailsScreen extends StatelessWidget {
     final controller = Get.put(OrderDetailsController());
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        centerTitle: true,
-        title: const Text("تفاصيل الطلب"),
+      appBar: const CustomAppBar(
+        title: "تفاصيل الطلب",
       ),
       body: Obx(() {
         if (controller.loading.value) {

@@ -3,6 +3,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import '../../../app_theme/app_colors.dart';
+import '../../../widgets/custom_app_bar.dart';
 import 'order_card.dart';
 import 'orders_controller.dart';
 
@@ -12,11 +13,8 @@ class OrdersScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffF4F4F4),
-      appBar: AppBar(
-        title: Text("طلباتي", style: TextStyle(color: AppColors.primaryColor)),
-        centerTitle: true,
-        backgroundColor: Colors.white,
-        elevation: 0,
+      appBar: const CustomAppBar(
+        title: "طلباتي",
       ),
       body: Obx(() {
         if (controller.loading.value) {

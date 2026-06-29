@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../app_theme/app_colors.dart';
+import '../../widgets/custom_app_bar.dart';
 import '../../widgets/my_test_results/result_card.dart';
 import '../../widgets/my_test_results/result_footer.dart';
 import 'test_results_controller.dart';
@@ -22,28 +23,8 @@ class TestResultsView extends StatelessWidget {
       textDirection: TextDirection.rtl,
       child: Scaffold(
         backgroundColor: AppColors.background,
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 0,
-          centerTitle: true,
-          title: Text(
-            "نتائج اختباراتي",
-            style: TextStyle(
-              fontSize: titleFont,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            ),
-          ),
-          leading: const SizedBox(),
-          actions: [
-            IconButton(
-              onPressed: () => Get.back(),
-              icon: const Icon(
-                Icons.arrow_forward,
-                color: Colors.black,
-              ),
-            ),
-          ],
+        appBar: const CustomAppBar(
+          title:"نتائج اختباراتي",
         ),
         body: Obx(() {
           if (controller.isLoading.value) {
