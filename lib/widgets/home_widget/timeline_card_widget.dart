@@ -42,6 +42,16 @@ class TimelineCardWidget extends StatelessWidget {
 
         testsActive = true;
       }
+
+      else if (status == "waiting_retest") {
+
+        createDone = true;
+        docsDone = true;
+        paymentDone = true;
+        testsActive = true;
+        testsDone = false;
+      }
+
       return Container(
         padding: EdgeInsets.all(w * 0.035),
         decoration: BoxDecoration(

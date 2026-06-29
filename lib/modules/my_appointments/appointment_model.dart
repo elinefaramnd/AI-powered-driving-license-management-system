@@ -7,6 +7,8 @@ class AppointmentModel {
   final String time;
   final String location;
   final String? result;
+  final int testTypeId;
+  final int applicationId;
 
   AppointmentModel({
     required this.id,
@@ -17,6 +19,9 @@ class AppointmentModel {
     required this.time,
     required this.location,
     this.result,
+    required this.testTypeId,
+    required this.applicationId
+
   });
 
   factory AppointmentModel.fromJson(Map<String, dynamic> json) {
@@ -25,6 +30,8 @@ class AppointmentModel {
       testName: json['test_type']['name'] ?? '',
       testCode: json['test_type']['code'] ?? '',
       status: json['status'] ?? '',
+      testTypeId: json['appointment_slot']['test_type_id'],
+      applicationId: json['application_id'],
       date: json['appointment_slot']['date'] ?? '',
       time: json['appointment_slot']['start_time'] ?? '',
       location: json['appointment_slot']['location'] ?? '',

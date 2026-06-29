@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:get/get.dart';
 import '../../configuration/http_helpers.dart';
+import '../../widgets/app_snackbar.dart';
 import 'appointment_model.dart';
 
 class AppointmentsController extends GetxController {
@@ -27,9 +28,9 @@ class AppointmentsController extends GetxController {
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
-
         appointments.value = (data['data'] as List)
             .map((e) => AppointmentModel.fromJson(e))
+            .where((item) => item.status != "cancelled")
             .toList();
       }
     } catch (e) {
@@ -65,6 +66,39 @@ class AppointmentsController extends GetxController {
 
   String getResult(AppointmentModel item) {
     return item.result ?? "";
+  }
+
+  Future<void> cancelAppointment(int appointmentId) async {
+    try {
+      isLoading.value = true;
+
+      final response = await HttpHelper.deleteData(
+        url: "appointments/$appointmentId/cancel",
+        body: {
+          "cancellation_reason": "Schedule conflict",
+        },
+      );
+
+      if (response.statusCode == 200) {
+        appointments.removeWhere(
+              (item) => item.id == appointmentId,
+        );
+
+        AppSnackbar.show(
+          "تم",
+          "تم إلغاء الموعد بنجاح",
+        );
+      }
+    } catch (e) {
+      Get.snackbar(
+        "خطأ",
+        "فشل إلغاء الموعد",
+      );
+
+      print(e);
+    } finally {
+      isLoading.value = false;
+    }
   }
 
   String getDay(AppointmentModel item) {

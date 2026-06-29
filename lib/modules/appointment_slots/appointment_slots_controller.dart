@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:get/get.dart';
 import 'package:project_2/widgets/app_snackbar.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -8,11 +7,15 @@ import '../../configuration/http_helpers.dart';
 class AppointmentSlotsController extends GetxController {
   final int testTypeId;
   final int applicationId;
+  final bool isReschedule;
+  final int? appointmentId;
   RxBool bookingLoading = false.obs;
 
   AppointmentSlotsController({
     required this.testTypeId,
     required this.applicationId,
+    this.isReschedule = false,
+    this.appointmentId,
   });
 
   RxBool loading = true.obs;
@@ -39,6 +42,44 @@ class AppointmentSlotsController extends GetxController {
     }
     loading.value = false;
   }
+
+  Future<void> rescheduleAppointment() async {
+    if (selectedSlotId.value == 0) return;
+
+    bookingLoading.value = true;
+
+    try {
+      final res = await HttpHelper.putData(
+        url: 'appointments/$appointmentId/reschedule',
+        body: {
+          "appointment_slot_id":
+          selectedSlotId.value.toString(),
+        },
+      );
+
+      final decoded = jsonDecode(res.body);
+
+      bookingLoading.value = false;
+
+      if (decoded["success"] == true) {
+        Get.back(result: true);
+
+        AppSnackbar.show(
+          "تم التعديل",
+          "تم تعديل الموعد بنجاح",
+        );
+      } else {
+        print(decoded["message"]);
+        AppSnackbar.show(
+          "خطأ",
+          decoded["message"],
+        );
+      }
+    } catch (e) {
+      bookingLoading.value = false;
+    }
+  }
+
   List get dates {
     return slots
         .map((e) => e["date"])

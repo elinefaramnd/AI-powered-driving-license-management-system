@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../app_theme/app_colors.dart';
+import '../../modules/appointment_slots/appointment_slots_page.dart';
 import '../../modules/my_appointments/my_appointments_controller.dart';
 import 'appointment_footer_section.dart';
 import 'appointment_info_section.dart';
@@ -108,8 +110,20 @@ class AppointmentCard extends StatelessWidget {
 
                     AppointmentFooterSection(
                       completed: completed,
-                      result:
-                      controller.getResult(item),
+                      result: controller.getResult(item),
+                      onEdit: () {
+                        Get.to(
+                              () => AppointmentSlotsPage(
+                            testTypeId: item.testTypeId,
+                            applicationId: item.applicationId,
+                            isReschedule: true,
+                            appointmentId: item.id,
+                          ),
+                        );
+                      },
+                        onCancel: () {
+                          controller.cancelAppointment(item.id);
+                        }
                     ),
                   ],
                 ),

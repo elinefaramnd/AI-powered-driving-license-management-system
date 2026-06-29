@@ -12,10 +12,14 @@ class AppointmentSlotsPage extends StatelessWidget {
   final int testTypeId;
   final int applicationId;
 
+  final bool isReschedule;
+  final int? appointmentId;
   const AppointmentSlotsPage({
     super.key,
     required this.testTypeId,
     required this.applicationId,
+    this.isReschedule = false,
+    this.appointmentId,
   });
 
   @override
@@ -25,6 +29,8 @@ class AppointmentSlotsPage extends StatelessWidget {
       AppointmentSlotsController(
         testTypeId: testTypeId,
         applicationId: applicationId,
+        isReschedule: isReschedule,
+        appointmentId: appointmentId,
       ),
     );
     return Scaffold(
@@ -33,7 +39,10 @@ class AppointmentSlotsPage extends StatelessWidget {
         elevation: 0,
         centerTitle: true,
         iconTheme: IconThemeData(color: AppColors.primaryColor),
-        title: Text("حجز موعد الاختبار",
+        title:Text(
+          controller.isReschedule
+              ? "تعديل موعد الاختبار"
+              : "حجز موعد الاختبار",
           style: TextStyle(
             color: AppColors.primaryColor,
             fontWeight: FontWeight.bold,
@@ -152,7 +161,11 @@ class AppointmentSlotsPage extends StatelessWidget {
                         enabled: controller.selectedSlotId.value != 0,
                         isLoading: controller.bookingLoading.value,
                         onPressed: () {
-                          controller.bookAppointment();
+                          if (controller.isReschedule) {
+                            controller.rescheduleAppointment();
+                          } else {
+                            controller.bookAppointment();
+                          }
                         },
                       ),
                     ),

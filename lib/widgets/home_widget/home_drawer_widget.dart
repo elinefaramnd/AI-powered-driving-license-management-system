@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import '../../app_theme/app_colors.dart';
 import '../../modules/home_page/home_controller.dart';
 import '../../modules/logout/logout_controller.dart';
+import '../../modules/my_test_results/TestResultsView.dart';
 import 'drawer_item_widget.dart';
 
 class HomeDrawerWidget extends StatelessWidget {
@@ -86,6 +87,16 @@ class HomeDrawerWidget extends StatelessWidget {
                            'available_tests_page',
                            arguments: controller.applicationId.value,);
                        },
+                    ),
+                    DrawerItemWidget(
+                      icon: Icons.person_outline,
+                      title: "نتائجي",
+                      index: 12,
+                      controller: controller,
+                      onTap: () {
+                        Get.to(()=>TestResultsView(), arguments: controller.applicationId.value,);
+
+                      },
                     ),
                     DrawerItemWidget(
                       icon: Icons.badge_outlined,
@@ -183,10 +194,6 @@ class HomeDrawerWidget extends StatelessWidget {
                         );
                       }),
                     ),
-
-
-
-
                     DrawerItemWidget(
                       icon: Icons.support_agent,
                       title: "المساعدة والدعم",

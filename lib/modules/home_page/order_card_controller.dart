@@ -198,6 +198,35 @@ class OrderCardController extends GetxController {
         ),
       );
     }
+    if (status == "waiting_retest") {
+      return section(
+        text: "يمكنك إعادة الاختبار وحجز موعد جديد",
+        button: OrderActionButton(
+          onPressed: () {
+            if (home.applicationId.value > 0) {
+              if (canUseServices) {
+                Get.toNamed(
+                  'available_tests_page',
+                  arguments: home.applicationId.value,
+                );
+              } else {
+                AppSnackbar.show(
+                  "تنبيه",
+                  _message(),
+                );
+              }
+            }
+          },
+          text: "إعادة الاختبار",
+          icon: Icons.refresh,
+          color: canUseServices
+              ? AppColors.primaryColor
+              : Colors.grey.shade400,
+          width: width * .47,
+          height: height * .055,
+        ),
+      );
+    }
     return const SizedBox();
   }
   String _message() {

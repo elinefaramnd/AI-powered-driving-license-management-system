@@ -47,7 +47,7 @@ class SignInScreen extends StatelessWidget {
                     title: "كلمة المرور",
                     controller: controller.passwordController,
                     hintText: '.........',
-                    icon: Icons.lock_reset,
+                    icon: Icons.lock_outline,
                     obscureText: controller.obscurePassword,
                     onToggle: controller.togglePassword,
                     error: controller.passwordError,

@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
-
 import 'appointment_action_button.dart';
 import 'appointment_status_chip.dart';
 
 class AppointmentFooterSection extends StatelessWidget {
   final bool completed;
   final String result;
+  final VoidCallback? onEdit;
+  final VoidCallback? onCancel;
 
   const AppointmentFooterSection({
     super.key,
     required this.completed,
     required this.result,
+    this.onEdit,
+    this.onCancel,
   });
 
   @override
@@ -27,6 +30,7 @@ class AppointmentFooterSection extends StatelessWidget {
       children: [
         AppointmentActionButton(
           text: "تعديل الموعد",
+          onTap: onEdit,
         ),
 
         SizedBox(
@@ -35,6 +39,7 @@ class AppointmentFooterSection extends StatelessWidget {
 
         AppointmentActionButton(
           text: "إلغاء الموعد",
+          onTap: onCancel,
         ),
       ],
     );

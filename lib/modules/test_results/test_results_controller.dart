@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import '../../app_theme/app_colors.dart';
 import '../../configuration/http_helpers.dart';
 import 'test_result_model.dart';
 
@@ -15,12 +16,11 @@ class TestResultsController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    // Try to get application_id from storage, or use a default for testing
     final storedAppId = box.read<int>('application_id');
     if (storedAppId != null) {
       applicationId.value = storedAppId.toString();
     } else {
-      applicationId.value = '3'; // Default for testing
+      applicationId.value = '3';
     }
     getTestResults();
   }
@@ -62,7 +62,7 @@ class TestResultsController extends GetxController {
   Color getResultColor(String result) {
     switch (result) {
       case 'passed':
-        return Colors.green;
+        return AppColors.primaryColor;
       case 'failed':
         return Colors.red;
       case 'pending':

@@ -42,6 +42,25 @@ class HttpHelper {
     );
   }
 
+  static Future<Response> deleteData({
+    required String url,
+    Map<String, dynamic>? body,
+  }) async {
+    final box = GetStorage();
+    final storedToken = box.read<String>('token');
+
+    return await http.delete(
+      Uri.parse('$baseurl$url'),
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        if (storedToken != null)
+          'Authorization': 'Bearer $storedToken',
+      },
+      body: jsonEncode(body),
+    );
+  }
+
   static Future<Response> gettData({required String url}) async {
     final box = GetStorage();
     final storedToken = box.read<String>('token');
