@@ -55,11 +55,11 @@ class ResetPasswordController extends GetxController {
       );
       final data = jsonDecode(response.body);
       if (response.statusCode == 200) {
-        AppSnackbar.show("Success", data['message']);
+        AppSnackbar.show("نجاح", data['message']);
         Get.to(() => SignInScreen());
       } else {
         print(response.body);
-        AppSnackbar.show("Error", data['message']);
+        AppSnackbar.show("خطأ", data['message']);
       }
     } catch (e) {
       AppSnackbar.show("Error", "Server error: $e");

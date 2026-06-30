@@ -83,19 +83,19 @@ class DocumentIconBox extends StatelessWidget {
   IconData _icon(String name) {
     final text = name.toLowerCase();
 
-    if (text.contains("national")) {
+    if (text.contains("الهوية")) {
       return Icons.badge_outlined;
     }
 
-    if (text.contains("personal")) {
+    if (text.contains("صورة")) {
       return Icons.person_outline;
     }
 
-    if (text.contains("blood")) {
+    if (text.contains("تبرع")) {
       return Icons.bloodtype_outlined;
     }
 
-    if (text.contains("medical")) {
+    if (text.contains("طبي")) {
       return Icons.monitor_heart_outlined;
     }
 

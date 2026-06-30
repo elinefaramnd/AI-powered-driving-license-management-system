@@ -42,7 +42,7 @@ class SignInController extends GetxController {
         box.write('token', token);
         box.write('id', role);
         AppSnackbar.show(
-          'تم تسجيل الدخول بنجاح',
+          'نجاح',
           res['message'].toString(),
         );
         Get.offNamed('/home');

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:project_2/modules/home_page/chat_bot_controller.dart';
 import 'package:project_2/modules/profile/update_profile_screen.dart';
 import 'modules/account_verification/account_verification_screen.dart';
@@ -35,7 +36,10 @@ import 'modules/send_message/send_message_controller.dart';
 import 'modules/faq/faq_screen.dart';
 import 'modules/faq/faq_controller.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await GetStorage.init();
   Get.put(ChatBotController());
   Get.put(ChatController());
   runApp(const MyApp());
@@ -47,12 +51,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
+    final box = GetStorage();
+    final hasToken =
+        box.read<String>('token') != null &&
+            box.read<String>('token')!.isNotEmpty;
     return GetMaterialApp(
 
       debugShowCheckedModeBanner: false,
 
-      initialRoute: '/',
+        initialRoute: hasToken ? '/home' : '/',
 
         getPages: [
           GetPage(name: '/signIn', page: ()=>SignInScreen(),binding: SignInBindings()),

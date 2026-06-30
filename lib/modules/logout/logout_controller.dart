@@ -27,6 +27,7 @@ class LogOutController extends GetxController {
           if (response.statusCode == 200 || response.statusCode == 201) {
             Get.back();
             AppSnackbar.show('تم تسجيل الخروج', res['message'] ?? 'تم تسجيل الخروج بنجاح',);
+            //Get.deleteAll();
             Get.offAllNamed('/signIn');
           } else {
             Get.back();
