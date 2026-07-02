@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:project_2/modules/reset_password/reset_password_model.dart';
 import 'package:project_2/widgets/app_snackbar.dart';
 import '../../configuration/http_helpers.dart';
 import '../sign_in/sign_in_screen.dart';
@@ -54,12 +55,13 @@ class ResetPasswordController extends GetxController {
         },
       );
       final data = jsonDecode(response.body);
+      final model = ResetPasswordModel.fromJson(data);
       if (response.statusCode == 200) {
-        AppSnackbar.show("نجاح", data['message']);
-        Get.to(() => SignInScreen());
+        AppSnackbar.show("نجاح",model.message);
+        Get.offAll(() => SignInScreen());
       } else {
         print(response.body);
-        AppSnackbar.show("خطأ", data['message']);
+        AppSnackbar.show("خطأ", model.message);
       }
     } catch (e) {
       AppSnackbar.show("Error", "Server error: $e");

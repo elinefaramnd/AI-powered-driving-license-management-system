@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:project_2/widgets/app_snackbar.dart';
-import '../../configuration/http_helpers.dart';
+
+import '../../../configuration/http_helpers.dart';
+import 'complete_profile_model.dart';
+
 
 class CompleteProfileController extends GetxController {
   final nameController = TextEditingController();
@@ -35,6 +38,7 @@ class CompleteProfileController extends GetxController {
     "الحسكة",
   ];
   Future<void> completeProfile() async {
+    print("completeProfile called");
     nameError.value = '';
     nationalIdError.value = '';
     birthDateError.value = '';
@@ -83,13 +87,16 @@ class CompleteProfileController extends GetxController {
         url: "profile/complete",
         body: body,
       );
+      print(response.statusCode);
+      print(response.body);
       final data = jsonDecode(response.body);
+      final model = CompleteProfileModel.fromJson(data);
       if (response.statusCode == 200 || response.statusCode == 201) {
-        AppSnackbar.show('نجاح',data["message"] ?? "تم",);
+        AppSnackbar.show('نجاح', model.message ,);
         Get.offNamed('/home');
       } else {
         AppSnackbar.show('خطأ',
-          data["message"] ?? "فشل",);
+          model.message );
       }
     } catch (e) {
       AppSnackbar.show("خطأ", e.toString());
@@ -98,13 +105,18 @@ class CompleteProfileController extends GetxController {
     }
   }
   String? validateName() {
-    final storedName = GetStorage().read('name');
+    final storedName = (GetStorage().read('name') ?? '').toString().trim();
+    final enteredName = nameController.text.trim();
 
-    if (nameController.text.trim() != storedName) {
+    print("storedName = '$storedName'");
+    print("enteredName = '$enteredName'");
+    print(storedName.length);
+    print(enteredName.length);
+
+    if (storedName != enteredName) {
       return 'الاسم غير مطابق للاسم المسجل عند انشاء الحساب';
-      return nameError.value;
     }
-    nameError.value = '';
+
     return null;
   }
 }

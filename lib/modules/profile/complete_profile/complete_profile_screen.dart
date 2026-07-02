@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_2/widgets/outlined_textField_widget.dart';
-import '../../app_theme/app_colors.dart';
-import '../../widgets/profile/complete_profileButton.dart';
-import '../../widgets/profile/dropdown_widget.dart';
-import '../../widgets/profile/profile_error_text.dart';
+import '../../../app_theme/app_colors.dart';
+import '../../../widgets/profile/complete_profileButton.dart';
+import '../../../widgets/profile/dropdown_widget.dart';
+import '../../../widgets/profile/profile_error_text.dart';
 import 'complete_profile_controller.dart';
 
 class CompleteProfileScreen extends StatelessWidget {
   CompleteProfileScreen({super.key});
-  final CompleteProfileController controller = Get.put(CompleteProfileController(),);
+  final CompleteProfileController controller =
+  Get.find<CompleteProfileController>();
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -94,7 +95,7 @@ class CompleteProfileScreen extends StatelessWidget {
                         builder: (context, child) {
                           return Theme(
                             data: Theme.of(context).copyWith(
-                              colorScheme: const ColorScheme.light(
+                              colorScheme: ColorScheme.light(
                                 primary: AppColors.primaryColor,
                                 onPrimary: Colors.white,
                                 onSurface: Colors.black,

@@ -19,7 +19,7 @@ class StepWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Color bgColor = done
-        ? AppColors.primary
+        ? AppColors.primaryColor
         : active
         ? const Color(0xff988561)
         : Colors.grey.shade300;

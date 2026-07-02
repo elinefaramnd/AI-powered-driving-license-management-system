@@ -2,9 +2,12 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:project_2/modules/profile/update_profile/update_profile_model.dart';
 import 'package:project_2/widgets/app_snackbar.dart';
 
-import '../../configuration/http_helpers.dart';
+import '../../../configuration/http_helpers.dart';
+import '../profile/profile_controller.dart';
+
 
 class UpdateProfileController extends GetxController {
   final nameController = TextEditingController();
@@ -30,14 +33,14 @@ class UpdateProfileController extends GetxController {
   ];
 
   var selectedGovernorate = ''.obs;
-
+  late final Map<String, dynamic> user;
   @override
   void onInit() {
+    user = Get.arguments ?? {};
     loadData();
     super.onInit();
   }
 
-  late var user = Get.arguments;
   void loadData() {
     print(user);
 
@@ -50,7 +53,6 @@ class UpdateProfileController extends GetxController {
   void onReady() {
     super.onReady();
 
-    user = Get.arguments ?? {};
 
     nameController.text = user["name"] ?? "";
 
@@ -79,12 +81,12 @@ class UpdateProfileController extends GetxController {
       );
 
       final data = jsonDecode(response.body);
-
+      final model = UpdateProfileModel.fromJson(data);
       if (response.statusCode == 200 || response.statusCode == 201) {
-        AppSnackbar.show("نجاح", data["message"] ?? "تم التعديل بنجاح");
-        Get.offAllNamed("/showPro");
+        AppSnackbar.show("نجاح", model.message);
+        Get.offNamed("/showPro");
       } else {
-        AppSnackbar.show("خطأ", data["message"] ?? "فشل التعديل");
+        AppSnackbar.show("خطأ", model.message);
       }
     } catch (e) {
       AppSnackbar.show("خطأ", e.toString());

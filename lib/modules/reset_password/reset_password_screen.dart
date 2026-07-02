@@ -6,7 +6,8 @@ import '../../widgets/app_button.dart';
 import 'reset_password_controller.dart';
 class ResetPasswordScreen extends StatelessWidget {
   ResetPasswordScreen({super.key});
-  final ResetPasswordController controller = Get.put(ResetPasswordController());
+  final ResetPasswordController controller =
+  Get.find<ResetPasswordController>();
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;

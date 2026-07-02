@@ -14,6 +14,7 @@ class TestResultsController extends GetxController {
   void onInit() {
     super.onInit();
     applicationId = Get.arguments;
+    print("ARGUMENTS = ${Get.arguments}");
     fetchResults();
   }
 

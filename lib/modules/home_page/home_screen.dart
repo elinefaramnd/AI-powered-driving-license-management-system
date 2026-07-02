@@ -34,6 +34,7 @@ class HomeScreen extends StatelessWidget {
                       color: AppColors.primary,
 
                       onRefresh: () async {
+                        await controller.getProfileStatus();
                         await controller.getCurrentApplication();
                       },
 

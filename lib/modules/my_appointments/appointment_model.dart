@@ -30,7 +30,7 @@ class AppointmentModel {
       testName: json['test_type']['name'] ?? '',
       testCode: json['test_type']['code'] ?? '',
       status: json['status'] ?? '',
-      testTypeId: json['appointment_slot']['test_type_id'],
+      testTypeId: json['appointment_slot']?['test_type_id'] ?? 0,
       applicationId: json['application_id'],
       date: json['appointment_slot']['date'] ?? '',
       time: json['appointment_slot']['start_time'] ?? '',

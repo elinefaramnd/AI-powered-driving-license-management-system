@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:project_2/modules/sign_up/sign_up_response_model.dart';
 import 'package:project_2/widgets/app_snackbar.dart';
 import '../../configuration/http_helpers.dart';
 
@@ -69,18 +70,18 @@ class SignUpController extends GetxController {
       );
       print("Response Status Code: ${response.statusCode}");
       print("Response Body: ${response.body}");
-      Map<String, dynamic> res = jsonDecode(response.body);
+      final res = SignUpResponseModel.fromJson(jsonDecode(response.body));
       print(jsonEncode(data));
       if (response.statusCode == 200 || response.statusCode == 201) {
         GetStorage box = GetStorage();
         box.write('name', name);
         AppSnackbar.show('تم انشاء الحساب بنجاح',
-            res['message'].toString(),);
+          res.message,);
         Get.offNamed('/accountVerify', arguments: {'email': email});
       } else {
         print(jsonEncode(data));
         AppSnackbar.show('خطأ',
-            res['message'].toString(),);
+          res.message,);
       }
     } catch (e) {
       print('Register Error: $e');

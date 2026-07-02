@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
+import 'package:project_2/modules/verification/verification_model.dart';
 import 'package:project_2/widgets/app_snackbar.dart';
 
 import '../../configuration/http_helpers.dart';
@@ -39,12 +40,12 @@ class VerificationController extends GetxController {
       );
       final data = jsonDecode(response.body);
       if (response.statusCode == 200) {
-        String resetToken = data['data']['reset_token'];
+        final model = VerificationModel.fromJson(data['data']);
 
         Get.toNamed(
           '/resetPass',
           arguments: {
-            'reset_token': resetToken,
+            'reset_token': model.resetToken,
             'email': Get.arguments['email'],
           },
         );

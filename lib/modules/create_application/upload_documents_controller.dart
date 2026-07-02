@@ -41,6 +41,8 @@ class UploadDocumentsController extends GetxController {
       final response = await HttpHelper.gettData(
         url: "applications/$applicationId/required-documents",
       );
+      print("APPLICATION ID = $applicationId");
+      print(response.body);
       final data = jsonDecode(response.body);
       documents.value = data["data"];
     } catch (e) {

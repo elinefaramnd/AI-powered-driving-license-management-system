@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
@@ -14,7 +16,7 @@ class HttpHelper {
   }) async {
     final box = GetStorage();
     final storedToken = box.read<String>('token');
-    return await http.post(
+    final response =  await http.post(
       Uri.parse('$baseurl$url'),
       body: body,
       headers: {
@@ -23,6 +25,9 @@ class HttpHelper {
         if (storedToken != null) 'Authorization': 'Bearer $storedToken',
       },
     );
+    _handleUnauthorized(response);
+
+    return response;
   }
 
   static Future<Response> putData({
@@ -32,7 +37,7 @@ class HttpHelper {
     final box = GetStorage();
     final storedToken = box.read<String>('token');
 
-    return await http.put(
+    final response = await http.put(
       Uri.parse('$baseurl$url'),
       body: body,
       headers: {
@@ -40,6 +45,9 @@ class HttpHelper {
         if (storedToken != null) 'Authorization': 'Bearer $storedToken',
       },
     );
+    _handleUnauthorized(response);
+
+    return response;
   }
 
   static Future<Response> deleteData({
@@ -49,7 +57,7 @@ class HttpHelper {
     final box = GetStorage();
     final storedToken = box.read<String>('token');
 
-    return await http.delete(
+    final response = await http.delete(
       Uri.parse('$baseurl$url'),
       headers: {
         'Accept': 'application/json',
@@ -59,6 +67,9 @@ class HttpHelper {
       },
       body: jsonEncode(body),
     );
+    _handleUnauthorized(response);
+
+    return response;
   }
 
   static Future<Response> gettData({required String url}) async {
@@ -68,12 +79,14 @@ class HttpHelper {
     print('[DEBUG] Sending POST request to: $url');
     print('[DEBUG] Token used: $token');
 
-    return await http.get(
+    final response = await http.get(
       Uri.parse('$baseurl$url'),
       headers: {
         if (storedToken != null) 'Authorization': 'Bearer $storedToken',
       },
     );
+    _handleUnauthorized(response);
+    return response;
   }
 
   getData(String url) async {
@@ -82,11 +95,24 @@ class HttpHelper {
       if (response.statusCode == 200 || response.statusCode == 201) {
         var responsebody = jsonDecode(response.body);
         return responsebody;
-      } else {
+      }
+
+      else {
         print('error ${response.statusCode}');
       }
     } catch (e) {
       print('error catch $e');
+    }
+  }
+  static void _handleUnauthorized(Response response) {
+    if (response.statusCode == 401 || response.statusCode == 403) {
+      final box = GetStorage();
+
+      box.remove('token');
+      box.remove('id');
+      box.remove('name');
+
+      Get.offAllNamed('/signIn');
     }
   }
 }

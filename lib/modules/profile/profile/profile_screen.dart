@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../app_theme/app_colors.dart';
-import '../../widgets/profile/build_profile_item.dart';
+import '../../../app_theme/app_colors.dart';
+import '../../../widgets/custom_app_bar.dart';
+import '../../../widgets/profile/build_profile_item.dart';
 import 'profile_controller.dart';
 
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({super.key});
 
-  final ProfileController controller = Get.put(ProfileController());
+  final ProfileController controller = Get.find<ProfileController>();
 
   @override
   Widget build(BuildContext context) {
@@ -16,14 +16,8 @@ class ProfileScreen extends StatelessWidget {
     final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: AppColors.primaryColor),
-          onPressed: () => Get.back(),
-        ),
-      ),
+      appBar: CustomAppBar(title: "",),
+
       body: SafeArea(
         child: Obx(() {
           if (controller.isLoading.value) {
@@ -103,7 +97,7 @@ class ProfileScreen extends StatelessWidget {
 
                     child: ElevatedButton(
                       onPressed: () {
-                        Get.toNamed("/updatePro", arguments: user);
+                        Get.offNamed("/updatePro", arguments: user);
                       },
 
                       style: ElevatedButton.styleFrom(

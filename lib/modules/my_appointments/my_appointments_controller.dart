@@ -65,7 +65,8 @@ class AppointmentsController extends GetxController {
   }
 
   String getResult(AppointmentModel item) {
-    return item.result ?? "";
+    if (item.result == null) return "no_result";
+    return item.result!;
   }
 
   Future<void> cancelAppointment(int appointmentId) async {

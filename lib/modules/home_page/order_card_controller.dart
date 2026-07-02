@@ -111,6 +111,28 @@ class OrderCardController extends GetxController {
         ),
       );
     }
+    if (status == "documents_rejected") {
+      return section(
+        text: "تم رفض بعض الوثائق، يرجى إعادة رفع الوثائق المطلوبة.",
+        button: OrderActionButton(
+          onPressed: canUseServices
+              ? home.openUploadDocuments
+              : () {
+            AppSnackbar.show(
+              "تنبيه",
+              _message(),
+            );
+          },
+          text: "إعادة رفع الوثائق",
+          icon: Icons.upload_file,
+          color: canUseServices
+              ? AppColors.primaryColor
+              : Colors.grey.shade400,
+          width: width * .5,
+          height: height * .055,
+        ),
+      );
+    }
     if (status == "payment_pending") {
       return section(
         text: "بانتظار دفع الرسوم للانتقال للمرحلة التالية",
@@ -227,6 +249,30 @@ class OrderCardController extends GetxController {
         ),
       );
     }
+
+    if (status == "approved") {
+      return section(
+        text: "تم اجتياز جميع المراحل بنجاح، بانتظار إصدار الرخصة.",
+        button: OrderActionButton(
+          onPressed: canUseServices
+              ? home.openOrderDetails
+              : () {
+            AppSnackbar.show(
+              "تنبيه",
+              _message(),
+            );
+          },
+          text: "بانتظار الرخصة",
+          icon: Icons.check,
+          color: canUseServices
+              ? AppColors.primaryColor
+              : Colors.grey.shade400,
+          width: width * .47,
+          height: height * .055,
+        ),
+      );
+    }
+
     return const SizedBox();
   }
   String _message() {

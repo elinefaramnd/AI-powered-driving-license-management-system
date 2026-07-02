@@ -122,6 +122,7 @@ class HomeController extends GetxController {
       if (response.statusCode == 200) {
         profileStatus.value = data["data"]["profile_status"];
       }
+      print("NEW STATUS = ${profileStatus.value}");
     } catch (e) {
       print(e);
     }

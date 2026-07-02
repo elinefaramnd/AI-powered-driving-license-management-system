@@ -91,7 +91,7 @@ class HomeDrawerWidget extends StatelessWidget {
                     DrawerItemWidget(
                       icon: Icons.person_outline,
                       title: "نتائجي",
-                      index: 12,
+                      index: 18,
                       controller: controller,
                       onTap: () {
                         Get.to(()=>TestResultsView(), arguments: controller.applicationId.value,);

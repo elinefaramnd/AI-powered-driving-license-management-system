@@ -16,57 +16,60 @@ class MyAppointmentsScreen extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: AppColors.background,
-        appBar: const CustomAppBar(
-          title: "مواعيدي",
-        ),
-      body: Obx(() {
-        if (controller.isLoading.value) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
+      appBar: const CustomAppBar(
+        title: "مواعيدي",
+      ),
+      body: Directionality(
+        textDirection: TextDirection.rtl,
+        child: Obx(() {
+          if (controller.isLoading.value) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
 
-        if (controller.appointments.isEmpty) {
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.event_busy,
-                  size: size.width * 0.2,
-                  color: Colors.grey.shade400,
-                ),
-                 SizedBox(height:size.height * 0.02),
-                 Text(
-                  "لا يوجد مواعيد حالياً",
-                  style: TextStyle(
-                    fontSize: size.width * 0.045,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black54,
+          if (controller.appointments.isEmpty) {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.event_busy,
+                    size: size.width * 0.2,
+                    color: Colors.grey.shade400,
                   ),
-                ),
-              ],
-            ),
+                  SizedBox(height:size.height * 0.02),
+                  Text(
+                    "لا يوجد مواعيد حالياً",
+                    style: TextStyle(
+                      fontSize: size.width * 0.045,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black54,
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }
+
+          return ListView(
+            padding: EdgeInsets.all(size.width * .04),
+            children: [
+              const AppointmentHeader(),
+              SizedBox(height: size.height * .02),
+              ...controller.appointments.map((item) {
+                final isCompleted =
+                    controller.getStatus(item) == "completed";
+
+                return AppointmentCard(
+                  item: item,
+                  controller: controller,
+                  completed: isCompleted,
+                );
+              }).toList(),
+            ],
           );
-        }
-
-        return ListView(
-          padding: EdgeInsets.all(size.width * .04),
-          children: [
-            const AppointmentHeader(),
-            SizedBox(height: size.height * .02),
-            ...controller.appointments.map((item) {
-              final isCompleted =
-                  controller.getStatus(item) == "completed";
-
-              return AppointmentCard(
-                item: item,
-                controller: controller,
-                completed: isCompleted,
-              );
-            }).toList(),
-          ],
-        );
-      }),
+        }),
+      ),
     );
   }}

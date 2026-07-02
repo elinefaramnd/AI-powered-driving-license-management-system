@@ -6,9 +6,8 @@ import 'forget_password_controller.dart';
 
 class ForgetPasswordScreen extends StatelessWidget {
   ForgetPasswordScreen({super.key});
-  final ForgetPasswordController controller = Get.put(
-    ForgetPasswordController(),
-  );
+  final ForgetPasswordController controller =
+  Get.find<ForgetPasswordController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

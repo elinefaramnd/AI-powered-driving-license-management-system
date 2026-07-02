@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:project_2/widgets/app_snackbar.dart';
 import '../../configuration/http_helpers.dart';
+import 'login_response_model.dart';
 
 class SignInController extends GetxController {
   String? token;
@@ -34,20 +35,20 @@ class SignInController extends GetxController {
         url: 'auth/login',
         body: {'email': email, 'password': password},
       );
-      Map<String, dynamic> res = jsonDecode(value.body);
+      final res = LoginResponseModel.fromJson(jsonDecode(value.body));
       if (value.statusCode == 200 || value.statusCode == 201) {
-        token = res['data']['token'];
-        int role = res['data']['user']['role']['id'];
+        token = res.token;
+        int role = res.roleId;
         GetStorage box = GetStorage();
         box.write('token', token);
         box.write('id', role);
         AppSnackbar.show(
           'نجاح',
-          res['message'].toString(),
+          res.message,
         );
         Get.offNamed('/home');
       } else {
-        AppSnackbar.show('فشل تسجيل الدخول', res['message'].toString());
+        AppSnackbar.show('فشل تسجيل الدخول', res.message);
       }
     } catch (e) {
       AppSnackbar.show('Exception', 'حدث خطأ');

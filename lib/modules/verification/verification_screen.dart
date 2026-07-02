@@ -7,7 +7,7 @@ import 'verification_controller.dart';
 
 class VerificationScreen extends StatelessWidget {
   VerificationScreen({super.key});
-  final VerificationController controller = Get.put(VerificationController());
+  final controller = Get.find<VerificationController>();
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;

@@ -1,13 +1,14 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../app_theme/app_colors.dart';
-import '../../widgets/app_button.dart';
-import '../../widgets/outlined_textField_widget.dart';
+import '../../../app_theme/app_colors.dart';
+import '../../../widgets/app_button.dart';
+import '../../../widgets/outlined_textField_widget.dart';
 import 'update_profile_controller.dart';
 class UpdateProfileScreen extends StatelessWidget {
   UpdateProfileScreen({super.key});
-  final UpdateProfileController controller = Get.put(UpdateProfileController());
+  final UpdateProfileController controller =
+  Get.find<UpdateProfileController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +31,7 @@ class UpdateProfileScreen extends StatelessWidget {
               const Text("المحافظة"),
               const SizedBox(height: 8),
               Obx(
-                () => DropdownSearch<String>(
+                    () => DropdownSearch<String>(
                   selectedItem: controller.selectedGovernorate.value,
                   items: (filter, loadProps) => controller.provinces,
                   popupProps: PopupProps.menu(
@@ -80,24 +81,24 @@ class UpdateProfileScreen extends StatelessWidget {
               ),
               const SizedBox(height: 35),
               Obx(
-                () => AppButton(
+                    () => AppButton(
                   text: "",
                   onPressed: controller.isLoading.value
                       ? () {}
                       : controller.updateProfile,
                   child: controller.isLoading.value
                       ? const SizedBox(
-                          width: 22,
-                          height: 22,
-                          child: CircularProgressIndicator(
-                            color: Colors.white,
-                            strokeWidth: 2,
-                          ),
-                        )
+                    width: 22,
+                    height: 22,
+                    child: CircularProgressIndicator(
+                      color: Colors.white,
+                      strokeWidth: 2,
+                    ),
+                  )
                       : const Text(
-                          "حفظ التعديلات",
-                          style: TextStyle(color: Colors.white, fontSize: 16),
-                        ),
+                    "حفظ التعديلات",
+                    style: TextStyle(color: Colors.white, fontSize: 16),
+                  ),
                 ),
               ),
             ],

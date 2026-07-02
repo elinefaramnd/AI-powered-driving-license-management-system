@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:project_2/widgets/app_snackbar.dart';
 
 import '../../configuration/http_helpers.dart';
+import 'forget_password_model.dart';
 
 class ForgetPasswordController extends GetxController {
   final emailController = TextEditingController();
@@ -30,17 +31,17 @@ class ForgetPasswordController extends GetxController {
         url: "auth/forgot-password",
         body: {"email": email},
       );
-
+      final data = jsonDecode(response.body);
+      final model = ForgetPasswordModel.fromJson(data);
       if (response.statusCode == 200) {
         Get.toNamed(
           '/emailVerify',
           arguments: {'email': emailController.text.trim()},
         );
       } else {
-        final data = jsonDecode(response.body);
         print(response.body);
         print(response.statusCode);
-        AppSnackbar.show("خطأ", data['message'] ?? 'حدث خطأ');
+        AppSnackbar.show("خطأ", model.message);
       }
     } catch (e) {
       AppSnackbar.show("خطأ", ":$e");

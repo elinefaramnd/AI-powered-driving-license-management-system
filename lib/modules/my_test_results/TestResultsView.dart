@@ -19,14 +19,12 @@ class TestResultsView extends StatelessWidget {
     final mediumSpace = size.height * 0.025;
     final titleFont = size.width * 0.045;
 
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Scaffold(
-        backgroundColor: AppColors.background,
-        appBar: const CustomAppBar(
-          title:"نتائج اختباراتي",
-        ),
-        body: Obx(() {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      appBar:CustomAppBar(title: "نتائج اختباراتي"),
+      body: Directionality(
+        textDirection: TextDirection.rtl,
+        child: Obx(() {
           if (controller.isLoading.value) {
             return Center(
               child: CircularProgressIndicator(

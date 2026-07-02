@@ -17,7 +17,7 @@ class OrderCard extends StatelessWidget {
       case "payment_pending":
         return Colors.purple;
       case "approved":
-        return Colors.green;
+        return AppColors.primaryColor;
       default:
         return Colors.grey;
     }

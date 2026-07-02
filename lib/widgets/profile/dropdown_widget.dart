@@ -2,7 +2,7 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../modules/profile/complete_profile_controller.dart';
+import '../../modules/profile/complete_profile/complete_profile_controller.dart';
 
 class GovernorateDropdown extends StatelessWidget {
   const GovernorateDropdown({super.key});

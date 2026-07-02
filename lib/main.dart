@@ -2,28 +2,37 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:project_2/modules/home_page/chat_bot_controller.dart';
-import 'package:project_2/modules/profile/update_profile_screen.dart';
 import 'modules/account_verification/account_verification_screen.dart';
 import 'modules/appointment/AvailableTestsPage.dart';
+import 'modules/appointment_slots/appointment_slots_binding.dart';
+import 'modules/appointment_slots/appointment_slots_page.dart';
 import 'modules/chat_bot/chat_bot_controller.dart';
 import 'modules/create_application/upload_documents_page.dart';
 import 'modules/fines/fines_screen.dart';
+import 'modules/forget_password/forget_password_binding.dart';
 import 'modules/forget_password/forget_password_screen.dart';
 import 'modules/home_page/home_binding.dart';
 import 'modules/home_page/home_screen.dart';
 import 'modules/my_applications/my_orders/orders_screen.dart';
 import 'modules/my_appointments/my_appointments_screen.dart';
 import 'modules/my_licenses/my_licenses_screen.dart';
+import 'modules/profile/complete_profile/complete_profile_binding.dart';
+import 'modules/profile/complete_profile/complete_profile_screen.dart';
+import 'modules/profile/profile/profile_binding.dart';
+import 'modules/profile/profile/profile_screen.dart';
+import 'modules/profile/update_profile/update_profile_binding.dart';
+import 'modules/profile/update_profile/update_profile_screen.dart';
+import 'modules/reset_password/reset_password_binding.dart';
+import 'modules/sign_up/sign_up_bindings.dart';
 import 'modules/test_results/test_results_screen.dart';
 import 'modules/my_applications/order_details/order_details_screen.dart';
 import 'modules/onboarding/onboarding_screen.dart';
-import 'modules/profile/complete_profile_screen.dart';
-import 'modules/profile/profile_screen.dart';
 import 'modules/reset_password/reset_password_screen.dart';
 import 'modules/sign_in/sign_in_binding.dart';
 import 'modules/sign_in/sign_in_screen.dart';
 import 'modules/sign_up/sign_up_screen.dart';
 import 'modules/splash/splash_screen.dart';
+import 'modules/verification/verification_binding.dart';
 import 'modules/verification/verification_screen.dart';
 import 'modules/settings_support/settings_screen.dart';
 import 'modules/settings_support/screens/change_password_screen.dart';
@@ -36,7 +45,7 @@ import 'modules/send_message/send_message_controller.dart';
 import 'modules/faq/faq_screen.dart';
 import 'modules/faq/faq_controller.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await GetStorage.init();
@@ -46,7 +55,6 @@ void main() async{
 }
 
 class MyApp extends StatelessWidget {
-
   const MyApp({super.key});
 
   @override
@@ -54,43 +62,113 @@ class MyApp extends StatelessWidget {
     final box = GetStorage();
     final hasToken =
         box.read<String>('token') != null &&
-            box.read<String>('token')!.isNotEmpty;
+        box.read<String>('token')!.isNotEmpty;
     return GetMaterialApp(
-
       debugShowCheckedModeBanner: false,
 
-        initialRoute: hasToken ? '/home' : '/',
+      initialRoute: hasToken ? '/home' : '/',
 
-        getPages: [
-          GetPage(name: '/signIn', page: ()=>SignInScreen(),binding: SignInBindings()),
-          GetPage(name: '/', page: () => SplashScreen(),),
-          GetPage(name: '/onboarding', page: () => OnboardingScreen(),),
-          GetPage(name: '/signUp',page: () => SignUpScreen(),),
-          GetPage(name: '/forgetPass',page: () => ForgetPasswordScreen(),),
-          GetPage(name: '/emailVerify',page: () => VerificationScreen(),),
-          GetPage(name: '/resetPass',page: () => ResetPasswordScreen(),),
-          GetPage(name: '/accountVerify',page: () => OtpVerificationScreen(),),
-          GetPage(name: '/home',page: () => HomeScreen(),binding: HomeBinding(),),
-          GetPage(name: '/completePro',page: () => CompleteProfileScreen(),),
-          GetPage(name: '/showPro',page: () => ProfileScreen(),),
-          GetPage(name: '/updatePro',page: () => UpdateProfileScreen(),),
-          GetPage(name: '/upload_documents',page: () => UploadDocumentsPage(),),
-          GetPage(name: '/order_screen',page: () => OrdersScreen(),),
-          GetPage(name: '/order_details',page: () => OrderDetailsScreen(),),
-          GetPage(name: '/fines_screen',page: () => FinesScreen(),),
-          GetPage(name: '/my_licenses',page: () => MyLicensesScreen(),),
-          GetPage(name: '/test_results',page: () => TestResultsScreen(),),
-          GetPage(name: '/available_tests_page',page: () => AvailableTestsPage(),),
-          GetPage(name: '/settings',page: () => SettingsScreen(),),
-          GetPage(name: '/settings/password',page: () => ChangePasswordScreen(),),
-          GetPage(name: '/privacy_policy', page: () => PrivacyPolicyScreen(), binding: BindingsBuilder(() { Get.lazyPut(() => PrivacyPolicyController(), fenix: true); })),
-          GetPage(name: '/contact_us', page: () => ContactUsScreen(), binding: BindingsBuilder(() { Get.lazyPut(() => ContactUsController(), fenix: true); })),
-          GetPage(name: '/send_message', page: () => const SendMessageScreen(), binding: BindingsBuilder(() { Get.lazyPut(() => SendMessageController(), fenix: true); })),
-          GetPage(name: '/faq', page: () => FaqScreen(), binding: BindingsBuilder(() { Get.lazyPut(() => FaqController(), fenix: true); })),
-          GetPage(name: '/appointments',page: () => MyAppointmentsScreen(),),
-
-        ]
-
+      getPages: [
+        GetPage(
+          name: '/signIn',
+          page: () => SignInScreen(),
+          binding: SignInBindings(),
+        ),
+        GetPage(name: '/', page: () => SplashScreen()),
+        GetPage(name: '/onboarding', page: () => OnboardingScreen()),
+        GetPage(
+          name: '/signUp',
+          page: () => SignUpScreen(),
+          binding: SignUpBindings(),
+        ),
+        GetPage(
+          name: '/forgetPass',
+          page: () => ForgetPasswordScreen(),
+          binding: ForgetPasswordBinding(),
+        ),
+        GetPage(
+          name: '/emailVerify',
+          page: () => VerificationScreen(),
+          binding: VerificationBinding(),
+        ),
+        GetPage(
+          name: '/resetPass',
+          page: () => ResetPasswordScreen(),
+          binding: ResetPasswordBinding(),
+        ),
+        GetPage(name: '/accountVerify', page: () => OtpVerificationScreen()),
+        GetPage(
+          name: '/home',
+          page: () => HomeScreen(),
+          binding: HomeBinding(),
+        ),
+        GetPage(
+          name: '/completePro',
+          page: () => CompleteProfileScreen(),
+          binding: CompleteProfileBinding(),
+        ),
+        GetPage(
+          name: '/showPro',
+          page: () => ProfileScreen(),
+          binding: ProfileBinding(),
+        ),
+        GetPage(
+          name: '/updatePro',
+          page: () => UpdateProfileScreen(),
+          binding: UpdateProfileBinding(),
+        ),
+        GetPage(name: '/upload_documents', page: () => UploadDocumentsPage()),
+        GetPage(name: '/order_screen', page: () => OrdersScreen()),
+        GetPage(name: '/order_details', page: () => OrderDetailsScreen()),
+        GetPage(name: '/fines_screen', page: () => FinesScreen()),
+        GetPage(name: '/my_licenses', page: () => MyLicensesScreen()),
+        GetPage(name: '/test_results', page: () => TestResultsScreen()),
+        GetPage(
+          name: '/available_tests_page',
+          page: () => AvailableTestsPage(),
+        ),
+        GetPage(name: '/settings', page: () => SettingsScreen()),
+        GetPage(name: '/settings/password', page: () => ChangePasswordScreen()),
+        GetPage(
+          name: '/privacy_policy',
+          page: () => PrivacyPolicyScreen(),
+          binding: BindingsBuilder(() {
+            Get.lazyPut(() => PrivacyPolicyController(), fenix: true);
+          }),
+        ),
+        GetPage(
+          name: '/contact_us',
+          page: () => ContactUsScreen(),
+          binding: BindingsBuilder(() {
+            Get.lazyPut(() => ContactUsController(), fenix: true);
+          }),
+        ),
+        GetPage(
+          name: '/send_message',
+          page: () => const SendMessageScreen(),
+          binding: BindingsBuilder(() {
+            Get.lazyPut(() => SendMessageController(), fenix: true);
+          }),
+        ),
+        GetPage(
+          name: '/faq',
+          page: () => FaqScreen(),
+          binding: BindingsBuilder(() {
+            Get.lazyPut(() => FaqController(), fenix: true);
+          }),
+        ),
+        GetPage(name: '/appointments', page: () => MyAppointmentsScreen()),
+        // GetPage(
+        //   name: '/appointment_slots',
+        //   page: () => AppointmentSlotsPage(
+        //     testTypeId: Get.arguments["testTypeId"],
+        //     applicationId: Get.arguments["applicationId"],
+        //     isReschedule: Get.arguments["isReschedule"] ?? false,
+        //     appointmentId: Get.arguments["appointmentId"],
+        //   ),
+        //   binding: AppointmentSlotsBinding(),
+        // ),
+      ],
     );
   }
 }
