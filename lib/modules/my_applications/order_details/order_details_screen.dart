@@ -5,7 +5,6 @@ import '../../../widgets/custom_app_bar.dart';
 import '../../../widgets/order_details/document_card_widget.dart';
 import '../../../widgets/order_details/documents_section_header.dart';
 import '../../../widgets/order_details/empty_documents_widget.dart';
-import '../../../widgets/order_details/order_actions.dart';
 import '../../../widgets/order_details/order_details_info_card.dart';
 import '../../../widgets/order_details/order_status_card.dart';
 import 'order_details_controller.dart';
@@ -54,8 +53,6 @@ class OrderDetailsScreen extends StatelessWidget {
                     document: doc,
                   ),
                 ),
-              SizedBox(height: h * 0.025),
-              const OrderActions(),
             ],
           ),
         );

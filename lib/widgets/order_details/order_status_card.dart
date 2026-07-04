@@ -60,7 +60,7 @@ class OrderStatusCard extends StatelessWidget {
                       Text(
                         "قيد المراجعة",
                         style: TextStyle(
-                          color: Color(0xff1B5E20),
+                          color: AppColors.primaryColor,
                           fontWeight: FontWeight.bold,
                           fontSize: w * 0.035,
                         ),

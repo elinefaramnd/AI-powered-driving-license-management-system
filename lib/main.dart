@@ -64,7 +64,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
 
-      initialRoute: hasToken ? '/signIn' : '/',
+      initialRoute: hasToken ? '/home' : '/',
 
       getPages: [
         GetPage(name: '/signIn', page: () => SignInScreen(), binding: SignInBindings(),),
