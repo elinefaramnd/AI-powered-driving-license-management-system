@@ -21,6 +21,7 @@ class HomeController extends GetxController {
   RxList<Map<String, dynamic>> services = <Map<String, dynamic>>[].obs;
   var selectedIndex = 0.obs;
   var notificationsCount = 3.obs;
+  RxString profileRejectionReason = "".obs;
   @override
   void onInit() {
     super.onInit();
@@ -39,6 +40,17 @@ class HomeController extends GetxController {
 
   void openNewApplication() {
     Get.to(() => CreateApplicationStep1());
+  }
+
+  void openUpdateProfile() {
+    Get.toNamed(
+      "/updatePro",
+      arguments: {"mode": "rejected", "reason": profileRejectionReason.value},
+    );
+  }
+
+  void openCompleteProfile() {
+    Get.toNamed("/completePro");
   }
 
   void openOrderDetails() {
@@ -114,13 +126,62 @@ class HomeController extends GetxController {
     }
   }
 
+  String getCurrentStatusText() {
+    if (profileStatus.value == "incomplete") {
+      return "الملف الشخصي غير مكتمل";
+    }
+
+    if (profileStatus.value == "pending_review") {
+      return "الملف الشخصي قيد المراجعة";
+    }
+
+    if (profileStatus.value == "rejected") {
+      return "تم رفض الملف الشخصي";
+    }
+
+    return _statusText(currentApplicationStatus.value);
+  }
+
+  String _statusText(String status) {
+    switch (status) {
+      case "draft":
+        return "بانتظار رفع الوثائق";
+
+      case "documents_under_review":
+        return "الوثائق قيد المراجعة";
+
+      case "documents_rejected":
+        return "تم رفض بعض الوثائق";
+
+      case "payment_pending":
+        return "بانتظار دفع الرسوم";
+
+      case "appointment_pending":
+        return "بانتظار حجز موعد";
+
+      case "in_testing":
+        return "قيد الاختبارات";
+
+      case "waiting_retest":
+        return "بانتظار إعادة الاختبار";
+
+      case "approved":
+        return "تمت الموافقة";
+
+      default:
+        return "-";
+    }
+  }
+
   Future<void> getProfileStatus() async {
     try {
-      final response = await HttpHelper.gettData(url:"profile/status");
+      final response = await HttpHelper.gettData(url: "profile/status");
       final data = jsonDecode(response.body);
 
       if (response.statusCode == 200) {
         profileStatus.value = data["data"]["profile_status"];
+        profileRejectionReason.value =
+            data["data"]["profile_rejection_reason"] ?? "";
       }
       print("NEW STATUS = ${profileStatus.value}");
     } catch (e) {

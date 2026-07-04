@@ -18,28 +18,32 @@ class LogOutController extends GetxController {
       buttonColor: AppColors.primaryColor,
       textCancel: 'إلغاء',
       confirmTextColor: Colors.white,
-      onConfirm: () async {
-        try {
-          final response = await HttpHelper.postData(url: 'auth/logout');
+        onConfirm: () async {
+          try {
+            final response = await HttpHelper.postData(url: 'auth/logout');
 
-          final res = jsonDecode(response.body);
+            final res = jsonDecode(response.body);
 
-          if (response.statusCode == 200 || response.statusCode == 201) {
             Get.back();
-            AppSnackbar.show('تم تسجيل الخروج', res['message'] ?? 'تم تسجيل الخروج بنجاح',);
-            //Get.deleteAll();
-            Get.offAllNamed('/signIn');
-          } else {
+
+            if (response.statusCode == 200 || response.statusCode == 201) {
+              AppSnackbar.show(
+                'تم تسجيل الخروج',
+                res['message'] ?? 'تم تسجيل الخروج بنجاح',
+              );
+              await Future.delayed(const Duration(milliseconds: 150));
+              Get.offAllNamed('/signIn');
+            } else {
+              AppSnackbar.show(
+                'فشل تسجيل الخروج',
+                res['message'] ?? 'حدث خطأ غير متوقع',
+              );
+            }
+          } catch (e) {
             Get.back();
-            AppSnackbar.show('فشل تسجيل الخروج',
-              res['message'] ?? 'حدث خطأ غير متوقع',);
+            AppSnackbar.show('خطأ', 'حدث خطأ أثناء العملية');
           }
-        } catch (e) {
-          Get.back();
-          AppSnackbar.show('خطأ',
-            'حدث خطأ أثناء العملية',);
-        }
-      },
+        },
       onCancel: () {
         Get.back();
       },

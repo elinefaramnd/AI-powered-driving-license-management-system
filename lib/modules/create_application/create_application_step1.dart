@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../app_theme/app_colors.dart';
 import '../../widgets/create_application/application_header.dart';
 import '../../widgets/create_application/service_selector.dart';
 import '../../widgets/create_application/license_selector.dart';

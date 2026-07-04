@@ -17,8 +17,6 @@ class TestResultsView extends StatelessWidget {
 
     final padding = size.width * 0.04;
     final mediumSpace = size.height * 0.025;
-    final titleFont = size.width * 0.045;
-
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar:CustomAppBar(title: "نتائج اختباراتي"),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'document_file_info.dart';
 import 'document_header.dart';
 import 'document_hint.dart';
@@ -23,6 +23,21 @@ class DocumentCard extends StatelessWidget {
     final w = size.width;
     final h = size.height;
     final latest = doc["latest_document"];
+    return Obx(() {
+      Map<String, dynamic>? rejected;
+
+      for (final item in controller.rejectedDocuments) {
+        if (item == null) continue;
+
+        final required = item["required_document"];
+        if (required == null) continue;
+
+        if (required["id"] == doc["id"] &&
+            item["status"] == "rejected") {
+          rejected = item;
+          break;
+        }
+      }
 
     return Container(
       margin: EdgeInsets.symmetric(
@@ -77,8 +92,35 @@ class DocumentCard extends StatelessWidget {
 
           if (!uploaded)
             DocumentHint(code: doc["code"]),
+
+          if (rejected != null)
+            Padding(
+              padding: EdgeInsets.only(top: h * 0.01),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    "مرفوض",
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontWeight: FontWeight.bold,
+                      fontSize: w * 0.037,
+                    ),
+                  ),
+                  SizedBox(height: h * 0.004),
+                  Text(
+                    rejected["rejection_reason"] ?? "",
+                    textAlign: TextAlign.right,
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontSize: w * 0.033,
+                    ),
+                  ),
+                ],
+              ),
+            ),
         ],
       ),
     );
   }
-}
+    );}}

@@ -35,12 +35,12 @@ class ResetPasswordController extends GetxController {
     final confirmPassword = confirmPasswordController.text.trim();
 
     if (password.isEmpty || confirmPassword.isEmpty) {
-      AppSnackbar.show("خطأ", "الرجاء ملىء جميع الحقول");
+      Get.snackbar("خطأ", "الرجاء ملىء جميع الحقول");
       return;
     }
 
     if (password != confirmPassword) {
-      AppSnackbar.show("خطأ", "كلمة المرور غير متطابقة");
+      Get.snackbar("خطأ", "كلمة المرور غير متطابقة");
       return;
     }
     isLoading.value = true;
@@ -54,17 +54,18 @@ class ResetPasswordController extends GetxController {
           "password_confirmation": confirmPassword,
         },
       );
-      final data = jsonDecode(response.body);
-      final model = ResetPasswordModel.fromJson(data);
+      final model = ResetPasswordModel.fromJson(
+        jsonDecode(response.body),
+      );
       if (response.statusCode == 200) {
-        AppSnackbar.show("نجاح",model.message);
-        Get.offAll(() => SignInScreen());
+        AppSnackbar.show("نجاح", model.message);
+        Get.toNamed('/signIn');
       } else {
         print(response.body);
         AppSnackbar.show("خطأ", model.message);
       }
     } catch (e) {
-      AppSnackbar.show("Error", "Server error: $e");
+      Get.snackbar("خطأ", "Server error: $e");
     } finally {
       isLoading.value = false;
     }

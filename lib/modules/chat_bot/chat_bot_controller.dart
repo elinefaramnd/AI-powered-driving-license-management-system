@@ -3,7 +3,6 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_2/modules/chat_bot/chat_bot_screen.dart';
-
 import '../../app_theme/app_colors.dart';
 
 class ChatMessage {

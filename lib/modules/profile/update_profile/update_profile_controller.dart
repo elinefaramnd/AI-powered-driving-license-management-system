@@ -1,12 +1,9 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_2/modules/profile/update_profile/update_profile_model.dart';
 import 'package:project_2/widgets/app_snackbar.dart';
-
 import '../../../configuration/http_helpers.dart';
-import '../profile/profile_controller.dart';
 
 
 class UpdateProfileController extends GetxController {

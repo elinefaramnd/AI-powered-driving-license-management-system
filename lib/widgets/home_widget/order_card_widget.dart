@@ -43,7 +43,7 @@ class OrderCardWidget extends StatelessWidget {
                         : "لا يوجد طلبات حالياً",
                     style: TextStyle(
                       fontWeight: FontWeight.w400,
-                      fontSize: size.width * 0.033,
+                      fontSize: size.width * 0.03,
                     ),
                   ),
                 ),
@@ -53,7 +53,7 @@ class OrderCardWidget extends StatelessWidget {
                     controller.hasApplication.value
                         ? controller.currentApplicationNumber.value
                         : "أنشأ أول طلب للبدء",
-                    style: TextStyle(fontSize: size.width * 0.032),
+                    style: TextStyle(fontSize: size.width * 0.03),
                   ),
                 ),
                 SizedBox(height: size.height * 0.01),
@@ -68,9 +68,7 @@ class OrderCardWidget extends StatelessWidget {
                 ),
                 Obx(
                   () => Text(
-                    controller.hasApplication.value
-                        ? controller.currentApplicationStatus.value
-                        : "-",
+                   controller.getCurrentStatusText(),
                     style: TextStyle(
                       color: const Color(0xffB08D57),
                       fontSize: size.width * 0.03,

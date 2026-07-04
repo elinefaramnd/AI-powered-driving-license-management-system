@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import '../../app_theme/app_colors.dart';
 import 'splash_controller.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -63,7 +63,7 @@ class SplashScreen extends StatelessWidget {
 
                   letterSpacing: 1,
 
-                  color: Color(0xff013220),
+                  color: AppColors.primaryColor
                 ),
               ),
             ],

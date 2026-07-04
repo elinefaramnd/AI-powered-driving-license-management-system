@@ -57,9 +57,17 @@ class SignInController extends GetxController {
     }
   }
   @override
+  void onInit() {
+    super.onInit();
+    print("SignInController onInit");
+  }
+
+  @override
   void onClose() {
+    print("SignInController onClose");
     emailController.dispose();
     passwordController.dispose();
     super.onClose();
   }
+
 }

@@ -21,22 +21,18 @@ class HttpHelper {
       body: body,
       headers: {
         'Accept': 'application/json',
-
         if (storedToken != null) 'Authorization': 'Bearer $storedToken',
       },
     );
     _handleUnauthorized(response);
-
     return response;
   }
-
   static Future<Response> putData({
     required String url,
     Map<String, dynamic>? body,
   }) async {
     final box = GetStorage();
     final storedToken = box.read<String>('token');
-
     final response = await http.put(
       Uri.parse('$baseurl$url'),
       body: body,
@@ -46,10 +42,8 @@ class HttpHelper {
       },
     );
     _handleUnauthorized(response);
-
     return response;
   }
-
   static Future<Response> deleteData({
     required String url,
     Map<String, dynamic>? body,
@@ -68,7 +62,6 @@ class HttpHelper {
       body: jsonEncode(body),
     );
     _handleUnauthorized(response);
-
     return response;
   }
 
@@ -78,7 +71,6 @@ class HttpHelper {
     final token = box.read('token') ?? '';
     print('[DEBUG] Sending POST request to: $url');
     print('[DEBUG] Token used: $token');
-
     final response = await http.get(
       Uri.parse('$baseurl$url'),
       headers: {
@@ -96,7 +88,6 @@ class HttpHelper {
         var responsebody = jsonDecode(response.body);
         return responsebody;
       }
-
       else {
         print('error ${response.statusCode}');
       }
@@ -107,11 +98,9 @@ class HttpHelper {
   static void _handleUnauthorized(Response response) {
     if (response.statusCode == 401 || response.statusCode == 403) {
       final box = GetStorage();
-
       box.remove('token');
       box.remove('id');
       box.remove('name');
-
       Get.offAllNamed('/signIn');
     }
   }

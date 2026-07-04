@@ -6,6 +6,7 @@ class ResetPasswordBinding extends Bindings {
   void dependencies() {
     Get.lazyPut<ResetPasswordController>(
           () => ResetPasswordController(),
+      fenix: false,
     );
   }
 }

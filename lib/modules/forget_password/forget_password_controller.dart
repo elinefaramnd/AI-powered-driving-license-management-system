@@ -1,9 +1,7 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_2/widgets/app_snackbar.dart';
-
 import '../../configuration/http_helpers.dart';
 import 'forget_password_model.dart';
 

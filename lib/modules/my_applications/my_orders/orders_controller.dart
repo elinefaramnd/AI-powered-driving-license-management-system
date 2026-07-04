@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:get/get.dart';
-
 import '../../../configuration/http_helpers.dart';
 import 'order_model.dart';
 

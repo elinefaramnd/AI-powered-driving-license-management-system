@@ -16,6 +16,7 @@ class UploadDocumentsController extends GetxController {
   RxList documents = [].obs;
   RxSet<int> uploadedIds = <int>{}.obs;
   RxMap<int, File?> uploadedFiles = <int, File?>{}.obs;
+  RxList rejectedDocuments = [].obs;
   final box = GetStorage();
   int get uploadedCount {
     return documents.where((doc) {
@@ -51,6 +52,13 @@ class UploadDocumentsController extends GetxController {
     } finally {
       loading.value = false;
     }
+    final details = await HttpHelper.gettData(
+      url: "applications/$applicationId",
+    );
+
+    final app = jsonDecode(details.body)["data"];
+
+    rejectedDocuments.value = app["documents"];
   }
   Future<void> uploadDocument(int requiredId) async {
     try {
@@ -78,6 +86,7 @@ class UploadDocumentsController extends GetxController {
       print("HEADERS: ${response.headers}");
       if (response.statusCode == 200 || response.statusCode == 201) {
         uploadedIds.add(requiredId);
+        await getRequiredDocuments();
         AppSnackbar.show(
             "نجاح", "تم رفع الوثيقة"
         );

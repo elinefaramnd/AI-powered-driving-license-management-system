@@ -10,6 +10,31 @@ class OrderCardController extends GetxController {
   final home = Get.find<HomeController>();
   final profileStatus = Get.find<HomeController>().profileStatus;
   bool get canUseServices => profileStatus.value == "approved";
+  bool get uncanUseServices => profileStatus.value == "rejected";
+  bool get incompleteProfile => profileStatus.value == "incomplete";
+
+  Widget _actionButton({
+    required VoidCallback onPressed,
+    required String text,
+    required IconData icon,
+    required double width,
+    required double height,
+    double buttonWidth = .47,
+  }) {
+    return OrderActionButton(
+      onPressed: canUseServices
+          ? onPressed
+          : () {
+              AppSnackbar.show("تنبيه", _message());
+            },
+      text: text,
+      icon: icon,
+      color: canUseServices ? AppColors.primaryColor : Colors.grey.shade400,
+      width: width * buttonWidth,
+      height: height * .055,
+    );
+  }
+
   Widget buildStep({required double width, required double height}) {
     final status = home.currentApplicationStatus.value;
     final hasApplication = home.hasApplication.value;
@@ -33,47 +58,60 @@ class OrderCardController extends GetxController {
       );
     }
 
-    if (status == "draft") {
+    if (incompleteProfile) {
       return section(
-        text: "بانتظار رفع الوثائق المطلوبة لإكمال الطلب",
+        text: "يرجى إكمال بيانات الملف الشخصي أولاً.",
         button: OrderActionButton(
-          onPressed: canUseServices
-              ? home.openUploadDocuments
+          onPressed: home.openCompleteProfile,
+          text: "إكمال الملف",
+          icon: Icons.person_outline,
+          color: AppColors.primaryColor,
+          width: width * .5,
+          height: height * .055,
+        ),
+      );
+    }
+    if (uncanUseServices) {
+      return section(
+        text: "يرجى تعديل بيانات الملف الشخصي وإعادة إرسالها للمراجعة",
+        button: OrderActionButton(
+          onPressed: uncanUseServices
+              ? home.openUpdateProfile
               : () {
-            AppSnackbar.show(
-              "تنبيه",
-              _message(),
-            );
-          },
-          text: "تكملة الطلب",
+                  AppSnackbar.show("تنبيه", _message());
+                },
+          text: "تعديل الملف",
           icon: Icons.upload_file,
           color: canUseServices
               ? AppColors.primaryColor
-              : Colors.grey.shade400,
+              : AppColors.primaryColor,
           width: width * .5,
           height: height * .055,
+        ),
+      );
+    }
+    if (status == "draft") {
+      return section(
+        text: "بانتظار رفع الوثائق المطلوبة لإكمال الطلب",
+        button: _actionButton(
+          onPressed: home.openUploadDocuments,
+          text: "تكملة الطلب",
+          icon: Icons.upload_file,
+          width: width,
+          height: height,
+          buttonWidth: .5,
         ),
       );
     }
     if (!hasApplication) {
       return section(
         text: "ابدأ بإنشاء طلب جديد وستظهر هنا حالة الطلب والخطوات القادمة",
-        button: OrderActionButton(
-          onPressed: canUseServices
-              ?  home.openNewApplication
-              : () {
-            AppSnackbar.show(
-              "تنبيه",
-              _message(),
-            );
-          },
+        button: _actionButton(
+          onPressed: home.openNewApplication,
           text: "إنشاء طلب",
           icon: Icons.add_circle_outline,
-          color: canUseServices
-              ? AppColors.primaryColor
-              : Colors.grey.shade400,
-          width: width * .47,
-          height: height * .055,
+          width: width,
+          height: height,
         ),
       );
     }
@@ -85,18 +123,14 @@ class OrderCardController extends GetxController {
           height: height * .055,
           child: ElevatedButton.icon(
             onPressed: canUseServices
-                ?  home.openOrderDetails
+                ? home.openOrderDetails
                 : () {
-              AppSnackbar.show(
-                "تنبيه",
-                _message(),
-              );
-            },
-
+                    AppSnackbar.show("تنبيه", _message());
+                  },
             style: ElevatedButton.styleFrom(
               backgroundColor: canUseServices
-            ? AppColors.primaryColor
-                : Colors.grey.shade400,
+                  ? AppColors.primaryColor
+                  : Colors.grey.shade400,
               elevation: 0,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(width * .03),
@@ -114,98 +148,68 @@ class OrderCardController extends GetxController {
     if (status == "documents_rejected") {
       return section(
         text: "تم رفض بعض الوثائق، يرجى إعادة رفع الوثائق المطلوبة.",
-        button: OrderActionButton(
-          onPressed: canUseServices
-              ? home.openUploadDocuments
-              : () {
-            AppSnackbar.show(
-              "تنبيه",
-              _message(),
-            );
-          },
+        button: _actionButton(
+          onPressed: home.openUploadDocuments,
           text: "إعادة رفع الوثائق",
           icon: Icons.upload_file,
-          color: canUseServices
-              ? AppColors.primaryColor
-              : Colors.grey.shade400,
-          width: width * .5,
-          height: height * .055,
+          width: width,
+          height: height,
+          buttonWidth: .5,
         ),
       );
     }
     if (status == "payment_pending") {
       return section(
         text: "بانتظار دفع الرسوم للانتقال للمرحلة التالية",
-        button: OrderActionButton(
+        button: _actionButton(
           onPressed: () {
-            canUseServices
-                ?
             Get.to(
-                  () => PaymentScreen(
-                applicationId: home.applicationId.value,
-              ),
-            ):() {
-              AppSnackbar.show(
-                "تنبيه",
-                _message(),
-              );
-            };
+              () => PaymentScreen(applicationId: home.applicationId.value),
+            );
           },
           text: "دفع الرسوم",
           icon: Icons.credit_card_outlined,
-          color: canUseServices
-              ? AppColors.primaryColor
-              : Colors.grey.shade400,
-          width: width * .47,
-          height: height * .055,
+          width: width,
+          height: height,
         ),
       );
-    }if (status == "appointment_pending") {
+    }
+    if (status == "appointment_pending") {
       return section(
         text: "تمت الموافقة على طلبك، يمكنك الآن حجز موعد الاختبار",
-        button: OrderActionButton(
+        button: _actionButton(
           onPressed: () {
-        if (home.applicationId.value > 0) {
-          canUseServices
-              ? Get.toNamed(
-            '/available_tests_page',
-            arguments: home.applicationId.value,
-          ):() {
-            AppSnackbar.show(
-              "تنبيه",
-              _message(),
-            );
-          };}
+            if (home.applicationId.value > 0) {
+              Get.toNamed(
+                '/available_tests_page',
+                arguments: home.applicationId.value,
+              );
+            }
           },
           text: "حجز موعد",
           icon: Icons.calendar_month_outlined,
-          color: canUseServices
-              ? AppColors.primaryColor
-              : Colors.grey.shade400,
-          width: width * .47,
-          height: height * .055,
+          width: width,
+          height: height,
         ),
       );
     }
     if (status == "in_testing") {
       return section(
-        text: "مرحلة الاختبارات مفعّلة لديك، يمكنك حجز موعد اختبار أو متابعة المواعيد الحالية حسب حالتها.",        button: SizedBox(
+        text:
+            "مرحلة الاختبارات مفعّلة لديك، يمكنك حجز موعد اختبار أو متابعة المواعيد الحالية حسب حالتها.",
+        button: SizedBox(
           width: width * .47,
           height: height * .055,
           child: ElevatedButton.icon(
             onPressed: canUseServices
-                ?  home.openOrderDetails
+                ? home.openOrderDetails
                 : () {
-              AppSnackbar.show(
-                "تنبيه",
-                _message(),
-              );
-            },
-
+                    AppSnackbar.show("تنبيه", _message());
+                  },
             style: ElevatedButton.styleFrom(
               backgroundColor: canUseServices
-            ? AppColors.primaryColor
-                : Colors.grey.shade400,
+                  ? AppColors.primaryColor
+                  : Colors.grey.shade400,
               elevation: 0,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(width * .03),
@@ -223,33 +227,22 @@ class OrderCardController extends GetxController {
     if (status == "waiting_retest") {
       return section(
         text: "يمكنك إعادة الاختبار وحجز موعد جديد",
-        button: OrderActionButton(
+        button: _actionButton(
           onPressed: () {
             if (home.applicationId.value > 0) {
-              if (canUseServices) {
-                Get.toNamed(
-                  'available_tests_page',
-                  arguments: home.applicationId.value,
-                );
-              } else {
-                AppSnackbar.show(
-                  "تنبيه",
-                  _message(),
-                );
-              }
+              Get.toNamed(
+                'available_tests_page',
+                arguments: home.applicationId.value,
+              );
             }
           },
           text: "إعادة الاختبار",
           icon: Icons.refresh,
-          color: canUseServices
-              ? AppColors.primaryColor
-              : Colors.grey.shade400,
-          width: width * .47,
-          height: height * .055,
+          width: width,
+          height: height,
         ),
       );
     }
-
     if (status == "approved") {
       return section(
         text: "تم اجتياز جميع المراحل بنجاح، بانتظار إصدار الرخصة.",
@@ -257,24 +250,19 @@ class OrderCardController extends GetxController {
           onPressed: canUseServices
               ? home.openOrderDetails
               : () {
-            AppSnackbar.show(
-              "تنبيه",
-              _message(),
-            );
-          },
+                  AppSnackbar.show("تنبيه", _message());
+                },
           text: "بانتظار الرخصة",
           icon: Icons.check,
-          color: canUseServices
-              ? AppColors.primaryColor
-              : Colors.grey.shade400,
+          color: canUseServices ? AppColors.primaryColor : Colors.grey.shade400,
           width: width * .47,
           height: height * .055,
         ),
       );
     }
-
     return const SizedBox();
   }
+
   String _message() {
     final status = profileStatus.value;
 

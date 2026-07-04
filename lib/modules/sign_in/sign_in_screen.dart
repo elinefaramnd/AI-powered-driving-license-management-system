@@ -10,7 +10,8 @@ import 'sign_in_controller.dart';
 
 class SignInScreen extends StatelessWidget {
   SignInScreen({super.key});
-  final SignInController controller = Get.put(SignInController());
+  final SignInController controller =
+  Get.find<SignInController>();
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;

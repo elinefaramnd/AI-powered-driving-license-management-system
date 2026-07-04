@@ -5,7 +5,6 @@ import 'package:file_picker/file_picker.dart';
 import 'package:project_2/app_theme/app_colors.dart';
 import 'package:project_2/modules/chat_bot/chat_bot_screen.dart';
 
-
 class ChatMessage {
   final String text;
   final bool isUser;

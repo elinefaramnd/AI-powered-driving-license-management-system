@@ -75,26 +75,16 @@ class AppointmentsController extends GetxController {
 
       final response = await HttpHelper.deleteData(
         url: "appointments/$appointmentId/cancel",
-        body: {
-          "cancellation_reason": "Schedule conflict",
-        },
+        body: {"cancellation_reason": "Schedule conflict"},
       );
 
       if (response.statusCode == 200) {
-        appointments.removeWhere(
-              (item) => item.id == appointmentId,
-        );
+        appointments.removeWhere((item) => item.id == appointmentId);
 
-        AppSnackbar.show(
-          "تم",
-          "تم إلغاء الموعد بنجاح",
-        );
+        AppSnackbar.show("تم", "تم إلغاء الموعد بنجاح");
       }
     } catch (e) {
-      Get.snackbar(
-        "خطأ",
-        "فشل إلغاء الموعد",
-      );
+      Get.snackbar("خطأ", "فشل إلغاء الموعد");
 
       print(e);
     } finally {

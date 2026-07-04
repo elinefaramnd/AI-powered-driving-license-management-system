@@ -8,37 +8,37 @@ class ResetPasswordScreen extends StatelessWidget {
   ResetPasswordScreen({super.key});
   final ResetPasswordController controller =
   Get.find<ResetPasswordController>();
+  // final ResetPasswordController controller = Get.put(ResetPasswordController());
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return Scaffold(
       body: Container(
         width: double.infinity,
         child: SafeArea(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: size.width * 0.06),
+            padding: const EdgeInsets.symmetric(horizontal: 24),
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  SizedBox(height: size.height * 0.12),
+                  const SizedBox(height: 70),
                   Center(
                     child: Container(
-                      width: size.width * 0.125,
-                      height: size.width * 0.125,
+                      width: 50,
+                      height: 50,
                       decoration: BoxDecoration(
                         color: Colors.grey.shade300,
-                        borderRadius: BorderRadius.circular(size.width * 0.1),
+                        borderRadius: BorderRadius.circular(40),
                       ),
-                      child: Icon(Icons.lock_outline, size: size.width * 0.062,),
+                      child: Icon(Icons.lock_outline, size: 25),
                     ),
                   ),
-                  SizedBox(height: size.height * 0.036),
+                  const SizedBox(height: 30),
                   Center(
-                    child: Text(
+                    child: const Text(
                       "إعادة تعيين كلمة المرور",
                       style: TextStyle(
-                        fontSize: size.width * 0.06,
+                        fontSize: 24,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
@@ -49,22 +49,22 @@ class ResetPasswordScreen extends StatelessWidget {
                       "أدخل بياناتك لإنشاء كلمة مرور جديدة",
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: size.width * 0.039,
+                        fontSize: 15,
                         fontWeight: FontWeight.w400,
                         color: Colors.grey.shade600,
                       ),
                     ),
                   ),
-                  SizedBox(height: size.height * 0.024),
+                  const SizedBox(height: 18),
                   Padding(
-                    padding: EdgeInsets.all(size.width * 0.03),
+                    padding: const EdgeInsets.all(8.0),
                     child: Text("كلمة المرور الجديدة"),
                   ),
                   Obx(
-                    () => CustomTextField2(
+                        () => CustomTextField2(
                       controller: controller.passwordController,
                       hintText: '........',
-                      hintFontSize: size.width * 0.07,
+                      hintFontSize: 28,
                       prefixIcon: IconButton(
                         icon: Icon(
                           controller.obscurePassword.value
@@ -79,14 +79,14 @@ class ResetPasswordScreen extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(size.width * 0.03,),
+                    padding: const EdgeInsets.all(8.0),
                     child: Text("تأكيد كلمة المرور الجديدة"),
                   ),
                   Obx(
-                    () => CustomTextField2(
+                        () => CustomTextField2(
                       controller: controller.confirmPasswordController,
                       hintText: '........',
-                      hintFontSize: size.width * 0.07,
+                      hintFontSize: 28,
                       prefixIcon: IconButton(
                         icon: Icon(
                           controller.obscureConfirmPassword.value
@@ -100,29 +100,29 @@ class ResetPasswordScreen extends StatelessWidget {
                       suffixIcon: Icons.lock_outline,
                     ),
                   ),
-                  SizedBox(height: size.height * 0.04),
+                  const SizedBox(height: 25),
                   Obx(
-                    () => AppButton(
+                        () => AppButton(
                       text: "",
                       onPressed: controller.isLoading.value
                           ? () {}
                           : controller.reset,
                       child: controller.isLoading.value
-                          ? SizedBox(
-                        width: size.width * 0.055,
-                        height: size.width * 0.055,
-                              child: CircularProgressIndicator(
-                                color: Colors.white,
-                                strokeWidth: 2,
-                              ),
-                            )
-                          : Text(
-                              "حفظ كلمة المرور",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: size.width * 0.045,
-                              ),
-                            ),
+                          ? const SizedBox(
+                        width: 22,
+                        height: 22,
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                          strokeWidth: 2,
+                        ),
+                      )
+                          : const Text(
+                        "حفظ كلمة المرور",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                        ),
+                      ),
                     ),
                   ),
                 ],

@@ -22,9 +22,12 @@ class CustomTextField2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final w = size.width;
+    final h = size.height;
     return SizedBox(
       width: double.infinity,
-      height: 50,
+      height: h * 0.062,
       child: TextFormField(
         textDirection: TextDirection.rtl,
         textAlign: TextAlign.right,
@@ -34,17 +37,17 @@ class CustomTextField2 extends StatelessWidget {
         cursorColor: AppColors.primaryColor,
         decoration: InputDecoration(
           hintText: hintText,
-          hintStyle: TextStyle(fontSize: hintFontSize ?? 15),
+          hintStyle: TextStyle(fontSize: hintFontSize ?? w * 0.038,),
           hintTextDirection: TextDirection.rtl,
           prefixIcon: prefixIcon,
-          suffixIcon: Icon(suffixIcon, color: AppColors.primaryColor),
+          suffixIcon: Icon(suffixIcon, color: AppColors.primaryColor,size: w * 0.06,),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: AppColors.primaryColor, width: 2),
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(w * 0.025),
           ),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: AppColors.Gray),
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(w * 0.025),
           ),
         ),
       ),

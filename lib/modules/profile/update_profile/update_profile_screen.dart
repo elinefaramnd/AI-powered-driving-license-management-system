@@ -1,37 +1,74 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:project_2/widgets/custom_app_bar.dart';
 import '../../../app_theme/app_colors.dart';
 import '../../../widgets/app_button.dart';
 import '../../../widgets/outlined_textField_widget.dart';
 import 'update_profile_controller.dart';
+
 class UpdateProfileScreen extends StatelessWidget {
   UpdateProfileScreen({super.key});
   final UpdateProfileController controller =
-  Get.find<UpdateProfileController>();
+      Get.find<UpdateProfileController>();
+  final args = Get.arguments;
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final w = size.width;
+    final h = size.height;
     return Scaffold(
-      appBar: AppBar(title: const Text("تعديل المعلومات"), centerTitle: true),
+      backgroundColor: AppColors.background,
+      appBar: CustomAppBar(title: "تعديل المعلومات"),
       body: Padding(
-        padding: const EdgeInsets.all(24),
+        padding: EdgeInsets.all(w * 0.061),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              const SizedBox(height: 20),
+              if (args != null &&
+                  args["mode"] == "rejected" &&
+                  args["reason"] != null &&
+                  args["reason"].toString().trim().isNotEmpty)
+                Center(
+                  child: Padding(
+                    padding: EdgeInsets.only(bottom: h * 0.01),
+                    child: RichText(
+                      textAlign: TextAlign.center,
+                      text: TextSpan(
+                        style: TextStyle(
+                          fontSize: w * 0.038,
+                          color: Colors.black87,
+                          height: 1.4,
+                        ),
+                        children: [
+                          TextSpan(
+                            text: "مرفوض: ",
+                            style: TextStyle(
+                              color: Colors.red,
+                              fontWeight: FontWeight.bold,
+                              fontSize: w * 0.041,
+                            ),
+                          ),
+                          TextSpan(text: args["reason"]),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              SizedBox(height: h * 0.025),
               const Text("الاسم"),
-              const SizedBox(height: 8),
+              SizedBox(height: h * 0.01),
               CustomTextField2(
                 controller: controller.nameController,
                 hintText: "ادخل الاسم",
                 suffixIcon: Icons.person,
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: h * 0.025),
               const Text("المحافظة"),
-              const SizedBox(height: 8),
+              SizedBox(height: h * 0.01),
               Obx(
-                    () => DropdownSearch<String>(
+                () => DropdownSearch<String>(
                   selectedItem: controller.selectedGovernorate.value,
                   items: (filter, loadProps) => controller.provinces,
                   popupProps: PopupProps.menu(
@@ -42,10 +79,10 @@ class UpdateProfileScreen extends StatelessWidget {
                         hintText: "ابحث عن المحافظة...",
                         prefixIcon: const Icon(Icons.search),
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(w * 0.03),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(w * 0.03),
                           borderSide: const BorderSide(
                             color: AppColors.primaryColor,
                           ),
@@ -57,10 +94,10 @@ class UpdateProfileScreen extends StatelessWidget {
                     decoration: InputDecoration(
                       hintText: "اختر المحافظة",
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(14),
+                        borderRadius: BorderRadius.circular(w * 0.036),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(14),
+                        borderRadius: BorderRadius.circular(w * 0.036),
                         borderSide: BorderSide(color: AppColors.primaryColor),
                       ),
                     ),
@@ -71,33 +108,36 @@ class UpdateProfileScreen extends StatelessWidget {
                   },
                 ),
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: h * 0.025),
               const Text("العنوان"),
-              const SizedBox(height: 8),
+              SizedBox(height: h * 0.01),
               CustomTextField2(
                 controller: controller.addressController,
                 hintText: "ادخل العنوان",
                 suffixIcon: Icons.home,
               ),
-              const SizedBox(height: 35),
+              SizedBox(height: h * 0.044),
               Obx(
-                    () => AppButton(
+                () => AppButton(
                   text: "",
                   onPressed: controller.isLoading.value
                       ? () {}
                       : controller.updateProfile,
                   child: controller.isLoading.value
-                      ? const SizedBox(
-                    width: 22,
-                    height: 22,
-                    child: CircularProgressIndicator(
-                      color: Colors.white,
-                      strokeWidth: 2,
-                    ),
-                  )
+                      ? SizedBox(
+                          width: w * 0.056,
+                          height: w * 0.056,
+                          child: const CircularProgressIndicator(
+                            color: Colors.white,
+                            strokeWidth: 2,
+                          ),
+                        )
                       : const Text(
                     "حفظ التعديلات",
-                    style: TextStyle(color: Colors.white, fontSize: 16),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
                   ),
                 ),
               ),

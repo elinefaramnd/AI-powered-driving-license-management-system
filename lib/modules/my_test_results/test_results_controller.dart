@@ -40,8 +40,7 @@ class TestResultsController extends GetxController {
     }
   }
 
-  TestResultModel? get item =>
-      results.isNotEmpty ? results.first : null;
+  TestResultModel? get item => results.isNotEmpty ? results.first : null;
 
   String getNotes(String notes) {
     if (notes == "Citizen met requirements.") {

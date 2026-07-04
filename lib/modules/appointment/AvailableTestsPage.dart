@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../app_theme/app_colors.dart';
 import '../../widgets/available_tests/locked_test_card.dart';
 import '../../widgets/available_tests/main_test_card.dart';
 import '../../widgets/available_tests/order_info_card.dart';

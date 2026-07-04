@@ -7,9 +7,7 @@ import 'application_controller.dart';
 
 class ReviewPage extends StatelessWidget {
   ReviewPage({super.key});
-
   final ApplicationController controller = Get.find<ApplicationController>();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

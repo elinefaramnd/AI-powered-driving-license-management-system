@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:project_2/modules/profile/profile/profile_model.dart';
 import 'package:project_2/widgets/app_snackbar.dart';
-
 import '../../../configuration/http_helpers.dart';
 
 class ProfileController extends GetxController {
