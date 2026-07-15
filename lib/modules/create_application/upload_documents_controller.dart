@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
+import '../../app/controllers/app_update_controller.dart';
 import '../../configuration/http_helpers.dart';
 import '../../helpers/document_picker_service.dart';
 import '../../widgets/app_snackbar.dart';
@@ -87,6 +88,7 @@ class UploadDocumentsController extends GetxController {
       if (response.statusCode == 200 || response.statusCode == 201) {
         uploadedIds.add(requiredId);
         await getRequiredDocuments();
+        Get.find<AppUpdateController>().notifyChange();
         AppSnackbar.show(
             "نجاح", "تم رفع الوثيقة"
         );
@@ -122,6 +124,7 @@ class UploadDocumentsController extends GetxController {
         if (Get.isRegistered<HomeController>()) {
           await Get.find<HomeController>().getCurrentApplication();
         }
+        Get.find<AppUpdateController>().notifyChange();
         AppSnackbar.show("نجاح", "تم إرسال الوثائق بنجاح، الطلب قيد المعالجة");
       } else {
         AppSnackbar.show("خطأ", data["message"]);

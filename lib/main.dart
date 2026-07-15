@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:project_2/modules/home_page/chat_bot_controller.dart';
+import 'app/controllers/app_update_controller.dart';
 import 'modules/account_verification/account_verification_screen.dart';
 import 'modules/appointment/AvailableTestsPage.dart';
 import 'modules/chat_bot/chat_bot_controller.dart';
@@ -49,6 +50,7 @@ void main() async {
   await GetStorage.init();
   Get.put(ChatBotController());
   Get.put(ChatController());
+  Get.put(AppUpdateController());
   runApp(const MyApp());
 }
 

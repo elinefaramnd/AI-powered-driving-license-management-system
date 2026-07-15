@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_2/modules/profile/update_profile/update_profile_model.dart';
 import 'package:project_2/widgets/app_snackbar.dart';
+import '../../../app/controllers/app_update_controller.dart';
 import '../../../configuration/http_helpers.dart';
 
 
@@ -80,6 +81,7 @@ class UpdateProfileController extends GetxController {
       final data = jsonDecode(response.body);
       final model = UpdateProfileModel.fromJson(data);
       if (response.statusCode == 200 || response.statusCode == 201) {
+        Get.find<AppUpdateController>().notifyChange();
         AppSnackbar.show("نجاح", model.message);
         Get.offNamed("/showPro");
       } else {

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:project_2/widgets/app_snackbar.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../../app/controllers/app_update_controller.dart';
 import '../../configuration/http_helpers.dart';
 
 class AppointmentSlotsController extends GetxController {
@@ -63,7 +64,6 @@ class AppointmentSlotsController extends GetxController {
 
       if (decoded["success"] == true) {
         Get.back(result: true);
-
         AppSnackbar.show(
           "تم التعديل",
           "تم تعديل الموعد بنجاح",
@@ -119,6 +119,7 @@ class AppointmentSlotsController extends GetxController {
 
       if (decoded["success"] == true) {
         Get.back(result: true);
+        Get.find<AppUpdateController>().notifyChange();
         AppSnackbar.show(
           "تم الحجز",
           "تم حجز الموعد بنجاح",

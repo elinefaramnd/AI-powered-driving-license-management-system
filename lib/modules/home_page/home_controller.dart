@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_2/configuration/http_helpers.dart' show HttpHelper;
 import 'package:project_2/widgets/app_snackbar.dart';
+import '../../app/controllers/app_update_controller.dart';
 import '../create_application/create_application_step1.dart';
 
 class HomeController extends GetxController {
@@ -17,17 +18,20 @@ class HomeController extends GetxController {
   RxString status = '-'.obs;
   RxBool loadingServices = false.obs;
   var isServicesExpanded = false.obs;
-  var profileStatus = "incomplete".obs;
+  var profileStatus = "".obs;
   RxList<Map<String, dynamic>> services = <Map<String, dynamic>>[].obs;
   var selectedIndex = 0.obs;
   var notificationsCount = 3.obs;
   RxString profileRejectionReason = "".obs;
+  RxBool loadingHome = true.obs;
+  final appUpdate = Get.find<AppUpdateController>();
   @override
   void onInit() {
     super.onInit();
-    getProfileStatus();
-    getCurrentApplication();
-    getServices();
+    loadHome();
+    ever(appUpdate.homeRefresh, (_) async {
+      await loadHome();
+    });
   }
 
   void openDrawer() {
@@ -57,7 +61,7 @@ class HomeController extends GetxController {
     if (applicationId.value == 0) {
       return;
     }
-    Get.toNamed("/order_details", arguments: applicationId.value);
+    Get.toNamed("/available_tests_page", arguments: applicationId.value);
   }
 
   void openUploadDocuments() {
@@ -187,5 +191,16 @@ class HomeController extends GetxController {
     } catch (e) {
       print(e);
     }
+  }
+  Future<void> loadHome() async {
+    loadingHome.value = true;
+
+    await Future.wait([
+      getProfileStatus(),
+      getCurrentApplication(),
+      getServices(),
+    ]);
+
+    loadingHome.value = false;
   }
 }

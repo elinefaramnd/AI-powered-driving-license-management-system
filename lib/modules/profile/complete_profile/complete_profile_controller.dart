@@ -5,7 +5,9 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:project_2/widgets/app_snackbar.dart';
 
+import '../../../app/controllers/app_update_controller.dart';
 import '../../../configuration/http_helpers.dart';
+import '../../home_page/home_controller.dart';
 import 'complete_profile_model.dart';
 
 
@@ -93,7 +95,18 @@ class CompleteProfileController extends GetxController {
       final model = CompleteProfileModel.fromJson(data);
       if (response.statusCode == 200 || response.statusCode == 201) {
         AppSnackbar.show('نجاح', model.message ,);
-        Get.offNamed('/home');
+        if (Get.isRegistered<HomeController>()) {
+          final home = Get.find<HomeController>();
+
+          await Future.wait([
+            home.getProfileStatus(),
+            home.getCurrentApplication(),
+            home.getServices(),
+          ]);
+        }
+
+        Get.offAllNamed('/home');
+
       } else {
         AppSnackbar.show('خطأ',
           model.message );

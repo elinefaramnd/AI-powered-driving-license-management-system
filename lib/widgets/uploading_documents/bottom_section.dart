@@ -39,8 +39,13 @@ class BottomSection extends StatelessWidget {
             child: OutlinedButton.icon(
               onPressed: () async {
                 if (Get.isRegistered<HomeController>()) {
-                  await Get.find<HomeController>()
-                      .getCurrentApplication();
+                  final home = Get.find<HomeController>();
+
+                  await Future.wait([
+                    home.getProfileStatus(),
+                    home.getCurrentApplication(),
+                  ]);
+
                 }
                 Get.offAllNamed('/home');
               },

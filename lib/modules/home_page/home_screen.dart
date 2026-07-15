@@ -25,41 +25,47 @@ class HomeScreen extends StatelessWidget {
         body: Stack(
           children: [
             SafeArea(
-              child: Column(
-                children: [
-                  HomeHeaderWidget(controller: controller),
-                  Expanded(
-                    child: RefreshIndicator(
-                      color: AppColors.primary,
+              child: Obx(() {
+                if (controller.loadingHome.value) {
+                  return const Center(child: CircularProgressIndicator(color: AppColors.primaryColor,));
+                }
 
-                      onRefresh: () async {
-                        await controller.getProfileStatus();
-                        await controller.getCurrentApplication();
-                      },
+                return Column(
+                  children: [
+                    HomeHeaderWidget(controller: controller),
+                    Expanded(
+                      child: RefreshIndicator(
+                        color: AppColors.primary,
 
-                      child: SingleChildScrollView(
-                        physics: const AlwaysScrollableScrollPhysics(),
+                        onRefresh: () async {
+                          await controller.getProfileStatus();
+                          await controller.getCurrentApplication();
+                        },
 
-                        padding: const EdgeInsets.all(14),
+                        child: SingleChildScrollView(
+                          physics: const AlwaysScrollableScrollPhysics(),
 
-                        child: Column(
-                          children: [
-                            OrderCardWidget(),
+                          padding: const EdgeInsets.all(14),
 
-                            const SizedBox(height: 12),
+                          child: Column(
+                            children: [
+                              OrderCardWidget(),
 
-                            TimelineCardWidget(),
+                              const SizedBox(height: 12),
 
-                            const SizedBox(height: 12),
+                              TimelineCardWidget(),
 
-                            ServicesGridWidget(),
-                          ],
+                              const SizedBox(height: 12),
+
+                              ServicesGridWidget(),
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
+                  ],
+                );
+              }),
             ),
 
             ChatBotWidget(),

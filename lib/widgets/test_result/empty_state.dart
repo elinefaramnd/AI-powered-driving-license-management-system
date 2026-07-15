@@ -20,14 +20,14 @@ class EmptyState extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              padding: const EdgeInsets.all(24),
+              padding: const EdgeInsets.all(15),
               decoration: BoxDecoration(
                 color: AppColors.background,
                 borderRadius: BorderRadius.circular(24),
               ),
               child: Icon(
                 Icons.fact_check_outlined,
-                size: 64,
+                size: 30,
                 color: AppColors.gold,
               ),
             ),
@@ -35,7 +35,7 @@ class EmptyState extends StatelessWidget {
             Text(
               'لا توجد نتائج اختبارات',
               style: TextStyle(
-                fontSize: 20,
+                fontSize: 16,
                 fontWeight: FontWeight.bold,
                 color: AppColors.primaryColor,
               ),
@@ -52,10 +52,9 @@ class EmptyState extends StatelessWidget {
             const SizedBox(height: 24),
             ElevatedButton.icon(
               onPressed: () => controller.getTestResults(),
-              icon: const Icon(Icons.refresh),
               label: const Text('إعادة المحاولة'),
               style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.primary,
+                backgroundColor: AppColors.primaryColor,
                 foregroundColor: Colors.white,
                 padding: const EdgeInsets.symmetric(
                   horizontal: 24,
@@ -65,6 +64,7 @@ class EmptyState extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12),
                 ),
               ),
+              icon: const Icon(Icons.refresh),
             ),
           ],
         ),

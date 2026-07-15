@@ -111,16 +111,20 @@ class AppointmentCard extends StatelessWidget {
                     AppointmentFooterSection(
                       completed: completed,
                       result: controller.getResult(item),
-                      onEdit: () {
-                        Get.to(
-                              () => AppointmentSlotsPage(
-                            testTypeId: item.testTypeId,
-                            applicationId: item.applicationId,
-                            isReschedule: true,
-                            appointmentId: item.id,
-                          ),
-                        );
-                      },
+                        onEdit: () async {
+                          final result = await Get.to(
+                                () => AppointmentSlotsPage(
+                              testTypeId: item.testTypeId,
+                              applicationId: item.applicationId,
+                              isReschedule: true,
+                              appointmentId: item.id,
+                            ),
+                          );
+
+                          if (result == true) {
+                            await controller.fetchAppointments();
+                          }
+                        },
                         onCancel: () {
                           controller.cancelAppointment(item.id);
                         }

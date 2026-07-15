@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../app/controllers/app_update_controller.dart';
+
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
 
@@ -30,7 +32,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
       actions: [
         IconButton(
-          onPressed: () => Get.back(),
+          onPressed: (){
+            Get.back();
+          },
           icon: Icon(
             Icons.arrow_forward,
             color: Colors.black,

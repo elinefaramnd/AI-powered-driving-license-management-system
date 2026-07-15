@@ -35,8 +35,10 @@ class SignInController extends GetxController {
         url: 'auth/login',
         body: {'email': email, 'password': password},
       );
-      final res = LoginResponseModel.fromJson(jsonDecode(value.body));
+      print(value.body);
+      //final res = LoginResponseModel.fromJson(jsonDecode(value.body));
       if (value.statusCode == 200 || value.statusCode == 201) {
+        final res = LoginResponseModel.fromJson(jsonDecode(value.body));
         token = res.token;
         int role = res.roleId;
         GetStorage box = GetStorage();
@@ -48,7 +50,8 @@ class SignInController extends GetxController {
         );
         Get.offNamed('/home');
       } else {
-        AppSnackbar.show('فشل تسجيل الدخول', res.message);
+        final error = jsonDecode(value.body);
+        AppSnackbar.show('فشل تسجيل الدخول', error['message']);
       }
     } catch (e) {
       AppSnackbar.show('Exception', 'حدث خطأ');
@@ -65,8 +68,8 @@ class SignInController extends GetxController {
   @override
   void onClose() {
     print("SignInController onClose");
-    emailController.dispose();
-    passwordController.dispose();
+    // emailController.dispose();
+    // passwordController.dispose();
     super.onClose();
   }
 

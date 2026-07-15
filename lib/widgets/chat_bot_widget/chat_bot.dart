@@ -3,10 +3,13 @@ import 'package:get/get.dart';
 
 import '../../app_theme/app_colors.dart';
 import '../../modules/chat_bot/chat_bot_controller.dart';
+import '../../modules/home_page/home_controller.dart';
+import '../app_snackbar.dart';
 
 class ChatBotWidget extends StatelessWidget {
   ChatBotWidget({super.key});
   final ChatController controller = Get.find();
+  final HomeController home = Get.find<HomeController>();
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -138,6 +141,20 @@ class ChatBotWidget extends StatelessWidget {
 
             child: IconButton(
               onPressed: () {
+                final status = home.profileStatus.value;
+
+                if (status != "approved") {
+                  AppSnackbar.show(
+                    "تنبيه",
+                    status == "pending_review"
+                        ? "الحساب قيد المراجعة حالياً"
+                        : status == "rejected"
+                        ? "تم رفض الملف، يرجى تعديله"
+                        : "يرجى إكمال الملف الشخصي أولاً",
+                  );
+                  return;
+                }
+
                 controller.openChatScreen();
               },
               icon: Icon(
