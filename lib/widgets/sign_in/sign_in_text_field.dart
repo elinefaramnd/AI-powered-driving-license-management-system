@@ -33,8 +33,7 @@ class SignInTextField extends StatelessWidget {
 
     return Column(
 
-      crossAxisAlignment:
-      CrossAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.start,
 
       children: [
 
@@ -79,10 +78,8 @@ class SignInTextField extends StatelessWidget {
 
               ? Padding(
 
-            padding: EdgeInsets.only(
-
-              right:
-              screenWidth * 0.02,
+                padding: EdgeInsetsDirectional.only(
+                  start: screenWidth * 0.02,
 
               top:
               screenHeight * 0.005,

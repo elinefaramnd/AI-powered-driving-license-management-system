@@ -25,7 +25,7 @@ class OrderCardController extends GetxController {
       onPressed: canUseServices
           ? onPressed
           : () {
-              AppSnackbar.show("تنبيه", _message());
+              AppSnackbar.show("warning".tr, _message());
             },
       text: text,
       icon: icon,
@@ -43,7 +43,7 @@ class OrderCardController extends GetxController {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "الخطوة التالية",
+        "next_step".tr,
             style: TextStyle(
               color: Colors.grey,
               fontWeight: FontWeight.bold,
@@ -60,10 +60,10 @@ class OrderCardController extends GetxController {
 
     if (incompleteProfile) {
       return section(
-        text: "يرجى إكمال بيانات الملف الشخصي أولاً.",
+        text: "complete_profile_first_step".tr,
         button: OrderActionButton(
           onPressed: home.openCompleteProfile,
-          text: "إكمال الملف",
+          text: "complete_profile".tr,
           icon: Icons.person_outline,
           color: AppColors.primaryColor,
           width: width * .5,
@@ -73,14 +73,14 @@ class OrderCardController extends GetxController {
     }
     if (uncanUseServices) {
       return section(
-        text: "يرجى تعديل بيانات الملف الشخصي وإعادة إرسالها للمراجعة",
+        text: "update_profile_message".tr,
         button: OrderActionButton(
           onPressed: uncanUseServices
               ? home.openUpdateProfile
               : () {
-                  AppSnackbar.show("تنبيه", _message());
+                  AppSnackbar.show("warning".tr, _message());
                 },
-          text: "تعديل الملف",
+          text: "edit_profile".tr,
           icon: Icons.upload_file,
           color: canUseServices
               ? AppColors.primaryColor
@@ -92,10 +92,10 @@ class OrderCardController extends GetxController {
     }
     if (status == "draft") {
       return section(
-        text: "بانتظار رفع الوثائق المطلوبة لإكمال الطلب",
+        text: "upload_documents_message".tr,
         button: _actionButton(
           onPressed: home.openUploadDocuments,
-          text: "تكملة الطلب",
+          text: "complete_request".tr,
           icon: Icons.upload_file,
           width: width,
           height: height,
@@ -105,10 +105,10 @@ class OrderCardController extends GetxController {
     }
     if (!hasApplication) {
       return section(
-        text: "ابدأ بإنشاء طلب جديد وستظهر هنا حالة الطلب والخطوات القادمة",
+        text: "create_request_message".tr,
         button: _actionButton(
           onPressed: home.openNewApplication,
-          text: "إنشاء طلب",
+          text: "create_request".tr,
           icon: Icons.add_circle_outline,
           width: width,
           height: height,
@@ -117,7 +117,7 @@ class OrderCardController extends GetxController {
     }
     if (status == "documents_under_review") {
       return section(
-        text: "الوثائق قيد المراجعة حالياً، يمكنك متابعة حالة الطلب.",
+        text: "documents_under_review_message".tr,
         button: SizedBox(
           width: width * .47,
           height: height * .055,
@@ -137,8 +137,8 @@ class OrderCardController extends GetxController {
               ),
             ),
             icon: const Icon(Icons.visibility_outlined, color: Colors.white),
-            label: const Text(
-              "عرض الطلب",
+            label: Text(
+              "view_request".tr,
               style: TextStyle(color: Colors.white),
             ),
           ),
@@ -147,10 +147,10 @@ class OrderCardController extends GetxController {
     }
     if (status == "documents_rejected") {
       return section(
-        text: "تم رفض بعض الوثائق، يرجى إعادة رفع الوثائق المطلوبة.",
+        text: "documents_rejected_message".tr,
         button: _actionButton(
           onPressed: home.openUploadDocuments,
-          text: "إعادة رفع الوثائق",
+          text: "reupload_documents".tr,
           icon: Icons.upload_file,
           width: width,
           height: height,
@@ -160,14 +160,14 @@ class OrderCardController extends GetxController {
     }
     if (status == "payment_pending") {
       return section(
-        text: "بانتظار دفع الرسوم للانتقال للمرحلة التالية",
+        text: "payment_pending_message".tr,
         button: _actionButton(
           onPressed: () {
             Get.to(
               () => PaymentScreen(applicationId: home.applicationId.value),
             );
           },
-          text: "دفع الرسوم",
+          text: "pay_fees".tr,
           icon: Icons.credit_card_outlined,
           width: width,
           height: height,
@@ -176,7 +176,7 @@ class OrderCardController extends GetxController {
     }
     if (status == "appointment_pending") {
       return section(
-        text: "تمت الموافقة على طلبك، يمكنك الآن حجز موعد الاختبار",
+        text: "appointment_pending_message".tr,
         button: _actionButton(
           onPressed: () {
             if (home.applicationId.value > 0) {
@@ -186,7 +186,7 @@ class OrderCardController extends GetxController {
               );
             }
           },
-          text: "حجز موعد",
+          text: "book_appointment".tr,
           icon: Icons.calendar_month_outlined,
           width: width,
           height: height,
@@ -196,7 +196,7 @@ class OrderCardController extends GetxController {
     if (status == "in_testing") {
       return section(
         text:
-            "مرحلة الاختبارات مفعّلة لديك، يمكنك حجز موعد اختبار أو متابعة المواعيد الحالية حسب حالتها.",
+        "testing_stage_message".tr,
         button: SizedBox(
           width: width * .47,
           height: height * .055,
@@ -216,8 +216,8 @@ class OrderCardController extends GetxController {
               ),
             ),
             icon: const Icon(Icons.schedule_outlined, color: Colors.white),
-            label: const Text(
-              "عرض التفاصيل",
+            label: Text(
+              "view_details".tr,
               style: TextStyle(color: Colors.white),
             ),
           ),
@@ -226,7 +226,7 @@ class OrderCardController extends GetxController {
     }
     if (status == "waiting_retest") {
       return section(
-        text: "يمكنك إعادة الاختبار وحجز موعد جديد",
+        text: "waiting_retest_message".tr,
         button: _actionButton(
           onPressed: () {
             if (home.applicationId.value > 0) {
@@ -236,7 +236,7 @@ class OrderCardController extends GetxController {
               );
             }
           },
-          text: "إعادة الاختبار",
+          text: "retest".tr,
           icon: Icons.refresh,
           width: width,
           height: height,
@@ -245,14 +245,14 @@ class OrderCardController extends GetxController {
     }
     if (status == "approved") {
       return section(
-        text: "تم اجتياز جميع المراحل بنجاح، بانتظار إصدار الرخصة.",
+        text: "license_waiting_message".tr,
         button: OrderActionButton(
           onPressed: canUseServices
               ? home.openOrderDetails
               : () {
                   AppSnackbar.show("تنبيه", _message());
                 },
-          text: "بانتظار الرخصة",
+          text: "waiting_license".tr,
           icon: Icons.check,
           color: canUseServices ? AppColors.primaryColor : Colors.grey.shade400,
           width: width * .47,
@@ -267,11 +267,11 @@ class OrderCardController extends GetxController {
     final status = profileStatus.value;
 
     if (status == "pending_review") {
-      return "الحساب قيد المراجعة حالياً";
+      return "account_under_review".tr;
     } else if (status == "rejected") {
-      return "تم رفض الملف، يرجى تعديله";
+      return "profile_rejected".tr;
     } else {
-      return "يرجى إكمال الملف الشخصي أولاً";
+      return "complete_profile_first".tr;
     }
   }
 }

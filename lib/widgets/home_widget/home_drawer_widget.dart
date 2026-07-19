@@ -41,13 +41,13 @@ class HomeDrawerWidget extends StatelessWidget {
                   children: [
                     DrawerItemWidget(
                       icon: Icons.home,
-                      title: "الرئيسية",
+                      title:"home".tr,
                       index: 0,
                       controller: controller,
                     ),
                     DrawerItemWidget(
                       icon: Icons.person_outline,
-                      title: "الملف الشخصي",
+                      title: "profile".tr,
                       index: 12,
                       controller: controller,
                       onTap: () {
@@ -57,7 +57,7 @@ class HomeDrawerWidget extends StatelessWidget {
                     ),
                     DrawerItemWidget(
                       icon: Icons.list_alt,
-                      title: "طلباتي",
+                      title: "my_requests".tr,
                       index: 1,
                       controller: controller,
                       onTap: () {
@@ -66,7 +66,7 @@ class HomeDrawerWidget extends StatelessWidget {
                     ),
                     DrawerItemWidget(
                       icon: Icons.calendar_today_outlined,
-                      title: "مواعيدي",
+                      title: "appointments".tr,
                       index: 3,
                       controller: controller,
                       onTap: (){
@@ -79,7 +79,7 @@ class HomeDrawerWidget extends StatelessWidget {
 
                      DrawerItemWidget(
                       icon: Icons.fact_check_outlined,
-                      title: "اختباراتي ونتائجي",
+                      title: "my_tests_results".tr,
                       index: 4,
                       controller: controller,
                        onTap: (){
@@ -90,7 +90,7 @@ class HomeDrawerWidget extends StatelessWidget {
                     ),
                     DrawerItemWidget(
                       icon: Icons.person_outline,
-                      title: "نتائجي",
+                      title: "results".tr,
                       index: 18,
                       controller: controller,
                       onTap: () {
@@ -100,7 +100,7 @@ class HomeDrawerWidget extends StatelessWidget {
                     ),
                     DrawerItemWidget(
                       icon: Icons.badge_outlined,
-                      title: "رخصي",
+                      title: "my_licenses".tr,
                       index: 5,
                       controller: controller,
                       onTap: () {
@@ -109,7 +109,7 @@ class HomeDrawerWidget extends StatelessWidget {
                     ),
                     DrawerItemWidget(
                       icon: Icons.gavel_outlined,
-                      title: "غراماتي",
+                      title: "fines".tr,
                       index: 6,
                       controller: controller,
                       onTap: () {
@@ -118,19 +118,19 @@ class HomeDrawerWidget extends StatelessWidget {
                     ),
                     DrawerItemWidget(
                       icon: Icons.credit_card_rounded,
-                      title: "الدفع الإلكتروني",
+                      title: "electronic_payment".tr,
                       index: 7,
                       controller: controller,
                     ),
                     DrawerItemWidget(
                       icon: Icons.lock_open,
-                      title: "فك حجز رخصة",
+                      title: "unlock_license".tr,
                       index: 10,
                       controller: controller,
                     ),
                     DrawerItemWidget(
                       icon: Icons.notifications_none,
-                      title: "الإشعارات",
+                      title: "notifications".tr,
                       index: 11,
                       controller: controller,
                     ),
@@ -156,7 +156,7 @@ class HomeDrawerWidget extends StatelessWidget {
                             size: 22 * scale,
                           ),
                           title: Text(
-                            "الخدمات",
+                            "services".tr,
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 14 * scale,
@@ -171,21 +171,21 @@ class HomeDrawerWidget extends StatelessWidget {
                           children: [
                             DrawerItemWidget(
                               icon: Icons.add_circle_outline,
-                              title: "طلب إصدار جديد",
+                              title: "new_license_request".tr,
                               index: 2,
                               controller: controller,
                               onTap: controller.openNewApplication,
                             ),
                             DrawerItemWidget(
                               icon: Icons.refresh,
-                              title: "تجديد رخصة",
+                              title: "renew_license".tr,
                               index: 8,
                               controller: controller,
                               onTap: () {},
                             ),
                             DrawerItemWidget(
                               icon: Icons.description_outlined,
-                              title: "بدل فاقد / تالف",
+                              title: "replacement_license".tr,
                               index: 9,
                               controller: controller,
                               onTap: () {},
@@ -196,13 +196,13 @@ class HomeDrawerWidget extends StatelessWidget {
                     ),
                     DrawerItemWidget(
                       icon: Icons.support_agent,
-                      title: "المساعدة والدعم",
+                      title: "support".tr,
                       index: 14,
                       controller: controller,
                     ),
                     DrawerItemWidget(
                       icon: Icons.settings_outlined,
-                      title: "الإعدادات",
+                      title: "settings".tr,
                       index: 13,
                       controller: controller,
                       onTap: () {
@@ -211,7 +211,7 @@ class HomeDrawerWidget extends StatelessWidget {
                     ),
                     DrawerItemWidget(
                       icon: Icons.help_outline_rounded,
-                      title: "الأسئلة الشائعة",
+                      title: "faq".tr,
                       index: 17,
                       controller: controller,
                       onTap: () {
@@ -220,7 +220,7 @@ class HomeDrawerWidget extends StatelessWidget {
                     ),
                     DrawerItemWidget(
                       icon: Icons.shield_outlined,
-                      title: "سياسة الخصوصية",
+                      title: "privacy_policy".tr,
                       index: 15,
                       controller: controller,
                       onTap: () {
@@ -229,7 +229,7 @@ class HomeDrawerWidget extends StatelessWidget {
                     ),
                     DrawerItemWidget(
                       icon: Icons.headset_mic_rounded,
-                      title: "تواصل معنا",
+                      title: "contact_us".tr,
                       index: 16,
                       controller: controller,
                       onTap: () {
@@ -252,7 +252,7 @@ class HomeDrawerWidget extends StatelessWidget {
                         size: 22 * scale,
                       ),
                       title: Text(
-                        "تسجيل خروج",
+                        "logout".tr,
                         style: TextStyle(
                           color: Colors.red,
                           fontWeight: FontWeight.bold,

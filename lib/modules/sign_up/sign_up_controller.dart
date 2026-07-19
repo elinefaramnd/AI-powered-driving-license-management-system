@@ -36,23 +36,23 @@ class SignUpController extends GetxController {
     String password = passwordController.text;
     String confirmPassword = confirmPasswordController.text;
     if (name.isEmpty || phone.isEmpty || email.isEmpty || password.isEmpty || confirmPassword.isEmpty) {
-      nameError.value = name.isEmpty ? 'مطلوب' : '';
-      phoneError.value = phone.isEmpty ? 'مطلوب' : '';
-      emailError.value = email.isEmpty ? 'مطلوب' : '';
-      passwordError.value = password.isEmpty ? 'مطلوب' : '';
-      confirmPasswordError.value = confirmPassword.isEmpty ? 'مطلوب' : '';
+      nameError.value = name.isEmpty ? 'required'.tr: '';
+      phoneError.value = phone.isEmpty ? 'required'.tr: '';
+      emailError.value = email.isEmpty ? 'required'.tr: '';
+      passwordError.value = password.isEmpty ? 'required'.tr : '';
+      confirmPasswordError.value = confirmPassword.isEmpty ? 'required'.tr : '';
       return;
     }
     if (!email.contains('@') || !email.contains('.')) {
-      emailError.value = 'بريد إلكتروني غير صالح';
+      emailError.value = 'invalid_email'.tr;
       return;
     }
     if (password.length < 8) {
-      passwordError.value = 'كلمة المرور يجب أن تكون 8 أحرف على الأقل';
+      passwordError.value = 'password_min_length'.tr;
       return;
     }
     if (password != confirmPassword) {
-      confirmPasswordError.value = 'كلمة المرور غير متطابقة';
+      confirmPasswordError.value = 'password_not_match'.tr;
       return;
     }
     Map<String, dynamic> data = {
@@ -75,18 +75,18 @@ class SignUpController extends GetxController {
       if (response.statusCode == 200 || response.statusCode == 201) {
         GetStorage box = GetStorage();
         box.write('name', name);
-        AppSnackbar.show('تم انشاء الحساب بنجاح',
+        AppSnackbar.show('',
           res.message,);
         Get.offNamed('/accountVerify', arguments: {'email': email});
       } else {
         print(jsonEncode(data));
-        AppSnackbar.show('خطأ',
+        AppSnackbar.show('error'.tr,
           res.message,);
       }
     } catch (e) {
       print('Register Error: $e');
-      AppSnackbar.show('خطأ',
-          'An error occurred during the registration process',);
+      AppSnackbar.show('error'.tr,
+        'registration_error'.tr,);
     } finally {
       isLoading.value = false;
     }

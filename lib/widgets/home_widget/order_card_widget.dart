@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
 import '../../modules/home_page/home_controller.dart';
 import '../../modules/home_page/order_card_controller.dart';
@@ -10,6 +11,8 @@ class OrderCardWidget extends StatelessWidget {
   const OrderCardWidget({super.key});
   @override
   Widget build(BuildContext context) {
+
+    final isArabic = Get.locale?.languageCode == "ar";
     final controller = Get.find<HomeController>();
     final orderController = Get.put(OrderCardController());
     final size = MediaQuery.of(context).size;
@@ -27,7 +30,7 @@ class OrderCardWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "طلبك الحالي",
+            "current_request".tr,
                   style: TextStyle(
                     color: Colors.grey,
                     fontWeight: FontWeight.bold,
@@ -38,7 +41,7 @@ class OrderCardWidget extends StatelessWidget {
                   () => Text(
                     controller.hasApplication.value
                         ? controller.currentService.value
-                        : "لا يوجد طلبات حالياً",
+                        : "no_current_requests".tr,
                     style: TextStyle(
                       fontWeight: FontWeight.w400,
                       fontSize: size.width * 0.03,
@@ -50,14 +53,14 @@ class OrderCardWidget extends StatelessWidget {
                   () => Text(
                     controller.hasApplication.value
                         ? controller.currentApplicationNumber.value
-                        : "أنشأ أول طلب للبدء",
+                        : "create_first_request".tr,
                     style: TextStyle(fontSize: size.width * 0.03),
                   ),
                 ),
                 SizedBox(height: size.height * 0.01),
                 Divider(),
                 Text(
-                  "الحالة الحالية",
+                  "current_status".tr,
                   style: TextStyle(
                     color: Colors.grey,
                     fontWeight: FontWeight.bold,
@@ -87,7 +90,8 @@ class OrderCardWidget extends StatelessWidget {
           ),
           Positioned(
             top: size.height * 0.01,
-            left: 0,
+            left: isArabic ? 0 : null,
+            right: isArabic ? null : 0,
             child: Image.asset(
               "assets/images/car.png",
               width: size.width * 0.49,

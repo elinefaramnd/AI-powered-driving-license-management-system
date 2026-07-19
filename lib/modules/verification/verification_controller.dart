@@ -28,7 +28,8 @@ class VerificationController extends GetxController {
 
   Future<void> verifyCodeAndProceed() async {
     if (otpCode.value.length != 6) {
-      AppSnackbar.show("error", "Please enter a 6-digit code");
+      AppSnackbar.show("error".tr,
+        "enter_verification_code".tr,);
       return;
     }
     isLoading.value = true;
@@ -51,10 +52,10 @@ class VerificationController extends GetxController {
         );
       } else {
         print(response.body);
-        AppSnackbar.show("خطأ", data['message'] ?? "كود غير صالح");
+        AppSnackbar.show("error".tr, data['message'] ?? "invalid_verification_code".tr,);
       }
     } catch (e) {
-      AppSnackbar.show("خطأ", ": $e");
+      AppSnackbar.show("error".tr,": $e");
     } finally {
       isLoading.value = false;
     }

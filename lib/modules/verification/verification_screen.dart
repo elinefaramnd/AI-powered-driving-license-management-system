@@ -35,12 +35,12 @@ class VerificationScreen extends StatelessWidget {
                   ),
                   SizedBox(height: size.height * 0.039),
                    Text(
-                    "تأكيد رمز الاستعادة",
+                     "recover_code_verification".tr,
                     style: TextStyle(fontSize: size.width * 0.06, fontWeight: FontWeight.w700),
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    "أدخل رمز التحقق المرسل إلى بريدك الإلكتروني",
+                    "recover_code_verification_description".tr,
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: size.width * 0.037, color: Colors.grey.shade600),
                   ),
@@ -72,7 +72,7 @@ class VerificationScreen extends StatelessWidget {
                         ),
                       )
                           : Text(
-                        "تأكيد",
+                        "confirm".tr,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: size.width * 0.045,

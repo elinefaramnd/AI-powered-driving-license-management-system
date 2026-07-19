@@ -39,7 +39,7 @@ class SignUpButton extends StatelessWidget {
                   ),
                 )
               : Text(
-                  "إنشاء حساب جديد",
+            "signup".tr,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: screenWidth * 0.043,

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
 import '../../app_theme/app_colors.dart';
+import '../../lang/controllers/language_controller.dart';
 import '../../modules/settings_support/models/settings_model.dart';
 import '../../modules/settings_support/settings_controller.dart';
 
@@ -76,6 +79,7 @@ class LanguageCardWidget extends StatelessWidget {
                           language: lang.code,
                           theme: preferences?.theme ?? 'system',
                         );
+                        Get.find<LanguageController>().changeLanguage(lang.code);
                       }
                     },
                     child: Container(

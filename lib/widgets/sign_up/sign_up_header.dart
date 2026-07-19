@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
 class SignUpHeader extends StatelessWidget {
   const SignUpHeader({super.key});
@@ -19,7 +20,7 @@ class SignUpHeader extends StatelessWidget {
         SizedBox(height: screenHeight * 0.04),
         Center(
           child: Text(
-            "إنشاء حساب جديد",
+            "signup".tr,
             style: TextStyle(
               fontSize: screenWidth * 0.065,
               fontWeight: FontWeight.w800,
@@ -35,7 +36,7 @@ class SignUpHeader extends StatelessWidget {
               horizontal: screenWidth * 0.02,
             ),
             child: Text(
-              "ادخل بياناتك للوصول إلى خدمات رخص القيادة الرقمية بسلاسة وأمان",
+              "signup_description".tr,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: screenWidth * 0.039,

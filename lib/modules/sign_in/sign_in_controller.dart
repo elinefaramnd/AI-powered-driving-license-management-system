@@ -23,12 +23,12 @@ class SignInController extends GetxController {
       String email = emailController.text.trim();
       String password = passwordController.text;
       if (email.isEmpty || password.isEmpty) {
-        emailError.value = email.isEmpty ? 'يرجى إدخال البريد الإلكتروني' : '';
-        passwordError.value = password.isEmpty ? 'يرجى إدخال كلمة المرور' : '';
+        emailError.value = email.isEmpty ? 'enter_email'.tr : '';
+        passwordError.value = password.isEmpty ? 'enter_password'.tr : '';
         return;
       }
       if (!email.contains('@') || !email.contains('.')) {
-        emailError.value = 'بريد إلكتروني غير صالح';
+        emailError.value =  'invalid_email'.tr;
         return;
       }
       final value = await HttpHelper.postData(
@@ -45,16 +45,17 @@ class SignInController extends GetxController {
         box.write('token', token);
         box.write('id', role);
         AppSnackbar.show(
-          'نجاح',
+          'success'.tr,
           res.message,
         );
         Get.offNamed('/home');
       } else {
         final error = jsonDecode(value.body);
-        AppSnackbar.show('فشل تسجيل الدخول', error['message']);
+        AppSnackbar.show('login_failed'.tr, error['message']);
       }
     } catch (e) {
-      AppSnackbar.show('Exception', 'حدث خطأ');
+      AppSnackbar.show('exception'.tr,
+        'error'.tr,);
     } finally {
       isLoading.value = false;
     }

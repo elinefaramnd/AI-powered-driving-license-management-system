@@ -92,7 +92,7 @@ class SignInButton extends StatelessWidget {
 
               : Text(
 
-            "تسجيل الدخول",
+            "login".tr,
 
             style: TextStyle(
               color: Colors.white,

@@ -18,7 +18,7 @@ class ForgetPasswordController extends GetxController {
     final email = emailController.text.trim();
 
     if (email.isEmpty) {
-      AppSnackbar.show("خطأ", "يرجى إدخال البريد الإلكتروني");
+      AppSnackbar.show("error".tr, "enter_email_error".tr);
       return;
     }
 
@@ -39,10 +39,10 @@ class ForgetPasswordController extends GetxController {
       } else {
         print(response.body);
         print(response.statusCode);
-        AppSnackbar.show("خطأ", model.message);
+        AppSnackbar.show("error".tr, model.message);
       }
     } catch (e) {
-      AppSnackbar.show("خطأ", ":$e");
+      AppSnackbar.show("error".tr, ":$e");
     } finally {
       isLoading.value = false;
     }

@@ -15,8 +15,12 @@ class HomeScreen extends StatelessWidget {
   final HomeController controller = Get.find<HomeController>();
   @override
   Widget build(BuildContext context) {
+    final isArabic = Get.locale?.languageCode == "ar";
+
     return Directionality(
-      textDirection: TextDirection.rtl,
+      //textDirection: TextDirection.rtl,
+      textDirection:
+      isArabic ? TextDirection.rtl : TextDirection.ltr,
       child: Scaffold(
         key: controller.scaffoldKey,
         backgroundColor: const Color(0xFFF6F7F7),

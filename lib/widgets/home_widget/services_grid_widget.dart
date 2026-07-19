@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
 import '../../app_theme/app_colors.dart';
 import '../../modules/home_page/home_controller.dart';
@@ -50,7 +51,7 @@ class ServicesGridWidget extends StatelessWidget {
               ),
             ),
             Text(
-              "الخدمات المرورية",
+              "traffic_services".tr,
               style: TextStyle(
                 fontSize: w * 0.043,
                 fontWeight: FontWeight.bold,
@@ -124,7 +125,8 @@ class ServicesGridWidget extends StatelessWidget {
                 );
               }),
               Positioned(
-                left: w * 0.01,
+                left: Get.locale?.languageCode == "ar" ? w * 0.01 : null,
+                right: Get.locale?.languageCode == "en" ? w * 0.01 : null,
                 top: 0,
                 bottom: -w * 0.15,
                 child: Center(

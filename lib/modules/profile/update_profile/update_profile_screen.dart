@@ -19,12 +19,13 @@ class UpdateProfileScreen extends StatelessWidget {
     final h = size.height;
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: CustomAppBar(title: "تعديل المعلومات"),
+      appBar: CustomAppBar(title: "edit_information".tr),
       body: Padding(
         padding: EdgeInsets.all(w * 0.061),
         child: SingleChildScrollView(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
+            crossAxisAlignment:
+            CrossAxisAlignment.start,
             children: [
               if (args != null &&
                   args["mode"] == "rejected" &&
@@ -43,7 +44,7 @@ class UpdateProfileScreen extends StatelessWidget {
                         ),
                         children: [
                           TextSpan(
-                            text: "مرفوض: ",
+                            text: "${"rejected".tr}: ",
                             style: TextStyle(
                               color: Colors.red,
                               fontWeight: FontWeight.bold,
@@ -57,15 +58,15 @@ class UpdateProfileScreen extends StatelessWidget {
                   ),
                 ),
               SizedBox(height: h * 0.025),
-              const Text("الاسم"),
+              Text("name".tr),
               SizedBox(height: h * 0.01),
               CustomTextField2(
                 controller: controller.nameController,
-                hintText: "ادخل الاسم",
+                hintText: "enter_name".tr,
                 suffixIcon: Icons.person,
               ),
               SizedBox(height: h * 0.025),
-              const Text("المحافظة"),
+              Text("governorate".tr),
               SizedBox(height: h * 0.01),
               Obx(
                 () => DropdownSearch<String>(
@@ -76,7 +77,7 @@ class UpdateProfileScreen extends StatelessWidget {
                     searchFieldProps: TextFieldProps(
                       cursorColor: AppColors.primaryColor,
                       decoration: InputDecoration(
-                        hintText: "ابحث عن المحافظة...",
+                        hintText: "search_governorate".tr,
                         prefixIcon: const Icon(Icons.search),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(w * 0.03),
@@ -92,7 +93,7 @@ class UpdateProfileScreen extends StatelessWidget {
                   ),
                   decoratorProps: DropDownDecoratorProps(
                     decoration: InputDecoration(
-                      hintText: "اختر المحافظة",
+                      hintText: "select_governorate".tr,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(w * 0.036),
                       ),
@@ -109,11 +110,11 @@ class UpdateProfileScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: h * 0.025),
-              const Text("العنوان"),
+              Text("address".tr),
               SizedBox(height: h * 0.01),
               CustomTextField2(
                 controller: controller.addressController,
-                hintText: "ادخل العنوان",
+                hintText: "enter_address".tr,
                 suffixIcon: Icons.home,
               ),
               SizedBox(height: h * 0.044),
@@ -132,8 +133,8 @@ class UpdateProfileScreen extends StatelessWidget {
                             strokeWidth: 2,
                           ),
                         )
-                      : const Text(
-                    "حفظ التعديلات",
+                      : Text(
+                    "save_changes".tr,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 16,

@@ -12,7 +12,7 @@ class HomeHeaderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
+    final isArabic = Get.locale?.languageCode == "ar";
     final size = MediaQuery.of(context).size;
     final scale = size.width / 375;
 
@@ -25,6 +25,8 @@ class HomeHeaderWidget extends StatelessWidget {
       ),
 
       child: Row(
+        textDirection:
+        isArabic ? TextDirection.rtl : TextDirection.ltr,
         children: [
           Obx(() {
             final canUse = controller.canUseServices;
@@ -34,11 +36,11 @@ class HomeHeaderWidget extends StatelessWidget {
               onPressed: canUse
                   ? controller.openDrawer
                   : () {
-                AppSnackbar.show( "تنبيه",  profileStatus == "pending_review"
-                ? "الحساب قيد المراجعة حالياً"
+                AppSnackbar.show( "warning".tr,  profileStatus == "pending_review"
+                ? "account_under_review".tr
                     : profileStatus == "rejected"
-                ? "تم رفض الملف، يرجى التعديل"
-                    : "يرجى إكمال الملف الشخصي أولاً",);
+                ? "profile_rejected".tr
+                    : "complete_profile_first".tr);
               },
               icon: Icon(
                 Icons.menu,
@@ -81,14 +83,23 @@ class HomeHeaderWidget extends StatelessWidget {
           ),
 
           const Spacer(),
-
           Row(
+            textDirection:
+            isArabic ? TextDirection.ltr : TextDirection.rtl,
             mainAxisSize: MainAxisSize.min,
             children: [
+              SizedBox(
+                width: size.width * 0.10,
+                child: Image.asset(
+                  "assets/images/logo.png",
+                  fit: BoxFit.contain,
+                ),
+              ),
+              SizedBox(width: size.width * 0.025),
               Column(
                 children: [
                   Text(
-                    "سيرتك",
+              "app_name_ar".tr ,
                     style: TextStyle(
                       fontSize: 22 * scale,
                       fontWeight: FontWeight.bold,
@@ -106,15 +117,6 @@ class HomeHeaderWidget extends StatelessWidget {
                 ],
               ),
 
-              SizedBox(width: size.width * 0.025),
-
-              SizedBox(
-                width: size.width * 0.10,
-                child: Image.asset(
-                  "assets/images/logo.png",
-                  fit: BoxFit.contain,
-                ),
-              ),
             ],
           ),
         ],

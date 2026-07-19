@@ -32,12 +32,12 @@ class SignInScreen extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.025),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SignInHeader(),
                   SizedBox(height: screenHeight * 0.03),
                   SignInTextField(
-                    title: "البريد الإلكتروني",
+                    title: "email".tr,
                     controller: controller.emailController,
                     hintText: 'example@gmail.com',
                     icon: Icons.email_outlined,
@@ -45,7 +45,7 @@ class SignInScreen extends StatelessWidget {
                     error: controller.emailError,
                   ),
                   SignInPasswordField(
-                    title: "كلمة المرور",
+                    title: "password".tr,
                     controller: controller.passwordController,
                     hintText: '.........',
                     icon: Icons.lock_outline,
@@ -54,13 +54,13 @@ class SignInScreen extends StatelessWidget {
                     error: controller.passwordError,
                   ),
                   Align(
-                    alignment: Alignment.centerRight,
+                    alignment: AlignmentDirectional.centerEnd,
                     child: TextButton(
                       onPressed: () {
                         Get.toNamed('/forgetPass');
                       },
-                      child: const Text(
-                        "نسيت كلمة المرور؟",
+                      child: Text(
+                          "forget_password".tr,
                         style: TextStyle(color: Color(0xff0D5C46)),
                       ),
                     ),

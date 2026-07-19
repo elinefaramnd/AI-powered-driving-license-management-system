@@ -37,7 +37,7 @@ class CreateApplicationStep1 extends StatelessWidget {
               ],
             ),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ApplicationHeader(size: size),
                 SizedBox(height: size.height * .015),
@@ -46,7 +46,7 @@ class CreateApplicationStep1 extends StatelessWidget {
                 Align(
                   alignment: Alignment.centerRight,
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
                         "نوع الخدمة",
@@ -72,7 +72,7 @@ class CreateApplicationStep1 extends StatelessWidget {
                 Align(
                   alignment: Alignment.centerRight,
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text("نوع الرخصة",
                         style: TextStyle(

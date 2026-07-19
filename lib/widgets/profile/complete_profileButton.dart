@@ -29,7 +29,7 @@ class CompleteProfileButton extends StatelessWidget {
           print("stored runes = ${storedName.runes.toList()}");
           print("entered runes = ${enteredName.trim().runes.toList()}");
           if (controller.nameController.text.trim() != storedName) {
-            controller.nameError.value = 'الاسم غير مطابق لاسم التسجيل';
+            controller.nameError.value =  "name_not_match".tr;
             return;
           }
 
@@ -45,7 +45,7 @@ class CompleteProfileButton extends StatelessWidget {
                 ),
               )
             : Text(
-                "حفظ و متابعة",
+             "save_continue".tr,
                 style: TextStyle(color: Colors.white, fontSize: size.width * 0.041,),
               ),
       ),

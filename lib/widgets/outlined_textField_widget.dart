@@ -22,6 +22,7 @@ class CustomTextField2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isRtl = Directionality.of(context) == TextDirection.rtl;
     final size = MediaQuery.of(context).size;
     final w = size.width;
     final h = size.height;
@@ -29,8 +30,8 @@ class CustomTextField2 extends StatelessWidget {
       width: double.infinity,
       height: h * 0.062,
       child: TextFormField(
-        textDirection: TextDirection.rtl,
-        textAlign: TextAlign.right,
+        textDirection: Directionality.of(context),
+        textAlign: TextAlign.start,
         controller: controller,
         obscureText: obscureText,
         keyboardType: keyboardType,
@@ -38,9 +39,22 @@ class CustomTextField2 extends StatelessWidget {
         decoration: InputDecoration(
           hintText: hintText,
           hintStyle: TextStyle(fontSize: hintFontSize ?? w * 0.038,),
-          hintTextDirection: TextDirection.rtl,
-          prefixIcon: prefixIcon,
-          suffixIcon: Icon(suffixIcon, color: AppColors.primaryColor,size: w * 0.06,),
+          hintTextDirection: Directionality.of(context),
+          prefixIcon: isRtl
+              ? Icon(
+            suffixIcon,
+            color: AppColors.primaryColor,
+            size: w * 0.06,
+          )
+              : prefixIcon,
+
+          suffixIcon: isRtl
+              ? prefixIcon
+              : Icon(
+            suffixIcon,
+            color: AppColors.primaryColor,
+            size: w * 0.06,
+          ),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: AppColors.primaryColor, width: 2),
             borderRadius: BorderRadius.circular(w * 0.025),

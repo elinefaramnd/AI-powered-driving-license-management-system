@@ -47,9 +47,10 @@ class OrderActionButton extends StatelessWidget {
             Text(
               text,
 
-              style: const TextStyle(
+              style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
+                fontSize:width * .078
               ),
             ),
           ],

@@ -9,28 +9,30 @@ class SignInRedirect extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-
-    return Row(
+    final isRtl = Directionality.of(context) == TextDirection.rtl;
+    return
+    Row(
       mainAxisAlignment: MainAxisAlignment.center,
-
+      textDirection: isRtl ? TextDirection.rtl : TextDirection.ltr,
       children: [
+        Text(
+          "no_account".tr,
+          style: TextStyle(fontSize: screenWidth * 0.038),
+        ),
         TextButton(
           onPressed: () {
             Get.toNamed('/signUp');
           },
-
           child: Text(
-            "إنشاء حساب جديد",
-
+            "create_account".tr,
             style: TextStyle(
               color: AppColors.primaryColor,
-
               fontSize: screenWidth * 0.038,
             ),
           ),
         ),
 
-        Text("ليس لديك حساب؟", style: TextStyle(fontSize: screenWidth * 0.038)),
+
       ],
     );
   }

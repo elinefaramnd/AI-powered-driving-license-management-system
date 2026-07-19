@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:project_2/modules/logout/logout_controller.dart';
 import 'package:project_2/modules/sign_up/sign_up_controller.dart';
 import '../../widgets/sign_up/google_signup.dart';
@@ -38,14 +39,14 @@ class SignUpScreen extends StatelessWidget {
                   SizedBox(height: screenHeight * 0.01),
                   const SignUpHeader(),
                   SignUpTextField(
-                    title: "الاسم الكامل",
+                    title: "full_name".tr,
                     controller: controller.nameController,
-                    hintText: 'ادخل اسمك الثلاثي',
+                    hintText: "enter_full_name_hint".tr,
                     icon: Icons.person_outline,
                     error: controller.nameError,
                   ),
                   SignUpTextField(
-                    title: "البريد الإلكتروني",
+                    title: "email".tr,
                     controller: controller.emailController,
                     hintText: 'example@gmail.com',
                     icon: Icons.email_outlined,
@@ -53,7 +54,7 @@ class SignUpScreen extends StatelessWidget {
                     error: controller.emailError,
                   ),
                   SignUpTextField(
-                    title: "رقم الهاتف",
+                    title: "phone".tr,
                     controller: controller.phoneController,
                     hintText: '0936000000',
                     icon: Icons.phone_outlined,
@@ -61,7 +62,7 @@ class SignUpScreen extends StatelessWidget {
                     error: controller.phoneError,
                   ),
                   SignUpPasswordField(
-                    title: "كلمة المرور",
+                    title: "password".tr,
                     controller: controller.passwordController,
                     hintText: '........',
                     icon: Icons.lock_outline,
@@ -71,7 +72,7 @@ class SignUpScreen extends StatelessWidget {
                   ),
 
                   SignUpPasswordField(
-                    title: "تأكيد كلمة المرور",
+                    title: "confirm_password".tr,
                     controller: controller.confirmPasswordController,
                     hintText: '........',
                     icon: Icons.lock_reset,

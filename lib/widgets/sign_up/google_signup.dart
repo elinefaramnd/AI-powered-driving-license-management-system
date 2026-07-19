@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
 class GoogleSignup extends StatelessWidget {
   const GoogleSignup({super.key});
@@ -19,7 +20,7 @@ class GoogleSignup extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.025),
               child: Text(
-                "أو",
+                "or".tr,
                 style: TextStyle(
                   color: Colors.grey.shade600,
                   fontSize: screenWidth * 0.04,

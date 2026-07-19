@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:project_2/modules/home_page/chat_bot_controller.dart';
 import 'app/controllers/app_update_controller.dart';
+import 'lang/controllers/language_controller.dart';
+import 'lang/translations/app_translation.dart';
 import 'modules/account_verification/account_verification_screen.dart';
 import 'modules/appointment/AvailableTestsPage.dart';
 import 'modules/chat_bot/chat_bot_controller.dart';
@@ -51,6 +53,7 @@ void main() async {
   Get.put(ChatBotController());
   Get.put(ChatController());
   Get.put(AppUpdateController());
+  Get.put(LanguageController(), permanent: true);
   runApp(const MyApp());
 }
 
@@ -60,51 +63,123 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final box = GetStorage();
+    final language = Get.find<LanguageController>();
     final hasToken =
         box.read<String>('token') != null &&
         box.read<String>('token')!.isNotEmpty;
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
+    return Obx(
+      () => GetMaterialApp(
+        locale: language.locale.value,
+        translations: AppTranslation(),
+        fallbackLocale: const Locale("en"),
 
-      initialRoute: hasToken ? '/home' : '/',
+        builder: (context, child) {
+          return Directionality(
+            textDirection: language.locale.value.languageCode == "ar"
+                ? TextDirection.rtl
+                : TextDirection.ltr,
+            child: child!,
+          );
+        },
 
-      getPages: [
-        GetPage(name: '/signIn', page: () => SignInScreen(), binding: SignInBindings(),),
-        GetPage(name: '/', page: () => SplashScreen()),
-        GetPage(name: '/onboarding', page: () => OnboardingScreen()),
-        GetPage(name: '/signUp', page: () => SignUpScreen(),binding: SignUpBindings(),),
-        GetPage(name: '/forgetPass', page: () => ForgetPasswordScreen(), binding: ForgetPasswordBinding(),),
-        GetPage(name: '/emailVerify', page: () => VerificationScreen(), binding: VerificationBinding(),),
-        GetPage(name: '/resetPass', page: () => ResetPasswordScreen(), binding: ResetPasswordBinding(),),
-        GetPage(name: '/accountVerify', page: () => OtpVerificationScreen()),
-        GetPage(name: '/home', page: () => HomeScreen(), binding: HomeBinding(),),
-        GetPage(name: '/completePro', page: () => CompleteProfileScreen(), binding: CompleteProfileBinding(),),
-        GetPage(name: '/showPro', page: () => ProfileScreen(), binding: ProfileBinding(),),
-        GetPage(name: '/updatePro', page: () => UpdateProfileScreen(), binding: UpdateProfileBinding(),),
-        GetPage(name: '/upload_documents', page: () => UploadDocumentsPage()),
-        GetPage(name: '/order_screen', page: () => OrdersScreen()),
-        GetPage(name: '/order_details', page: () => OrderDetailsScreen()),
-        GetPage(name: '/fines_screen', page: () => FinesScreen()),
-        GetPage(name: '/my_licenses', page: () => MyLicensesScreen()),
-        GetPage(name: '/test_results', page: () => TestResultsScreen()),
-        GetPage(name: '/available_tests_page', page: () => AvailableTestsPage(),),
-        GetPage(name: '/settings', page: () => SettingsScreen()),
-        GetPage(name: '/settings/password', page: () => ChangePasswordScreen()),
-        GetPage(name: '/privacy_policy', page: () => PrivacyPolicyScreen(), binding: BindingsBuilder(() {
-            Get.lazyPut(() => PrivacyPolicyController(), fenix: true);
-          }),
-        ),
-        GetPage(name: '/contact_us', page: () => ContactUsScreen(), binding: BindingsBuilder(() {
-            Get.lazyPut(() => ContactUsController(), fenix: true);
-          }),
-        ),
-        GetPage(name: '/send_message', page: () => const SendMessageScreen(), binding: BindingsBuilder(() {
-            Get.lazyPut(() => SendMessageController(), fenix: true);
-          }),
-        ),
-        GetPage(name: '/faq', page: () => FaqScreen(), binding: BindingsBuilder(() {Get.lazyPut(() => FaqController(), fenix: true);}),),
-        GetPage(name: '/appointments', page: () => MyAppointmentsScreen()),
-      ],
+        debugShowCheckedModeBanner: false,
+        initialRoute: hasToken ? '/home' : '/',
+
+        getPages: [
+          GetPage(
+            name: '/signIn',
+            page: () => SignInScreen(),
+            binding: SignInBindings(),
+          ),
+          GetPage(name: '/', page: () => SplashScreen()),
+          GetPage(name: '/onboarding', page: () => OnboardingScreen()),
+          GetPage(
+            name: '/signUp',
+            page: () => SignUpScreen(),
+            binding: SignUpBindings(),
+          ),
+          GetPage(
+            name: '/forgetPass',
+            page: () => ForgetPasswordScreen(),
+            binding: ForgetPasswordBinding(),
+          ),
+          GetPage(
+            name: '/emailVerify',
+            page: () => VerificationScreen(),
+            binding: VerificationBinding(),
+          ),
+          GetPage(
+            name: '/resetPass',
+            page: () => ResetPasswordScreen(),
+            binding: ResetPasswordBinding(),
+          ),
+          GetPage(name: '/accountVerify', page: () => OtpVerificationScreen()),
+          GetPage(
+            name: '/home',
+            page: () => HomeScreen(),
+            binding: HomeBinding(),
+          ),
+          GetPage(
+            name: '/completePro',
+            page: () => CompleteProfileScreen(),
+            binding: CompleteProfileBinding(),
+          ),
+          GetPage(
+            name: '/showPro',
+            page: () => ProfileScreen(),
+            binding: ProfileBinding(),
+          ),
+          GetPage(
+            name: '/updatePro',
+            page: () => UpdateProfileScreen(),
+            binding: UpdateProfileBinding(),
+          ),
+          GetPage(name: '/upload_documents', page: () => UploadDocumentsPage()),
+          GetPage(name: '/order_screen', page: () => OrdersScreen()),
+          GetPage(name: '/order_details', page: () => OrderDetailsScreen()),
+          GetPage(name: '/fines_screen', page: () => FinesScreen()),
+          GetPage(name: '/my_licenses', page: () => MyLicensesScreen()),
+          GetPage(name: '/test_results', page: () => TestResultsScreen()),
+          GetPage(
+            name: '/available_tests_page',
+            page: () => AvailableTestsPage(),
+          ),
+          GetPage(name: '/settings', page: () => SettingsScreen()),
+          GetPage(
+            name: '/settings/password',
+            page: () => ChangePasswordScreen(),
+          ),
+          GetPage(
+            name: '/privacy_policy',
+            page: () => PrivacyPolicyScreen(),
+            binding: BindingsBuilder(() {
+              Get.lazyPut(() => PrivacyPolicyController(), fenix: true);
+            }),
+          ),
+          GetPage(
+            name: '/contact_us',
+            page: () => ContactUsScreen(),
+            binding: BindingsBuilder(() {
+              Get.lazyPut(() => ContactUsController(), fenix: true);
+            }),
+          ),
+          GetPage(
+            name: '/send_message',
+            page: () => const SendMessageScreen(),
+            binding: BindingsBuilder(() {
+              Get.lazyPut(() => SendMessageController(), fenix: true);
+            }),
+          ),
+          GetPage(
+            name: '/faq',
+            page: () => FaqScreen(),
+            binding: BindingsBuilder(() {
+              Get.lazyPut(() => FaqController(), fenix: true);
+            }),
+          ),
+          GetPage(name: '/appointments', page: () => MyAppointmentsScreen()),
+        ],
+      ),
     );
   }
 }

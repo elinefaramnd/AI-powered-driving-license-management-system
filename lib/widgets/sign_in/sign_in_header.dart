@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
 class SignInHeader extends StatelessWidget {
 
@@ -35,7 +36,7 @@ class SignInHeader extends StatelessWidget {
 
         Center(
           child: Text(
-            "مرحباً بعودتك",
+            "welcome_back".tr,
 
             style: TextStyle(
               fontSize: screenWidth * 0.065,
@@ -51,7 +52,7 @@ class SignInHeader extends StatelessWidget {
 
         Center(
           child: Text(
-            "سجل دخولك للوصول لميزات سيرتك",
+          "login_description".tr,
 
             style: TextStyle(
               fontSize: screenWidth * 0.039,

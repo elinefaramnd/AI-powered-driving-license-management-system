@@ -21,10 +21,10 @@ class ProfileController extends GetxController {
       if (response.statusCode == 200 || response.statusCode == 201) {
         userData.value = model.data;
       } else {
-        AppSnackbar.show("خطأ", model.message );
+        AppSnackbar.show("error".tr, model.message );
       }
     } catch (e) {
-      AppSnackbar.show("خطأ", e.toString());
+      AppSnackbar.show("error".tr, e.toString());
     } finally {
       isLoading.value = false;
     }

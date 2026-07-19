@@ -12,6 +12,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(Directionality.of(context));
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -59,33 +60,33 @@ class ProfileScreen extends StatelessWidget {
                    SizedBox(height: screenHeight * 0.06),
                   buildProfileItem(
                     context: context,
-                    title: "الرقم الوطني",
+                    title: "national_id".tr,
                     value: user["national_id"] ?? "",
                     icon: Icons.badge_outlined,
                   ),
 
                   buildProfileItem(
                     context: context,
-                    title: "تاريخ الميلاد",
+                    title: "birth_date".tr,
                     value: user["birth_date"] ?? "",
                     icon: Icons.calendar_month,
                   ),
                   buildProfileItem(
                     context: context,
-                    title: "رقم الهاتف",
+                    title: "phone".tr,
                     value: user["phone"] ?? "",
                     icon: Icons.phone,
                   ),
                   buildProfileItem(
                     context: context,
-                    title: "المحافظة",
+                    title: "governorate".tr,
                     value: user["governorate"] ?? "",
                     icon: Icons.location_on_outlined,
                   ),
 
                   buildProfileItem(
                     context: context,
-                    title: "العنوان",
+                    title: "address".tr,
                     value: user["address"] ?? "",
                     icon: Icons.home_outlined,
                   ),
@@ -109,7 +110,7 @@ class ProfileScreen extends StatelessWidget {
                       ),
 
                       child:  Text(
-                        "تعديل المعلومات",
+                        "edit_information".tr,
                         style: TextStyle(color: Colors.white, fontSize: screenWidth * 0.04, ),
                       ),
                     ),

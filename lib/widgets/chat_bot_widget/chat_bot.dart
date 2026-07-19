@@ -12,13 +12,56 @@ class ChatBotWidget extends StatelessWidget {
   final HomeController home = Get.find<HomeController>();
   @override
   Widget build(BuildContext context) {
+    final isArabic = Get.locale?.languageCode == "ar";
     final size = MediaQuery.of(context).size;
     return Positioned(
       bottom: size.height * 0.025,
-      left: size.width * 0.05,
+      left: size.width * 0.07,
       child: Row(
+        textDirection: TextDirection.ltr,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
+          Container(
+            width: size.width * 0.145,
+            height: size.width * 0.145,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: AppColors.gold,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.15),
+                  blurRadius: size.width * 0.03,
+                  offset: Offset(0, size.height * 0.005),
+                ),
+              ],
+            ),
+
+            child: IconButton(
+              onPressed: () {
+                final status = home.profileStatus.value;
+
+                if (status != "approved") {
+                  AppSnackbar.show(
+                    "تنبيه",
+                    status == "pending_review"
+                        ? "الحساب قيد المراجعة حالياً"
+                        : status == "rejected"
+                        ? "تم رفض الملف، يرجى تعديله"
+                        : "يرجى إكمال الملف الشخصي أولاً",
+                  );
+                  return;
+                }
+
+                controller.openChatScreen();
+              },
+              icon: Icon(
+                Icons.chat_bubble_outline,
+                color: Colors.white,
+                size: size.width * 0.065,
+              ),
+            ),
+          ),
+          SizedBox(width: size.width * 0.002),
           Obx(
             () => controller.showMessage.value
                 ? Align(
@@ -29,7 +72,7 @@ class ChatBotWidget extends StatelessWidget {
                         bottom: size.height * 0.015 + size.height * 0.071,
                       ),
                       child: Transform.translate(
-                        offset: Offset(-size.width * 0.12, 0),
+                        offset: Offset(-size.width * 0.035, 0),
                         child: Stack(
                           clipBehavior: Clip.none,
                           children: [
@@ -77,9 +120,9 @@ class ChatBotWidget extends StatelessWidget {
                                   SizedBox(width: size.width * 0.02),
                                   Expanded(
                                     child: Text(
-                                      "مرحبا! أنا المساعد الذكي الخاص بتطبيق سيرتك..\nكيف يمكنني مساعدتك؟",
+                                      "chatbot_welcome".tr,
                                       style: TextStyle(
-                                        fontSize: size.width * 0.031,
+                                        fontSize: size.width * 0.03,
                                         color: AppColors.gold,
                                         fontWeight: FontWeight.w600,
                                         height: 1.5,
@@ -123,47 +166,8 @@ class ChatBotWidget extends StatelessWidget {
                 : const SizedBox(),
           ),
 
-          SizedBox(width: size.width * 0.02),
-          Container(
-            width: size.width * 0.145,
-            height: size.width * 0.145,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: AppColors.gold,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.15),
-                  blurRadius: size.width * 0.03,
-                  offset: Offset(0, size.height * 0.005),
-                ),
-              ],
-            ),
 
-            child: IconButton(
-              onPressed: () {
-                final status = home.profileStatus.value;
 
-                if (status != "approved") {
-                  AppSnackbar.show(
-                    "تنبيه",
-                    status == "pending_review"
-                        ? "الحساب قيد المراجعة حالياً"
-                        : status == "rejected"
-                        ? "تم رفض الملف، يرجى تعديله"
-                        : "يرجى إكمال الملف الشخصي أولاً",
-                  );
-                  return;
-                }
-
-                controller.openChatScreen();
-              },
-              icon: Icon(
-                Icons.chat_bubble_outline,
-                color: Colors.white,
-                size: size.width * 0.065,
-              ),
-            ),
-          ),
         ],
       ),
     );

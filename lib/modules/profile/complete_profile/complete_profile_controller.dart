@@ -47,21 +47,21 @@ class CompleteProfileController extends GetxController {
     governorateError.value = '';
     addressError.value = '';
     if (nameController.text.trim().isEmpty) {
-      nameError.value = 'يرجى إدخال الاسم الكامل';
+      nameError.value =  'enter_full_name'.tr;
     }
     if (nationalNumController.text.trim().isEmpty) {
-      nationalIdError.value = 'يرجى إدخال الرقم الوطني';
+      nationalIdError.value = 'enter_national_id'.tr;
     } else if (nationalNumController.text.trim().length != 11) {
-      nationalIdError.value = 'الرقم الوطني يجب أن يكون 11 خانة';
+      nationalIdError.value = 'national_id_length'.tr;
     }
     if (birthDateController.text.trim().isEmpty) {
-      birthDateError.value = 'يرجى اختيار تاريخ الميلاد';
+      birthDateError.value ='select_birth_date'.tr;
     }
     if (governorateController.text.trim().isEmpty) {
-      governorateError.value = 'يرجى اختيار المحافظة';
+      governorateError.value = 'select_governorate_error'.tr;
     }
     if (addressController.text.trim().isEmpty) {
-      addressError.value = 'يرجى إدخال العنوان';
+      addressError.value = 'enter_address_error'.tr;
     }
     print("nameError = ${nameError.value}");
     print("nationalIdError = ${nationalIdError.value}");
@@ -108,11 +108,11 @@ class CompleteProfileController extends GetxController {
         Get.offAllNamed('/home');
 
       } else {
-        AppSnackbar.show('خطأ',
+        AppSnackbar.show("error".tr,
           model.message );
       }
     } catch (e) {
-      AppSnackbar.show("خطأ", e.toString());
+      AppSnackbar.show("error".tr, e.toString());
     } finally {
       isLoading.value = false;
     }
@@ -127,7 +127,7 @@ class CompleteProfileController extends GetxController {
     print(enteredName.length);
 
     if (storedName != enteredName) {
-      return 'الاسم غير مطابق للاسم المسجل عند انشاء الحساب';
+      return "name_not_match_register".tr;
     }
 
     return null;

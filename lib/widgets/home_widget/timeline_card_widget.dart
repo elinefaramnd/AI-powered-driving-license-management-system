@@ -72,7 +72,7 @@ class TimelineCardWidget extends StatelessWidget {
           children: [
             Center(
               child: Text(
-                "تقدم الطلب",
+        "application_progress".tr,
                 style: TextStyle(
                   fontSize: w * 0.044,
                   fontWeight: FontWeight.bold,
@@ -84,35 +84,35 @@ class TimelineCardWidget extends StatelessWidget {
             Row(
               children: [
                 StepWidget(
-                  title: "إنشاء الطلب",
+                  title:"create_request".tr,
                   icon: Icons.edit,
                   done: createDone,
                   active: createActive,
                 ),
                 LineWidget(),
                 StepWidget(
-                  title: "مراجعة الوثائق",
+                  title: "documents_review".tr,
                   icon: Icons.fact_check,
                   done: docsDone,
                   active: docsActive,
                 ),
                 LineWidget(),
                 StepWidget(
-                  title: "الدفع",
+                  title: "payment".tr,
                   icon: Icons.payment,
                   done: paymentDone,
                   active: paymentActive,
                 ),
                 LineWidget(),
                 StepWidget(
-                  title: "الاختبارات",
+                  title: "tests".tr,
                   icon: Icons.quiz,
                   done: testsDone,
                   active: testsActive,
                 ),
                 LineWidget(),
                 StepWidget(
-                  title: "إصدار رخصة",
+                  title: "license_issue".tr,
                   icon: Icons.badge,
                   done: licenseDone,
                   active: licenseActive,

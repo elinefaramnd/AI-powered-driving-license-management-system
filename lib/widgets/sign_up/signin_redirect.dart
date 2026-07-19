@@ -6,20 +6,22 @@ class SignInRedirect extends StatelessWidget {
   const SignInRedirect({super.key});
   @override
   Widget build(BuildContext context) {
+    final isRtl = Directionality.of(context) == TextDirection.rtl;
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        Text("already_have_account".tr),
         TextButton(
           onPressed: () {
             Get.toNamed('/signIn');
           },
-          child: const Text(
-            "تسجيل الدخول",
+          child: Text(
+            "login".tr,
             style: TextStyle(color: AppColors.primaryColor),
           ),
         ),
-        const Text("لديك حساب بالفعل؟"),
-      ],
+      ]
+
     );
   }
 }

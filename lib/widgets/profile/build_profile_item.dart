@@ -27,39 +27,36 @@ Widget buildProfileItem({
       ],
     ),
 
-    child: Row(
-      children: [
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
 
-            children: [
-              Text(title, style: TextStyle(color: Colors.black, fontSize: size.width * 0.033,)),
-
-              SizedBox(height: size.height * 0.005),
-
-              Text(
-                value,
-                style: TextStyle(
-                  fontSize: size.width * 0.038,
-                  color: Colors.grey.shade600,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ],
-          ),
+  child: Row(children: [
+      Container(
+        width: size.width * 0.08,
+        height: size.width * 0.08,
+        decoration: BoxDecoration(
+          color: AppColors.primaryColor.withOpacity(0.1),
+          borderRadius: BorderRadius.circular(size.width * 0.03),
         ),
-        SizedBox(width: size.width * 0.07),
-        Container(
-          width: size.width * 0.08,
-          height: size.width * 0.08,
-          decoration: BoxDecoration(
-            color: AppColors.primaryColor.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(size.width * 0.03),
-          ),
-          child: Icon(icon, color: AppColors.primaryColor, size: size.width * 0.05,),
+        child: Icon(icon,
+            color: AppColors.primaryColor,
+            size: size.width * 0.05),
+      ),
+      SizedBox(width: size.width * 0.07),
+      Expanded(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(title),
+            SizedBox(height: size.height * 0.005),
+            Text(
+              value,
+              textAlign: TextAlign.left,
+            ),
+          ],
         ),
-      ],
-    ),
+      ),
+
+
+    ],
+  ),
   );
 }

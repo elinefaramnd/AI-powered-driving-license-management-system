@@ -82,13 +82,13 @@ class UpdateProfileController extends GetxController {
       final model = UpdateProfileModel.fromJson(data);
       if (response.statusCode == 200 || response.statusCode == 201) {
         Get.find<AppUpdateController>().notifyChange();
-        AppSnackbar.show("نجاح", model.message);
+        AppSnackbar.show("success".tr, model.message);
         Get.offNamed("/showPro");
       } else {
-        AppSnackbar.show("خطأ", model.message);
+        AppSnackbar.show("error".tr, model.message);
       }
     } catch (e) {
-      AppSnackbar.show("خطأ", e.toString());
+      AppSnackbar.show("error".tr, e.toString());
     } finally {
       isLoading.value = false;
     }

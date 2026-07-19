@@ -22,7 +22,7 @@ class CompleteProfileScreen extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: size.width * 0.06,),
             child: SingleChildScrollView(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(height:  size.height * 0.06),
                   Center(
@@ -39,17 +39,17 @@ class CompleteProfileScreen extends StatelessWidget {
                   SizedBox(height: size.height * 0.025),
                   Center(
                     child: Text(
-                      "اكمال الملف الشخصي",
+                      "complete_profile".tr,
                       style: TextStyle(
                         fontSize: size.width * 0.062,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
                   ),
-                   SizedBox(height: size.height * 0.012),
+                  SizedBox(height: size.height * 0.012),
                   Center(
                     child: Text(
-                      "اكمل بياناتك الأساسية لتتمكن من استخدام رخص القيادة",
+                      "complete_profile_description".tr,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: size.width * 0.039,
@@ -60,30 +60,30 @@ class CompleteProfileScreen extends StatelessWidget {
                   ),
                   SizedBox(height: size.height * 0.022),
                   Padding(
-                    padding: EdgeInsets.all(size.width * 0.02),
-                    child: Text("الاسم الكامل"),
+                      padding: EdgeInsets.all(size.width * 0.02),
+                      child:Text("full_name".tr)
                   ),
                   CustomTextField2(
                     controller: controller.nameController,
-                    hintText: 'ادخل اسمك كما هو في الوثيقة الرسمية',
+                    hintText: "enter_name_document".tr,
                     suffixIcon: Icons.email_outlined,
                     keyboardType: TextInputType.emailAddress,
                   ),
                   ProfileErrorText(error: controller.nameError),
                   Padding(
-                    padding:  EdgeInsets.all(size.width * 0.02),
-                    child: Text("الرقم الوطني"),
+                      padding:  EdgeInsets.all(size.width * 0.02),
+                      child: Text("national_id".tr)
                   ),
                   CustomTextField2(
                     controller: controller.nationalNumController,
-                    hintText: '',
+                    hintText: "enter_national_id_hint".tr,
                     suffixIcon: Icons.badge_outlined,
                     keyboardType: TextInputType.number,
                   ),
                   ProfileErrorText(error: controller.nationalIdError),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text("تاريخ الميلاد"),
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text("birth_date".tr)
                   ),
                   GestureDetector(
                     onTap: () async {
@@ -114,7 +114,7 @@ class CompleteProfileScreen extends StatelessWidget {
                     child: AbsorbPointer(
                       child: CustomTextField2(
                         controller: controller.birthDateController,
-                        hintText: 'dd/mm/yyyy',
+                        hintText: "birth_date_hint".tr,
                         suffixIcon: Icons.calendar_today,
                         keyboardType: TextInputType.none,
                       ),
@@ -122,18 +122,18 @@ class CompleteProfileScreen extends StatelessWidget {
                   ),
                   ProfileErrorText(error: controller.birthDateError),
                   Padding(
-                    padding: EdgeInsets.all(size.width * 0.02),
-                    child: Text("المحافظة"),
+                      padding: EdgeInsets.all(size.width * 0.02),
+                      child: Text("governorate".tr)
                   ),
                   const GovernorateDropdown(),
                   ProfileErrorText(error: controller.governorateError),
                   Padding(
-                    padding: EdgeInsets.all(size.width * 0.02),
-                    child: Text("العنوان"),
+                      padding: EdgeInsets.all(size.width * 0.02),
+                      child: Text("address".tr)
                   ),
                   CustomTextField2(
                     controller: controller.addressController,
-                    hintText: 'ادخل العنوان',
+                    hintText: "enter_address".tr,
                     suffixIcon: Icons.email_outlined,
                     keyboardType: TextInputType.emailAddress,
                   ),

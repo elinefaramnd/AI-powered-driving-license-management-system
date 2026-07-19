@@ -11,60 +11,64 @@ class ResetPasswordScreen extends StatelessWidget {
   // final ResetPasswordController controller = Get.put(ResetPasswordController());
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final w = size.width;
+    final h = size.height;
     return Scaffold(
       body: Container(
         width: double.infinity,
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
+            padding: EdgeInsets.symmetric(horizontal: w * 0.06),
             child: SingleChildScrollView(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 70),
+                  SizedBox(height: h * 0.09),
                   Center(
                     child: Container(
-                      width: 50,
-                      height: 50,
+                      width: w * 0.13,
+                      height: w * 0.13,
                       decoration: BoxDecoration(
                         color: Colors.grey.shade300,
-                        borderRadius: BorderRadius.circular(40),
+                        borderRadius: BorderRadius.circular(w * 0.1),
                       ),
-                      child: Icon(Icons.lock_outline, size: 25),
+                      child: Icon(Icons.lock_outline, size: w * 0.07,),
                     ),
                   ),
-                  const SizedBox(height: 30),
+                  SizedBox(height: h * 0.04),
                   Center(
-                    child: const Text(
-                      "إعادة تعيين كلمة المرور",
+                    child: Text(
+                      "reset_password".tr,
                       style: TextStyle(
-                        fontSize: 24,
+                        fontSize: w * 0.06,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
                   ),
-                  const SizedBox(height: 10),
+                  SizedBox(height: h * 0.015),
                   Center(
                     child: Text(
-                      "أدخل بياناتك لإنشاء كلمة مرور جديدة",
+                      "reset_password_description".tr,
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: 15,
+                        fontSize: w * 0.041,
                         fontWeight: FontWeight.w400,
                         color: Colors.grey.shade600,
                       ),
                     ),
                   ),
-                  const SizedBox(height: 18),
+                  SizedBox(height: h * 0.03),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text("كلمة المرور الجديدة"),
+                      padding: EdgeInsets.all(w * 0.02),
+                    child: Text("new_password".tr,
+                      style: TextStyle(fontSize: w * 0.04),)
                   ),
                   Obx(
                         () => CustomTextField2(
                       controller: controller.passwordController,
                       hintText: '........',
-                      hintFontSize: 28,
+                          hintFontSize: w * 0.06,
                       prefixIcon: IconButton(
                         icon: Icon(
                           controller.obscurePassword.value
@@ -79,14 +83,15 @@ class ResetPasswordScreen extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text("تأكيد كلمة المرور الجديدة"),
+                      padding: EdgeInsets.all(w * 0.02),
+                    child:Text("confirm_new_password".tr,
+                      style: TextStyle(fontSize: w * 0.04),)
                   ),
                   Obx(
                         () => CustomTextField2(
                       controller: controller.confirmPasswordController,
                       hintText: '........',
-                      hintFontSize: 28,
+                          hintFontSize: w * 0.06,
                       prefixIcon: IconButton(
                         icon: Icon(
                           controller.obscureConfirmPassword.value
@@ -100,7 +105,7 @@ class ResetPasswordScreen extends StatelessWidget {
                       suffixIcon: Icons.lock_outline,
                     ),
                   ),
-                  const SizedBox(height: 25),
+                  SizedBox(height: h * 0.04),
                   Obx(
                         () => AppButton(
                       text: "",
@@ -108,19 +113,19 @@ class ResetPasswordScreen extends StatelessWidget {
                           ? () {}
                           : controller.reset,
                       child: controller.isLoading.value
-                          ? const SizedBox(
-                        width: 22,
-                        height: 22,
+                          ? SizedBox(
+                        width: w * 0.055,
+                        height: w * 0.055,
                         child: CircularProgressIndicator(
                           color: Colors.white,
                           strokeWidth: 2,
                         ),
                       )
-                          : const Text(
-                        "حفظ كلمة المرور",
+                          : Text(
+                        "save_password".tr,
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 16,
+                          fontSize: w * 0.04,
                         ),
                       ),
                     ),
