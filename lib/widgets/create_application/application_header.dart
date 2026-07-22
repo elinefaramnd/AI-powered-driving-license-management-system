@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import '../../app_theme/app_colors.dart';
 
 class ApplicationHeader extends StatelessWidget {
@@ -26,7 +27,7 @@ class ApplicationHeader extends StatelessWidget {
           SizedBox(height: size.height * .015),
 
           Text(
-            "تقديم طلب جديد",
+            "submit_new_application".tr,
             style: TextStyle(
               fontSize: size.width * .06,
               fontWeight: FontWeight.w700,
@@ -37,7 +38,7 @@ class ApplicationHeader extends StatelessWidget {
           SizedBox(height: size.height * .01),
 
           Text(
-            "يرجى اختيار نوع الخدمة ونوع الرخصة لاستكمال تقديم الطلب",
+            "submit_new_application_description".tr,
             textAlign: TextAlign.center,
             style: TextStyle(
               color: Colors.grey.shade600,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
 class EmptyFinesWidget extends StatelessWidget {
   const EmptyFinesWidget({super.key});
@@ -25,7 +26,7 @@ class EmptyFinesWidget extends StatelessWidget {
               color: Colors.grey.shade400,
             ),
             SizedBox(height: MediaQuery.of(context).size.width * 0.025),
-            const Text("لا توجد غرامات مسجلة"),
+            Text("no_fines_registered".tr,),
           ],
         ),
       ),

@@ -14,12 +14,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final isRtl = Get.locale?.languageCode == "ar";
 
     return AppBar(
       backgroundColor: Colors.white,
       elevation: 0,
       centerTitle: true,
-      automaticallyImplyLeading: false,
+     // automaticallyImplyLeading: false,
 
       title: Text(
         title,
@@ -29,19 +30,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           color: Colors.black,
         ),
       ),
-
-      actions: [
-        IconButton(
-          onPressed: (){
-            Get.back();
-          },
-          icon: Icon(
-            Icons.arrow_forward,
-            color: Colors.black,
-            size: size.width * 0.06,
-          ),
-        ),
-      ],
     );
   }
 

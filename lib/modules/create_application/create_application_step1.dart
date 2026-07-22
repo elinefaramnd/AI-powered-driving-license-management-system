@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../app_theme/app_colors.dart';
 import '../../widgets/create_application/application_header.dart';
 import '../../widgets/create_application/service_selector.dart';
 import '../../widgets/create_application/license_selector.dart';
@@ -14,12 +15,12 @@ class CreateApplicationStep1 extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: const Color(0xffF7F7F4),
-      appBar: const CustomAppBar(
-        title: "طلب إصدار جديد",
+      appBar: CustomAppBar(
+        title: "new_license_request_title".tr,
       ),
       body: Obx(() {
         if (controller.pageLoading.value) {
-          return const Center(child: CircularProgressIndicator());
+          return Center(child: CircularProgressIndicator(color: AppColors.primaryColor));
         }
         return SingleChildScrollView(
           padding: EdgeInsets.all(size.width * .05),
@@ -44,23 +45,25 @@ class CreateApplicationStep1 extends StatelessWidget {
                 Divider(),
                 SizedBox(height: size.height * .015),
                 Align(
-                  alignment: Alignment.centerRight,
+                  alignment: Directionality.of(context) == TextDirection.rtl
+                      ? Alignment.centerRight
+                      : Alignment.centerLeft,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text(
-                        "نوع الخدمة",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: size.width * .05,
-                        ),
-                      ),
-                      SizedBox(width: size.width * .01),
                       Text(
                         "1.",
                         style: TextStyle(
                           fontSize: size.width * .05,
                           fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(width: size.width * .01),
+                      Text(
+                        "service_type".tr,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: size.width * .05,
                         ),
                       ),
                     ],
@@ -70,19 +73,21 @@ class CreateApplicationStep1 extends StatelessWidget {
                 ServiceSelector(size: size),
                 SizedBox(height: size.height * .015),
                 Align(
-                  alignment: Alignment.centerRight,
+                  alignment: Directionality.of(context) == TextDirection.rtl
+                      ? Alignment.centerRight
+                      : Alignment.centerLeft,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text("نوع الرخصة",
+                      Text(
+                        "2.",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: size.width * .05,
                         ),
                       ),
                       SizedBox(width: size.width * .01),
-                      Text(
-                        "2.",
+                      Text("license_type".tr,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: size.width * .05,
@@ -98,7 +103,7 @@ class CreateApplicationStep1 extends StatelessWidget {
                 const SizedBox(height: 15),
                 Center(
                   child: Text(
-                    "جميع البيانات محمية وآمنة 🔒",
+                      "all_data_secure".tr,
                     style: TextStyle(color: Colors.grey),
                   ),
                 ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import '../../../app_theme/app_colors.dart';
 import '../../../widgets/custom_app_bar.dart';
 import 'order_card.dart';
@@ -13,8 +14,8 @@ class OrdersScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffF4F4F4),
-      appBar: const CustomAppBar(
-        title: "طلباتي",
+      appBar: CustomAppBar(
+        title: "my_orders".tr,
       ),
       body: Obx(() {
         if (controller.loading.value) {
@@ -48,7 +49,7 @@ class OrdersScreen extends StatelessWidget {
                 const SizedBox(height: 20),
 
                 Text(
-                  "لا يوجد طلبات",
+                  "no_orders".tr,
 
                   style: TextStyle(
                     fontSize: 22,
@@ -61,8 +62,8 @@ class OrdersScreen extends StatelessWidget {
 
                 const SizedBox(height: 8),
 
-                const Text(
-                  "لا توجد طلبات بعد، أنشئ طلبك الأول للبدء",
+                Text(
+                  "no_orders_description".tr,
 
                   style: TextStyle(color: Colors.grey),
                 ),

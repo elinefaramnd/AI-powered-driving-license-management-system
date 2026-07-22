@@ -7,28 +7,22 @@ class OnboardingController extends GetxController {
     {
       'image': 'assets/images/onboarding1.gif',
 
-      'title': 'احصل على رخصة القيادة بسهولة أكثر من أي وقت مضى',
+      'title': 'onboarding_title_1',
 
       'description':
-          'يبسط تطبيقنا كل خطوة من خطوات عملية الحصول على رخصة القيادة ليمنحك تجربة سلسة وخالية من التوتر',
+      'onboarding_desc_1',
     },
 
     {
       'image': 'assets/images/onboarding2.gif',
-
-      'title': 'مدفوعات سريعة وآمنة وبسيطة',
-
-      'description':
-          'ادفع رسوم طلبك بأمان وسرعة من خلال تجربة دفع سهلة مصممة لراحتك',
+      'title': 'onboarding_title_2',
+      'description': 'onboarding_desc_2',
     },
 
     {
       'image': 'assets/images/onboarding3.gif',
-
-      'title': 'مساعد الذكاء الاصطناعي جاهز لمساعدتك في أي وقت',
-
-      'description':
-          'يجيب روبوت الدردشة الذكي الخاص بنا على أسئلتك على الفور ويرشدك خلال كل خطوة من رحلتك',
+      'title': 'onboarding_title_3',
+      'description': 'onboarding_desc_3',
     },
   ];
 

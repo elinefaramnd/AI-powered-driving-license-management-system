@@ -29,6 +29,7 @@ class DocumentItemWidget extends StatelessWidget {
       ),
       child: Row(
         children: [
+
           Container(
             width: w * 0.105,
             height: w * 0.13,
@@ -42,6 +43,8 @@ class DocumentItemWidget extends StatelessWidget {
               color: AppColors.primaryColor,
             ),
           ),
+
+
            SizedBox(width: w * 0.03),
           Expanded(
             child: Column(

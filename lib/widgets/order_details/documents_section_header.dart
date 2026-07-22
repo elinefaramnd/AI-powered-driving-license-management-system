@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import '../../../app_theme/app_colors.dart';
 
 class DocumentsSectionHeader extends StatelessWidget {
@@ -8,21 +9,15 @@ class DocumentsSectionHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final w = MediaQuery.of(context).size.width;
     final h = MediaQuery.of(context).size.height;
+    final isRtl = Directionality.of(context) == TextDirection.rtl;
     return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
-                Text(
-                  "المستندات المرفقة",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: w * 0.043,
-                  ),
-                ),
                 Padding(
                   padding: EdgeInsets.symmetric(
                     horizontal: w * 0.02,
@@ -31,6 +26,13 @@ class DocumentsSectionHeader extends StatelessWidget {
                     Icons.fact_check_outlined,
                     color: AppColors.primaryColor,
                     size: w * 0.06,
+                  ),
+                ),
+                Text(
+                  "attached_documents".tr,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize:isRtl?w * 0.043:w * 0.041
                   ),
                 ),
               ],

@@ -40,9 +40,9 @@ class OrderActionButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
 
           children: [
-            Icon(icon, color: Colors.white, size: width * .1),
+            Icon(icon, color: Colors.white, size: width * .09),
 
-            const SizedBox(width: 8),
+            const SizedBox(width: 6),
 
             Text(
               text,
@@ -50,7 +50,7 @@ class OrderActionButton extends StatelessWidget {
               style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
-                fontSize:width * .078
+                fontSize:width * .072
               ),
             ),
           ],

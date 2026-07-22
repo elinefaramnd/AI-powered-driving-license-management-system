@@ -226,4 +226,93 @@ const Map<String, String> ar = {
 
   "waiting_license": "بانتظار الرخصة",
 
+  "new_license_request_title": "طلب إصدار جديد",
+  "service_type": "نوع الخدمة",
+  "license_type": "نوع الرخصة",
+  "all_data_secure": "جميع البيانات محمية وآمنة 🔒",
+
+  "select_service_type": "اختر نوع الخدمة",
+  "select_license_type": "اختر نوع الرخصة",
+  "submit_new_application": "تقديم طلب جديد",
+  "submit_new_application_description":
+  "يرجى اختيار نوع الخدمة ونوع الرخصة لاستكمال تقديم الطلب",
+  "next": "التالي",
+  "review_application": "مراجعة الطلب",
+  "service_id": "معرف الخدمة",
+  "license_id": "معرف الرخصة",
+  "submit_application": "إرسال الطلب",
+  "application_sent": "تم إرسال الطلب",
+  "submission_failed": "فشل إرسال الطلب",
+  "upload_documents": "رفع الوثائق",
+  "completed_documents": "اكتمل @uploaded من @total",
+  "remaining_documents": "متبقي @count وثائق",
+  "upload_all_documents":
+  "ارفع جميع الوثائق المطلوبة لإكمال الطلب",
+  "application_submitted": "تم إرسال الطلب",
+  "back_to_home": "العودة للرئيسية",
+  "continue": "متابعة",
+
+  "uploaded": "مرفوع",
+  "upload_file": "رفع الملف",
+  "replace_file": "استبدال الملف",
+  "uploaded_file": "ملف مرفوع",
+  "uploaded_successfully": "تم الرفع بنجاح",
+  "hint_personal_photo":
+  "يجب أن تكون الصورة حديثة بخلفية بيضاء وواضحة",
+  "hint_national_id":
+  "يجب أن تكون صورة الهوية واضحة",
+  "hint_medical_report":
+  "يجب أن يكون التقرير الطبي معتمداً وساري المفعول",
+  "hint_blood_certificate":
+  "يجب أن تكون شهادة التبرع بالدم صادرة من جهة معتمدة",
+  "hint_default_document":
+  "يرجى التأكد من وضوح المستند قبل الرفع",
+  "onboarding_title_1":
+  "احصل على رخصة القيادة بسهولة أكثر من أي وقت مضى",
+  "onboarding_desc_1":
+  "يبسط تطبيقنا كل خطوة من خطوات عملية الحصول على رخصة القيادة ليمنحك تجربة سلسة وخالية من التوتر",
+  "onboarding_title_2":
+  "مدفوعات سريعة وآمنة وبسيطة",
+  "onboarding_desc_2":
+  "ادفع رسوم طلبك بأمان وسرعة من خلال تجربة دفع سهلة مصممة لراحتك",
+  "onboarding_title_3":
+  "مساعد الذكاء الاصطناعي جاهز لمساعدتك في أي وقت",
+  "onboarding_desc_3":
+  "يجيب روبوت الدردشة الذكي الخاص بنا على أسئلتك على الفور ويرشدك خلال كل خطوة من رحلتك",
+  "get_started": "ابدأ",
+  "verify_email": "تحقق من البريد الإلكتروني",
+
+  "verify_email_description":
+  "أدخل رمز التحقق المرسل إلى بريدك الإلكتروني",
+
+  "verify_now": "تحقق الآن",
+
+  "enter_6_digit_code":
+  "الرجاء إدخال الرمز المكون من 6 أرقام",
+  "unexpected_error": "حدث خطأ غير متوقع",
+  "my_orders": "طلباتي",
+  "no_orders": "لا يوجد طلبات",
+  "no_orders_description":
+  "لا توجد طلبات بعد، أنشئ طلبك الأول للبدء",
+  "draft": "مسودة",
+  "pending_review": "قيد المراجعة",
+  "payment_pending": "بانتظار الدفع",
+  "approved": "مقبول",
+  "application_number": "رقم الطلب",
+  "order_details_title": "تفاصيل الطلب",
+  "attached_documents": "المستندات المرفقة",
+  "no_uploaded_documents": "لا يوجد مستندات مرفوعة",
+  "upload_required_documents": "قم برفع المستندات المطلوبة لإكمال الطلب",
+  "documents_completed": "المستندات مكتملة",
+  "documents_completed_description":
+  "تم استلام جميع المستندات بنجاح\nوجارٍ مراجعة طلبك من قبل المختصين",
+  "under_review": "قيد المراجعة",
+  "my_fines": "غراماتي",
+  "violations_list": "قائمة المخالفات",
+  "fines_notice":
+  "عزيزي السائق، يرجى تسديد الغرامات خلال 30 يوماً لتجنب أي رسوم إضافية أو إجراءات قانونية",
+  "total_unpaid_fines": "إجمالي الغرامات غير المدفوعة",
+  "currency": "ل.س",
+  "violations_count": "عدد المخالفات: @count",
+  "no_fines_registered": "لا توجد غرامات مسجلة",
 };

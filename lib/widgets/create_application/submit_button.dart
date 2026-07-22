@@ -24,7 +24,7 @@ class SubmitButton extends StatelessWidget {
           child: controller.loading.value
               ? const CircularProgressIndicator(color: AppColors.primaryColor)
               : Text(
-                  "التالي",
+                 "next".tr,
                   style: TextStyle(
                     fontSize: size.width * .045,
                     color: Colors.white,

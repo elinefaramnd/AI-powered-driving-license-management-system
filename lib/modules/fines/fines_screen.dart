@@ -10,10 +10,11 @@ class FinesScreen extends StatelessWidget {
   final controller = Get.put(FinesController());
   @override
   Widget build(BuildContext context) {
+    final isRtl = Directionality.of(context) == TextDirection.rtl;
     return Scaffold(
       backgroundColor: const Color(0xffF5F5F5),
-      appBar: const CustomAppBar(
-        title:  "غراماتي",
+      appBar: CustomAppBar(
+        title:  "my_fines".tr,
       ),
       body: Obx(() {
         if (controller.loading.value) {
@@ -24,9 +25,9 @@ class FinesScreen extends StatelessWidget {
           children: [
             FinesSummaryCard(),
             const SizedBox(height: 12),
-            const Text(
-              textAlign: TextAlign.end,
-              "قائمة المخالفات",
+            Text(
+              textAlign: TextAlign.start,
+              "violations_list".tr,
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 18),
@@ -51,10 +52,16 @@ class FinesScreen extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Icon(
+                    Icons.lightbulb_outline,
+                    color: const Color(0xff7C6A3D),
+                    size: MediaQuery.of(context).size.width * 0.085,
+                  ),
+                  SizedBox(width: MediaQuery.of(context).size.width * 0.03),
                   Expanded(
                     child: Text(
-                      "عزيزي السائق، يرجى تسديد الغرامات خلال 30 يوماً لتجنب أي رسوم إضافية أو إجراءات قانونية",
-                      textAlign: TextAlign.right,
+                      "fines_notice".tr,
+                      textAlign: isRtl ? TextAlign.right : TextAlign.left,
                       style: TextStyle(
                         color: const Color(0xff7C6A3D),
                         fontSize: MediaQuery.of(context).size.width * 0.04,
@@ -62,12 +69,6 @@ class FinesScreen extends StatelessWidget {
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                  ),
-                  SizedBox(width: MediaQuery.of(context).size.width * 0.03),
-                  Icon(
-                    Icons.lightbulb_outline,
-                    color: const Color(0xff7C6A3D),
-                    size: MediaQuery.of(context).size.width * 0.085,
                   ),
                 ],
               ),

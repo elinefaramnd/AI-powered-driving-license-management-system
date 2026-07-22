@@ -20,6 +20,7 @@ class DocumentCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final isRtl = Directionality.of(context) == TextDirection.rtl;
     final w = size.width;
     final h = size.height;
     final latest = doc["latest_document"];
@@ -63,13 +64,16 @@ class DocumentCard extends StatelessWidget {
         ],
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
 
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
+              DocumentIconBox(
+                code: doc["code"],
+                name: doc["name"],
+              ),
               Expanded(
                 child: DocumentHeader(
                   doc: doc,
@@ -78,10 +82,7 @@ class DocumentCard extends StatelessWidget {
                 ),
               ),
 
-              DocumentIconBox(
-                code: doc["code"],
-                name: doc["name"],
-              ),
+
             ],
           ),
 
@@ -97,7 +98,7 @@ class DocumentCard extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(top: h * 0.01),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     "مرفوض",

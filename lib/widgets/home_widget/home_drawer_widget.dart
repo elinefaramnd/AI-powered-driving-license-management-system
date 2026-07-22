@@ -145,7 +145,7 @@ class HomeDrawerWidget extends StatelessWidget {
                             controller.isServicesExpanded.value = value;
                           },
                           tilePadding: EdgeInsets.symmetric(
-                            horizontal: size.width * .04,
+                            horizontal: size.width * .08,
                           ),
                           childrenPadding: EdgeInsets.zero,
                           iconColor: Colors.white,
@@ -165,30 +165,41 @@ class HomeDrawerWidget extends StatelessWidget {
                           trailing: Icon(
                             controller.isServicesExpanded.value
                                 ? Icons.keyboard_arrow_down
-                                : Icons.keyboard_arrow_left,
+                                : Directionality.of(context) == TextDirection.rtl
+                                ? Icons.keyboard_arrow_left
+                                : Icons.keyboard_arrow_right,
                             color: Colors.white,
                           ),
                           children: [
-                            DrawerItemWidget(
-                              icon: Icons.add_circle_outline,
-                              title: "new_license_request".tr,
-                              index: 2,
-                              controller: controller,
-                              onTap: controller.openNewApplication,
+                            Padding(
+                              padding: EdgeInsetsDirectional.only(start: size.width * .05),
+                              child: DrawerItemWidget(
+                                icon: Icons.add_circle_outline,
+                                title: "new_license_request".tr,
+                                index: 2,
+                                controller: controller,
+                                onTap: controller.openNewApplication,
+                              ),
                             ),
-                            DrawerItemWidget(
-                              icon: Icons.refresh,
-                              title: "renew_license".tr,
-                              index: 8,
-                              controller: controller,
-                              onTap: () {},
+                            Padding(
+                              padding: EdgeInsetsDirectional.only(start: size.width * .05),
+                              child: DrawerItemWidget(
+                                icon: Icons.refresh,
+                                title: "renew_license".tr,
+                                index: 8,
+                                controller: controller,
+                                onTap: () {},
+                              ),
                             ),
-                            DrawerItemWidget(
-                              icon: Icons.description_outlined,
-                              title: "replacement_license".tr,
-                              index: 9,
-                              controller: controller,
-                              onTap: () {},
+                            Padding(
+                              padding: EdgeInsetsDirectional.only(start: size.width * .05),
+                              child: DrawerItemWidget(
+                                icon: Icons.description_outlined,
+                                title: "replacement_license".tr,
+                                index: 9,
+                                controller: controller,
+                                onTap: () {},
+                              ),
                             ),
                           ],
                         );

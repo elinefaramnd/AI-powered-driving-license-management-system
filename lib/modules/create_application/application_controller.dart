@@ -39,14 +39,15 @@ class ApplicationController extends GetxController {
     try {
       if (serviceTypeId.value == 0) {
         AppSnackbar.show(
-          "تنبيه",
-          "اختر نوع الخدمة",
+          "warning".tr,
+          "select_service_type".tr,
         );
         return;
       }
       if (licenseTypeId.value == 0) {
         AppSnackbar.show(
-            "تنبيه", "اختر نوع الرخصة"
+          "warning".tr,
+          "select_license_type".tr,
         );
         return;
       }
@@ -67,11 +68,11 @@ class ApplicationController extends GetxController {
         Get.toNamed("/upload_documents", arguments: id);
       } else {
         AppSnackbar.show(
-            "خطأ",data["message"]
+            "error".tr,data["message"]
         );
       }
     } catch (e) {
-      Get.snackbar("خطأ", e.toString());
+      Get.snackbar( "error".tr, e.toString());
     } finally {
       loading.value = false;
     }

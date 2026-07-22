@@ -31,7 +31,7 @@ class OnboardingScreen extends StatelessWidget {
                       ),
                       SizedBox(height: screenHeight * 0.03),
                       Text(
-                        data['title']!,
+                        data['title']!.tr,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: screenWidth * 0.065,
@@ -41,7 +41,7 @@ class OnboardingScreen extends StatelessWidget {
                       ),
                       SizedBox(height: screenHeight * 0.02),
                       Text(
-                        data['description']!,
+                        data['description']!.tr,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: screenWidth * 0.035,
@@ -86,8 +86,8 @@ class OnboardingScreen extends StatelessWidget {
                           child: Text(
                             controller.currentPage.value ==
                                     controller.onboardingData.length - 1
-                                ? "أبدأ"
-                                : "التالي",
+                                ? "get_started".tr
+                                : "next".tr,
                             style: const TextStyle(
                               color: Colors.white,
                               fontSize: 18,

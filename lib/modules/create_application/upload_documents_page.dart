@@ -15,12 +15,12 @@ class UploadDocumentsPage extends StatelessWidget {
     final controller = Get.put(UploadDocumentsController(Get.arguments));
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: const CustomAppBar(
-        title:  "رفع الوثائق",
+      appBar: CustomAppBar(
+        title: "upload_documents".tr,
       ),
       body: Obx(() {
         if (controller.loading.value) {
-          return const Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator(color: AppColors.primaryColor,));
         }
         return Column(
           children: [

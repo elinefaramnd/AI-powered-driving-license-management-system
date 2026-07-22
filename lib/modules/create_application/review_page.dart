@@ -11,7 +11,7 @@ class ReviewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("مراجعة الطلب")),
+      appBar: AppBar(title:Text("review_application".tr),),
 
       body: Padding(
         padding: const EdgeInsets.all(20),
@@ -20,11 +20,11 @@ class ReviewPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
 
           children: [
-            Text("Service ID: ${controller.serviceTypeId.value}"),
+            Text("${"service_id".tr}: ${controller.serviceTypeId.value}"),
 
             const SizedBox(height: 10),
 
-            Text("License ID: ${controller.licenseTypeId.value}"),
+            Text("${"license_id".tr}: ${controller.licenseTypeId.value}"),
 
             const SizedBox(height: 30),
 
@@ -43,16 +43,22 @@ class ReviewPage extends StatelessWidget {
 
                     if (response.statusCode == 200 ||
                         response.statusCode == 201) {
-                      Get.snackbar("نجح", "تم إرسال الطلب");
+                      Get.snackbar(
+                        "success".tr,
+                        "application_sent".tr,
+                      );
                     } else {
-                      Get.snackbar("خطأ", data["message"] ?? "فشل الإرسال");
+                      Get.snackbar(
+                        "error".tr,
+                        data["message"] ?? "submission_failed".tr,
+                      );
                     }
                   } catch (e) {
                     Get.snackbar("خطأ", e.toString());
                   }
                 },
 
-                child: const Text("إرسال الطلب"),
+                child: Text("submit_application".tr),
               ),
             ),
           ],

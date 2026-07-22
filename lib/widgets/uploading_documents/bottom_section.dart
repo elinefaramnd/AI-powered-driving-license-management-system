@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import '../../app_theme/app_colors.dart';
 import '../../modules/home_page/home_controller.dart';
 
@@ -27,8 +28,8 @@ class BottomSection extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.grey.shade400,
               ),
-              child: const Text(
-                "تم إرسال الطلب",
+              child: Text(
+                "application_submitted".tr,
                 style: TextStyle(color: Colors.white),
               ),
             ),
@@ -36,27 +37,30 @@ class BottomSection extends StatelessWidget {
           SizedBox(height: h * 0.012),
           SizedBox(
             width: double.infinity,
-            child: OutlinedButton.icon(
-              onPressed: () async {
-                if (Get.isRegistered<HomeController>()) {
-                  final home = Get.find<HomeController>();
-
-                  await Future.wait([
-                    home.getProfileStatus(),
-                    home.getCurrentApplication(),
-                  ]);
-
-                }
-                Get.offAllNamed('/home');
-              },
-              icon: Icon(
-                Icons.home_outlined,
-                color: AppColors.primaryColor,
-              ),
-              label: Text(
-                "العودة للرئيسية",
-                style: TextStyle(
+            child: Directionality(
+              textDirection: Directionality.of(context),
+              child: OutlinedButton.icon(
+                onPressed: () async {
+                  if (Get.isRegistered<HomeController>()) {
+                    final home = Get.find<HomeController>();
+              
+                    await Future.wait([
+                      home.getProfileStatus(),
+                      home.getCurrentApplication(),
+                    ]);
+              
+                  }
+                  Get.offAllNamed('/home');
+                },
+                icon: Icon(
+                  Icons.home_outlined,
                   color: AppColors.primaryColor,
+                ),
+                label: Text(
+                  "back_to_home".tr,
+                  style: TextStyle(
+                    color: AppColors.primaryColor,
+                  ),
                 ),
               ),
             ),
@@ -78,8 +82,8 @@ class BottomSection extends StatelessWidget {
           onPressed: controller.canSubmit
               ? controller.submitDocuments
               : null,
-          child: const Text(
-            "متابعة",
+          child: Text(
+            "continue".tr,
             style: TextStyle(color: Colors.white),
           ),
         ),

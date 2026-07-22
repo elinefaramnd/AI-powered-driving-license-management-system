@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:project_2/app_theme/app_colors.dart';
 
 import 'order_model.dart';
@@ -26,13 +27,13 @@ class OrderCard extends StatelessWidget {
   String getStatusText() {
     switch (order.status) {
       case "draft":
-        return "مسودة";
+        return "draft".tr;
       case "pending_review":
-        return "قيد المراجعة";
+        return "pending_review".tr;
       case "payment_pending":
-        return "بانتظار الدفع";
+        return "payment_pending".tr;
       case "approved":
-        return "مقبول";
+        return "approved".tr;
       default:
         return order.status;
     }
@@ -41,6 +42,7 @@ class OrderCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final isRtl = Directionality.of(context) == TextDirection.rtl;
     return Container(
       margin: EdgeInsets.only(bottom: size.height * 0.01),
       padding: EdgeInsets.all(size.width * 0.04),
@@ -54,6 +56,18 @@ class OrderCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              Column(
+                children: [
+                  Text(
+                    order.serviceType,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    order.licenseType,
+                    style: const TextStyle(color: Colors.grey),
+                  ),
+                ],
+              ),
               Container(
                 padding:  EdgeInsets.symmetric(
                   horizontal: size.width * 0.025,
@@ -68,26 +82,15 @@ class OrderCard extends StatelessWidget {
                   style: TextStyle(color: getStatusColor(), fontSize: size.width * 0.03,),
                 ),
               ),
-              Column(
-                children: [
-                  Text(
-                    order.serviceType,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    order.licenseType,
-                    style: const TextStyle(color: Colors.grey),
-                  ),
-                ],
-              ),
             ],
           ),
           SizedBox(height: size.height * 0.012),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(order.application_number.toString()),
-              const Text("رقم الطلب", style: TextStyle(color: Colors.grey)),
+              Text("application_number".tr, style: TextStyle(color: Colors.grey,
+                fontSize: isRtl ? size.width * 0.039 : size.width * 0.035,)),
+              Text(order.application_number.toString() ,style: TextStyle(fontSize: size.width * 0.035,),),
             ],
           ),
           SizedBox(height: size.height * 0.015),
@@ -102,8 +105,8 @@ class OrderCard extends StatelessWidget {
             onPressed: () {
               Get.toNamed("/order_details", arguments: order);
             },
-            child: const Text(
-              "عرض التفاصيل",
+            child: Text(
+              "view_details".tr,
               style: TextStyle(color: Colors.white),
             ),
           ),

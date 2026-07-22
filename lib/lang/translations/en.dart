@@ -234,4 +234,97 @@ const Map<String, String> en = {
   "You have successfully completed all stages. Waiting for license issuance.",
 
   "waiting_license": "Waiting for License",
+
+  "new_license_request_title": "New License Request",
+  "service_type": "Service Type",
+  "license_type": "License Type",
+  "all_data_secure": "All data is protected and secure 🔒",
+
+  "select_service_type": "Select service type",
+  "select_license_type": "Select license type",
+  "submit_new_application": "Submit New Application",
+  "submit_new_application_description":
+  "Please select the service type and license type to continue your application",
+  "next": "Next",
+  "review_application": "Review Application",
+  "service_id": "Service ID",
+  "license_id": "License ID",
+  "submit_application": "Submit Application",
+  "application_sent": "Application submitted successfully",
+  "submission_failed": "Submission failed",
+  "upload_documents": "Upload Documents",
+  "completed_documents": "Completed @uploaded of @total",
+  "remaining_documents": "@count remaining",
+  "upload_all_documents":
+  "Upload all required documents to complete your application",
+  "application_submitted": "Application Submitted",
+  "back_to_home": "Back to Home",
+  "continue": "Continue",
+  "uploaded": "Uploaded",
+  "upload_file": "Upload File",
+  "replace_file": "Replace File",
+  "uploaded_file": "Uploaded File",
+  "uploaded_successfully": "Uploaded Successfully",
+  "hint_personal_photo":
+  "Use a recent photo with a clear white background.",
+  "hint_national_id":
+  "The national ID copy must be clear and readable.",
+  "hint_medical_report":
+  "The medical report must be valid and officially approved.",
+  "hint_blood_certificate":
+  "The blood donation certificate must be issued by an authorized organization.",
+  "hint_default_document":
+  "Please make sure the document is clear before uploading.",
+  "onboarding_title_1":
+  "Get your driving license easier than ever",
+  "onboarding_desc_1":
+  "Our app simplifies every step of the driving license process to provide a smooth and stress-free experience.",
+  "onboarding_title_2":
+  "Fast, Secure and Simple Payments",
+  "onboarding_desc_2":
+  "Pay your application fees quickly and securely through an easy payment experience designed for your convenience.",
+  "onboarding_title_3":
+  "AI Assistant Ready to Help Anytime",
+  "onboarding_desc_3":
+  "Our intelligent chatbot answers your questions instantly and guides you through every step of your journey.",
+  "get_started": "Get Started",
+  "verify_email": "Verify Email",
+
+  "verify_email_description":
+  "Enter the verification code sent to your email",
+
+  "verify_now": "Verify Now",
+
+  "enter_6_digit_code":
+  "Please enter the 6-digit verification code",
+
+  "unexpected_error":
+  "An unexpected error occurred",
+  "my_orders": "My Orders",
+
+  "no_orders": "No Orders",
+  "no_orders_description":
+  "You don't have any requests yet. Create your first request to get started.",
+  "draft": "Draft",
+  "pending_review": "Under Review",
+  "payment_pending": "Payment Pending",
+  "approved": "Approved",
+  "application_number": "Application Number",
+  "order_details_title": "Order Details",
+  "attached_documents": "Attached Documents",
+  "no_uploaded_documents": "No Uploaded Documents",
+  "upload_required_documents":
+  "Upload the required documents to complete your application",
+  "documents_completed": "Documents Completed",
+  "documents_completed_description":
+"Your documents are received.\nReview in progress.",
+  "under_review": "Under Review",
+  "my_fines": "My Fines",
+  "violations_list": "Violations",
+  "fines_notice":
+  "Please pay your fines within 30 days to avoid additional fees or legal action.",
+  "total_unpaid_fines": "Total Unpaid Fines",
+  "currency": "SYP",
+  "violations_count": "@count Violations",
+  "no_fines_registered": "You have no registered fines",
 };

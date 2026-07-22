@@ -16,6 +16,7 @@ class OrderInfoRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final w = MediaQuery.of(context).size.width;
+    final isRtl = Directionality.of(context) == TextDirection.rtl;
     return Padding(
       padding:  EdgeInsets.symmetric(
         horizontal: w * 0.044, // 16
@@ -23,32 +24,9 @@ class OrderInfoRow extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Expanded(
-            child: Text(
-              value,
-              textAlign: TextAlign.left,
-              style:  TextStyle(
-                fontWeight: FontWeight.w500,
-                fontSize: w * 0.036,
-              ),
-            ),
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(
-                title,
-                style:  TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize:  w * 0.042,
-                ),
-              ),
-            ],
-          ),
-           SizedBox(width: w * 0.036),
           Container(
-            width: w * 0.097,
-            height: w * 0.097,
+            width: w * 0.085,
+            height: w * 0.085,
             decoration: BoxDecoration(
               color: const Color(0xffF2F7F6),
               borderRadius: BorderRadius.circular( w * 0.035),
@@ -56,6 +34,30 @@ class OrderInfoRow extends StatelessWidget {
             child: Icon(
               icon,
               color: AppColors.primaryColor,
+              size: w * 0.055,
+            ),
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style:  TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize:isRtl? w * 0.042:w * 0.039,
+                ),
+              ),
+            ],
+          ),
+           SizedBox(width: w * 0.036),
+          Expanded(
+            child: Text(
+              value,
+              textAlign: isRtl ? TextAlign.left : TextAlign.right,
+              style:  TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize:isRtl? w * 0.036:w * 0.033,
+              ),
             ),
           ),
         ],

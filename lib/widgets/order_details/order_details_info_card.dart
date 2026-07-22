@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'custom_divider.dart';
 import 'order_info_row.dart';
 
@@ -21,7 +22,7 @@ class OrderDetailsInfoCard extends StatelessWidget {
       child: Column(
         children: [
           OrderInfoRow(
-            title: "رقم الطلب",
+            title: "application_number".tr,
             value: order.application_number,
             icon: Icons.assignment_outlined,
           ),
@@ -29,7 +30,7 @@ class OrderDetailsInfoCard extends StatelessWidget {
           const CustomDivider(),
 
           OrderInfoRow(
-            title: "نوع الرخصة",
+            title: "license_type".tr,
             value: order.licenseType,
             icon: Icons.badge_outlined,
           ),
@@ -37,7 +38,7 @@ class OrderDetailsInfoCard extends StatelessWidget {
           const CustomDivider(),
 
           OrderInfoRow(
-            title: "نوع الخدمة",
+            title: "service_type".tr,
             value: order.serviceType,
             icon: Icons.description_outlined,
           ),

@@ -17,10 +17,10 @@ class FinesSummaryCard extends GetView<FinesController> {
         borderRadius: BorderRadius.circular(size.width * .03),
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "إجمالي الغرامات الغير مدفوعة",
+            "total_unpaid_fines".tr,
             style: TextStyle(
               color: Colors.white70,
               fontSize: size.width * .045,
@@ -28,22 +28,22 @@ class FinesSummaryCard extends GetView<FinesController> {
           ),
           const Spacer(),
           Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text(
-                "ل.س",
-                style: TextStyle(
-                  color: AppColors.gold,
-                  fontSize: size.width * .05,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(width: size.width * .01),
               Text(
                 controller.totalAmount.toStringAsFixed(2),
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: size.width * .06,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(width: size.width * .01),
+              Text(
+                "currency".tr,
+                style: TextStyle(
+                  color: AppColors.gold,
+                  fontSize: size.width * .05,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -62,18 +62,20 @@ class FinesSummaryCard extends GetView<FinesController> {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
-                  "عدد المخالفات: ${controller.totalCount}",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: size.width * .04,
-                  ),
-                ),
-                SizedBox(width: size.width * .02),
                 Icon(
                   Icons.warning_amber_rounded,
                   color: AppColors.gold,
                   size: size.width * .06,
+                ),
+                SizedBox(width: size.width * .02),
+                Text(
+                  "violations_count".trParams({
+                    "count": controller.totalCount.toString(),
+                  }),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: size.width * .04,
+                  ),
                 ),
               ],
             ),

@@ -21,8 +21,8 @@ class EmailVerificationController extends GetxController {
   Future<void> verifyCodeAndProceed() async {
     if (otpCode.value.length != 6) {
       Get.snackbar(
-        "خطأ",
-        "الرجاء إدخال الرمز المكزن من 6 أرقام",
+        "error".tr,
+        "enter_6_digit_code".tr,
         backgroundColor: Colors.red,
         colorText: Colors.white,
       );
@@ -44,16 +44,16 @@ class EmailVerificationController extends GetxController {
         box.write('token', token);
         box.write('userId', userId);
         box.write('roleId', roleId);
-        AppSnackbar.show('نجاح', data['message']);
+        AppSnackbar.show("success".tr, data['message']);
         Get.offNamed('/completePro');
       } else {
-        AppSnackbar.show('خطأ', data['message']?? "يرجى إدخال الكود الصحيح",);
+        AppSnackbar.show( "error".tr, data['message']?? "invalid_verification_code".tr,);
       }
     } catch (e) {
       print(e);
       Get.snackbar(
-        "خطأ",
-        "خطأ ما حدث",
+        "error".tr,
+        "unexpected_error".tr,
         backgroundColor: Colors.red,
         colorText: Colors.white,
       );

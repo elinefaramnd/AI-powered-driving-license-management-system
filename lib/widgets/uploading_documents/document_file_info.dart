@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
 import '../../app_theme/app_colors.dart';
 
@@ -43,7 +44,7 @@ class DocumentFileInfo extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  latest?["original_name"] ?? "ملف مرفوع",
+                  latest?["original_name"] ?? "uploaded_file".tr,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style:  TextStyle(
@@ -53,7 +54,7 @@ class DocumentFileInfo extends StatelessWidget {
                 ),
 
                 Text(
-                  "تم الرفع بنجاح",
+                    "uploaded_successfully".tr,
                   style: TextStyle(color: Colors.grey.shade600, fontSize:  w * 0.029),
                 ),
               ],

@@ -50,7 +50,7 @@ class OtpVerificationScreen extends StatelessWidget {
               SizedBox(height: size.height * 0.055),
 
               Text(
-                "تحقق من البريد الإلكتروني",
+                "verify_email".tr,
                 style: TextStyle(
                   fontSize: size.width * 0.06,
                   fontWeight: FontWeight.w800,
@@ -60,7 +60,7 @@ class OtpVerificationScreen extends StatelessWidget {
               SizedBox(height: size.height * 0.015),
 
               Text(
-                "أدخل رمز التحقق المرسل إلى بريدك الإلكتروني",
+                "verify_email_description".tr,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: size.width * 0.039,
@@ -115,7 +115,7 @@ class OtpVerificationScreen extends StatelessWidget {
                     return controller.isLoading.value
                         ? const CircularProgressIndicator(color: Colors.white,)
                         : Text(
-                            "تحقق الآن",
+                      "verify_now".tr,
                             style: TextStyle(
                               fontSize: size.width * 0.04,
                               fontWeight: FontWeight.w700,

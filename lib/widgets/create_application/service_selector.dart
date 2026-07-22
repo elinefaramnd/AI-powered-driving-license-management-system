@@ -23,75 +23,79 @@ class ServiceSelector extends StatelessWidget {
   }
   @override
   Widget build(BuildContext context) {
+    final isRtl = Directionality.of(context) == TextDirection.rtl;
     final controller = Get.find<ApplicationController>();
     return Obx(
       () => SizedBox(
         height: size.height * .17,
-        child: ListView.separated(
-          scrollDirection: Axis.horizontal,
-          reverse: true,
-          itemCount: controller.services.length,
-          separatorBuilder: (_, __) => SizedBox(width: size.width * .03),
-          itemBuilder: (_, i) {
-            final e = controller.services[i];
-            return Obx(() {
-              final selected = controller.serviceTypeId.value == e["id"];
-              return GestureDetector(
-                behavior: HitTestBehavior.translucent,
-                onTap: () {
-                  controller.serviceTypeId.value = e["id"];
-                },
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 250),
-                  width: size.width * .34,
-                  padding: EdgeInsets.symmetric(
-                    vertical: size.height * .02,
-                    horizontal: size.width * .03,
-                  ),
-                  decoration: BoxDecoration(
-                    color: selected ? const Color(0xffF3FBF8) : Colors.white,
-                    borderRadius: BorderRadius.circular(size.width * .045),
-                    border: Border.all(
-                      color: selected
-                          ? AppColors.primary
-                          : Colors.grey.shade300,
-                      width: selected ? 2 : 1,
+        child: Directionality(
+          textDirection: isRtl ? TextDirection.rtl : TextDirection.ltr,
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            reverse: false,
+            itemCount: controller.services.length,
+            separatorBuilder: (_, __) => SizedBox(width: size.width * .03),
+            itemBuilder: (_, i) {
+              final e = controller.services[i];
+              return Obx(() {
+                final selected = controller.serviceTypeId.value == e["id"];
+                return GestureDetector(
+                  behavior: HitTestBehavior.translucent,
+                  onTap: () {
+                    controller.serviceTypeId.value = e["id"];
+                  },
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 250),
+                    width: size.width * .34,
+                    padding: EdgeInsets.symmetric(
+                      vertical: size.height * .02,
+                      horizontal: size.width * .03,
+                    ),
+                    decoration: BoxDecoration(
+                      color: selected ? const Color(0xffF3FBF8) : Colors.white,
+                      borderRadius: BorderRadius.circular(size.width * .045),
+                      border: Border.all(
+                        color: selected
+                            ? AppColors.primary
+                            : Colors.grey.shade300,
+                        width: selected ? 2 : 1,
+                      ),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: size.width * .11,
+                          height: size.width * .11,
+                          decoration: BoxDecoration(
+                            color: AppColors.primary.withOpacity(.12),
+                            shape: BoxShape.circle,
+                          ),
+                          child: Icon(
+                            getIcon(e["code"]),
+                            color: AppColors.primary,
+                            size: size.width * .05,
+                          ),
+                        ),
+                        SizedBox(height: size.height * .015),
+                        Text(
+                          e["name"],
+                          textAlign: TextAlign.center,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: size.width * .031,
+                            color: selected ? AppColors.primary : Colors.black,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: size.width * .11,
-                        height: size.width * .11,
-                        decoration: BoxDecoration(
-                          color: AppColors.primary.withOpacity(.12),
-                          shape: BoxShape.circle,
-                        ),
-                        child: Icon(
-                          getIcon(e["code"]),
-                          color: AppColors.primary,
-                          size: size.width * .05,
-                        ),
-                      ),
-                      SizedBox(height: size.height * .015),
-                      Text(
-                        e["name"],
-                        textAlign: TextAlign.center,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: size.width * .031,
-                          color: selected ? AppColors.primary : Colors.black,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            });
-          },
+                );
+              });
+            },
+          ),
         ),
       ),
     );

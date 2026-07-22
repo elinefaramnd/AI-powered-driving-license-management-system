@@ -20,8 +20,8 @@ class OrderDetailsScreen extends StatelessWidget {
     final controller = Get.put(OrderDetailsController());
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: const CustomAppBar(
-        title: "تفاصيل الطلب",
+      appBar: CustomAppBar(
+        title: "order_details_title".tr,
       ),
       body: Obx(() {
         if (controller.loading.value) {

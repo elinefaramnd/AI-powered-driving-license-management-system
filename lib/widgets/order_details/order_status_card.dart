@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import '../../../app_theme/app_colors.dart';
 
 class OrderStatusCard extends StatelessWidget {
@@ -7,6 +8,7 @@ class OrderStatusCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final isRtl = Directionality.of(context) == TextDirection.rtl;
     final w = size.width;
     final h = size.height;
     return Container(
@@ -22,22 +24,29 @@ class OrderStatusCard extends StatelessWidget {
       ),
       child: Row(
         children: [
+          Image.asset(
+            "assets/images/download1.png",
+            width: w * 0.32,
+            height: w * 0.32,
+            fit: BoxFit.contain,
+          ),
+          SizedBox(width:  w * 0.038),
           Expanded(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                  Text(
-                  "المستندات مكتملة",
+                   "documents_completed".tr,
                   textAlign: TextAlign.right,
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: w * 0.044,
+                    fontSize:isRtl? w * 0.044:w * 0.04,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                  Text(
-                  "تم استلام جميع المستندات بنجاح\nوجارٍ مراجعة طلبك من قبل المختصين",
-                  textAlign: TextAlign.right,
+                   "documents_completed_description".tr,
+                   textAlign: isRtl ? TextAlign.right : TextAlign.left,
                   style: TextStyle(
                     color: Colors.white,
                     height: 1.5,
@@ -57,19 +66,19 @@ class OrderStatusCard extends StatelessWidget {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text(
-                        "قيد المراجعة",
-                        style: TextStyle(
-                          color: AppColors.primaryColor,
-                          fontWeight: FontWeight.bold,
-                          fontSize: w * 0.035,
-                        ),
-                      ),
-                      SizedBox(width:  w * 0.013),
                       Icon(
                         Icons.check_circle,
                         color: AppColors.primaryColor,
                         size: w * 0.05,
+                      ),
+                      SizedBox(width:  w * 0.013),
+                      Text(
+                      "under_review".tr,
+                        style: TextStyle(
+                          color: AppColors.primaryColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize:isRtl? w * 0.035:w * 0.033,
+                        ),
                       ),
                     ],
                   ),
@@ -77,13 +86,7 @@ class OrderStatusCard extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(width:  w * 0.038),
-          Image.asset(
-            "assets/images/download1.png",
-            width: w * 0.32,
-            height: w * 0.32,
-            fit: BoxFit.contain,
-          ),
+
         ],
       ),
     );

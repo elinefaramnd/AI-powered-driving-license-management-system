@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import '../../app_theme/app_colors.dart';
 
 class DocumentHeader extends StatelessWidget {
@@ -15,15 +16,30 @@ class DocumentHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final isRtl = Directionality.of(context) == TextDirection.rtl;
     final w = size.width;
     final h = size.height;
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
-          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.only(top: h * .006,
+                  right: isRtl ? h * .007 : 0,
+                  left: isRtl ? 0 : h * .007,),
+                child: Text(
+                  doc["name"],
+                  textAlign:  isRtl ? TextAlign.right : TextAlign.left,
+                  style: TextStyle(
+                    fontSize: w * 0.036,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
             Container(
               padding: EdgeInsets.symmetric(
                   horizontal: w * 0.03,
@@ -47,9 +63,9 @@ class DocumentHeader extends StatelessWidget {
                         ? AppColors.primaryColor
                         : const Color(0xffB08A42),
                   ),
-                   SizedBox(width: w * 0.01),
+                  SizedBox(width: w * 0.01),
                   Text(
-                    uploaded ? "مرفوع" : "مطلوب",
+                    uploaded  ? "uploaded".tr: "required".tr,
                     style: TextStyle(
                       color: uploaded
                           ? AppColors.primaryColor
@@ -58,20 +74,9 @@ class DocumentHeader extends StatelessWidget {
                       fontSize: w * 0.031,
                     ),
                   ),
+
+
                 ],
-              ),
-            ),
-            Expanded(
-              child: Padding(
-                padding: EdgeInsets.only(top: h * 0.006,right: h * 0.007),
-                child: Text(
-                  doc["name"],
-                  textAlign: TextAlign.right,
-                  style: TextStyle(
-                    fontSize: w * 0.036,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
               ),
             ),
           ],
@@ -82,6 +87,17 @@ class DocumentHeader extends StatelessWidget {
           mainAxisAlignment:
           MainAxisAlignment.spaceBetween,
           children: [
+            Transform.translate(
+              offset: Offset( isRtl ? -w * .02 : w * .02,
+                -h * .012,),
+              child: Text(
+                "PDF,JPG,JPEG,PNG",
+                style: TextStyle(
+                  color: Colors.grey.shade600,
+                  fontSize: w * 0.03,
+                ),
+              ),
+            ),
             SizedBox(
               width: w * 0.37,
               height: 35,
@@ -91,15 +107,14 @@ class DocumentHeader extends StatelessWidget {
                     doc["id"],
                   );
                 },
-                iconAlignment: IconAlignment.end,
+                iconAlignment: IconAlignment.start,
                 icon: Icon(
                   uploaded ? Icons.sync_alt
                       : Icons.upload,
                   size: w * 0.04,
                 ),
                 label: Text(
-                  uploaded ? "استبدال الملف"
-                      : "رفع الملف",
+                  uploaded ? "replace_file".tr : "upload_file".tr,
                   style: TextStyle(
                     fontSize: w * 0.037,
                   ),
@@ -120,16 +135,7 @@ class DocumentHeader extends StatelessWidget {
                 ),
               ),
             ),
-            Transform.translate(
-              offset: Offset(-w * 0.02, -h * 0.012),
-              child: Text(
-                "PDF,JPG,JPEG,PNG",
-                style: TextStyle(
-                  color: Colors.grey.shade600,
-                  fontSize: w * 0.03,
-                ),
-              ),
-            ),
+
           ],
         ),
       ],

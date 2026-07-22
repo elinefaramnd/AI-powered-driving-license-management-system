@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import '../../app_theme/app_colors.dart';
 
 class RemainingDocs extends StatelessWidget {
@@ -25,52 +26,6 @@ class RemainingDocs extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Image.asset(
-            "assets/images/document.png",
-            width: w * 0.27,
-            height: w * 0.27,
-            fit: BoxFit.contain,
-          ),
-          SizedBox(width: w * 0.025),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Text(
-                  "اكتمل $uploaded من $total  ",
-                  style: TextStyle(
-                    fontSize: w * 0.048,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: h * 0.001),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(
-                      "متبقي $remaining وثائق",
-                      style: TextStyle(
-                        fontSize: w * 0.038,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    SizedBox(width: w * 0.015),
-                    Icon(
-                      Icons.description_outlined,
-                      size: w * 0.035,
-                      color: Colors.orange.shade700,
-                    ),
-                  ],
-                ),
-                 SizedBox(height:  h * 0.01),
-                Text(
-                  textAlign: TextAlign.end,
-                  "ارفع جميع الوثائق المطلوبة لإكمال الطلب",
-                  style: TextStyle(color: Colors.grey.shade600, fontSize: w * 0.033),
-                ),
-              ],
-            ),
-          ),
           SizedBox(
             width: w * 0.22,
             height: w * 0.22,
@@ -96,6 +51,58 @@ class RemainingDocs extends StatelessWidget {
               ],
             ),
           ),
+          SizedBox(width: w * 0.025),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "completed_documents"
+                      .trParams({
+                    "uploaded": "$uploaded",
+                    "total": "$total",
+                  }),
+                  style: TextStyle(
+                    fontSize: w * 0.044,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: h * 0.001),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Icon(
+                      Icons.description_outlined,
+                      size: w * 0.032,
+                      color: Colors.orange.shade700,
+                    ),
+                    SizedBox(width: w * 0.015),
+                    Text(
+                      "remaining_documents".tr
+                          .trParams({"count": "$remaining"}),
+                      style: TextStyle(
+                        fontSize: w * 0.038,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+                 SizedBox(height:  h * 0.01),
+                Text(
+                  textAlign: TextAlign.start,
+                  "upload_all_documents".tr,
+                  style: TextStyle(color: Colors.grey.shade600, fontSize: w * 0.033),
+                ),
+              ],
+            ),
+          ),
+          Image.asset(
+            "assets/images/document.png",
+            width: w * 0.27,
+            height: w * 0.27,
+            fit: BoxFit.contain,
+          ),
+
         ],
       ),
     );

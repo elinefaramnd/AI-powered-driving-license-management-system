@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
 class EmptyDocumentsWidget extends StatelessWidget {
   const EmptyDocumentsWidget({super.key});
@@ -28,7 +29,7 @@ class EmptyDocumentsWidget extends StatelessWidget {
           ),
            SizedBox(height:  h * 0.015),
            Text(
-            "لا يوجد مستندات مرفوعة",
+             "no_uploaded_documents".tr,
             style: TextStyle(
               fontSize: w * 0.04,
               fontWeight: FontWeight.bold,
@@ -36,7 +37,8 @@ class EmptyDocumentsWidget extends StatelessWidget {
           ),
           SizedBox(height:  h * 0.007),
           Text(
-            "قم برفع المستندات المطلوبة لإكمال الطلب",
+            "upload_required_documents".tr,
+            textAlign: TextAlign.center,
             style: TextStyle(
               color: Colors.grey.shade600,
               fontSize:  w * 0.033,
