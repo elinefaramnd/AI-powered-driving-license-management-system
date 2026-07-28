@@ -26,13 +26,13 @@ class ContactUsController extends GetxController {
         if (data['success'] == true) {
           contactInfo.value = ContactUsModel.fromJson(data['data']);
         } else {
-          errorMessage.value = data['message'] ?? 'حدث خطأ ما';
+          errorMessage.value = data['message'] ??  "something_went_wrong".tr;
         }
       } else {
-        errorMessage.value = 'فشل جلب معلومات التواصل';
+        errorMessage.value = "failed_fetch_contact_info".tr;
       }
     } catch (e) {
-      errorMessage.value = 'حدث خطأ أثناء الاتصال بالخادم';
+      errorMessage.value =  "server_connection_error".tr;
       print('Error fetching contact info: $e');
     } finally {
       isLoading.value = false;

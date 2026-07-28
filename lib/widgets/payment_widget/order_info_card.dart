@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import '../../../app_theme/app_colors.dart';
 
 class OrderInfoCard extends StatelessWidget {
@@ -13,11 +15,15 @@ class OrderInfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size=MediaQuery.of(context).size;
+    final w=size.width;
+    final h=size.height;
+    final isRtl=Directionality.of(context)==TextDirection.rtl;
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: EdgeInsets.all(w * .045),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(w * .035),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -28,17 +34,17 @@ class OrderInfoCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'رقم الطلب ',
+      "application_number".tr,
                     style: TextStyle(
-                      fontSize: 13,
+                      fontSize: w * .035,
                       color: AppColors.Gray[900],
                     ),
                   ),
-                  const SizedBox(height: 4),
+                   SizedBox(height: w * .015),
                   Text(
                     'APP-2026-${applicationId.toString().padLeft(6, '0')}',
-                    style: const TextStyle(
-                      fontSize: 22,
+                    style:  TextStyle(
+                      fontSize: w * .037,
                       fontWeight: FontWeight.bold,
                       letterSpacing: 0.5,
                     ),
@@ -49,24 +55,24 @@ class OrderInfoCard extends StatelessWidget {
               const Spacer(),
               
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                padding:  EdgeInsets.symmetric(horizontal: w * .03, vertical: w * .02),
                 decoration: BoxDecoration(
                   color: AppColors.gold.withOpacity(0.2),
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(w * .025),
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Icon(
                       Icons.access_time,
-                      size: 14,
+                      size: w * .038,
                       color: AppColors.darkGreen,
                     ),
-                    const SizedBox(width: 4),
+                    SizedBox(width: w * .01),
                     Text(
                       _getStatusLabel(status),
-                      style: const TextStyle(
-                        fontSize: 12,
+                      style:  TextStyle(
+                        fontSize: w * .032,
                         color: AppColors.darkGreen,
                         fontWeight: FontWeight.w600,
                       ),
@@ -88,34 +94,34 @@ class OrderInfoCard extends StatelessWidget {
                 child: Row(
                   children: [
                     Container(
-                      width: 36,
-                      height: 36,
+                      width: w * .085,
+                      height: w * .085,
                       decoration: BoxDecoration(
                         color: AppColors.gold.withOpacity(0.15),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Icon(
                         Icons.description_outlined,
-                        size: 18,
+                        size: w * .049,
                         color: AppColors.darkGreen,
                       ),
                     ),
-                    const SizedBox(width: 8),
+                     SizedBox(width: w * .025),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'نوع الرسوم',
+                    "fee_type".tr,
                           style: TextStyle(
-                            fontSize: 12,
+                            fontSize: w * .035,
                             color: Colors.grey[900],
                           ),
                         ),
-                        const SizedBox(height: 4),
-                        const Text(
-                          'رسوم تقديم الطلب',
+                         SizedBox(height: w * .017),
+                         Text(
+                          "application_fee".tr,
                           style: TextStyle(
-                            fontSize: 14,
+                            fontSize: w * .035,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -134,34 +140,34 @@ class OrderInfoCard extends StatelessWidget {
                 child: Row(
                   children: [
                     Container(
-                      width: 36,
-                      height: 36,
+                      width: w * .085,
+                      height: w * .085,
                       decoration: BoxDecoration(
                         color: AppColors.gold.withOpacity(0.15),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Icon(
                         Icons.calendar_today_outlined,
-                        size: 18,
+                        size: w * .049,
                         color: AppColors.darkGreen,
                       ),
                     ),
-                    const SizedBox(width: 8),
+                    SizedBox(width: w * .025),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'تاريخ الإنشاء',
+                    "creation_date".tr,
                           style: TextStyle(
-                            fontSize: 12,
+                            fontSize: w * .035,
                             color: Colors.grey[900],
                           ),
                         ),
-                        const SizedBox(height: 4),
+                        SizedBox(height: w * .017),
                         Text(
                           _formatDate(DateTime.now()),
-                          style: const TextStyle(
-                            fontSize: 14,
+                          style:  TextStyle(
+                            fontSize: w * .035,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -178,29 +184,61 @@ class OrderInfoCard extends StatelessWidget {
   }
 
   String _formatDate(DateTime date) {
-    const months = [
-      'يناير', 'فبراير', 'مارس', 'إبريل', 'مايو', 'يونيو',
-      'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'
+    final isArabic = Get.locale?.languageCode == "ar";
+
+    const monthsAr = [
+      'يناير',
+      'فبراير',
+      'مارس',
+      'إبريل',
+      'مايو',
+      'يونيو',
+      'يوليو',
+      'أغسطس',
+      'سبتمبر',
+      'أكتوبر',
+      'نوفمبر',
+      'ديسمبر',
     ];
-    return '${date.day} ${months[date.month - 1]} ${date.year}';
+
+    const monthsEn = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ];
+
+    if (isArabic) {
+      return '${date.day} ${monthsAr[date.month - 1]} ${date.year}';
+    } else {
+      return '${date.day}${monthsEn[date.month - 1]} ${date.year}  ';
+    }
   }
 
   String _getStatusLabel(String status) {
     switch (status) {
       case 'payment_pending':
-        return 'في انتظار الدفع';
+        return "waiting_payment".tr;
       case 'pending':
-        return 'قيد الانتظار';
+        return "pending".tr;
       case 'approved':
-        return 'تمت الموافقة';
+        return "approved".tr;
       case 'rejected':
-        return 'مرفوض';
+        return "rejected".tr;
       case 'completed':
-        return 'مكتمل';
+        return "completed".tr;
       case 'under_review':
-        return 'قيد المراجعة';
+        return "under_review".tr;
       default:
-        return 'موعد معلق';
+        return "appointment_pending".tr;
     }
   }
 }

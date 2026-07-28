@@ -13,12 +13,15 @@ class SettingsHeaderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isArabic = Get.locale?.languageCode == "ar";
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: screenWidth * 0.05,
         vertical: screenHeight * 0.02,
       ),
       child: Row(
+        textDirection:
+        isArabic ? TextDirection.rtl : TextDirection.ltr,
         children: [
           Container(
             decoration: BoxDecoration(
@@ -26,13 +29,15 @@ class SettingsHeaderWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
             ),
             child: IconButton(
-              icon: const Icon(Icons.arrow_back_ios, size: 20),
+              icon: Icon(isArabic
+                  ? Icons.arrow_back_ios
+                  : Icons.arrow_forward_ios, size: 20),
               onPressed: () => Get.back(),
             ),
           ),
           const Spacer(),
-          const Text(
-            'الإعدادات',
+          Text(
+            'settings'.tr,
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,

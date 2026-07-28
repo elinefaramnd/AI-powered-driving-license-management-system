@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
 import '../../app_theme/app_colors.dart';
 
@@ -44,8 +45,8 @@ class ResultHeader extends StatelessWidget {
 
         Text(
           isPassed
-              ? "تم اجتياز الاختبار بنجاح"
-              : "لم يتم اجتياز الاختبار",
+              ? "test_passed_successfully".tr
+              : "test_failed".tr,
           style: TextStyle(
             fontSize: titleFont,
             fontWeight: FontWeight.bold,
@@ -56,8 +57,8 @@ class ResultHeader extends StatelessWidget {
 
         Text(
           isPassed
-              ? "تم تسجيل النتيجة رسمياً في النظام"
-              : "تم تسجيل نتيجة الرسوب في النظام",
+              ? "result_recorded_successfully".tr
+              : "failure_recorded".tr,
           style: TextStyle(
             fontSize: subtitleFont,
             color: Colors.grey,

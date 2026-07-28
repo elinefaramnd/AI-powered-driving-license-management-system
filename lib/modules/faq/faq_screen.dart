@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:project_2/widgets/custom_app_bar.dart';
 import '../../app_theme/app_colors.dart';
 import '../../widgets/faq_widget/faq_app_bar.dart';
 import '../../widgets/faq_widget/faq_category_header.dart';
@@ -17,10 +18,12 @@ class FaqScreen extends StatelessWidget {
     final controller = Get.isRegistered<FaqController>()
         ? Get.find<FaqController>()
         : Get.put(FaqController());
+    final isArabic = Get.locale?.languageCode == "ar";
     final w = MediaQuery.of(context).size.width;
     final h = MediaQuery.of(context).size.height;
 
     return Scaffold(
+      appBar: CustomAppBar(title: "faq".tr,),
       backgroundColor: AppColors.bgColor,
       body: SafeArea(
         child: Obx(() {
@@ -44,16 +47,18 @@ class FaqScreen extends StatelessWidget {
           }
 
           return Column(
+            crossAxisAlignment:
+            isArabic ? CrossAxisAlignment.end : CrossAxisAlignment.start,
             children: [
-              FaqAppBar(w: w),
+             // FaqAppBar(w: w),
               Expanded(
                 child: SingleChildScrollView(
                   physics: const BouncingScrollPhysics(),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      SizedBox(height: h * 0.015),
-                      _PageTitle(w: w),
+                      // SizedBox(height: h * 0.015),
+                      // _PageTitle(w: w),
                       SizedBox(height: h * 0.018),
                       FaqHeroBanner(w: w, h: h),
                       SizedBox(height: h * 0.02),
@@ -98,7 +103,7 @@ class FaqScreen extends StatelessWidget {
                   color: Colors.grey.shade400, size: 48),
               const SizedBox(height: 12),
               Text(
-                'لا توجد نتائج',
+                "no_results".tr,
                 style: TextStyle(
                   color: Colors.grey.shade500,
                   fontSize: w * 0.04,
@@ -141,7 +146,7 @@ class _PageTitle extends StatelessWidget {
       child: Align(
         alignment: Alignment.centerRight,
         child: Text(
-          'الأسئلة الشائعة',
+          'faq'.tr,
           textDirection: TextDirection.rtl,
           style: TextStyle(
             fontSize: w * 0.072,

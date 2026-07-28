@@ -10,37 +10,51 @@ class DateSelector extends StatelessWidget {
   const DateSelector(this.controller, {super.key});
 
   String getDayName(DateTime date) {
-    const days = [
-      "الاثنين",
-      "الثلاثاء",
-      "الأربعاء",
-      "الخميس",
-      "الجمعة",
-      "السبت",
-      "الأحد",
-    ];
-
-    return days[date.weekday - 1];
+    switch (date.weekday) {
+      case DateTime.monday:
+        return "monday".tr;
+      case DateTime.tuesday:
+        return "tuesday".tr;
+      case DateTime.wednesday:
+        return "wednesday".tr;
+      case DateTime.thursday:
+        return "thursday".tr;
+      case DateTime.friday:
+        return "friday".tr;
+      case DateTime.saturday:
+        return "saturday".tr;
+      default:
+        return "sunday".tr;
+    }
   }
 
   String getMonthName(int month) {
-    const months = [
-      "",
-      "يناير",
-      "فبراير",
-      "مارس",
-      "أبريل",
-      "مايو",
-      "يونيو",
-      "يوليو",
-      "أغسطس",
-      "سبتمبر",
-      "أكتوبر",
-      "نوفمبر",
-      "ديسمبر",
-    ];
-
-    return months[month];
+    switch (month) {
+      case 1:
+        return "january".tr;
+      case 2:
+        return "february".tr;
+      case 3:
+        return "march".tr;
+      case 4:
+        return "april".tr;
+      case 5:
+        return "may".tr;
+      case 6:
+        return "june".tr;
+      case 7:
+        return "july".tr;
+      case 8:
+        return "august".tr;
+      case 9:
+        return "september".tr;
+      case 10:
+        return "october".tr;
+      case 11:
+        return "november".tr;
+      default:
+        return "december".tr;
+    }
   }
 
   @override

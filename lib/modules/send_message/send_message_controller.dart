@@ -49,23 +49,23 @@ class SendMessageController extends GetxController {
 
   bool _validate() {
     if (nameController.text.trim().isEmpty) {
-      _showError('الرجاء إدخال الاسم');
+      _showError("enter_name".tr);
       return false;
     }
     if (emailController.text.trim().isEmpty) {
-      _showError('الرجاء إدخال البريد الإلكتروني');
+      _showError("enter_email".tr);
       return false;
     }
     if (phoneController.text.trim().isEmpty) {
-      _showError('الرجاء إدخال رقم الهاتف');
+      _showError("enter_phone".tr);
       return false;
     }
     if (subjectController.text.trim().isEmpty) {
-      _showError('الرجاء إدخال الموضوع');
+      _showError("enter_subject".tr);
       return false;
     }
     if (messageController.text.trim().isEmpty) {
-      _showError('الرجاء إدخال نص الرسالة');
+      _showError("enter_message".tr);
       return false;
     }
     return true;
@@ -83,7 +83,10 @@ class SendMessageController extends GetxController {
       borderRadius: 12,
       messageText: Text(
         msg,
-        textDirection: TextDirection.rtl,
+        textDirection:
+        Get.locale?.languageCode == "ar"
+            ? TextDirection.rtl
+            : TextDirection.ltr,
         style: const TextStyle(color: Colors.white, fontSize: 14),
       ),
       titleText: const SizedBox.shrink(),
@@ -122,17 +125,20 @@ class SendMessageController extends GetxController {
           margin: const EdgeInsets.all(16),
           borderRadius: 12,
           messageText: Text(
-            data['message'] ?? 'تم إرسال رسالتك بنجاح',
-            textDirection: TextDirection.rtl,
+            data['message'] ?? "message_sent_success".tr,
+            textDirection:
+            Get.locale?.languageCode == "ar"
+                ? TextDirection.rtl
+                : TextDirection.ltr,
             style: const TextStyle(color: Colors.white, fontSize: 14),
           ),
           titleText: const SizedBox.shrink(),
         );
       } else {
-        _showError(data['message'] ?? 'فشل إرسال الرسالة');
+        _showError(data['message'] ??  "message_send_failed".tr);
       }
     } catch (e) {
-      _showError('حدث خطأ أثناء الاتصال بالخادم');
+      _showError("server_connection_error".tr);
     } finally {
       isLoading.value = false;
     }

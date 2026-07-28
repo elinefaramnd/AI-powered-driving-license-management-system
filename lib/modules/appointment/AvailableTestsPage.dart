@@ -14,10 +14,11 @@ class AvailableTestsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final isRtl = Get.locale?.languageCode == "ar";
     return Scaffold(
       backgroundColor: const Color(0xffF7F7F4),
-      appBar: const CustomAppBar(
-        title:  "الاختبارات المتاحة",
+      appBar: CustomAppBar(
+        title: "available_tests".tr,
       ),
       body: Obx(() {
         if (controller.loading.value) {
@@ -30,7 +31,8 @@ class AvailableTestsPage extends StatelessWidget {
         return SingleChildScrollView(
           padding: EdgeInsets.all(size.width * 0.04),
           child: Directionality(
-            textDirection: TextDirection.rtl,
+            textDirection:
+            isRtl ? TextDirection.rtl : TextDirection.ltr,
             child: Column(
               children: [
                 OrderInfoCard(),

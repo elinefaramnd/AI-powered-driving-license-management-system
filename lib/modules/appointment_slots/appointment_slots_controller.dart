@@ -65,13 +65,13 @@ class AppointmentSlotsController extends GetxController {
       if (decoded["success"] == true) {
         Get.back(result: true);
         AppSnackbar.show(
-          "تم التعديل",
-          "تم تعديل الموعد بنجاح",
+          "appointment_updated".tr,
+          "appointment_updated_successfully".tr,
         );
       } else {
         print(decoded["message"]);
         AppSnackbar.show(
-          "خطأ",
+          "error".tr,
           decoded["message"],
         );
       }
@@ -121,14 +121,14 @@ class AppointmentSlotsController extends GetxController {
         Get.back(result: true);
         Get.find<AppUpdateController>().notifyChange();
         AppSnackbar.show(
-          "تم الحجز",
-          "تم حجز الموعد بنجاح",
+          "appointment_booked".tr,
+          "appointment_booked_successfully".tr,
         );
 
         print(res.body);
       }else{
         AppSnackbar.show(
-          " خطأ",
+          "error".tr,
           decoded['message'],
         );
 

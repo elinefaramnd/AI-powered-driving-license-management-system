@@ -18,8 +18,8 @@ class ChatBotScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.background,
 
-      appBar: const CustomAppBar(
-        title:  'المساعد الذكي',
+      appBar: CustomAppBar(
+        title: "chatbot_title".tr,
       ),
       body: Column(
         children: [
@@ -197,7 +197,7 @@ class ChatBotScreen extends StatelessWidget {
         children: [
           Expanded(
             child: _buildActionButton(
-              'قبول',
+              "chatbot_accept".tr,
               Icons.check_circle,
               AppColors.primary,
               () => controller.acceptPrompt(),
@@ -207,7 +207,7 @@ class ChatBotScreen extends StatelessWidget {
           SizedBox(width: size.width * 0.02),
           Expanded(
             child: _buildActionButton(
-              'رفض',
+              "chatbot_reject".tr,
               Icons.cancel,
               Colors.red.shade400,
               () => controller.rejectPrompt(),
@@ -355,7 +355,7 @@ class ChatBotScreen extends StatelessWidget {
                               color: Colors.black87,
                             ),
                             decoration: InputDecoration(
-                              hintText: 'اكتب رسالتك هنا...',
+                              hintText: "chatbot_hint".tr,
                               hintStyle: TextStyle(
                                 color: Colors.grey,
                                 fontSize: size.width * 0.035,

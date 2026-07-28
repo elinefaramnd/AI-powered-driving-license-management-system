@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
 class PaymentStatusHelper {
   static Color getColor(String status) {
@@ -35,15 +36,17 @@ class PaymentStatusHelper {
     switch (status) {
       case 'completed':
       case 'paid':
-        return 'تم الدفع بنجاح!';
+      return "payment_success".tr;
       case 'failed':
-        return 'فشل الدفع. يرجى المحاولة مرة أخرى.';
+        return "payment_failed".tr;
       case 'cancelled':
-        return 'تم إلغاء الدفع.';
+        return "payment_cancelled".tr;
       case 'pending':
-        return 'جاري معالجة الدفع...';
+        return "payment_processing".tr;
       default:
-        return 'حالة الدفع: $status';
+        return "payment_status".trParams({
+          "status": status,
+        });
     }
   }
 }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 class LockedTestCard extends StatelessWidget {
   final String title;
   final IconData icon;
@@ -14,6 +16,7 @@ class LockedTestCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final isRtl = Get.locale?.languageCode == "ar";
     return Container(
       padding: EdgeInsets.all(size.width * 0.035),
       decoration: BoxDecoration(
@@ -52,7 +55,10 @@ class LockedTestCard extends StatelessWidget {
           ),
           Expanded(
             child: Padding(
-              padding: EdgeInsets.only(right: size.width * 0.023),
+              padding: EdgeInsets.only(
+                right: isRtl ? size.width * .023 : 0,
+                left: isRtl ? 0 : size.width * .023,
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -100,8 +106,8 @@ class LockedTestCard extends StatelessWidget {
                 Icon(Icons.lock_outline, size: size.width * 0.037, color: Colors.grey),
                 SizedBox(width: size.width * 0.01),
                 Text(
-                  "غير متاح حالياً",
-                  style: TextStyle(fontSize: size.width * 0.027, color: Colors.grey),
+                    "currently_unavailable".tr,
+                  style: TextStyle(fontSize: isRtl?size.width * 0.027:size.width * 0.027, color: Colors.grey),
                 ),
               ],
             ),

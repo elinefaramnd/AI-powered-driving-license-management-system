@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_2/app_theme/app_colors.dart';
-import 'package:project_2/widgets/send_message_widget/send_message_app_bar.dart';
+import 'package:project_2/widgets/custom_app_bar.dart';
 import 'package:project_2/widgets/send_message_widget/send_message_form_card.dart';
 import 'package:project_2/widgets/send_message_widget/send_message_header_banner.dart';
 import 'send_message_controller.dart';
@@ -17,13 +17,16 @@ class SendMessageScreen extends StatelessWidget {
     final size = MediaQuery.sizeOf(context);
     final w = size.width;
     final h = size.height;
+    final isArabic = Get.locale?.languageCode == "ar";
 
     return Scaffold(
+      appBar: CustomAppBar(title:"send_message".tr,),
       backgroundColor: AppColors.bgColor,
       body: SafeArea(
         child: Column(
+          crossAxisAlignment:
+          isArabic ? CrossAxisAlignment.end : CrossAxisAlignment.start,
           children: [
-            SendMessageAppBar(w: w),
             Expanded(
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),

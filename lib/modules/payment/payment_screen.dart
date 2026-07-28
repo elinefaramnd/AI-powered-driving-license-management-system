@@ -20,79 +20,81 @@ class PaymentScreen extends StatelessWidget {
   final controller = Get.put(PaymentController());
   final homeController = Get.find<HomeController>();
 
+
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final w = size.width;
+    final h = size.height;
     controller.getApplicationFee(applicationId);
 
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Scaffold(
-        backgroundColor: AppColors.background,
-        appBar: const CustomAppBar(
-          title:"دفع الرسوم",
-        ),
-        body: Obx(() {
-          if (controller.isLoading.value) {
-            return const Center(child: CircularProgressIndicator());
-          }
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      appBar: CustomAppBar(
+        title:"payment_fees".tr,
+      ),
+      body: Obx(() {
+        if (controller.isLoading.value) {
+          return const Center(child: CircularProgressIndicator(color: AppColors.primaryColor,));
+        }
 
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Expanded(
-                child: SingleChildScrollView(
-                  padding: const EdgeInsets.all(14),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      OrderInfoCard(
-                        applicationId: applicationId,
-                        status: homeController.currentApplicationStatus.value,
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                padding: EdgeInsets.all(w * .035),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    OrderInfoCard(
+                      applicationId: applicationId,
+                      status: homeController.currentApplicationStatus.value,
+                    ),
+                     SizedBox(height: w * .035),
+                    AmountCard(amount: controller.feeAmount.value),
+                     SizedBox(height: w * .09),
+                    Text(
+                      "choose_payment_method".tr,
+                      style: TextStyle(
+                        fontSize: w * .045,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.grey[800],
                       ),
-                      const SizedBox(height: 16),
-                      AmountCard(amount: controller.feeAmount.value),
-                      const SizedBox(height: 24),
-                      Text(
-                        'اختر وسيلة الدفع',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.grey[800],
-                        ),
-                      ),
-                      const SizedBox(height: 12),
-                      const PaymentMethodCard(),
-                      const SizedBox(height: 16),
-                      const SecurityNote(),
-                      const SizedBox(height: 12),
-                      if (controller.paymentStatus.value.isNotEmpty)
-                        PaymentStatusCard(status: controller.paymentStatus.value),
-                    ],
-                  ),
+                    ),
+                     SizedBox(height: w * .035),
+                    const PaymentMethodCard(),
+                     SizedBox(height: w * .04),
+                    const SecurityNote(),
+                     SizedBox(height: w * .035),
+                    if (controller.paymentStatus.value.isNotEmpty)
+                      PaymentStatusCard(status: controller.paymentStatus.value),
+                  ],
                 ),
               ),
-              PaymentBottomBar(
-                isLoading: controller.isCreatingPayment.value,
-                onPressed: () async {
-                  final success = await controller.createPayment(applicationId);
-                  if (success) {
-                    PaymentDialogs.showCheckoutDialog(
+            ),
+            PaymentBottomBar(
+              isLoading: controller.isCreatingPayment.value,
+              onPressed: () async {
+                final success = await controller.createPayment(applicationId);
+                if (success) {
+                  PaymentDialogs.showCheckoutDialog(
+                    context,
+                    controller,
+                    () => PaymentDialogs.showVerifyDialog(
                       context,
+                      applicationId,
                       controller,
-                      () => PaymentDialogs.showVerifyDialog(
-                        context,
-                        applicationId,
-                        controller,
-                        () => Get.snackbar('جاري التحقق', 'جاري التحقق من حالة الدفع...'),
-                      ),
-                    );
-                  }
-                },
-              ),
-            ],
-          );
-        }),
-      ),
+                      () => Get.snackbar("verifying".tr,
+                        "verifying_payment_status".tr,),
+                    ),
+                  );
+                }
+              },
+            ),
+          ],
+        );
+      }),
     );
   }
 }

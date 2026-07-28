@@ -54,8 +54,8 @@ class SettingsController extends GetxController {
           settings.value?.preferences.theme = theme;
           settings.refresh();
           Get.snackbar(
-            'نجاح',
-            'تم تحديث التفضيلات بنجاح',
+            "success".tr,
+            "preferences_updated".tr,
             snackPosition: SnackPosition.BOTTOM,
           );
         }
@@ -63,8 +63,8 @@ class SettingsController extends GetxController {
     } catch (e) {
       print('Error updating preferences: $e');
       Get.snackbar(
-        'خطأ',
-        'فشل تحديث التفضيلات',
+        "error".tr,
+        "preferences_update_failed".tr,
         snackPosition: SnackPosition.BOTTOM,
       );
     } finally {
@@ -94,30 +94,30 @@ class SettingsController extends GetxController {
         if (data['success'] == true) {
           Get.back();
           Get.snackbar(
-            'نجاح',
-            'تم تغيير كلمة المرور بنجاح',
+            "success".tr,
+            "password_changed".tr,
             snackPosition: SnackPosition.BOTTOM,
           );
         } else {
           Get.snackbar(
-            'خطأ',
-            data['message'] ?? 'فشل تغيير كلمة المرور',
+            "error".tr,
+            data['message'] ?? "password_change_failed".tr,
             snackPosition: SnackPosition.BOTTOM,
           );
         }
       } else {
         final data = jsonDecode(response.body);
         Get.snackbar(
-          'خطأ',
-          data['message'] ?? 'فشل تغيير كلمة المرور',
+          "error".tr,
+          data['message'] ?? "password_change_failed".tr,
           snackPosition: SnackPosition.BOTTOM,
         );
       }
     } catch (e) {
       print('Error changing password: $e');
       Get.snackbar(
-        'خطأ',
-        'حدث خطأ أثناء تغيير كلمة المرور',
+        "error".tr,
+        "password_change_server_error".tr,
         snackPosition: SnackPosition.BOTTOM,
       );
     } finally {
@@ -129,11 +129,11 @@ class SettingsController extends GetxController {
     final status = settings.value?.account.profileStatus;
     switch (status) {
       case 'approved':
-        return 'معتمد';
+        return "profile_approved".tr;
       case 'pending':
-        return 'معلق';
+        return "profile_pending".tr;
       case 'rejected':
-        return 'مرفوض';
+        return "rejected".tr;
       default:
         return status ?? '';
     }
@@ -141,8 +141,8 @@ class SettingsController extends GetxController {
 
   String get profileStatusDescription {
     return settings.value?.account.profileCompleted == true
-        ? 'اكتمال الملف الشخصي'
-        : 'الملف الشخصي غير مكتمل';
+        ? "profile_completed".tr
+        : "profile_not_completed".tr;
   }
 
   double get profileCompletionPercentage {

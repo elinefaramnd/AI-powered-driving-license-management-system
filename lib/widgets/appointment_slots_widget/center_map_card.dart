@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import '../../app_theme/app_colors.dart';
 
 class CenterMapCard extends StatelessWidget {
@@ -14,7 +15,7 @@ class CenterMapCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-
+    final isRtl = Directionality.of(context) == TextDirection.rtl;
     return Container(
       margin: EdgeInsets.symmetric(horizontal: size.width * .04),
       decoration: BoxDecoration(
@@ -26,6 +27,50 @@ class CenterMapCard extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+
+
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Icon(
+                          Icons.verified_user,
+                          color: AppColors.primaryColor,
+                          size: size.width * .058,
+                        ),
+                        SizedBox(width: size.width * .015),
+                        Text(
+                          center["name"] ?? "",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: size.width * .042,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: size.height * .008),
+                    Padding(
+                      padding: EdgeInsets.only(right: size.width * .07),
+                      child: Text(
+                        center["address"] ?? "",
+                        textAlign:
+                        isRtl ? TextAlign.right : TextAlign.left,
+                        style: TextStyle(
+                          color: Colors.grey.shade600,
+                          fontSize: size.width * .031,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(width: size.width * .04),
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
@@ -69,7 +114,7 @@ class CenterMapCard extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
-                              "عرض الخريطة",
+                              "view_map".tr,
                               style: TextStyle(
                                 color: AppColors.primaryColor,
                                 fontWeight: FontWeight.w600,
@@ -83,47 +128,6 @@ class CenterMapCard extends StatelessWidget {
                               color: AppColors.primaryColor,
                             ),
                           ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(width: size.width * .04),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text(
-                          center["name"] ?? "",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: size.width * .042,
-                          ),
-                        ),
-                        SizedBox(width: size.width * .015),
-                        Icon(
-                          Icons.verified_user,
-                          color: AppColors.primaryColor,
-                          size: size.width * .058,
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: size.height * .008),
-                    Padding(
-                      padding: EdgeInsets.only(right: size.width * .07),
-                      child: Text(
-                        center["address"] ?? "",
-                        textAlign: TextAlign.right,
-                        style: TextStyle(
-                          color: Colors.grey.shade600,
-                          fontSize: size.width * .031,
                         ),
                       ),
                     ),

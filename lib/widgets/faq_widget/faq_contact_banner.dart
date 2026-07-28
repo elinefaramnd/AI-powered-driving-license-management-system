@@ -9,6 +9,7 @@ class FaqContactBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isArabic = Get.locale?.languageCode == "ar";
     return Container(
       padding: EdgeInsets.fromLTRB(w * 0.05, h * 0.015, w * 0.05, h * 0.02),
       decoration: BoxDecoration(
@@ -34,15 +35,17 @@ class FaqContactBanner extends StatelessWidget {
             elevation: 0,
           ),
           child: Row(
+            textDirection:
+            isArabic ? TextDirection.rtl : TextDirection.ltr,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Icon(Icons.headset_mic_rounded, color: Colors.white, size: 20),
               SizedBox(width: w * 0.02),
               Text(
-                'لم تجد إجابتك؟ تواصل معنا',
+                "contact_if_not_found".tr,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: w * 0.042,
+                  fontSize: isArabic?w * 0.042:w *0.038,
                   fontWeight: FontWeight.w600,
                 ),
               ),

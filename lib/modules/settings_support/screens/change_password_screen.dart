@@ -19,11 +19,11 @@ class ChangePasswordScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-
+    final isArabic = Get.locale?.languageCode == "ar";
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: const CustomAppBar(
-        title:'تغيير كلمة المرور',
+      appBar: CustomAppBar(
+        title: "change_password".tr,
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -38,24 +38,26 @@ class ChangePasswordScreen extends StatelessWidget {
               children: [
                 Center(
                   child: Container(
-                    width: screenWidth * 0.25,
-                    height: screenWidth * 0.25,
+                    width: screenWidth * 0.2,
+                    height: screenWidth * 0.2,
                     decoration: const BoxDecoration(
                       color: Color(0xFFE8F5E9),
                       shape: BoxShape.circle,
                     ),
                     child: Icon(
                       Icons.lock_outline,
-                      size: screenWidth * 0.12,
+                      size: screenWidth * 0.1,
                       color: AppColors.primaryColor,
                     ),
                   ),
                 ),
                 SizedBox(height: screenHeight * 0.03),
 
-                const Center(
+                Center(
                   child: Text(
-                    'تحديث كلمة المرور',
+                    "update_password".tr,
+                    textAlign:
+                    isArabic ? TextAlign.right : TextAlign.left,
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -66,7 +68,9 @@ class ChangePasswordScreen extends StatelessWidget {
 
                 Center(
                   child: Text(
-                    'قم بإدخال كلمة المرور الحالية والجديدة',
+                    "update_password_subtitle".tr,
+                    textAlign:
+                    TextAlign.center,
                     style: TextStyle(
                       fontSize: 14,
                       color: Colors.grey.shade600,
@@ -76,12 +80,12 @@ class ChangePasswordScreen extends StatelessWidget {
                 SizedBox(height: screenHeight * 0.04),
 
                 PasswordFieldWidget(
-                  label: 'كلمة المرور الحالية',
-                  hint: 'أدخل كلمة المرور الحالية',
+                  label: "current_password".tr,
+                  hint:  "enter_current_password".tr,
                   controller: _currentPasswordController,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'الرجاء إدخال كلمة المرور الحالية';
+                      return "current_password_required".tr;
                     }
                     return null;
                   },
@@ -89,15 +93,15 @@ class ChangePasswordScreen extends StatelessWidget {
                 SizedBox(height: screenHeight * 0.02),
 
                 PasswordFieldWidget(
-                  label: 'كلمة المرور الجديدة',
-                  hint: 'أدخل كلمة المرور الجديدة',
+                  label: "new_password".tr,
+                  hint: "enter_new_password".tr,
                   controller: _newPasswordController,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'الرجاء إدخال كلمة المرور الجديدة';
+                      return "new_password_required".tr;
                     }
                     if (value.length < 8) {
-                      return 'يجب أن تكون كلمة المرور 8 أحرف على الأقل';
+                      return "password_min_length".tr;
                     }
                     return null;
                   },
@@ -105,15 +109,15 @@ class ChangePasswordScreen extends StatelessWidget {
                 SizedBox(height: screenHeight * 0.02),
 
                 PasswordFieldWidget(
-                  label: 'تأكيد كلمة المرور الجديدة',
-                  hint: 'أعد إدخال كلمة المرور الجديدة',
+                  label: "confirm_new_password".tr,
+                  hint: "confirm_new_password_hint".tr,
                   controller: _confirmPasswordController,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'الرجاء تأكيد كلمة المرور الجديدة';
+                      return "confirm_password_required".tr;
                     }
                     if (value != _newPasswordController.text) {
-                      return 'كلمتا المرور غير متطابقتين';
+                      return "passwords_not_match".tr;
                     }
                     return null;
                   },
@@ -144,8 +148,8 @@ class ChangePasswordScreen extends StatelessWidget {
                         ),
                         child: controller.isUpdating.value
                             ? const CircularProgressIndicator(color: Colors.white)
-                            : const Text(
-                                'تغيير كلمة المرور',
+                            : Text(
+                          "change_password".tr,
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,

@@ -9,6 +9,7 @@ class AppointmentModel {
   final String? result;
   final int testTypeId;
   final int applicationId;
+  final String address;
 
   AppointmentModel({
     required this.id,
@@ -20,7 +21,8 @@ class AppointmentModel {
     required this.location,
     this.result,
     required this.testTypeId,
-    required this.applicationId
+    required this.applicationId,
+    required this.address,
 
   });
 
@@ -36,6 +38,7 @@ class AppointmentModel {
       time: json['appointment_slot']['start_time'] ?? '',
       location: json['appointment_slot']['location'] ?? '',
       result: json['test_result']?['result'],
+      address: json['appointment_slot']['center']['address'] ?? '',
     );
   }
 }

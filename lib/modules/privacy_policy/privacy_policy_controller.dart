@@ -28,13 +28,13 @@ class PrivacyPolicyController extends GetxController {
           expandedSections.value =
               List<bool>.filled(policy.value!.sections.length, false);
         } else {
-          errorMessage.value = data['message'] ?? 'حدث خطأ ما';
+          errorMessage.value = data['message'] ??  "something_went_wrong".tr;
         }
       } else {
-        errorMessage.value = 'فشل جلب سياسة الخصوصية';
+        errorMessage.value = "privacy_policy_fetch_failed".tr;
       }
     } catch (e) {
-      errorMessage.value = 'حدث خطأ أثناء الاتصال بالخادم';
+      errorMessage.value = "server_connection_error".tr;
       print('Error fetching privacy policy: $e');
     } finally {
       isLoading.value = false;

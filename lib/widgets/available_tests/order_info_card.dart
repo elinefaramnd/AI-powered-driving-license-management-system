@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../app_theme/app_colors.dart';
+import '../../modules/appointment/AvailableTestsController.dart';
+import '../../modules/home_page/home_controller.dart';
 
 class OrderInfoCard extends StatelessWidget {
   const OrderInfoCard({super.key});
@@ -7,7 +10,8 @@ class OrderInfoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-
+    final homeController = Get.find<HomeController>();
+    final availableController = Get.find<AvailableTestsController>();
     final iconSize = size.width * 0.14;
     final radius = size.width * 0.04;
     final dividerHeight = size.height * 0.07;
@@ -25,9 +29,12 @@ class OrderInfoCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _rich(context, "رقم الطلب:  ", "APP-2026-123456"),
-                _rich(context, "الحالة الحالية:  ", "قيد الاختبارات"),
-                _rich(context, "الاختبار المتاح الآن:  ", "اختبار النظر"),
+                _rich(context, "application_number".tr,
+                  homeController.currentApplicationNumber.value.isEmpty
+                      ? "-"
+                      : homeController.currentApplicationNumber.value,),
+                _rich(context,  "current_status".tr, homeController.getCurrentStatusText(),),
+                _rich(context, "current_available_test".tr,  availableController.getCurrentAvailableTest(),),
               ],
             ),
           )
@@ -50,6 +57,7 @@ class OrderInfoCard extends StatelessWidget {
       Container(width: 1, height: height, color: Colors.grey.shade300);
   Widget _rich(BuildContext context, String a, String b) {
     final size = MediaQuery.of(context).size;
+    final isRtl = Get.locale?.languageCode == "ar";
     return RichText(
       text: TextSpan(
         children: [
@@ -57,7 +65,7 @@ class OrderInfoCard extends StatelessWidget {
             text: a,
             style: TextStyle(
               color: Colors.grey.shade600,
-              fontSize: size.width * 0.036,
+              fontSize: isRtl?size.width * 0.036:size.width * 0.032,
             ),
           ),
           WidgetSpan(child: SizedBox(width: size.width * 0.01)),

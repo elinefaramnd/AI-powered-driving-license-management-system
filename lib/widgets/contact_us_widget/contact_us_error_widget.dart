@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:project_2/app_theme/app_colors.dart';
 import 'contact_us_app_bar.dart';
 
@@ -18,6 +19,7 @@ class ContactUsErrorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isArabic = Get.locale?.languageCode == "ar";
     return Column(
       children: [
         ContactUsAppBar(w: w),
@@ -40,7 +42,8 @@ class ContactUsErrorWidget extends StatelessWidget {
                   SizedBox(height: h * 0.025),
                   Text(
                     message,
-                    textDirection: TextDirection.rtl,
+                    textDirection:
+                    isArabic ? TextDirection.rtl : TextDirection.ltr,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: w * 0.04,
@@ -52,8 +55,8 @@ class ContactUsErrorWidget extends StatelessWidget {
                   ElevatedButton.icon(
                     onPressed: onRetry,
                     icon: const Icon(Icons.refresh_rounded, color: Colors.white),
-                    label: const Text(
-                      'إعادة المحاولة',
+                    label: Text(
+                    "retry".tr,
                       style: TextStyle(color: Colors.white),
                     ),
                     style: ElevatedButton.styleFrom(

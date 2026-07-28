@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:project_2/app_theme/app_colors.dart';
 import '../../modules/privacy_policy/privacy_policy_controller.dart';
 
@@ -46,6 +47,7 @@ class PrivacyPolicySectionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isArabic = Get.locale?.languageCode == "ar";
     return AnimatedContainer(
       duration: const Duration(milliseconds: 250),
       curve: Curves.easeInOut,
@@ -72,54 +74,16 @@ class PrivacyPolicySectionCard extends StatelessWidget {
               vertical: h * 0.016,
             ),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
+              crossAxisAlignment: isArabic
+                  ? CrossAxisAlignment.end
+                  : CrossAxisAlignment.start,
               children: [
                 Row(
+                  textDirection:
+                  isArabic ? TextDirection.rtl : TextDirection.ltr,
                   children: [
-                    AnimatedRotation(
-                      duration: const Duration(milliseconds: 250),
-                      turns: isExpanded ? 0.25 : 0,
-                      child: Icon(
-                        Icons.arrow_back_ios,
-                        size: 16,
-                        color: Colors.grey.shade500,
-                      ),
-                    ),
-                    SizedBox(width: w * 0.02),
-                    Expanded(
-                      flex: 8,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text(
-                            heading,
-                            textDirection: TextDirection.rtl,
-                            textAlign: TextAlign.right,
-                            style: TextStyle(
-                              fontSize: w * 0.042,
-                              fontWeight: FontWeight.bold,
-                              color: AppColors.darkGreen,
-                            ),
-                          ),
-                          if (!isExpanded) ...[
-                            SizedBox(height: h * 0.005),
-                            Text(
-                              content,
-                              textDirection: TextDirection.rtl,
-                              textAlign: TextAlign.right,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                fontSize: w * 0.034,
-                                color: Colors.grey.shade600,
-                                height: 1.5,
-                              ),
-                            ),
-                          ],
-                        ],
-                      ),
-                    ),
-                    SizedBox(width: w * 0.025),
+
+
                     Container(
                       padding: const EdgeInsets.all(9),
                       decoration: BoxDecoration(
@@ -132,6 +96,60 @@ class PrivacyPolicySectionCard extends StatelessWidget {
                         size: w * 0.055,
                       ),
                     ),
+                    SizedBox(width: w * 0.025),
+                    Expanded(
+                      flex: 8,
+                      child: Column(
+                        crossAxisAlignment:
+                        CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            heading,
+                            textDirection:
+                            isArabic ? TextDirection.rtl : TextDirection.ltr,
+
+                            textAlign:
+                            isArabic ? TextAlign.right : TextAlign.left,
+                            style: TextStyle(
+                              fontSize: w * 0.042,
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.darkGreen,
+                            ),
+                          ),
+                          if (!isExpanded) ...[
+                            SizedBox(height: h * 0.005),
+                            Text(
+                              content,
+                              textDirection:
+                              isArabic ? TextDirection.rtl : TextDirection.ltr,
+
+                              textAlign:
+                              isArabic ? TextAlign.right : TextAlign.left,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: w * 0.034,
+                                color: Colors.grey.shade600,
+                                height: 1.5,
+                              ),
+                            ),
+                          ],
+                        ],
+                      ),
+                    ),
+                    SizedBox(width: w * 0.02),
+                    AnimatedRotation(
+                      duration: const Duration(milliseconds: 250),
+                      turns: isExpanded
+                          ? (isArabic ? 0.25 : -0.25)
+                          : 0,
+                      child: Icon(
+                        Icons.arrow_forward_ios,
+                        size: 16,
+                        color: Colors.grey.shade500,
+                      ),
+                    ),
+
                   ],
                 ),
                 if (isExpanded) ...[
@@ -140,8 +158,11 @@ class PrivacyPolicySectionCard extends StatelessWidget {
                   SizedBox(height: h * 0.008),
                   Text(
                     content,
-                    textDirection: TextDirection.rtl,
-                    textAlign: TextAlign.right,
+                    textDirection:
+                    isArabic ? TextDirection.rtl : TextDirection.ltr,
+
+                    textAlign:
+                    isArabic ? TextAlign.right : TextAlign.left,
                     style: TextStyle(
                       fontSize: w * 0.038,
                       color: Colors.grey.shade700,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:project_2/app_theme/app_colors.dart';
 import 'package:project_2/modules/contact_us/contact_us_model.dart';
 
@@ -10,6 +11,7 @@ class ContactUsHeroBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isArabic = Get.locale?.languageCode == "ar";
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(horizontal: w * 0.055, vertical: h * 0.03),
@@ -29,21 +31,16 @@ class ContactUsHeroBanner extends StatelessWidget {
         ],
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment:
+        isArabic
+            ? CrossAxisAlignment.end
+            : CrossAxisAlignment.start,
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+            textDirection:
+            isArabic ? TextDirection.rtl : TextDirection.ltr,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text(
-                info.title,
-                textDirection: TextDirection.rtl,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: w * 0.06,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(width: w * 0.025),
               Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
@@ -53,6 +50,19 @@ class ContactUsHeroBanner extends StatelessWidget {
                 child: const Icon(Icons.support_agent_rounded,
                     color: Colors.white, size: 26),
               ),
+              SizedBox(width: w * 0.025),
+              Text(
+                info.title,
+                textDirection:
+                isArabic ? TextDirection.rtl : TextDirection.ltr,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: w * 0.06,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+
+
             ],
           ),
           SizedBox(height: h * 0.012),
@@ -60,8 +70,10 @@ class ContactUsHeroBanner extends StatelessWidget {
           SizedBox(height: h * 0.012),
           Text(
             info.description,
-            textDirection: TextDirection.rtl,
-            textAlign: TextAlign.right,
+            textDirection:
+            isArabic ? TextDirection.rtl : TextDirection.ltr,
+            textAlign:
+            isArabic ? TextAlign.right : TextAlign.left,
             style: TextStyle(
               color: Colors.white.withOpacity(0.88),
               fontSize: w * 0.036,

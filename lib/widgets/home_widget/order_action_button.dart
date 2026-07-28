@@ -40,9 +40,9 @@ class OrderActionButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
 
           children: [
-            Icon(icon, color: Colors.white, size: width * .09),
+            Icon(icon, color: Colors.white, size: width * .08),
 
-            const SizedBox(width: 6),
+            const SizedBox(width: 4),
 
             Text(
               text,

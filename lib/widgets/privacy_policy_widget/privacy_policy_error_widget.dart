@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:project_2/app_theme/app_colors.dart';
 import '../../modules/privacy_policy/privacy_policy_controller.dart';
 
@@ -29,7 +30,7 @@ class PrivacyPolicyErrorWidget extends StatelessWidget {
           ElevatedButton(
             onPressed: controller.fetchPrivacyPolicy,
             style: ElevatedButton.styleFrom(backgroundColor: AppColors.mediumGreen),
-            child: const Text('إعادة المحاولة',
+            child: Text("retry".tr,
                 style: TextStyle(color: Colors.white)),
           ),
         ],

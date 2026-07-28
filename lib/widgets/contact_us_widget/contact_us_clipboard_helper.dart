@@ -15,7 +15,9 @@ void copyToClipboard(String value) {
     margin: const EdgeInsets.all(16),
     borderRadius: 12,
     messageText: Text(
-      'تم نسخ "$value"',
+      "copied_value".trParams({
+        "value": value,
+      }),
       textDirection: TextDirection.rtl,
       style: const TextStyle(color: Colors.white, fontSize: 13),
     ),

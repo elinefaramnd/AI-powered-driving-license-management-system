@@ -19,7 +19,7 @@ class TestResultsView extends StatelessWidget {
     final mediumSpace = size.height * 0.025;
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar:CustomAppBar(title: "نتائج اختباراتي"),
+      appBar:CustomAppBar(title:"my_test_results".tr,),
       body: Directionality(
         textDirection: TextDirection.rtl,
         child: Obx(() {
@@ -32,8 +32,8 @@ class TestResultsView extends StatelessWidget {
           }
 
           if (controller.results.isEmpty) {
-            return const Center(
-              child: Text("لا توجد نتائج"),
+            return Center(
+              child: Text("no_test_results".tr,),
             );
           }
 

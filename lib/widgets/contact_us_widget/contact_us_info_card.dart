@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:project_2/app_theme/app_colors.dart';
 import 'package:project_2/modules/contact_us/contact_us_model.dart';
 import 'contact_us_clipboard_helper.dart';
@@ -32,7 +33,7 @@ class ContactUsInfoCard extends StatelessWidget {
             icon: Icons.phone_rounded,
             iconColor: AppColors.darkGreen,
             iconBg: AppColors.lightGreenBg,
-            label: 'الهاتف',
+            label: "phone".tr,
             value: info.phone,
             copyable: true,
           ),
@@ -42,7 +43,7 @@ class ContactUsInfoCard extends StatelessWidget {
             icon: Icons.email_rounded,
             iconColor: AppColors.mediumGreen,
             iconBg: AppColors.lightGreenBg,
-            label: 'البريد الإلكتروني',
+            label: "email".tr,
             value: info.email,
             copyable: true,
           ),
@@ -52,7 +53,7 @@ class ContactUsInfoCard extends StatelessWidget {
             icon: Icons.access_time_rounded,
             iconColor: AppColors.primary,
             iconBg: AppColors.lightGreenBg,
-            label: 'ساعات العمل',
+            label: "working_hours".tr,
             value: info.workingHours,
             copyable: false,
           ),
@@ -62,7 +63,7 @@ class ContactUsInfoCard extends StatelessWidget {
             icon: Icons.location_on_rounded,
             iconColor: AppColors.darkGreen,
             iconBg: AppColors.lightGreenBg,
-            label: 'العنوان',
+            label: "address".tr,
             value: info.address,
             copyable: false,
           ),
@@ -106,9 +107,60 @@ class _InfoRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isArabic = Get.locale?.languageCode == "ar";
     return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      textDirection:
+      isArabic ? TextDirection.rtl : TextDirection.ltr,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
+
+        Container(
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: iconBg,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Icon(icon, color: iconColor, size: 22),
+        ),
+        SizedBox(width: w * 0.03),
+        Expanded(
+          child: Column(
+            crossAxisAlignment:
+         CrossAxisAlignment.start,
+
+            children: [
+              Text(
+                label,
+                textDirection:
+                isArabic ? TextDirection.rtl : TextDirection.ltr,
+
+                textAlign:
+                isArabic ? TextAlign.right : TextAlign.left,
+                style: TextStyle(
+                  fontSize: w * 0.032,
+                  color: Colors.grey.shade500,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              const SizedBox(height: 3),
+              Text(
+                value,
+                textDirection:
+                isArabic ? TextDirection.rtl : TextDirection.ltr,
+
+                textAlign:
+                isArabic ? TextAlign.right : TextAlign.left,
+                softWrap: true,
+                style: TextStyle(
+                  fontSize: w * 0.038,
+                  color: const Color(0xFF1C1C1E),
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
+        ),
         if (copyable)
           GestureDetector(
             onTap: () => copyToClipboard(value),
@@ -123,43 +175,7 @@ class _InfoRow extends StatelessWidget {
             ),
           ),
         if (copyable) SizedBox(width: w * 0.02),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(
-                label,
-                textDirection: TextDirection.rtl,
-                style: TextStyle(
-                  fontSize: w * 0.032,
-                  color: Colors.grey.shade500,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              const SizedBox(height: 3),
-              Text(
-                value,
-                textDirection: TextDirection.rtl,
-                textAlign: TextAlign.right,
-                softWrap: true,
-                style: TextStyle(
-                  fontSize: w * 0.038,
-                  color: const Color(0xFF1C1C1E),
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ],
-          ),
-        ),
-        SizedBox(width: w * 0.03),
-        Container(
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: iconBg,
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Icon(icon, color: iconColor, size: 22),
-        ),
+
       ],
     );
   }

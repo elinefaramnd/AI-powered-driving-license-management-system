@@ -29,13 +29,13 @@ class AppointmentInfoItem extends StatelessWidget {
                 Icon(
                   icon,
                   color: AppColors.primaryColor,
-                  size: size.width * .055,
+                  size: size.width * .045,
                 ),
                 SizedBox(width: size.width * .015),
                 Text(
                   title,
                   style: TextStyle(
-                    fontSize: size.width * .035,
+                    fontSize: size.width * .04,
                     color: Colors.grey,
                   ),
                 ),

@@ -64,8 +64,12 @@ class AppointmentsController extends GetxController {
     return item.location;
   }
 
+  String getAddress(AppointmentModel item) {
+    return item.address;
+  }
+
   String getResult(AppointmentModel item) {
-    if (item.result == null) return "no_result";
+    if (item.result == null) return "no_result".tr;
     return item.result!;
   }
 
@@ -81,10 +85,12 @@ class AppointmentsController extends GetxController {
       if (response.statusCode == 200) {
         appointments.removeWhere((item) => item.id == appointmentId);
 
-        AppSnackbar.show("تم", "تم إلغاء الموعد بنجاح");
+        AppSnackbar.show("done".tr,
+          "appointment_cancelled_successfully".tr,);
       }
     } catch (e) {
-      Get.snackbar("خطأ", "فشل إلغاء الموعد");
+      Get.snackbar("error".tr,
+        "failed_to_cancel_appointment".tr,);
 
       print(e);
     } finally {
@@ -96,17 +102,24 @@ class AppointmentsController extends GetxController {
     try {
       final date = DateTime.parse(item.date);
 
-      const days = [
-        "الاثنين",
-        "الثلاثاء",
-        "الأربعاء",
-        "الخميس",
-        "الجمعة",
-        "السبت",
-        "الأحد",
-      ];
-
-      return days[date.weekday - 1];
+      switch (date.weekday) {
+        case DateTime.monday:
+          return "monday".tr;
+        case DateTime.tuesday:
+          return "tuesday".tr;
+        case DateTime.wednesday:
+          return "wednesday".tr;
+        case DateTime.thursday:
+          return "thursday".tr;
+        case DateTime.friday:
+          return "friday".tr;
+        case DateTime.saturday:
+          return "saturday".tr;
+        case DateTime.sunday:
+          return "sunday".tr;
+        default:
+          return "";
+      }
     } catch (e) {
       return "";
     }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../app_theme/app_colors.dart';
 
 class FaqCategoryChips extends StatelessWidget {
@@ -18,14 +19,19 @@ class FaqCategoryChips extends StatelessWidget {
   IconData _getCategoryIcon(String category) {
     switch (category) {
       case 'الحساب والملف الشخصي':
+      case 'Account & Profile':
         return Icons.person_outline_rounded;
       case 'الطلبات والخدمات':
+      case 'Applications & Services':
         return Icons.assignment_outlined;
       case 'الوثائق والدفع':
+      case 'Documents & Payment':
         return Icons.description_outlined;
       case 'المواعيد والاختبارات':
+      case 'Appointments & Tests':
         return Icons.calendar_today_outlined;
       case 'الرخص والمخالفات':
+      case 'Licenses & Violations':
         return Icons.credit_card_outlined;
       default:
         return Icons.help_outline_rounded;
@@ -35,15 +41,25 @@ class FaqCategoryChips extends StatelessWidget {
   String _getShortLabel(String category) {
     switch (category) {
       case 'الحساب والملف الشخصي':
-        return 'الحساب';
+      case 'Account & Profile':
+        return "account".tr;
+
       case 'الطلبات والخدمات':
-        return 'الطلبات';
+      case 'Applications & Services':
+        return "applications".tr;
+
       case 'الوثائق والدفع':
-        return 'الدفع';
+      case 'Documents & Payment':
+        return "payment".tr;
+
       case 'المواعيد والاختبارات':
-        return 'الاختبارات';
+      case 'Appointments & Tests':
+        return "tests".tr;
+
       case 'الرخص والمخالفات':
-        return 'الرخص';
+      case 'Licenses & Violations':
+        return "licenses".tr;
+
       default:
         return category;
     }
@@ -51,11 +67,12 @@ class FaqCategoryChips extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isArabic = Get.locale?.languageCode == "ar";
     return SizedBox(
       height: 42,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
-        reverse: true,
+        reverse: isArabic,
         padding: EdgeInsets.symmetric(horizontal: w * 0.045),
         itemCount: categories.length,
         separatorBuilder: (_, __) => const SizedBox(width: 8),
@@ -84,6 +101,8 @@ class FaqCategoryChips extends StatelessWidget {
                     : [],
               ),
               child: Row(
+                textDirection:
+                isArabic ? TextDirection.rtl : TextDirection.ltr,
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Icon(

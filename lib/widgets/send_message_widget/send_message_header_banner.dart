@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:project_2/app_theme/app_colors.dart';
 
 class SendMessageHeaderBanner extends StatelessWidget {
@@ -8,14 +9,18 @@ class SendMessageHeaderBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isArabic = Get.locale?.languageCode == "ar";
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(horizontal: w * 0.055, vertical: h * 0.025),
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [AppColors.primary, AppColors.darkGreen],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
+        gradient: LinearGradient(
+          colors: const [AppColors.primary, AppColors.darkGreen],
+          begin:
+          isArabic ? Alignment.topLeft : Alignment.topRight,
+
+          end:
+          isArabic ? Alignment.bottomRight : Alignment.bottomLeft,
         ),
         borderRadius: BorderRadius.circular(22),
         boxShadow: [
@@ -27,13 +32,17 @@ class SendMessageHeaderBanner extends StatelessWidget {
         ],
       ),
       child: Row(
+        textDirection:
+        isArabic ? TextDirection.rtl : TextDirection.ltr,
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Expanded(
             child: Text(
-              'نحن هنا للمساعدة. أرسل لنا رسالتك وسنرد عليك في أقرب وقت ممكن.',
-              textDirection: TextDirection.rtl,
-              textAlign: TextAlign.right,
+              "send_message_banner".tr,
+              textAlign:
+              isArabic ? TextAlign.right : TextAlign.left,
+              textDirection:
+              isArabic ? TextDirection.rtl : TextDirection.ltr,
               style: TextStyle(
                 color: Colors.white.withOpacity(0.9),
                 fontSize: w * 0.036,

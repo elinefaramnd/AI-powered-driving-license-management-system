@@ -10,13 +10,13 @@ class LogOutController extends GetxController {
   final isLoading = false.obs;
   Future<void> logout() async {
     Get.defaultDialog(
-      title: 'تأكيد تسجيل الخروج',
+      title: "logout_confirmation".tr,
       titleStyle: const TextStyle(fontSize: 18),
       content: const SizedBox.shrink(),
       cancelTextColor: AppColors.primaryColor,
      // textConfirm: 'تأكيد',
       //buttonColor: AppColors.primaryColor,
-      textCancel: 'إلغاء',
+      textCancel: "cancel".tr,
       //confirmTextColor: Colors.white,
       //   onConfirm: () async {
       //     try {
@@ -65,8 +65,8 @@ class LogOutController extends GetxController {
               if (response.statusCode == 200 ||
                   response.statusCode == 201) {
                 AppSnackbar.show(
-                  'تم تسجيل الخروج',
-                  res['message'] ?? 'تم تسجيل الخروج بنجاح',
+                  "logged_out".tr,
+                  res['message'] ??  "logout_successfully".tr,
                 );
 
                 await Future.delayed(
@@ -75,14 +75,15 @@ class LogOutController extends GetxController {
                 Get.offAllNamed('/signIn');
               } else {
                 AppSnackbar.show(
-                  'فشل تسجيل الخروج',
-                  res['message'] ?? 'حدث خطأ غير متوقع',
+                  "logout_failed".tr,
+                  res['message'] ?? "unexpected_error".tr,
                 );
               }
             } catch (e) {
               Get.back();
               AppSnackbar.show(
-                  'خطأ', 'حدث خطأ أثناء العملية');
+                "error".tr,
+                "operation_failed".tr,);
             } finally {
               isLoading.value = false;
             }
@@ -96,8 +97,8 @@ class LogOutController extends GetxController {
               color: Colors.white,
             ),
           )
-              : const Text(
-            "تأكيد",
+              : Text(
+            "confirm".tr,
             style: TextStyle(color: Colors.white),
           ),
         ),

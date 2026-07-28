@@ -44,7 +44,7 @@ class TestResultsController extends GetxController {
 
   String getNotes(String notes) {
     if (notes == "Citizen met requirements.") {
-      return "المواطن استوفى المتطلبات";
+      return "citizen_met_requirements".tr;
     }
 
     return notes;
@@ -53,13 +53,13 @@ class TestResultsController extends GetxController {
   String getResultText(String result) {
     switch (result) {
       case "passed":
-        return "ناجح";
+        return "passed".tr;
 
       case "failed":
-        return "راسب";
+        return "failed".tr;
 
       case "pending":
-        return "قيد الانتظار";
+        return "pending".tr;
 
       default:
         return result;
@@ -69,16 +69,16 @@ class TestResultsController extends GetxController {
   String getTestDescription(String code) {
     switch (code) {
       case "vision":
-        return "فحص النظر للرخصة";
+        return "vision_test_description".tr;
 
       case "theory":
-        return "اختبار القيادة النظري";
+        return "theory_test_description".tr;
 
       case "practical":
-        return "اختبار القيادة العملي";
+        return "practical_test_description".tr;
 
       default:
-        return "اختبار";
+        return "test".tr;
     }
   }
 

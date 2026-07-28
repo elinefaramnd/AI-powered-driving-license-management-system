@@ -9,23 +9,20 @@ class PaymentDialogs {
     BuildContext screenContext,
     PaymentController controller,
     VoidCallback onShowVerify,
-  ) {
+  )
+  {
+    final isRtl = Get.locale?.languageCode == "ar";
     showDialog(
       context: screenContext,
       barrierDismissible: false,
       builder: (dialogContext) => Directionality(
-        textDirection: TextDirection.rtl,
+        textDirection: isRtl ? TextDirection.rtl : TextDirection.ltr,
         child: AlertDialog(
-          title: const Text('إتمام الدفع'),
-          content: const Text(
-            'سيتم فتح صفحة الدفع الآمنة. بعد إتمام الدفع، اضغط على "تم التحقق" للتحقق من حالة الدفع.',
+          title: Text("payment_completion".tr,),
+          content: Text(
+            "payment_completion_message".tr,
           ),
           actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(dialogContext),
-              style: TextButton.styleFrom(foregroundColor: Colors.black),
-              child: const Text('إلغاء'),
-            ),
             ElevatedButton(
               onPressed: () {
                 Navigator.pop(dialogContext);
@@ -37,10 +34,15 @@ class PaymentDialogs {
                 });
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.primary,
+                backgroundColor: AppColors.primaryColor,
                 foregroundColor: Colors.white,
               ),
-              child: const Text('متابعة'),
+              child: Text("continue_payment".tr),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(dialogContext),
+              style: TextButton.styleFrom(foregroundColor: Colors.black),
+              child: Text("cancel".tr),
             ),
           ],
         ),
@@ -54,22 +56,18 @@ class PaymentDialogs {
     PaymentController controller,
     VoidCallback onVerify,
   ) {
+    final isRtl = Get.locale?.languageCode == "ar";
     showDialog(
       context: screenContext,
       barrierDismissible: false,
       builder: (dialogContext) => Directionality(
-        textDirection: TextDirection.rtl,
+        textDirection: isRtl ? TextDirection.rtl : TextDirection.ltr,
         child: AlertDialog(
-          title: const Text('التحقق من الدفع'),
-          content: const Text(
-            'هل قمت بإتمام عملية الدفع في صفحة Stripe؟',
+          title: Text("verify_payment".tr),
+          content: Text(
+            "verify_payment_message".tr,
           ),
           actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(dialogContext),
-              style: TextButton.styleFrom(foregroundColor: Colors.black),
-              child: const Text('لم أكمل'),
-            ),
             ElevatedButton(
               onPressed: () {
                 Navigator.pop(dialogContext);
@@ -81,10 +79,15 @@ class PaymentDialogs {
                 homeController.getCurrentApplication();
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.primary,
+                backgroundColor: AppColors.primaryColor,
                 foregroundColor: Colors.white,
               ),
-              child: const Text('تم التحقق'),
+              child: Text("verified".tr),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(dialogContext),
+              style: TextButton.styleFrom(foregroundColor: Colors.black),
+              child: Text("not_completed".tr),
             ),
           ],
         ),

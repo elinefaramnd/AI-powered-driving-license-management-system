@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
 class ResultFooter extends StatelessWidget {
   final Size size;
@@ -22,7 +23,7 @@ class ResultFooter extends StatelessWidget {
         ),
         SizedBox(width: size.width * 0.015),
         Text(
-          "بياناتك محمية وآمنة وفق أعلى المعايير",
+          "results_footer".tr,
           style: TextStyle(
             fontSize: smallFont,
             color: Colors.grey,

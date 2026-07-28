@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import '../../app_theme/app_colors.dart';
 import '../../lang/controllers/language_controller.dart';
 import '../../modules/settings_support/models/settings_model.dart';
@@ -24,6 +25,7 @@ class LanguageCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isArabic = Get.locale?.languageCode == "ar";
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
       child: Container(
@@ -36,6 +38,8 @@ class LanguageCardWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
+              textDirection:
+              isArabic ? TextDirection.rtl : TextDirection.ltr,
               children: [
                 Container(
                   padding: const EdgeInsets.all(8),
@@ -50,8 +54,8 @@ class LanguageCardWidget extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 8),
-                const Text(
-                  'اللغة',
+                 Text(
+                  'language'.tr,
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
@@ -59,7 +63,7 @@ class LanguageCardWidget extends StatelessWidget {
                 ),
                 const Spacer(),
                 Text(
-                  'اختر لغة التطبيق',
+                  'choose_app_language'.tr,
                   style: TextStyle(
                     fontSize: 11,
                     color: Colors.grey.shade600,
@@ -69,6 +73,8 @@ class LanguageCardWidget extends StatelessWidget {
             ),
             SizedBox(height: screenHeight * 0.015),
             Row(
+              textDirection:
+              isArabic ? TextDirection.rtl : TextDirection.ltr,
               children: languages.map((lang) {
                 final isSelected = preferences?.language == lang.code;
                 return Expanded(
@@ -84,8 +90,12 @@ class LanguageCardWidget extends StatelessWidget {
                     },
                     child: Container(
                       margin: EdgeInsets.only(
-                        left: lang.code == 'en' ? 8 : 0,
-                        right: lang.code == 'ar' ? 8 : 0,
+                        left: isArabic
+                            ? (lang.code == 'en' ? 8 : 0)
+                            : (lang.code == 'ar' ? 8 : 0),
+                        right: isArabic
+                            ? (lang.code == 'ar' ? 8 : 0)
+                            : (lang.code == 'en' ? 8 : 0),
                       ),
                       padding: EdgeInsets.symmetric(
                         vertical: screenHeight * 0.018,

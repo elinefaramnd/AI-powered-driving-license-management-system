@@ -89,7 +89,7 @@ class HomeDrawerWidget extends StatelessWidget {
                        },
                     ),
                     DrawerItemWidget(
-                      icon: Icons.person_outline,
+                      icon:Icons.assignment_turned_in_outlined,
                       title: "results".tr,
                       index: 18,
                       controller: controller,

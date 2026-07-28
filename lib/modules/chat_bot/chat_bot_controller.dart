@@ -39,7 +39,7 @@ class ChatController extends GetxController {
 
   void _addWelcomeMessage() {
     messages.add(ChatMessage(
-      text: 'مرحبا! أنا المساعد الذكي الخاص بتطبيق سيرتك..\nكيف يمكنني مساعدتك؟',
+      text: 'chatbot_welcome'.tr,
       isUser: false,
       timestamp: DateTime.now(),
     ));
@@ -57,7 +57,7 @@ class ChatController extends GetxController {
 
     // Add user message locally
     messages.add(ChatMessage(
-      text: text.isNotEmpty ? text : 'تم إرفاق ملف',
+      text: text.isNotEmpty ? text : "chatbot_attach_file".tr,
       isUser: true,
       timestamp: DateTime.now(),
       hasAttachment: selectedFileName.value.isNotEmpty,
@@ -109,7 +109,7 @@ class ChatController extends GetxController {
         selectedFileName.value = result.files.single.name;
 
         Get.snackbar(
-          'تم اختيار الملف',
+          "chatbot_file_selected".tr,
           result.files.single.name,
           backgroundColor: AppColors.gold.withOpacity(0.9),
           colorText: Colors.white,
@@ -118,8 +118,10 @@ class ChatController extends GetxController {
       }
     } catch (e) {
       Get.snackbar(
-        'خطأ',
-        'فشل في اختيار الملف: $e',
+        "chatbot_error".tr,
+        "chatbot_pick_file_failed".trParams({
+          "error": e.toString(),
+        }),
         backgroundColor: Colors.red.withOpacity(0.9),
         colorText: Colors.white,
       );
@@ -135,8 +137,8 @@ class ChatController extends GetxController {
   void acceptPrompt() {
     // await ApiService.sendAction('accept');
     Get.snackbar(
-      'تم القبول',
-      'تم قبول طلبك بنجاح',
+      "chatbot_accepted".tr,
+      "chatbot_accepted_success".tr,
       backgroundColor: AppColors.primary.withOpacity(0.9),
       colorText: Colors.white,
     );
@@ -146,8 +148,8 @@ class ChatController extends GetxController {
   void rejectPrompt() {
     // await ApiService.sendAction('reject');
     Get.snackbar(
-      'تم الرفض',
-      'تم رفض الطلب',
+      "chatbot_rejected".tr,
+      "chatbot_rejected_success".tr,
       backgroundColor: Colors.red.withOpacity(0.9),
       colorText: Colors.white,
     );

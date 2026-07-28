@@ -16,15 +16,18 @@ class MyAppointmentsScreen extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: const CustomAppBar(
-        title: "مواعيدي",
+      appBar: CustomAppBar(
+        title: "my_appointments".tr,
       ),
       body: Directionality(
-        textDirection: TextDirection.rtl,
+        textDirection:
+        Get.locale?.languageCode == "ar"
+            ? TextDirection.rtl
+            : TextDirection.ltr,
         child: Obx(() {
           if (controller.isLoading.value) {
             return const Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(color: AppColors.primaryColor,),
             );
           }
 
@@ -40,7 +43,7 @@ class MyAppointmentsScreen extends StatelessWidget {
                   ),
                   SizedBox(height:size.height * 0.02),
                   Text(
-                    "لا يوجد مواعيد حالياً",
+                    "no_appointments".tr,
                     style: TextStyle(
                       fontSize: size.width * 0.045,
                       fontWeight: FontWeight.bold,

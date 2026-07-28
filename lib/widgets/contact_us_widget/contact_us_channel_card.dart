@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:project_2/app_theme/app_colors.dart';
 import 'package:project_2/modules/contact_us/contact_us_model.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -23,6 +24,7 @@ class ContactUsChannelCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isArabic = Get.locale?.languageCode == "ar";
     final isPhone = channel.type == 'phone';
     final iconData = isPhone ? Icons.phone_in_talk_rounded : Icons.alternate_email_rounded;
     final gradientColors = [AppColors.mediumGreen, AppColors.darkGreen];
@@ -43,42 +45,10 @@ class ContactUsChannelCard extends StatelessWidget {
           ],
         ),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          textDirection:
+          isArabic ? TextDirection.rtl : TextDirection.ltr,
           children: [
-            Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: AppColors.lightGreenBg,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: const Icon(Icons.copy_rounded,
-                  color: AppColors.mediumGreen, size: 18),
-            ),
-            const Spacer(),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Text(
-                  channel.label,
-                  textDirection: TextDirection.rtl,
-                  style: TextStyle(
-                    fontSize: w * 0.032,
-                    color: Colors.grey.shade500,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  channel.value,
-                  textDirection: TextDirection.rtl,
-                  style: TextStyle(
-                    fontSize: w * 0.04,
-                    fontWeight: FontWeight.bold,
-                    color: const Color(0xFF1C1C1E),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(width: w * 0.03),
             Container(
               width: w * 0.1,
               height: w * 0.1,
@@ -98,6 +68,48 @@ class ContactUsChannelCard extends StatelessWidget {
                 ],
               ),
               child: Icon(iconData, color: Colors.white, size: w * 0.045),
+            ),
+            SizedBox(width: w * 0.03),
+            Column(
+              crossAxisAlignment:
+              CrossAxisAlignment.start,
+              children: [
+                Text(
+                  channel.label,
+                  textDirection:
+                  isArabic ? TextDirection.rtl : TextDirection.ltr,
+                  textAlign:
+                  isArabic ? TextAlign.right : TextAlign.left,
+                  style: TextStyle(
+                    fontSize: w * 0.032,
+                    color: Colors.grey.shade500,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  channel.value,
+                  textDirection:
+                  isArabic ? TextDirection.rtl : TextDirection.ltr,
+                  textAlign:
+                  isArabic ? TextAlign.right : TextAlign.left,
+                  style: TextStyle(
+                    fontSize: w * 0.04,
+                    fontWeight: FontWeight.bold,
+                    color: const Color(0xFF1C1C1E),
+                  ),
+                ),
+              ],
+            ),
+            const Spacer(),
+            Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: AppColors.lightGreenBg,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: const Icon(Icons.copy_rounded,
+                  color: AppColors.mediumGreen, size: 18),
             ),
           ],
         ),

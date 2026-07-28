@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'appointment_action_button.dart';
 import 'appointment_status_chip.dart';
 
@@ -29,7 +30,7 @@ class AppointmentFooterSection extends StatelessWidget {
     return Row(
       children: [
         AppointmentActionButton(
-          text: "تعديل الموعد",
+          text: "edit_appointment".tr,
           onTap: onEdit,
         ),
 
@@ -38,7 +39,7 @@ class AppointmentFooterSection extends StatelessWidget {
         ),
 
         AppointmentActionButton(
-          text: "إلغاء الموعد",
+          text: "cancel_appointment".tr,
           onTap: onCancel,
         ),
       ],

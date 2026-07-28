@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import '../../app_theme/app_colors.dart';
 import '../../modules/my_test_results/test_results_controller.dart';
 
@@ -17,25 +19,29 @@ class ResultMetaSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final smallSpace = size.height * 0.012;
-    final smallFont = size.width * 0.033;
+    final smallFont = size.width * 0.037;
     final subtitleFont = size.width * 0.032;
+    final isArabic = Get.locale?.languageCode == "ar";
 
     return Row(
+      textDirection:
+      isArabic ? TextDirection.rtl : TextDirection.ltr,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Column(
           children: [
             Row(
+              textDirection:isArabic ? TextDirection.rtl : TextDirection.ltr,
               mainAxisSize: MainAxisSize.min,
               children: [
                 Icon(
                   Icons.calendar_month,
-                  size: size.width * 0.06,
+                  size: size.width * 0.045,
                   color: AppColors.primaryColor,
                 ),
                 SizedBox(width: size.width * 0.02),
                 Text(
-                  "التاريخ",
+                 "date".tr,
                   style: TextStyle(
                     fontSize: smallFont,
                     color: AppColors.primaryColor,
@@ -57,7 +63,7 @@ class ResultMetaSection extends StatelessWidget {
         Column(
           children: [
             Text(
-              "عدد المحاولات",
+        "attempts_count".tr,
               style: TextStyle(
                 fontSize: smallFont,
                 color: Colors.grey,

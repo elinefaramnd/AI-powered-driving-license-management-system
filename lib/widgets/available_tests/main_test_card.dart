@@ -10,6 +10,7 @@ class MainTestCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final isRtl = Get.locale?.languageCode == "ar";
     final controller = Get.find<AvailableTestsController>();
     final state = controller.getTestState(availableTest["code"]);
 
@@ -75,7 +76,7 @@ class MainTestCard extends StatelessWidget {
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: Text(
-                        "متاح للحجز",
+                        "available_booking".tr,
                         style: TextStyle(
                           color: AppColors.primaryColor,
                           fontWeight: FontWeight.w600,
@@ -109,7 +110,7 @@ class MainTestCard extends StatelessWidget {
                       padding: EdgeInsets.symmetric(
                         horizontal: size.width * 0.02,
                       ),
-                      child: const Text("عدد المحاولات :"),
+                      child: Text("attempts_count".tr),
                     ),
                     SizedBox(width: size.width * 0.008),
                     const Text(
@@ -131,10 +132,10 @@ class MainTestCard extends StatelessWidget {
                       padding: EdgeInsets.symmetric(
                         horizontal: size.width * 0.0355,
                       ),
-                      child: const Text("آخر نتيجة :"),
+                      child: Text("last_result".tr),
                     ),
-                    const Text(
-                      "لا يوجد",
+                    Text(
+                      "none".tr,
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ],
@@ -160,8 +161,8 @@ class MainTestCard extends StatelessWidget {
                 }
               },
               icon: const Icon(Icons.calendar_month, color: Colors.white),
-              label: const Text(
-                "عرض المواعيد المتاحة",
+              label: Text(
+                "view_available_slots".tr,
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,

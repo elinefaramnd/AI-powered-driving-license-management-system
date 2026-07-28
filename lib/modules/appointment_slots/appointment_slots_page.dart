@@ -37,16 +37,16 @@ class AppointmentSlotsPage extends StatelessWidget {
     return Scaffold(
       appBar: CustomAppBar(
         title:  controller.isReschedule
-            ? "تعديل موعد الاختبار"
-            : "حجز موعد الاختبار",
+            ? "edit_test_appointment".tr
+            : "book_test_appointment".tr,
       ),
       backgroundColor:AppColors.background,
       body: Obx(() {
         if (controller.loading.value) {
-          return const Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator(color: AppColors.primaryColor,));
         }
         if (controller.slots.isEmpty) {
-          return const Center(child: Text("لا توجد مواعيد متاحة"));
+          return Center(child: Text("no_available_slots".tr));
         }
         final firstSlot = controller.slots.first;
         return Column(
@@ -66,7 +66,7 @@ class AppointmentSlotsPage extends StatelessWidget {
                         horizontal: size.width * .05,
                       ),
                       child: Row(
-                        textDirection: TextDirection.rtl,
+                       // textDirection: TextDirection.rtl,
                         children: [
                           Icon(
                             Icons.calendar_month_outlined,
@@ -76,7 +76,7 @@ class AppointmentSlotsPage extends StatelessWidget {
                           Align(
                             alignment: Alignment.centerRight,
                             child: Text(
-                              "اختر التاريخ",
+                             "select_date".tr,
                               style: TextStyle(
                                 fontSize: size.width * .042,
                                 fontWeight: FontWeight.bold,
@@ -94,7 +94,6 @@ class AppointmentSlotsPage extends StatelessWidget {
                         horizontal: size.width * .05,
                       ),
                       child: Row(
-                        textDirection: TextDirection.rtl,
                         children: [
                           Icon(
                             Icons.access_time_outlined,
@@ -104,7 +103,7 @@ class AppointmentSlotsPage extends StatelessWidget {
                           Align(
                             alignment: Alignment.centerRight,
                             child: Text(
-                              "اختر الفترة المتاحة",
+                              "select_available_period".tr,
                               style: TextStyle(
                                 fontSize: size.width * .042,
                                 fontWeight: FontWeight.bold,

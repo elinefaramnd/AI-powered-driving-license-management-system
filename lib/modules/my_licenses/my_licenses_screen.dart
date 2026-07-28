@@ -12,15 +12,16 @@ class MyLicensesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isArabic = Get.locale?.languageCode == "ar";
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: const CustomAppBar(
-        title: "رخصي",
+      appBar: CustomAppBar(
+        title: "my_licenses".tr,
       ),
       body: Obx(() {
         if (controller.loading.value) {
           return const Center(
-            child: CircularProgressIndicator(color: AppColors.primary),
+            child: CircularProgressIndicator(color: AppColors.primaryColor),
           );
         }
 
@@ -31,21 +32,26 @@ class MyLicensesScreen extends StatelessWidget {
         return SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment:
+            isArabic ? CrossAxisAlignment.start : CrossAxisAlignment.end,
             children: [
               // Stats Row
               _buildStatsRow(),
               const SizedBox(height: 24),
               // Section Header with filter
               Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: isArabic
+                    ? MainAxisAlignment.end
+                    : MainAxisAlignment.start,
                 children: [
                   // Filter button
                   // Section title
                   Row(
+                    textDirection:
+                    isArabic ? TextDirection.rtl : TextDirection.ltr,
                     children: [
                       Text(
-                        'قائمة الرخص',
+                        "licenses_list".tr,
                         style: TextStyle(
                           color: AppColors.primaryColor,
                           fontSize: 16,
@@ -79,6 +85,7 @@ class MyLicensesScreen extends StatelessWidget {
   }
 
   Widget _buildStatsRow() {
+    final isArabic = Get.locale?.languageCode == "ar";
     return Obx(() {
       final activeCount =
           controller.licenses.where((l) => l.status == 'active').length;
@@ -95,7 +102,8 @@ class MyLicensesScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment:
+                isArabic ? CrossAxisAlignment.start : CrossAxisAlignment.end,
                 children: [
                   Container(
                     padding: const EdgeInsets.all(8),
@@ -120,7 +128,7 @@ class MyLicensesScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    'رخص نشطة',
+                    "active_licenses".tr,
                     style: TextStyle(
                       color: Colors.grey[600],
                       fontSize: 12,
@@ -140,7 +148,8 @@ class MyLicensesScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment:
+                isArabic ? CrossAxisAlignment.start : CrossAxisAlignment.end,
                 children: [
                   Container(
                     padding: const EdgeInsets.all(8),
@@ -166,7 +175,7 @@ class MyLicensesScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    'إجمالي الرخص',
+                    "total_licenses".tr,
                     style: TextStyle(
                       color: Colors.grey[600],
                       fontSize: 12,
@@ -195,7 +204,7 @@ class MyLicensesScreen extends StatelessWidget {
             ),
             const SizedBox(height: 24),
             Text(
-              'لا توجد رخص',
+              "no_licenses".tr,
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -204,7 +213,7 @@ class MyLicensesScreen extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              'لم يتم إصدار أي رخصة لك حتى الآن',
+              "no_licenses_message".tr,
               style: TextStyle(
                 color: Colors.grey[500],
                 fontSize: 14,

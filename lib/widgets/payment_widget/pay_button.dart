@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:project_2/modules/payment/payment_screen.dart';
 import '../../../app_theme/app_colors.dart';
 
-
 class PayButton extends StatelessWidget {
   final int applicationId;
   final double? amount;
@@ -38,12 +37,11 @@ class PayButton extends StatelessWidget {
         icon: const Icon(Icons.payment),
         label: Text(
           amount != null
-              ? 'دفع ${amount!.toStringAsFixed(0)} ل.س'
-              : 'الدفع الآن',
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-          ),
+              ? "pay_amount".trParams({
+                  "amount": amount!.toStringAsFixed(0),
+                  "currency": "currency".tr,
+                })
+              : "pay_now".tr,
         ),
       ),
     );

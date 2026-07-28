@@ -72,7 +72,7 @@ class OrderCardWidget extends StatelessWidget {
                    controller.getCurrentStatusText(),
                     style: TextStyle(
                       color: const Color(0xffB08D57),
-                      fontSize: size.width * 0.03,
+                      fontSize: size.width * 0.035,
                     ),
                   ),
                 ),

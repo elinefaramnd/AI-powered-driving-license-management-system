@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ResultInfoBlock extends StatelessWidget {
   final Size size;
@@ -17,6 +18,7 @@ class ResultInfoBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final font = size.width * 0.033;
+    final isArabic = Get.locale?.languageCode == "ar";
 
     return Container(
       padding: EdgeInsets.all(size.width * 0.03),
@@ -25,6 +27,7 @@ class ResultInfoBlock extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
+       textDirection:  isArabic ? TextDirection.rtl : TextDirection.ltr,
         children: [
           Icon(
             icon,
@@ -34,10 +37,14 @@ class ResultInfoBlock extends StatelessWidget {
           SizedBox(width: size.width * 0.03),
           Expanded(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: isArabic
+                  ? CrossAxisAlignment.start
+                  : CrossAxisAlignment.end,
               children: [
                 Text(
                   title,
+                  textAlign:
+                  isArabic ? TextAlign.start : TextAlign.end,
                   style: TextStyle(
                     fontSize: font,
                     color: Colors.grey,
@@ -46,6 +53,8 @@ class ResultInfoBlock extends StatelessWidget {
                 SizedBox(height: size.height * 0.005),
                 Text(
                   value,
+                  textAlign:
+                  isArabic ? TextAlign.start : TextAlign.end,
                   style: TextStyle(
                     fontSize: font,
                     fontWeight: FontWeight.bold,

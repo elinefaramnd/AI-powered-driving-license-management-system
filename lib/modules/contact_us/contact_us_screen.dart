@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_2/app_theme/app_colors.dart';
-import 'package:project_2/widgets/contact_us_widget/contact_us_app_bar.dart';
 import 'package:project_2/widgets/contact_us_widget/contact_us_channel_card.dart';
 import 'package:project_2/widgets/contact_us_widget/contact_us_error_widget.dart';
 import 'package:project_2/widgets/contact_us_widget/contact_us_hero_banner.dart';
 import 'package:project_2/widgets/contact_us_widget/contact_us_info_card.dart';
 import 'package:project_2/widgets/contact_us_widget/contact_us_section_label.dart';
+import 'package:project_2/widgets/custom_app_bar.dart';
 import 'contact_us_controller.dart';
 
 class ContactUsScreen extends StatelessWidget {
@@ -18,11 +18,13 @@ class ContactUsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isArabic = Get.locale?.languageCode == "ar";
     final size = MediaQuery.sizeOf(context);
     final w = size.width;
     final h = size.height;
 
     return Scaffold(
+      appBar: CustomAppBar(title: "contact_us".tr,),
       backgroundColor: AppColors.bgColor,
       body: SafeArea(
         child: Obx(() {
@@ -46,23 +48,22 @@ class ContactUsScreen extends StatelessWidget {
 
           return Column(
             children: [
-              ContactUsAppBar(w: w),
               Expanded(
                 child: SingleChildScrollView(
                   physics: const BouncingScrollPhysics(),
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: w * 0.045),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(height: h * 0.015),
                         ContactUsHeroBanner(w: w, h: h, info: info),
                         SizedBox(height: h * 0.028),
-                        ContactUsSectionLabel(w: w, label: 'معلومات التواصل', icon: Icons.contact_phone_rounded),
+                        ContactUsSectionLabel(w: w, label: "contact_information".tr, icon: Icons.contact_phone_rounded),
                         SizedBox(height: h * 0.014),
                         ContactUsInfoCard(w: w, info: info),
                         SizedBox(height: h * 0.028),
-                        ContactUsSectionLabel(w: w, label: 'قنوات التواصل', icon: Icons.hub_rounded),
+                        ContactUsSectionLabel(w: w, label:  "communication_channels".tr, icon: Icons.hub_rounded),
                         SizedBox(height: h * 0.014),
                         ...info.channels.map(
                           (ch) => Padding(
@@ -84,13 +85,15 @@ class ContactUsScreen extends StatelessWidget {
                               elevation: 0,
                             ),
                             child: Row(
+                              textDirection:
+                              isArabic ? TextDirection.rtl : TextDirection.ltr,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 const Icon(Icons.send_rounded,
                                     color: Colors.white, size: 20),
                                 SizedBox(width: w * 0.025),
                                 Text(
-                                  'إرسال رسالة',
+                                  "send_message".tr,
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: w * 0.042,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import '../../app_theme/app_colors.dart';
 
 class CenterCard extends StatelessWidget {
@@ -14,6 +15,7 @@ class CenterCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final isRtl = Directionality.of(context) == TextDirection.rtl;
     return Container(
       margin: EdgeInsets.symmetric(
         horizontal: size.width * .04,
@@ -31,9 +33,14 @@ class CenterCard extends StatelessWidget {
           Expanded(
             child: Row(
               children: [
+                Icon(
+                  Icons.location_on_outlined,
+                  color: AppColors.gold,
+                  size: size.width * 0.06,
+                ),
                 Column(
                   crossAxisAlignment:
-                  CrossAxisAlignment.end,
+                  CrossAxisAlignment.start,
                   children: [
                     Text(
                       centerName,
@@ -45,10 +52,10 @@ class CenterCard extends StatelessWidget {
                     ),
                     SizedBox(height: size.height * 0.005),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
-                          "مركز الاختبار",
+                    "test_center".tr,
                           style: TextStyle(
                             color: Colors.grey.shade600,
                             fontSize: size.width * .03,
@@ -57,11 +64,6 @@ class CenterCard extends StatelessWidget {
                       ],
                     ),
                   ],
-                ),
-                Icon(
-                  Icons.location_on_outlined,
-                  color: AppColors.gold,
-                  size: size.width * 0.06,
                 ),
               ],
             ),
@@ -74,11 +76,17 @@ class CenterCard extends StatelessWidget {
           SizedBox(width: size.width * 0.01),
           Expanded(
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
+                Icon(
+                  Icons.menu_book_rounded,
+                  color: AppColors.gold,
+                  size: size.width * 0.06,
+                ),
+                SizedBox(width:size.width * .03 ,),
                 Column(
                   crossAxisAlignment:
-                  CrossAxisAlignment.end,
+                  CrossAxisAlignment.start,
                   children: [
                     Text(
                       testName,
@@ -89,7 +97,7 @@ class CenterCard extends StatelessWidget {
                     ),
                     SizedBox(height: size.height * 0.005),
                     Text(
-                      "نوع الاختبار",
+                      "test_type".tr,
                       style: TextStyle(
                         color: Colors.grey.shade600,
                         fontSize: size.width * .03,
@@ -97,12 +105,8 @@ class CenterCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(width:size.width * .03 ,),
-                Icon(
-                  Icons.menu_book_rounded,
-                  color: AppColors.gold,
-                  size: size.width * 0.06,
-                ),
+
+
               ],
             ),
           ),

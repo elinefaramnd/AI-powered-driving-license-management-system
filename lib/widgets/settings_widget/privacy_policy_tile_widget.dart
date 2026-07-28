@@ -14,6 +14,7 @@ class PrivacyPolicyTileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isArabic = Get.locale?.languageCode == "ar";
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
       child: GestureDetector(
@@ -28,6 +29,8 @@ class PrivacyPolicyTileWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
           ),
           child: Row(
+            textDirection:
+            isArabic ? TextDirection.rtl : TextDirection.ltr,
             children: [
               Container(
                 padding: const EdgeInsets.all(8),
@@ -46,15 +49,15 @@ class PrivacyPolicyTileWidget extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'سياسة الخصوصية',
+                    Text(
+                      'privacy_policy'.tr,
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 14,
                       ),
                     ),
                     Text(
-                      'اطلع على كيفية حماية بياناتك الشخصية',
+                      'privacy_policy_description'.tr,
                       style: TextStyle(
                         fontSize: 11,
                         color: Colors.grey.shade600,
@@ -64,7 +67,9 @@ class PrivacyPolicyTileWidget extends StatelessWidget {
                 ),
               ),
               Icon(
-                Icons.arrow_back_ios,
+                isArabic
+                    ? Icons.arrow_forward_ios
+                    : Icons.arrow_back_ios,
                 size: 16,
                 color: Colors.grey.shade600,
               ),

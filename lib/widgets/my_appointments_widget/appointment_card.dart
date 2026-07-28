@@ -100,8 +100,7 @@ class AppointmentCard extends StatelessWidget {
                     ),
 
                     AppointmentLocationSection(
-                      location:
-                      controller.getLocation(item),
+                      location: controller.getAddress(item),
                     ),
 
                     SizedBox(

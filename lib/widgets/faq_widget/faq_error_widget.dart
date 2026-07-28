@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import '../../app_theme/app_colors.dart';
 
 class FaqErrorWidget extends StatelessWidget {
@@ -49,7 +50,7 @@ class FaqErrorWidget extends StatelessWidget {
               onPressed: onRetry,
               icon: const Icon(Icons.refresh_rounded, color: Colors.white),
               label: Text(
-                'إعادة المحاولة',
+                "retry".tr,
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: w * 0.038,

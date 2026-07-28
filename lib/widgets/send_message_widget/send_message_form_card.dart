@@ -12,6 +12,7 @@ class SendMessageFormCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isArabic = Get.locale?.languageCode == "ar";
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(w * 0.05),
@@ -27,54 +28,53 @@ class SendMessageFormCard extends StatelessWidget {
         ],
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment:
+        isArabic ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
-          SendMessageFieldLabel(w: w, label: 'الاسم الكامل', icon: Icons.person_outline_rounded),
+          SendMessageFieldLabel(w: w, label: "full_name".tr, icon: Icons.person_outline_rounded),
           SizedBox(height: h * 0.008),
           SendMessageStyledField(
             controller: controller.nameController,
-            hint: 'أدخل اسمك الكامل',
+            hint: "enter_full_name".tr,
             keyboardType: TextInputType.name,
             w: w,
             readOnly: true,
           ),
           SizedBox(height: h * 0.02),
-          SendMessageFieldLabel(w: w, label: 'البريد الإلكتروني', icon: Icons.email_outlined),
+          SendMessageFieldLabel(w: w, label: "email".tr, icon: Icons.email_outlined),
           SizedBox(height: h * 0.008),
           SendMessageStyledField(
             controller: controller.emailController,
             hint: 'example@email.com',
             keyboardType: TextInputType.emailAddress,
             w: w,
-            isLtr: true,
             readOnly: true,
           ),
           SizedBox(height: h * 0.02),
-          SendMessageFieldLabel(w: w, label: 'رقم الهاتف', icon: Icons.phone_outlined),
+          SendMessageFieldLabel(w: w, label: "phone_number".tr, icon: Icons.phone_outlined),
           SizedBox(height: h * 0.008),
           SendMessageStyledField(
             controller: controller.phoneController,
             hint: '011-0000000',
             keyboardType: TextInputType.phone,
             w: w,
-            isLtr: true,
             readOnly: true,
           ),
           SizedBox(height: h * 0.02),
-          SendMessageFieldLabel(w: w, label: 'الموضوع', icon: Icons.subject_rounded),
+          SendMessageFieldLabel(w: w, label: "subject".tr, icon: Icons.subject_rounded),
           SizedBox(height: h * 0.008),
           SendMessageStyledField(
             controller: controller.subjectController,
-            hint: 'موضوع رسالتك',
+            hint: "enter_subject_hint".tr,
             keyboardType: TextInputType.text,
             w: w,
           ),
           SizedBox(height: h * 0.02),
-          SendMessageFieldLabel(w: w, label: 'الرسالة', icon: Icons.message_outlined),
+          SendMessageFieldLabel(w: w, label: "message".tr, icon: Icons.message_outlined),
           SizedBox(height: h * 0.008),
           SendMessageStyledField(
             controller: controller.messageController,
-            hint: 'اكتب رسالتك هنا...',
+            hint: "write_message_here".tr,
             keyboardType: TextInputType.multiline,
             w: w,
             maxLines: 5,
@@ -101,13 +101,15 @@ class SendMessageFormCard extends StatelessWidget {
                               color: Colors.white, strokeWidth: 2.5),
                         )
                       : Row(
+                    textDirection:
+                    isArabic ? TextDirection.rtl : TextDirection.ltr,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             const Icon(Icons.send_rounded,
                                 color: Colors.white, size: 20),
                             SizedBox(width: w * 0.025),
                             Text(
-                              'إرسال الرسالة',
+                              "send_message".tr,
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: w * 0.042,

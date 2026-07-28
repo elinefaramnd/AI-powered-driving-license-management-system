@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../app_theme/app_colors.dart';
 
 class FaqSearchBar extends StatelessWidget {
@@ -15,6 +16,7 @@ class FaqSearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isArabic = Get.locale?.languageCode == "ar";
     return Container(
       margin: EdgeInsets.symmetric(horizontal: w * 0.045),
       padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -29,25 +31,43 @@ class FaqSearchBar extends StatelessWidget {
           ),
         ],
       ),
-      child: TextField(
-        controller: searchController,
-        onChanged: onChanged,
-        textAlign: TextAlign.right,
-        textDirection: TextDirection.rtl,
-        decoration: InputDecoration(
-          hintText: 'ابحث عن سؤال...',
-          hintStyle: TextStyle(
-            color: Colors.grey.shade400,
-            fontSize: w * 0.037,
-          ),
-          border: InputBorder.none,
-          prefixIcon: Icon(
-            Icons.search_rounded,
-            color: AppColors.primary,
-            size: 22,
-          ),
-          contentPadding: const EdgeInsets.symmetric(vertical: 14),
-        ),
+      child: Directionality(
+        textDirection:
+        isArabic ? TextDirection.rtl : TextDirection.ltr,
+        child: Row(
+          textDirection:
+          isArabic ? TextDirection.rtl : TextDirection.ltr,
+          children: [
+            Icon(
+              Icons.search_rounded,
+              color: AppColors.primaryColor,
+              size: 22,
+            ),
+
+            const SizedBox(width: 10),
+
+            Expanded(
+              child: TextField(
+                controller: searchController,
+                onChanged: onChanged,
+                textAlign:
+                isArabic ? TextAlign.right : TextAlign.left,
+                textDirection:
+                isArabic ? TextDirection.rtl : TextDirection.ltr,
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintText: "search_question".tr,
+                  hintStyle: TextStyle(
+                    color: Colors.grey.shade400,
+                    fontSize: w * 0.037,
+                  ),
+                  isCollapsed: true,
+                  contentPadding: const EdgeInsets.symmetric(vertical: 14),
+                ),
+              ),
+            ),
+          ],
+        )
       ),
     );
   }

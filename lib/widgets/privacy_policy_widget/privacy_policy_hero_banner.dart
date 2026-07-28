@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:project_2/app_theme/app_colors.dart';
 
 class PrivacyPolicyHeroBanner extends StatelessWidget {
@@ -15,22 +16,26 @@ class PrivacyPolicyHeroBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isArabic = Get.locale?.languageCode == "ar";
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: w * 0.045),
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(
-          gradient: const LinearGradient(
-            colors: [Color(0xFF062E2B), Color(0xFF0B5E58)],
-            begin: Alignment.centerRight,
-            end: Alignment.centerLeft,
+          gradient: LinearGradient(
+            colors: const [Color(0xFF062E2B), Color(0xFF0B5E58)],
+            begin:
+            isArabic ? Alignment.centerRight : Alignment.centerLeft,
+            end:
+            isArabic ? Alignment.centerLeft : Alignment.centerRight,
           ),
           borderRadius: BorderRadius.circular(20),
         ),
         child: Stack(
           children: [
             Positioned(
-              left: -20,
+              left: isArabic ? -20 : null,
+              right: isArabic ? null : -20,
               bottom: -20,
               child: Container(
                 width: 120,
@@ -42,7 +47,8 @@ class PrivacyPolicyHeroBanner extends StatelessWidget {
               ),
             ),
             Positioned(
-              left: 10,
+              left: isArabic ? 10 : null,
+              right: isArabic ? null : 10,
               top: -30,
               child: Container(
                 width: 80,
@@ -56,29 +62,43 @@ class PrivacyPolicyHeroBanner extends StatelessWidget {
             Padding(
               padding: EdgeInsets.all(w * 0.045),
               child: Row(
+                textDirection:
+                isArabic ? TextDirection.rtl : TextDirection.ltr,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   _HeroIllustration(w: w),
                   SizedBox(width: w * 0.03),
                   Expanded(
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
+                      crossAxisAlignment:
+                      isArabic
+                          ? CrossAxisAlignment.end
+                          : CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'نحمي بياناتك ونستخدمها فقط\nلتقديم الخدمات المرورية\nبأمان وشفافية',
-                          textAlign: TextAlign.right,
-                          textDirection: TextDirection.rtl,
+                          "privacy_banner_title".tr,
+                          textAlign:
+                          isArabic ? TextAlign.right : TextAlign.left,
+                          textDirection:
+                          isArabic ? TextDirection.rtl : TextDirection.ltr,
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: w * 0.042,
+                            fontSize:isArabic? w * 0.042:w*0.035,
                             fontWeight: FontWeight.w600,
                             height: 1.55,
                           ),
                         ),
                         SizedBox(height: h * 0.015),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
+                          textDirection:
+                          isArabic ? TextDirection.rtl : TextDirection.ltr,
+                          mainAxisAlignment:
+                          isArabic
+                              ? MainAxisAlignment.end
+                              : MainAxisAlignment.start,
                           children: [
+                            const Icon(Icons.calendar_today_outlined, color:AppColors.gold, size: 15),
+                            const SizedBox(width: 5),
                             Text(
                               _formatDate(lastUpdated),
                               textDirection: TextDirection.rtl,
@@ -88,8 +108,8 @@ class PrivacyPolicyHeroBanner extends StatelessWidget {
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
-                            const SizedBox(width: 5),
-                            const Icon(Icons.calendar_today_outlined, color:AppColors.gold, size: 15),
+
+
                           ],
                         ),
                       ],
@@ -106,15 +126,53 @@ class PrivacyPolicyHeroBanner extends StatelessWidget {
 
   String _formatDate(String raw) {
     if (raw.isEmpty) return '';
+
     try {
       final parts = raw.split('-');
+
       if (parts.length != 3) return raw;
-      const months = [
-        '', 'يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو',
-        'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر',
+
+      final isArabic = Get.locale?.languageCode == "ar";
+
+      const monthsAr = [
+        '',
+        'يناير',
+        'فبراير',
+        'مارس',
+        'أبريل',
+        'مايو',
+        'يونيو',
+        'يوليو',
+        'أغسطس',
+        'سبتمبر',
+        'أكتوبر',
+        'نوفمبر',
+        'ديسمبر',
       ];
+
+      const monthsEn = [
+        '',
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December',
+      ];
+
       final month = int.tryParse(parts[1]) ?? 0;
-      return 'آخر تحديث: ${parts[2]} ${months[month]} ${parts[0]}';
+
+      if (isArabic) {
+        return "${"last_updated".tr}: ${parts[2]} ${monthsAr[month]} ${parts[0]}";
+      }
+
+      return "${"last_updated".tr}: ${monthsEn[month]} ${parts[2]}, ${parts[0]}";
     } catch (_) {
       return raw;
     }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import '../../app_theme/app_colors.dart';
 
 class AppointmentHeader extends StatelessWidget {
@@ -17,7 +18,7 @@ class AppointmentHeader extends StatelessWidget {
         ),
         SizedBox(width: size.width * .02),
         Text(
-          "مواعيدي القادمة",
+    "upcoming_appointments".tr,
           style: TextStyle(
             fontSize: size.width * .045,
             fontWeight: FontWeight.bold,

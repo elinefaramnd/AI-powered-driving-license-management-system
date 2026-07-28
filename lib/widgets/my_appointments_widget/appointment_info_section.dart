@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
 import 'appointment_info_item.dart';
 
@@ -20,19 +21,19 @@ class AppointmentInfoSection extends StatelessWidget {
       children: [
         AppointmentInfoItem(
           icon: Icons.date_range,
-          title: "التاريخ",
+          title: "date".tr,
           value: date,
         ),
 
         AppointmentInfoItem(
           icon: Icons.today,
-          title: "اليوم",
+          title: "day".tr,
           value: day,
         ),
 
         AppointmentInfoItem(
           icon: Icons.access_time,
-          title: "الوقت",
+          title: "time".tr,
           value: time,
         ),
       ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import '../../../app_theme/app_colors.dart';
 
 class PaymentMethodCard extends StatelessWidget {
@@ -6,43 +7,46 @@ class PaymentMethodCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size=MediaQuery.of(context).size;
+    final w=size.width;
+    final isRtl=Directionality.of(context)==TextDirection.rtl;
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+      padding:  EdgeInsets.symmetric(horizontal: w*.04, vertical: 20),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.primary.withOpacity(0.5), width: 1.5),
+        borderRadius: BorderRadius.circular(w*.04),
+        border: Border.all(color: AppColors.primaryColor.withOpacity(0.5), width: 1.5),
       ),
       child: Row(
         children: [
           Container(
-            width: 48,
-            height: 48,
+            width: w*.1,
+            height: w*.1,
             decoration: BoxDecoration(
-              color: AppColors.primary.withOpacity(0.15),
+              color: AppColors.primaryColor.withOpacity(0.15),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Icon(
               Icons.credit_card,
               color: AppColors.darkGreen,
-              size: 24,
+              size: w*.06,
             ),
           ),
-          const SizedBox(width: 16),
+           SizedBox(width: w*.04),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'الدفع الإلكتروني',
+                Text(
+            "electronic_payment".tr,
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: w*.04,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  'عبر Stripe - دفع آمن وسريع',
+                  "stripe_payment".tr,
                   style: TextStyle(
                     fontSize: 13,
                     color: Colors.grey[500],
@@ -55,13 +59,13 @@ class PaymentMethodCard extends StatelessWidget {
             width: 28,
             height: 28,
             decoration: BoxDecoration(
-              color: AppColors.primary,
+              color: AppColors.primaryColor,
               shape: BoxShape.circle,
             ),
-            child: const Icon(
+            child: Icon(
               Icons.check,
               color: Colors.white,
-              size: 16,
+              size: w*.04,
             ),
           ),
         ],

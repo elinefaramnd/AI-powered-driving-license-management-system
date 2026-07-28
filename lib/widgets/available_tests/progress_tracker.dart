@@ -23,21 +23,21 @@ class ProgressTracker extends StatelessWidget {
     return Row(
       children: [
         StepWidget(
-          title: "اختبار النظر",
+          title: "vision_test".tr,
           icon: Icons.remove_red_eye_outlined,
           active: visionState["status"] != "locked",
           done: visionState["status"] == "done",
         ),
         _Line(active: true),
         StepWidget(
-          title: "الاختبار النظري",
+          title: "theory_test".tr,
           icon: Icons.menu_book_outlined,
           active: theoryState["status"] != "locked",
           done: theoryState["status"] == "done",
         ),
         _Line(active: false),
         StepWidget(
-          title: "الاختبار العملي",
+          title: "practical_test".tr,
           icon: Icons.drive_eta_outlined,
           active: practicalState["status"] != "locked",
           done: practicalState["status"] == "done",

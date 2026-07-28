@@ -125,7 +125,7 @@ class OrderCardController extends GetxController {
             onPressed: canUseServices
                 ? home.openOrderDetails
                 : () {
-                    AppSnackbar.show("تنبيه", _message());
+                    AppSnackbar.show("warning".tr, _message());
                   },
             style: ElevatedButton.styleFrom(
               backgroundColor: canUseServices

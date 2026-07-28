@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import '../../app_theme/app_colors.dart';
 
 class AppointmentTopSection extends StatelessWidget {
@@ -57,11 +58,11 @@ class AppointmentTopSection extends StatelessWidget {
   String _getDescription(String code) {
     switch (code) {
       case "vision":
-        return "فحص النظر للتأكد من مدى الرؤية";
+        return "vision_test_desc".tr;
       case "theory":
-        return "اختبار معلومات وقواعد المرور";
+        return "theory_test_desc".tr;
       case "practical":
-        return "اختبار عملي لتقييم مهارات القيادة";
+        return "practical_test_desc".tr;
       default:
         return "";
     }

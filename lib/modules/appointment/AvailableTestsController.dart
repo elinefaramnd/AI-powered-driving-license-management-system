@@ -44,35 +44,35 @@ class AvailableTestsController extends GetxController {
     if (test == null) {
       return {
         "status": "locked",
-        "text": "غير متاح حالياً",
+        "text": "currently_unavailable".tr,
       };
     }
     if (test["passed"] == true) {
       return {
         "status": "done",
-        "text": "تم اجتياز الاختبار",
+        "text": "test_passed".tr,
       };
     }
 
     if (test["has_active_appointment"] == true) {
       return {
         "status": "booked",
-        "text": "لديك موعد مجدول",
+        "text": "scheduled_appointment".tr,
       };
     }
 
     if (test["can_book"] == true &&
         test["is_available"] == true) {
-      String bookingText = "يمكنك حجز موعد الاختبار الآن";
+      String bookingText = "book_test_now".tr;
       switch (code) {
         case "vision":
-          bookingText = "يمكنك حجز موعد اختبار النظر الآن";
+          bookingText = "book_vision_test_now".tr;
           break;
         case "theory":
-          bookingText = "يمكنك حجز موعد الاختبار النظري الآن";
+          bookingText = "book_theory_test_now".tr;
           break;
         case "practical":
-          bookingText = "يمكنك حجز موعد الاختبار العملي الآن";
+          bookingText = "book_practical_test_now".tr;
           break;
       }
       return {
@@ -80,16 +80,16 @@ class AvailableTestsController extends GetxController {
         "text": bookingText,
       };
     }
-    String waitingText = "غير متاح حالياً";
+    String waitingText = "currently_unavailable".tr;
     switch (code) {
       case "vision":
-        waitingText = "بانتظار استكمال متطلبات الطلب";
+        waitingText = "waiting_application_requirements".tr;
         break;
       case "theory":
-        waitingText = "بانتظار اجتياز اختبار النظر";
+        waitingText =  "waiting_vision_test".tr;
         break;
       case "practical":
-        waitingText = "بانتظار اجتياز الاختبار النظري";
+        waitingText = "waiting_theory_test".tr;
         break;
     }
     return {
@@ -101,11 +101,11 @@ class AvailableTestsController extends GetxController {
   String getArabicName(String code) {
     switch (code) {
       case "vision":
-        return "اختبار النظر";
+        return "vision_test".tr;
       case "theory":
-        return "الاختبار النظري";
+        return "theory_test".tr;
       case "practical":
-        return "الاختبار العملي";
+        return "practical_test".tr;
       default:
         return "";
     }
@@ -125,11 +125,22 @@ class AvailableTestsController extends GetxController {
   String formatReason(String? reason) {
     if (reason == null || reason.isEmpty) return "";
     if (reason.contains("ليس في مرحلة الاختبارات")) {
-      return "الطلب لم يصل لمرحلة الاختبارات بعد";
+      return "application_not_in_tests_stage".tr;
     }
     if (reason.contains(" عملية الدفع")) {
-      return "لا يمكن الحجز قبل إكمال عملية الدفع";
+      return "complete_payment_first".tr;
     }
     return "${reason.length > 40 ? reason.substring(0, 40) + "..." : reason}";
+  }
+  String getCurrentAvailableTest() {
+    final test = tests.firstWhereOrNull(
+          (e) =>
+      e["can_book"] == true &&
+          e["is_available"] == true,
+    );
+    if (test == null) {
+      return "no_available_test".tr;
+    }
+    return getArabicName(test["code"]);
   }
 }

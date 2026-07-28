@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:intl/intl.dart';
 import 'package:project_2/widgets/my_test_results/test_result_notes.dart';
 import '../../app_theme/app_colors.dart';
@@ -24,7 +25,7 @@ class TestResultDetails extends StatelessWidget {
         children: [
           DetailRow(
             icon: Icons.repeat,
-            label: 'رقم المحاولة',
+            label: "attempt_number".tr,
             value: '${testResult.attemptNumber}',
             valueColor: AppColors.primaryColor,
           ),
@@ -35,7 +36,7 @@ class TestResultDetails extends StatelessWidget {
 
           DetailRow(
             icon: Icons.calendar_today_outlined,
-            label: 'تاريخ التسجيل',
+            label: "recorded_date".tr,
             value: DateFormat('yyyy/MM/dd - HH:mm')
                 .format(testResult.recordedAt.toLocal()),
             valueColor: Colors.grey[700]!,
@@ -47,7 +48,7 @@ class TestResultDetails extends StatelessWidget {
 
           DetailRow(
             icon: Icons.person_outline,
-            label: 'مسجل النتيجة',
+            label: "recorded_by".tr,
             value: testResult.recordedBy.name,
             valueColor: Colors.grey[700]!,
           ),

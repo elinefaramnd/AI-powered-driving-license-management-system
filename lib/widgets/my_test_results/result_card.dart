@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:project_2/widgets/my_test_results/result_header.dart';
 import 'package:project_2/widgets/my_test_results/result_info_block.dart';
 import 'package:project_2/widgets/my_test_results/result_meta_section.dart';
@@ -27,6 +29,8 @@ class ResultCard extends StatelessWidget {
     final titleFont = size.width * 0.04;
     final subtitleFont = size.width * 0.032;
 
+    final isArabic = Get.locale?.languageCode == "ar";
+
     return Container(
       padding: EdgeInsets.all(padding),
       decoration: BoxDecoration(
@@ -51,6 +55,8 @@ class ResultCard extends StatelessWidget {
             result: item.result,
           ),
           Row(
+            textDirection:
+            isArabic ? TextDirection.rtl : TextDirection.ltr,
             children: [
               CircleAvatar(
                 radius: size.width * 0.057,
@@ -66,10 +72,14 @@ class ResultCard extends StatelessWidget {
 
               Expanded(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: isArabic
+                      ? CrossAxisAlignment.start
+                      : CrossAxisAlignment.end,
                   children: [
                     Text(
                      item.testName,
+                      textAlign:
+                      isArabic ? TextAlign.start : TextAlign.end,
                       style: TextStyle(
                         fontSize: titleFont,
                         fontWeight: FontWeight.bold,
@@ -77,6 +87,8 @@ class ResultCard extends StatelessWidget {
                     ),
                     SizedBox(height: smallSpace / 2),
                 Text(controller.getTestDescription(item.testCode),
+                  textAlign:
+                  isArabic ? TextAlign.start : TextAlign.end,
                       style: TextStyle(
                         fontSize: subtitleFont,
                         color: Colors.grey,
@@ -134,7 +146,7 @@ class ResultCard extends StatelessWidget {
           SizedBox(height: mediumSpace),
           ResultInfoBlock(
             size: size,
-            title: "الملاحظات",
+            title: "notes".tr,
             icon: Icons.notes,
             value: controller.getNotes(item.notes),
           ),
@@ -142,7 +154,7 @@ class ResultCard extends StatelessWidget {
           SizedBox(height: smallSpace),
           ResultInfoBlock(
             size: size,
-            title: "تم التسجيل بواسطة",
+            title: "recorded_by".tr,
             icon: Icons.badge,
             value: item.recordedBy,
           ),

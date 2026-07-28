@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../app_theme/app_colors.dart';
 import '../../modules/settings_support/models/settings_model.dart';
 import '../../modules/settings_support/settings_controller.dart';
@@ -21,6 +22,7 @@ class ThemeCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isArabic = Get.locale?.languageCode == "ar";
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
       child: Container(
@@ -33,6 +35,8 @@ class ThemeCardWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
+              textDirection:
+              isArabic ? TextDirection.rtl : TextDirection.ltr,
               children: [
                 Container(
                   padding: const EdgeInsets.all(8),
@@ -47,8 +51,8 @@ class ThemeCardWidget extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 8),
-                const Text(
-                  'الوضع',
+                Text(
+                  'theme'.tr,
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
@@ -56,7 +60,7 @@ class ThemeCardWidget extends StatelessWidget {
                 ),
                 const Spacer(),
                 Text(
-                  'اختر مظهر التطبيق',
+                  'choose_theme'.tr,
                   style: TextStyle(
                     fontSize: 11,
                     color: Colors.grey.shade600,

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_2/app_theme/app_colors.dart';
+import 'package:project_2/widgets/custom_app_bar.dart';
 import 'privacy_policy_controller.dart';
-import '../../widgets/privacy_policy_widget/privacy_policy_app_bar.dart';
 import '../../widgets/privacy_policy_widget/privacy_policy_hero_banner.dart';
 import '../../widgets/privacy_policy_widget/privacy_policy_section_card.dart';
 import '../../widgets/privacy_policy_widget/privacy_policy_error_widget.dart';
@@ -17,14 +17,16 @@ class PrivacyPolicyScreen extends StatelessWidget {
         : Get.put(PrivacyPolicyController());
     final w = MediaQuery.of(context).size.width;
     final h = MediaQuery.of(context).size.height;
+    final isArabic = Get.locale?.languageCode == "ar";
 
     return Scaffold(
+      appBar: CustomAppBar(title:  "privacy_policy".tr,),
       backgroundColor: AppColors.bgColor,
       body: SafeArea(
         child: Obx(() {
           if (controller.isLoading.value) {
             return const Center(
-              child: CircularProgressIndicator(color: AppColors.mediumGreen),
+              child: CircularProgressIndicator(color: AppColors.primaryColor),
             );
           }
 
@@ -40,15 +42,15 @@ class PrivacyPolicyScreen extends StatelessWidget {
 
           return Column(
             children: [
-              PrivacyPolicyAppBar(w: w),
+             // PrivacyPolicyAppBar(w: w),
               Expanded(
                 child: SingleChildScrollView(
                   physics: const BouncingScrollPhysics(),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
+                    crossAxisAlignment:
+                    isArabic ? CrossAxisAlignment.end : CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: h * 0.015),
-                      _PageTitle(w: w),
+                     // _PageTitle(w: w),
                       SizedBox(height: h * 0.018),
                       PrivacyPolicyHeroBanner(
                         w: w,
@@ -94,30 +96,6 @@ class PrivacyPolicyScreen extends StatelessWidget {
   }
 }
 
-class _PageTitle extends StatelessWidget {
-  final double w;
-  const _PageTitle({required this.w});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: w * 0.045),
-      child: Align(
-        alignment: Alignment.centerRight,
-        child: Text(
-          'سياسة الخصوصية',
-          textDirection: TextDirection.rtl,
-          style: TextStyle(
-            fontSize: w * 0.072,
-            fontWeight: FontWeight.bold,
-            color: const Color(0xFF042E2B),
-            height: 1.3,
-          ),
-        ),
-      ),
-    );
-  }
-}
 
 class _BottomButton extends StatelessWidget {
   final double w;
@@ -126,6 +104,7 @@ class _BottomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isArabic = Get.locale?.languageCode == "ar";
     return Container(
       padding: EdgeInsets.fromLTRB(w * 0.05, h * 0.015, w * 0.05, h * 0.02),
       decoration: BoxDecoration(
@@ -151,12 +130,16 @@ class _BottomButton extends StatelessWidget {
             elevation: 0,
           ),
           child: Row(
+            textDirection:
+            isArabic ? TextDirection.rtl : TextDirection.ltr,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Icon(Icons.shield_outlined, color: Colors.white, size: 20),
               SizedBox(width: w * 0.02),
               Text(
-                'اطلعت على السياسة',
+                "privacy_policy_read".tr,
+                textAlign:
+                isArabic ? TextAlign.right : TextAlign.left,
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: w * 0.042,
