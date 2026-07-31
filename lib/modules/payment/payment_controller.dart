@@ -27,12 +27,14 @@ class PaymentController extends GetxController {
           feeAmount.value = double.tryParse(fee['amount'].toString()) ?? 0.0;
         }
       } else {
-        AppSnackbar.show('خطأ',
-          response['message'] ?? 'فشل الدفع',);
+        AppSnackbar.show("error".tr,
+          response['message'] ??  "payment_failed_generic".tr,);
       }
     } catch (e) {
-      AppSnackbar.show('خطأ',
-        'فشل: $e',);
+      AppSnackbar.show("error".tr,
+        "payment_failed_with_error".trParams({
+          "error": e.toString(),
+        }),);
     } finally {
       isLoading.value = false;
     }
@@ -54,18 +56,20 @@ class PaymentController extends GetxController {
           checkoutUrl.value = data['checkout_url'];
           return true;
         } else {
-          AppSnackbar.show('خطأ',
-            'No checkout URL received',);
+          AppSnackbar.show("error".tr,
+            "payment_no_checkout_url".tr,);
           return false;
         }
       } else {
-        AppSnackbar.show('خطأ',
-          response['message'] ?? 'Failed to create payment',);
+        AppSnackbar.show("error".tr,
+          response["message"] ?? "payment_create_failed".tr,);
         return false;
       }
     } catch (e) {
-      AppSnackbar.show('Error',
-        'Failed to create payment: $e',);
+      AppSnackbar.show("error".tr,
+        "payment_create_failed_with_error".trParams({
+          "error": e.toString(),
+        }),);
       return false;
     } finally {
       isCreatingPayment.value = false;
@@ -82,13 +86,15 @@ class PaymentController extends GetxController {
       final bool launched = await launchUrl(url);
       
       if (!launched) {
-        AppSnackbar.show('Error',
-          'Could not launch checkout page',);
+        AppSnackbar.show("error".tr,
+          "payment_open_checkout_failed".tr,);
       }
     } catch (e) {
       debugPrint('Launch URL error: $e');
-      AppSnackbar.show('Error',
-        'Failed to open checkout: $e',);
+      AppSnackbar.show("error".tr,
+        "payment_open_checkout_error".trParams({
+          "error": e.toString(),
+        }),);
     }
   }
 
@@ -105,12 +111,13 @@ class PaymentController extends GetxController {
         paymentStatus.value = status;
         if (status == 'completed' || status == 'paid') {
           _stopStatusCheck();
-          AppSnackbar.show('نجاح',
-            'تم إكمال عملية الدفع بنجاح',);
+          AppSnackbar.show("success".tr,
+            "payment_completed_successfully".tr,);
         } else if (status == 'failed' || status == 'cancelled') {
           _stopStatusCheck();
-          AppSnackbar.show('فشل الدفع',
-            'الرجاء المحاولة لاحقا',);
+          AppSnackbar.show("payment_failed".tr,
+            "payment_try_again_later".tr,
+          );
         }
       }
     } catch (e) {

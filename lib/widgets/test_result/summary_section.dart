@@ -64,8 +64,8 @@ class SummarySection extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          'تهانينا!',
+                        Text(
+                    "congratulations".tr,
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 18,
@@ -74,7 +74,7 @@ class SummarySection extends StatelessWidget {
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          'لقد اجتزت جميع الاختبارات بنجاح',
+                        "passed_all_tests".tr,
                           style: TextStyle(
                             color: Colors.white.withOpacity(0.9),
                             fontSize: 14,
@@ -98,7 +98,7 @@ class SummarySection extends StatelessWidget {
                     iconColor: Colors.green,
                     bgColor: Colors.green[50]!,
                     value: passedCount.toString(),
-                    label: 'ناجح',
+                    label:"passed".tr,
                     progress: totalCount > 0 ? passedCount / totalCount : 0,
                   ),
                 ),
@@ -109,7 +109,7 @@ class SummarySection extends StatelessWidget {
                     iconColor: AppColors.primary,
                     bgColor: AppColors.background,
                     value: totalCount.toString(),
-                    label: 'إجمالي الاختبارات',
+                    label:"total_tests".tr,
                     showProgress: false,
                   ),
                 ),
@@ -128,7 +128,7 @@ class SummarySection extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      'تفاصيل النتائج',
+            "results_details".tr,
                       style: TextStyle(
                         color: AppColors.primaryColor,
                         fontSize: 16,

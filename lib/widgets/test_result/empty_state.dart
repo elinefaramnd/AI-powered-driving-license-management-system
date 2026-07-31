@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import '../../../app_theme/app_colors.dart';
 import '../../modules/test_results/test_results_controller.dart';
 
@@ -33,7 +34,7 @@ class EmptyState extends StatelessWidget {
             ),
             const SizedBox(height: 24),
             Text(
-              'لا توجد نتائج اختبارات',
+              "no_test_results".tr,
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
@@ -42,7 +43,7 @@ class EmptyState extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              'لم يتم إجراء أي اختبارات حتى الآن',
+              "no_tests_yet".tr,
               style: TextStyle(
                 color: Colors.grey[500],
                 fontSize: 14,
@@ -52,7 +53,7 @@ class EmptyState extends StatelessWidget {
             const SizedBox(height: 24),
             ElevatedButton.icon(
               onPressed: () => controller.getTestResults(),
-              label: const Text('إعادة المحاولة'),
+              label: Text("retry".tr),
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.primaryColor,
                 foregroundColor: Colors.white,

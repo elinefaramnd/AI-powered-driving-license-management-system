@@ -36,13 +36,13 @@ class FaqController extends GetxController {
           _extractCategories();
           _applyFilter();
         } else {
-          errorMessage.value = data['message'] ?? 'حدث خطأ ما';
+          errorMessage.value = data['message'] ?? "faq_unknown_error".tr;
         }
       } else {
-        errorMessage.value = 'فشل جلب الأسئلة الشائعة';
+        errorMessage.value =  "faq_fetch_failed".tr;
       }
     } catch (e) {
-      errorMessage.value = 'حدث خطأ أثناء الاتصال بالخادم';
+      errorMessage.value = "faq_connection_error".tr;
       print('Error fetching FAQs: $e');
     } finally {
       isLoading.value = false;

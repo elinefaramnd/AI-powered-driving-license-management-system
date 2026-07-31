@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import '../../widgets/custom_app_bar.dart';
 import 'payment_service.dart';
 
@@ -8,7 +9,9 @@ class PaymentHistoryScreen extends StatelessWidget {
   const PaymentHistoryScreen({super.key, required this.applicationId});
 
   Future<List<dynamic>> _fetchPayments() async {
-    final response = await PaymentService.listApplicationPayments(applicationId);
+    final response = await PaymentService.listApplicationPayments(
+      applicationId,
+    );
     if (response['success'] == true && response['data'] != null) {
       return response['data'] as List<dynamic>;
     }
@@ -19,9 +22,7 @@ class PaymentHistoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffF5F5F5),
-      appBar: const CustomAppBar(
-        title:'سجل المدفوعات',
-      ),
+      appBar: CustomAppBar(title: "payment_history".tr),
       body: FutureBuilder<List<dynamic>>(
         future: _fetchPayments(),
         builder: (context, snapshot) {
@@ -56,11 +57,8 @@ class PaymentHistoryScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    'لا توجد مدفوعات مسجلة',
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.grey[600],
-                    ),
+                    "no_payments".tr,
+                    style: TextStyle(fontSize: 18, color: Colors.grey[600]),
                   ),
                 ],
               ),
@@ -107,7 +105,7 @@ class PaymentHistoryScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'دفع #${id.toString()}',
+                "payment_record".trParams({"id": id.toString()}),
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
@@ -140,16 +138,13 @@ class PaymentHistoryScreen extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'المبلغ',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 12,
-                    ),
+                   Text(
+                  "amount".tr,
+                    style: TextStyle(color: Colors.grey, fontSize: 12),
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    '${amount.toStringAsFixed(0)} ل.س',
+                    '${amount.toStringAsFixed(0)} ${'currency'.tr}',
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
@@ -160,19 +155,14 @@ class PaymentHistoryScreen extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  const Text(
-                    'التاريخ',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 12,
-                    ),
+                  Text(
+              "payment_date".tr,
+                    style: TextStyle(color: Colors.grey, fontSize: 12),
                   ),
                   const SizedBox(height: 4),
                   Text(
                     _formatDate(createdAt),
-                    style: const TextStyle(
-                      fontSize: 14,
-                    ),
+                    style: const TextStyle(fontSize: 14),
                   ),
                 ],
               ),
@@ -205,17 +195,17 @@ class PaymentHistoryScreen extends StatelessWidget {
     switch (status) {
       case 'completed':
       case 'paid':
-        return 'مكتمل';
+      return "payment_completed".tr;
       case 'failed':
-        return 'فاشل';
+        return "payment_failed_status".tr;
       case 'pending':
-        return 'معلق';
+        return "payment_pending_status".tr;
       case 'processing':
-        return 'قيد المعالجة';
+        return "payment_processing_status".tr;
       case 'cancelled':
-        return 'ملغى';
+        return "payment_cancelled_status".tr;
       case 'refunded':
-        return 'مسترجع';
+        return "payment_refunded".tr;
       default:
         return status;
     }

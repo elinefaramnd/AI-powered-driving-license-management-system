@@ -75,7 +75,7 @@ class ChatBotWidget extends StatelessWidget {
                                   SizedBox(width: size.width * 0.02),
                                   Expanded(
                                     child: Text(
-                                      "مرحبا! أنا المساعد الذكي الخاص بتطبيق سيرتك..\nكيف يمكنني مساعدتك؟",
+                                      'chatbot_welcome'.tr,
                                       style: TextStyle(
                                         fontSize: size.width * 0.031,
                                         color: AppColors.gold,

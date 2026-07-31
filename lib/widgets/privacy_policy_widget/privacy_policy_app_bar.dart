@@ -41,11 +41,11 @@ class PrivacyPolicyAppBar extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: AppColors.darkGreen,
+                    color: AppColors.primaryColor,
                   ),
                 ),
                 const SizedBox(width: 6),
-                const Icon(Icons.shield, color:  AppColors.darkGreen),
+                const Icon(Icons.shield, color:  AppColors.primaryColor),
               ],
             ),
           ),

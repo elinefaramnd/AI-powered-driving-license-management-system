@@ -38,11 +38,11 @@ class MyLicensesController extends GetxController {
   String getStatusText(String status) {
     switch (status) {
       case 'active':
-        return 'نشطة';
+        return "license_active".tr;
       case 'expired':
-        return 'منتهية';
+        return "license_expired".tr;
       case 'suspended':
-        return 'موقوفة';
+        return "license_suspended".tr;
       default:
         return status;
     }

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../outlined_textField_widget.dart';
 
 class SignInTextField extends StatelessWidget {
-
   final String title;
   final TextEditingController controller;
   final String hintText;
@@ -21,82 +19,42 @@ class SignInTextField extends StatelessWidget {
     required this.error,
     this.keyboardType,
   });
-
   @override
   Widget build(BuildContext context) {
-
-    final screenWidth =
-        MediaQuery.of(context).size.width;
-
-    final screenHeight =
-        MediaQuery.of(context).size.height;
-
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     return Column(
-
       crossAxisAlignment: CrossAxisAlignment.start,
-
       children: [
-
         Padding(
-          padding: EdgeInsets.all(
-            screenWidth * 0.02,
-          ),
-
-          child: Text(
-            title,
-
-            style: TextStyle(
-              fontSize:
-              screenWidth * 0.04,
-            ),
-          ),
+          padding: EdgeInsets.all(screenWidth * 0.02),
+          child: Text(title, style: TextStyle(fontSize: screenWidth * 0.04)),
         ),
-
         Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal:
-            screenWidth * 0.02,
-          ),
-
+          padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.02),
           child: CustomTextField2(
-
             controller: controller,
-
             hintText: hintText,
-
             suffixIcon: icon,
-
-            keyboardType:
-            keyboardType ??
-                TextInputType.text,
+            keyboardType: keyboardType ?? TextInputType.text,
           ),
         ),
 
         Obx(
-
-              () => error.value.isNotEmpty
-
+          () => error.value.isNotEmpty
               ? Padding(
-
-                padding: EdgeInsetsDirectional.only(
-                  start: screenWidth * 0.02,
-
-              top:
-              screenHeight * 0.005,
-            ),
-
-            child: Text(
-
-              error.value,
-
-              style: TextStyle(
-                color: Colors.red,
-                fontSize:
-                screenWidth * 0.03,
-              ),
-            ),
-          )
-
+                  padding: EdgeInsetsDirectional.only(
+                    start: screenWidth * 0.02,
+                    top: screenHeight * 0.005,
+                  ),
+                  child: Text(
+                    error.value,
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontSize: screenWidth * 0.03,
+                    ),
+                  ),
+                )
               : const SizedBox(),
         ),
       ],

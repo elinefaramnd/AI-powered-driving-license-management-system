@@ -49,11 +49,11 @@ class TestResultsController extends GetxController {
   String getResultText(String result) {
     switch (result) {
       case 'passed':
-        return 'ناجح';
+        return "test_result_passed".tr;
       case 'failed':
-        return 'راسب';
+        return "test_result_failed".tr;
       case 'pending':
-        return 'معلق';
+        return "test_result_pending".tr;
       default:
         return result;
     }
@@ -88,11 +88,11 @@ class TestResultsController extends GetxController {
   String getTestTypeName(String code) {
     switch (code) {
       case 'vision':
-        return 'اختبار النظر';
+        return "vision_test_name".tr;
       case 'theory':
-        return 'الاختبار النظري';
+        return "theory_test_name".tr;
       case 'practical':
-        return 'الاختبار العملي';
+        return "practical_test_name".tr;
       default:
         return code;
     }

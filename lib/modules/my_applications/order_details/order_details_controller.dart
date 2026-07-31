@@ -15,7 +15,8 @@ class OrderDetailsController extends GetxController {
     } else if (arg is OrderModel) {
       getDetails(arg.id);
     } else {
-      Get.snackbar("خطأ", "بيانات الطلب غير صحيحة");
+      Get.snackbar( "error".tr,
+        "invalid_order_data".tr,);
     }
   }
 

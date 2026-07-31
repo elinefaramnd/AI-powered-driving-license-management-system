@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import '../../app_theme/app_colors.dart';
 import 'license_model.dart';
 
@@ -10,11 +11,11 @@ class LicenseCard extends StatelessWidget {
   String getStatusText(String status) {
     switch (status) {
       case 'active':
-        return 'نشطة';
+        return "license_active".tr;
       case 'expired':
-        return 'منتهية';
+        return "license_expired".tr;
       case 'suspended':
-        return 'موقوفة';
+        return "license_suspended".tr;
       default:
         return status;
     }
@@ -25,11 +26,15 @@ class LicenseCard extends StatelessWidget {
     final now = DateTime.now();
     final difference = expiry.difference(now).inDays;
     if (difference > 0) {
-      return 'متبقي $difference يوم';
+      return "remaining_days".trParams({
+        "days": difference.toString(),
+      });
     } else if (difference == 0) {
-      return 'تنتهي اليوم';
+      return "expires_today".tr;
     } else {
-      return 'منتهية منذ ${difference.abs()} يوم';
+      return "expired_since".trParams({
+        "days": difference.abs().toString(),
+      });
     }
   }
 
@@ -127,7 +132,7 @@ class LicenseCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'رقم الرخصة',
+                      "license_number_label".tr,
                             style: TextStyle(
                               color: Colors.grey[500],
                               fontSize: 12,
@@ -172,7 +177,7 @@ class LicenseCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'نوع الرخصة',
+                           "license_number_label".tr,
                           style: TextStyle(
                             color: Colors.grey[500],
                             fontSize: 12,
@@ -202,7 +207,7 @@ class LicenseCard extends StatelessWidget {
                     Expanded(
                       child: _buildDateItem(
                         icon: Icons.calendar_today_outlined,
-                        label: 'تاريخ الانتهاء',
+                        label: "expiry_date_label".tr,
                         date: license.expiryDate,
                       ),
                     ),
@@ -215,7 +220,7 @@ class LicenseCard extends StatelessWidget {
                     Expanded(
                       child: _buildDateItem(
                         icon: Icons.calendar_today_outlined,
-                        label: 'تاريخ الإصدار',
+                        label: "issue_date_label".tr,
                         date: license.issueDate,
                       ),
                     ),
@@ -244,7 +249,7 @@ class LicenseCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'الطلب المرتبط',
+                            "linked_application".tr,
                             style: TextStyle(
                               color: Colors.grey[500],
                               fontSize: 11,

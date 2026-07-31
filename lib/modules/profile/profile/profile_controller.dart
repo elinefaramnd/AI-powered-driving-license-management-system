@@ -2,14 +2,19 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:project_2/modules/profile/profile/profile_model.dart';
 import 'package:project_2/widgets/app_snackbar.dart';
+import '../../../app/controllers/app_update_controller.dart';
 import '../../../configuration/http_helpers.dart';
 
 class ProfileController extends GetxController {
   var isLoading = false.obs;
   RxMap<String, dynamic> userData = <String, dynamic>{}.obs;
+  final appUpdate = Get.find<AppUpdateController>();
   @override
   void onInit() {
     getProfile();
+    ever(appUpdate.homeRefresh, (_) async {
+      await getProfile();
+    });
     super.onInit();
   }
   Future<void> getProfile() async {

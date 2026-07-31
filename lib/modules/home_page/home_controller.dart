@@ -63,10 +63,21 @@ class HomeController extends GetxController {
     }
     Get.toNamed("/available_tests_page", arguments: applicationId.value);
   }
+  void openOrderInfo() {
+    if (applicationId.value == 0) {
+      return;
+    }
+
+    Get.toNamed(
+      "/order_details",
+      arguments: applicationId.value,
+    );
+  }
 
   void openUploadDocuments() {
     if (applicationId.value <= 0) {
-      AppSnackbar.show("تنبيه", "لا يوجد طلب حالياً");
+      AppSnackbar.show( "warning".tr,
+        "no_current_application".tr,);
       return;
     }
     Get.toNamed("/upload_documents", arguments: applicationId.value);
@@ -132,15 +143,15 @@ class HomeController extends GetxController {
 
   String getCurrentStatusText() {
     if (profileStatus.value == "incomplete") {
-      return "الملف الشخصي غير مكتمل";
+      return "profile_incomplete_status".tr;
     }
 
     if (profileStatus.value == "pending_review") {
-      return "الملف الشخصي قيد المراجعة";
+      return "profile_under_review_status".tr;
     }
 
     if (profileStatus.value == "rejected") {
-      return "تم رفض الملف الشخصي";
+      return "profile_rejected_status".tr;
     }
 
     return _statusText(currentApplicationStatus.value);
@@ -149,28 +160,28 @@ class HomeController extends GetxController {
   String _statusText(String status) {
     switch (status) {
       case "draft":
-        return "بانتظار رفع الوثائق";
+        return "status_waiting_documents".tr;
 
       case "documents_under_review":
-        return "الوثائق قيد المراجعة";
+        return "status_documents_under_review".tr;
 
       case "documents_rejected":
-        return "تم رفض بعض الوثائق";
+        return "status_documents_rejected".tr;
 
       case "payment_pending":
-        return "بانتظار دفع الرسوم";
+        return "status_waiting_payment".tr;
 
       case "appointment_pending":
-        return "بانتظار حجز موعد";
+        return "status_waiting_appointment".tr;
 
       case "in_testing":
-        return "قيد الاختبارات";
+        return "status_in_testing".tr;
 
       case "waiting_retest":
-        return "بانتظار إعادة الاختبار";
+        return "status_waiting_retest".tr;
 
       case "approved":
-        return "تمت الموافقة";
+        return "status_approved".tr;
 
       default:
         return "-";

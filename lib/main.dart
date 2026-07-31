@@ -25,7 +25,6 @@ import 'modules/profile/update_profile/update_profile_binding.dart';
 import 'modules/profile/update_profile/update_profile_screen.dart';
 import 'modules/reset_password/reset_password_binding.dart';
 import 'modules/sign_up/sign_up_bindings.dart';
-import 'modules/test_results/test_results_screen.dart';
 import 'modules/my_applications/order_details/order_details_screen.dart';
 import 'modules/onboarding/onboarding_screen.dart';
 import 'modules/reset_password/reset_password_screen.dart';
@@ -139,7 +138,7 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/order_details', page: () => OrderDetailsScreen()),
           GetPage(name: '/fines_screen', page: () => FinesScreen()),
           GetPage(name: '/my_licenses', page: () => MyLicensesScreen()),
-          GetPage(name: '/test_results', page: () => TestResultsScreen()),
+         // GetPage(name: '/test_results', page: () => TestResultsScreen()),
           GetPage(
             name: '/available_tests_page',
             page: () => AvailableTestsPage(),

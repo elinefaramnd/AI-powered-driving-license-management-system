@@ -2,24 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
 class SignInHeader extends StatelessWidget {
-
   const SignInHeader({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
 
-    final screenWidth =
-        MediaQuery.of(context).size.width;
-
-    final screenHeight =
-        MediaQuery.of(context).size.height;
+    final screenHeight = MediaQuery.of(context).size.height;
 
     return Column(
       children: [
-
-        SizedBox(
-          height: screenHeight * 0.08,
-        ),
+        SizedBox(height: screenHeight * 0.08),
 
         Center(
           child: Image.asset(
@@ -30,9 +23,7 @@ class SignInHeader extends StatelessWidget {
           ),
         ),
 
-        SizedBox(
-          height: screenHeight * 0.04,
-        ),
+        SizedBox(height: screenHeight * 0.04),
 
         Center(
           child: Text(
@@ -46,13 +37,11 @@ class SignInHeader extends StatelessWidget {
           ),
         ),
 
-        SizedBox(
-          height: screenHeight * 0.01,
-        ),
+        SizedBox(height: screenHeight * 0.01),
 
         Center(
           child: Text(
-          "login_description".tr,
+            "login_description".tr,
 
             style: TextStyle(
               fontSize: screenWidth * 0.039,

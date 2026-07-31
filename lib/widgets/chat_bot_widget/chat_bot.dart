@@ -42,12 +42,12 @@ class ChatBotWidget extends StatelessWidget {
 
                 if (status != "approved") {
                   AppSnackbar.show(
-                    "تنبيه",
+                    "warning".tr,
                     status == "pending_review"
-                        ? "الحساب قيد المراجعة حالياً"
+                        ? "account_under_review".tr
                         : status == "rejected"
-                        ? "تم رفض الملف، يرجى تعديله"
-                        : "يرجى إكمال الملف الشخصي أولاً",
+                        ? "profile_rejected".tr
+                        : "complete_profile_first".tr,
                   );
                   return;
                 }
@@ -165,9 +165,6 @@ class ChatBotWidget extends StatelessWidget {
                   )
                 : const SizedBox(),
           ),
-
-
-
         ],
       ),
     );

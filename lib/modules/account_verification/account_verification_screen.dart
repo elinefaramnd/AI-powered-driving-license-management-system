@@ -82,16 +82,19 @@ class OtpVerificationScreen extends StatelessWidget {
 
               SizedBox(height: size.height * 0.055),
 
-              OtpTextField(
-                numberOfFields: 6,
-                borderColor: AppColors.primaryColor,
-                focusedBorderColor: AppColors.primaryColor,
-                showFieldAsBox: true,
-                fieldWidth: size.width * 0.12,
-                cursorColor: AppColors.primaryColor,
-                onSubmit: (code) {
-                  controller.updateCode(code);
-                },
+              Directionality(
+                textDirection: TextDirection.ltr,
+                child: OtpTextField(
+                  numberOfFields: 6,
+                  borderColor: AppColors.primaryColor,
+                  focusedBorderColor: AppColors.primaryColor,
+                  showFieldAsBox: true,
+                  fieldWidth: size.width * 0.12,
+                  cursorColor: AppColors.primaryColor,
+                  onSubmit: (code) {
+                    controller.updateCode(code);
+                  },
+                ),
               ),
 
               SizedBox(height: size.height * 0.055),

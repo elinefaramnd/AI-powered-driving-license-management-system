@@ -33,7 +33,8 @@ class FineCard extends GetView<FinesController> {
                   borderRadius: BorderRadius.circular(40),
                 ),
                 child: Text(
-                  fine.status == "unpaid" ? "غير مدفوعة" : "مدفوعة",
+                  fine.status == "unpaid" ? "unpaid".tr
+                      : "paid".tr,
                   style: TextStyle(
                     color: fine.status == "unpaid" ? Colors.red : Colors.green,
                     fontWeight: FontWeight.bold,
@@ -75,7 +76,7 @@ class FineCard extends GetView<FinesController> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "${fine.amount.toStringAsFixed(2)} ل.س",
+              "${fine.amount.toStringAsFixed(2)} ${"currency".tr}",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: AppColors.primary,
@@ -83,7 +84,7 @@ class FineCard extends GetView<FinesController> {
                 ),
               ),
               Text(
-                "المبلغ",
+                "amount".tr,
                 style: TextStyle(
                   color: Colors.black54,
                   fontSize: size.width * .045,
@@ -106,7 +107,7 @@ class FineCard extends GetView<FinesController> {
               ),
               onPressed: () {},
               child: Text(
-                "ادفع الآن",
+              "pay_now".tr,
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: size.width * .045,

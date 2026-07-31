@@ -123,7 +123,7 @@ class OrderCardController extends GetxController {
           height: height * .055,
           child: ElevatedButton.icon(
             onPressed: canUseServices
-                ? home.openOrderDetails
+                ? home.openOrderInfo
                 : () {
                     AppSnackbar.show("warning".tr, _message());
                   },

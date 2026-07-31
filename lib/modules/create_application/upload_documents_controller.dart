@@ -48,7 +48,7 @@ class UploadDocumentsController extends GetxController {
       final data = jsonDecode(response.body);
       documents.value = data["data"];
     } catch (e) {
-      Get.snackbar("خطأ", e.toString());
+      Get.snackbar("upload_error".tr, e.toString());
       print(e.toString());
     } finally {
       loading.value = false;
@@ -90,17 +90,18 @@ class UploadDocumentsController extends GetxController {
         await getRequiredDocuments();
         Get.find<AppUpdateController>().notifyChange();
         AppSnackbar.show(
-            "نجاح", "تم رفع الوثيقة"
+          "upload_success".tr,
+          "upload_document_uploaded".tr,
         );
       } else {
         final body = await response.stream.bytesToString();
         AppSnackbar.show(
-            "خطأ", body
+            "upload_error".tr, body
         );
       }
     } catch (e) {
       AppSnackbar.show(
-          "خطأ",  e.toString()
+          "upload_error".tr,  e.toString()
       );
     } finally {
       loading.value = false;
@@ -109,7 +110,8 @@ class UploadDocumentsController extends GetxController {
   Future<void> submitDocuments() async {
     if (!canSubmit) {
       AppSnackbar.show(
-          "تنبيه","ارفع كل الوثائق أولاً"
+        "upload_warning".tr,
+        "upload_upload_all_documents".tr,
       );
       return;
     }
@@ -125,9 +127,10 @@ class UploadDocumentsController extends GetxController {
           await Get.find<HomeController>().getCurrentApplication();
         }
         Get.find<AppUpdateController>().notifyChange();
-        AppSnackbar.show("نجاح", "تم إرسال الوثائق بنجاح، الطلب قيد المعالجة");
+        AppSnackbar.show( "upload_success".tr,
+          "upload_documents_submitted".tr,);
       } else {
-        AppSnackbar.show("خطأ", data["message"]);
+        AppSnackbar.show( "upload_error".tr, data["message"]);
         print(data["message"]);
         print(response.statusCode);
       }
