@@ -82,8 +82,9 @@ class UpdateProfileController extends GetxController {
       final model = UpdateProfileModel.fromJson(data);
       if (response.statusCode == 200 || response.statusCode == 201) {
         Get.find<AppUpdateController>().notifyChange();
+        Get.back(result: true);
         AppSnackbar.show("success".tr, model.message);
-        Get.offNamed("/showPro");
+
       } else {
         AppSnackbar.show("error".tr, model.message);
       }

@@ -107,7 +107,7 @@ class ChatBotScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    message.text,
+                    message.text.tr,
                     style: TextStyle(
                       color: isUser ? Colors.white : Colors.black87,
                       fontSize: size.width * 0.035,
@@ -166,6 +166,7 @@ class ChatBotScreen extends StatelessWidget {
         ),
       ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
           Icon(

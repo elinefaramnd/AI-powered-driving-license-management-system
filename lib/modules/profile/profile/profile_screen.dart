@@ -97,8 +97,15 @@ class ProfileScreen extends StatelessWidget {
                     height: 55,
 
                     child: ElevatedButton(
-                      onPressed: () {
-                        Get.offNamed("/updatePro", arguments: user);
+                      onPressed: () async {
+                        final updated = await Get.toNamed(
+                          "/updatePro",
+                          arguments: user,
+                        );
+
+                        if (updated == true) {
+                          controller.refreshUser();
+                        }
                        // Get.toNamed("/updatePro", arguments: user);
                       },
 

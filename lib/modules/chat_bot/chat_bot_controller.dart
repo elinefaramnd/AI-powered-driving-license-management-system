@@ -39,7 +39,7 @@ class ChatController extends GetxController {
 
   void _addWelcomeMessage() {
     messages.add(ChatMessage(
-      text: 'chatbot_welcome'.tr,
+      text: "chatbot_welcome",
       isUser: false,
       timestamp: DateTime.now(),
     ));
