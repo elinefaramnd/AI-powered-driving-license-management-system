@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:project_2/app_theme/app_colors.dart';
-import 'contact_us_app_bar.dart';
 
 class ContactUsErrorWidget extends StatelessWidget {
   final double w;
@@ -20,7 +19,6 @@ class ContactUsErrorWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        ContactUsAppBar(w: w),
         Expanded(
           child: Center(
             child: Padding(

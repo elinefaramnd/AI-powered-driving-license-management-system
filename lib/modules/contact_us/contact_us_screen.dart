@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_2/app_theme/app_colors.dart';
-import 'package:project_2/widgets/contact_us_widget/contact_us_app_bar.dart';
+
 import 'package:project_2/widgets/contact_us_widget/contact_us_channel_card.dart';
 import 'package:project_2/widgets/contact_us_widget/contact_us_error_widget.dart';
 import 'package:project_2/widgets/contact_us_widget/contact_us_hero_banner.dart';
@@ -24,6 +24,27 @@ class ContactUsScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: AppColors.bgColor,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: IconButton(
+          onPressed: () => Get.back(),
+          icon: const Icon(
+            Icons.arrow_back_ios_new,
+            color: AppColors.primaryColor,
+            size: 20,
+          ),
+        ),
+        title: const Text(
+          'تواصل معنا',
+          style: TextStyle(
+            color: AppColors.primaryColor,
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        centerTitle: true,
+      ),
       body: SafeArea(
         child: Obx(() {
           if (controller.isLoading.value) {
@@ -46,7 +67,6 @@ class ContactUsScreen extends StatelessWidget {
 
           return Column(
             children: [
-              ContactUsAppBar(w: w),
               Expanded(
                 child: SingleChildScrollView(
                   physics: const BouncingScrollPhysics(),
