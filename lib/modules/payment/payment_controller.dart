@@ -75,20 +75,29 @@ class PaymentController extends GetxController {
   Future<void> launchCheckout() async {
     if (checkoutUrl.value.isEmpty) return;
 
-    try { 
+    try {
       final Uri url = Uri.parse(checkoutUrl.value);
       debugPrint('Opening URL: $url');
-      
-      final bool launched = await launchUrl(url);
-      
+
+      if (!await canLaunchUrl(url)) {
+        AppSnackbar.show('خطأ',
+          'لا يمكن فتح رابط الدفع على هذا الجهاز',);
+        return;
+      }
+
+      final bool launched = await launchUrl(
+        url,
+        mode: LaunchMode.externalApplication,
+      );
+
       if (!launched) {
-        AppSnackbar.show('Error',
-          'Could not launch checkout page',);
+        AppSnackbar.show('خطأ',
+          'فشل فتح صفحة الدفع',);
       }
     } catch (e) {
       debugPrint('Launch URL error: $e');
-      AppSnackbar.show('Error',
-        'Failed to open checkout: $e',);
+      AppSnackbar.show('خطأ',
+        'فشل فتح صفحة الدفع: $e',);
     }
   }
 
