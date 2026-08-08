@@ -17,6 +17,8 @@ class OrderCard extends StatelessWidget {
         return Colors.purple;
       case "approved":
         return Colors.green;
+      case "license_issued":
+        return Colors.green;
       default:
         return Colors.grey;
     }
@@ -32,6 +34,8 @@ class OrderCard extends StatelessWidget {
         return "بانتظار الدفع";
       case "approved":
         return "مقبول";
+      case "license_issued":
+        return "تم إصدار الرخصة";
       default:
         return order.status;
     }

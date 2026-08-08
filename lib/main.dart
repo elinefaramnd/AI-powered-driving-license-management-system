@@ -6,6 +6,8 @@ import 'modules/account_verification/account_verification_screen.dart';
 import 'modules/appointment/AvailableTestsPage.dart';
 import 'modules/chat_bot/chat_bot_controller.dart';
 import 'modules/create_application/upload_documents_page.dart';
+import 'modules/lost_replacement/lost_replacement_binding.dart';
+import 'modules/lost_replacement/lost_replacement_screen.dart';
 import 'modules/renew_license/renew_license_screen.dart';
 import 'modules/fines/fines_screen.dart';
 import 'modules/forget_password/forget_password_screen.dart';
@@ -69,6 +71,11 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/updatePro',page: () => UpdateProfileScreen(),),
           GetPage(name: '/upload_documents',page: () => UploadDocumentsPage(),),
           GetPage(name: '/renew_license', page: () => RenewLicenseScreen()),
+          GetPage(
+            name: '/lost_replacement',
+            page: () => LostReplacementScreen(),
+            binding: LostReplacementBinding(),
+          ),
           GetPage(name: '/order_screen',page: () => OrdersScreen(),),
           GetPage(name: '/order_details',page: () => OrderDetailsScreen(),),
           GetPage(name: '/fines_screen',page: () => FinesScreen(),),

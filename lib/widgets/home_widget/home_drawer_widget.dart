@@ -169,10 +169,12 @@ class HomeDrawerWidget extends StatelessWidget {
                             ),
                             DrawerItemWidget(
                               icon: Icons.description_outlined,
-                              title: "بدل فاقد / تالف",
+                              title: "بدل فاقد",
                               index: 9,
                               controller: controller,
-                              onTap: () {},
+                              onTap: () {
+                                Get.toNamed("/lost_replacement");
+                              },
                             ),
                           ],
                         );

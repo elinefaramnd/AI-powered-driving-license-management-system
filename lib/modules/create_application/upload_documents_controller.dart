@@ -77,14 +77,16 @@ class UploadDocumentsController extends GetxController {
       print("HEADERS: ${response.headers}");
       if (response.statusCode == 200 || response.statusCode == 201) {
         uploadedIds.add(requiredId);
-        AppSnackbar.show(
-            "نجاح", "تم رفع الوثيقة"
-        );
+        AppSnackbar.show("نجاح", "تم رفع الوثيقة");
       } else {
-        final body = await response.stream.bytesToString();
-        AppSnackbar.show(
-            "خطأ", body
-        );
+        String errorMessage;
+        try {
+          final data = jsonDecode(responseBody);
+          errorMessage = data["message"] ?? responseBody;
+        } catch (_) {
+          errorMessage = responseBody;
+        }
+        AppSnackbar.show("خطأ", errorMessage);
       }
     } catch (e) {
       AppSnackbar.show(

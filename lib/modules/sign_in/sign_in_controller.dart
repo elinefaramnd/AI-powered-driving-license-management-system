@@ -16,7 +16,7 @@ class SignInController extends GetxController {
   void togglePassword() {
     obscurePassword.value = !obscurePassword.value;
   }
-  signIn(BuildContext context) async {
+  Future<void> signIn(BuildContext context) async {
     isLoading.value = true;
     try {
       String email = emailController.text.trim();
@@ -34,13 +34,30 @@ class SignInController extends GetxController {
         url: 'auth/login',
         body: {'email': email, 'password': password},
       );
+      print('[DEBUG] Login status: ${value.statusCode}');
+      print('[DEBUG] Login body: ${value.body}');
       Map<String, dynamic> res = jsonDecode(value.body);
       if (value.statusCode == 200 || value.statusCode == 201) {
-        token = res['data']['token'];
-        int role = res['data']['user']['role']['id'];
+        token = res['data']?['token'];
+        if (token == null || token.toString().isEmpty) {
+          AppSnackbar.show('خطأ', 'لم يتم استلام token من السيرفر');
+          return;
+        }
+        final userData = res['data']?['user'];
+        int role = 0;
+        if (userData != null && userData['role'] is Map) {
+          role = userData['role']['id'] ?? 0;
+        } else if (userData != null && userData['role_id'] != null) {
+          role = userData['role_id'] is int
+              ? userData['role_id']
+              : int.tryParse(userData['role_id'].toString()) ?? 0;
+        }
         GetStorage box = GetStorage();
         box.write('token', token);
         box.write('id', role);
+        if (userData != null && userData['id'] != null) {
+          box.write('user_id', userData['id']);
+        }
         Get.snackbar(
           'تم تسجيل الدخول بنجاح',
           '',
@@ -50,8 +67,10 @@ class SignInController extends GetxController {
       } else {
         AppSnackbar.show('فشل تسجيل الدخول', res['message'].toString());
       }
-    } catch (e) {
-      AppSnackbar.show('Exception', 'حدث خطأ');
+    } catch (e, stackTrace) {
+      print('[ERROR] Login exception: $e');
+      print('[ERROR] Stack trace: $stackTrace');
+      AppSnackbar.show('Exception', 'حدث خطأ: $e');
     } finally {
       isLoading.value = false;
     }

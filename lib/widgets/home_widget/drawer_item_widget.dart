@@ -41,7 +41,7 @@ class DrawerItemWidget extends StatelessWidget {
             if (onTap == null) {
               controller.selectMenu(index);
             }
-            Navigator.of(context).pop();
+            Scaffold.maybeOf(context)?.closeDrawer();
             if (onTap != null) {
               onTap!();
             }

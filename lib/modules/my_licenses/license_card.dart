@@ -4,8 +4,9 @@ import 'license_model.dart';
 
 class LicenseCard extends StatelessWidget {
   final LicenseModel license;
+  final Widget? action;
 
-  const LicenseCard({super.key, required this.license});
+  const LicenseCard({super.key, required this.license, this.action});
 
   String getStatusText(String status) {
     switch (status) {
@@ -15,6 +16,8 @@ class LicenseCard extends StatelessWidget {
         return 'منتهية';
       case 'suspended':
         return 'موقوفة';
+      case 'inactive':
+        return 'غير نشطة';
       default:
         return status;
     }
@@ -264,6 +267,10 @@ class LicenseCard extends StatelessWidget {
                     ],
                   ),
                 ),
+                if (action != null) ...[
+                  const SizedBox(height: 16),
+                  action!,
+                ],
               ],
             ),
           ),
