@@ -6,6 +6,8 @@ import 'modules/account_verification/account_verification_screen.dart';
 import 'modules/appointment/AvailableTestsPage.dart';
 import 'modules/chat_bot/chat_bot_controller.dart';
 import 'modules/create_application/upload_documents_page.dart';
+import 'modules/damaged_replacement/damaged_replacement_binding.dart';
+import 'modules/damaged_replacement/damaged_replacement_screen.dart';
 import 'modules/lost_replacement/lost_replacement_binding.dart';
 import 'modules/lost_replacement/lost_replacement_screen.dart';
 import 'modules/renew_license/renew_license_screen.dart';
@@ -75,6 +77,11 @@ class MyApp extends StatelessWidget {
             name: '/lost_replacement',
             page: () => LostReplacementScreen(),
             binding: LostReplacementBinding(),
+          ),
+          GetPage(
+            name: '/damaged_replacement',
+            page: () => DamagedReplacementScreen(),
+            binding: DamagedReplacementBinding(),
           ),
           GetPage(name: '/order_screen',page: () => OrdersScreen(),),
           GetPage(name: '/order_details',page: () => OrderDetailsScreen(),),

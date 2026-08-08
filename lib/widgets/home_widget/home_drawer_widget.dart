@@ -176,6 +176,15 @@ class HomeDrawerWidget extends StatelessWidget {
                                 Get.toNamed("/lost_replacement");
                               },
                             ),
+                            DrawerItemWidget(
+                              icon: Icons.broken_image_outlined,
+                              title: "بدل تالف",
+                              index: 18,
+                              controller: controller,
+                              onTap: () {
+                                Get.toNamed("/damaged_replacement");
+                              },
+                            ),
                           ],
                         );
                       }),
