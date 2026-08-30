@@ -12,7 +12,7 @@ class SubmitButton extends StatelessWidget {
     return Obx(
       () => SizedBox(
         width: double.infinity,
-        height: size.height * .07,
+        height: size.height * .055,
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
             backgroundColor: AppColors.primaryColor,

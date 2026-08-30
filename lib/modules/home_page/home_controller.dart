@@ -15,12 +15,13 @@ class HomeController extends GetxController {
   RxString currentApplicationNumber = "-".obs;
   RxString currentApplicationStatus = "-".obs;
   RxString currentService = "-".obs;
+  RxString currentServiceCode = "-".obs;
   RxString status = '-'.obs;
   RxBool loadingServices = false.obs;
   var isServicesExpanded = false.obs;
   var profileStatus = "".obs;
   RxList<Map<String, dynamic>> services = <Map<String, dynamic>>[].obs;
-  var selectedIndex = 0.obs;
+  var selectedIndex = (-1).obs;
   var notificationsCount = 3.obs;
   RxString profileRejectionReason = "".obs;
   RxBool loadingHome = true.obs;
@@ -35,6 +36,7 @@ class HomeController extends GetxController {
   }
 
   void openDrawer() {
+    selectedIndex.value = -1;
     scaffoldKey.currentState?.openDrawer();
   }
 
@@ -89,10 +91,11 @@ class HomeController extends GetxController {
       final listResponse = await HttpHelper.gettData(
         url: "applications?per_page=15",
       );
-      final listData = jsonDecode(listResponse.body);
       if (listResponse.statusCode != 200) {
+        print("APPLICATION ERROR: ${listResponse.body}");
         return;
       }
+      final listData = jsonDecode(listResponse.body);
       final items = listData["data"]["items"];
       if (items.isEmpty) {
         hasApplication.value = false;
@@ -116,8 +119,11 @@ class HomeController extends GetxController {
       currentApplicationNumber.value = app["application_number"];
 
       currentApplicationStatus.value = app["status"];
+      print("UPDATED STATUS = ${currentApplicationStatus.value}");
+      print("STATUS TEXT = ${getCurrentStatusText()}");
 
       currentService.value = app["service_type"]["name"];
+      currentServiceCode.value = app["service_type"]["code"];
     } catch (e) {
       print(e);
     } finally {
@@ -182,32 +188,56 @@ class HomeController extends GetxController {
 
       case "approved":
         return "status_approved".tr;
-
+      case "license_issued":
+        return "license_issued".tr;
+      case "completed":
+        return "license_unblock_completed_message".tr;
       default:
         return "-";
     }
   }
 
-  Future<void> getProfileStatus() async {
+  Future<bool> getProfileStatus() async {
     try {
-      final response = await HttpHelper.gettData(url: "profile/status");
-      final data = jsonDecode(response.body);
+      final response = await HttpHelper.gettData(
+        url: "profile/status",
+      );
+      print(response.statusCode);
+      if (response.statusCode == 401) {
+        Get.offAllNamed("/signIn");
+        return false;
+      }
 
       if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+
         profileStatus.value = data["data"]["profile_status"];
+
         profileRejectionReason.value =
             data["data"]["profile_rejection_reason"] ?? "";
+
+        print("NEW STATUS = ${profileStatus.value}");
+
+        return true;
       }
-      print("NEW STATUS = ${profileStatus.value}");
+
+      return false;
+
     } catch (e) {
       print(e);
+      return false;
     }
   }
   Future<void> loadHome() async {
     loadingHome.value = true;
+    final isLoggedIn = await getProfileStatus();
 
+    if (!isLoggedIn) {
+      loadingHome.value = false;
+      return;
+    }
     await Future.wait([
-      getProfileStatus(),
+     // getProfileStatus(),
       getCurrentApplication(),
       getServices(),
     ]);

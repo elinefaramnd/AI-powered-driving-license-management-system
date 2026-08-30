@@ -37,7 +37,9 @@ class OrderDetailsScreen extends StatelessWidget {
           ),
           child: Column(
             children: [
-              const OrderStatusCard(),
+              OrderStatusCard(
+                order: order,
+              ),
               SizedBox(height: h * 0.0132),
               OrderDetailsInfoCard(
                 order: order,

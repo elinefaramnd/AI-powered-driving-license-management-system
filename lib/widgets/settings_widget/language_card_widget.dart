@@ -115,7 +115,9 @@ class LanguageCardWidget extends StatelessWidget {
                       child: Column(
                         children: [
                           Text(
-                            lang.name,
+                            lang.code == 'ar'
+                                ? 'arabic_language'.tr
+                                : 'english_language'.tr,
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
                               color: isSelected

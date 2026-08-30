@@ -121,7 +121,7 @@ class OrderInfoCard extends StatelessWidget {
                          Text(
                           "application_fee".tr,
                           style: TextStyle(
-                            fontSize: w * .035,
+                            fontSize: w * .033,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -148,7 +148,7 @@ class OrderInfoCard extends StatelessWidget {
                       ),
                       child: Icon(
                         Icons.calendar_today_outlined,
-                        size: w * .049,
+                        size: w * .045,
                         color: AppColors.darkGreen,
                       ),
                     ),
@@ -167,7 +167,7 @@ class OrderInfoCard extends StatelessWidget {
                         Text(
                           _formatDate(DateTime.now()),
                           style:  TextStyle(
-                            fontSize: w * .035,
+                            fontSize: w * .033,
                             fontWeight: FontWeight.w600,
                           ),
                         ),

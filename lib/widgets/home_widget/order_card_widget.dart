@@ -4,6 +4,7 @@ import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
+import '../../app_theme/app_colors.dart';
 import '../../modules/home_page/home_controller.dart';
 import '../../modules/home_page/order_card_controller.dart';
 
@@ -14,7 +15,7 @@ class OrderCardWidget extends StatelessWidget {
 
     final isArabic = Get.locale?.languageCode == "ar";
     final controller = Get.find<HomeController>();
-    final orderController = Get.put(OrderCardController());
+    final orderController = Get.find<OrderCardController>();
     final size = MediaQuery.of(context).size;
     return Container(
       height: size.height * 0.39,
@@ -32,9 +33,9 @@ class OrderCardWidget extends StatelessWidget {
                 Text(
             "current_request".tr,
                   style: TextStyle(
-                    color: Colors.grey,
+                    color: AppColors.primaryColor,
                     fontWeight: FontWeight.bold,
-                    fontSize: size.width * 0.039,
+                    fontSize: Get.locale?.languageCode == "ar" ?size.width * .039:size.width * .036,
                   ),
                 ),
                 Obx(
@@ -45,6 +46,7 @@ class OrderCardWidget extends StatelessWidget {
                     style: TextStyle(
                       fontWeight: FontWeight.w400,
                       fontSize: size.width * 0.03,
+                      color: Colors.grey
                     ),
                   ),
                 ),
@@ -62,9 +64,9 @@ class OrderCardWidget extends StatelessWidget {
                 Text(
                   "current_status".tr,
                   style: TextStyle(
-                    color: Colors.grey,
+                    color: AppColors.primaryColor,
                     fontWeight: FontWeight.bold,
-                    fontSize: size.width * 0.039,
+                    fontSize: Get.locale?.languageCode == "ar" ?size.width * .039:size.width * .036,
                   ),
                 ),
                 Obx(
@@ -72,17 +74,21 @@ class OrderCardWidget extends StatelessWidget {
                    controller.getCurrentStatusText(),
                     style: TextStyle(
                       color: const Color(0xffB08D57),
-                      fontSize: size.width * 0.035,
+                      fontSize: size.width * 0.03,
                     ),
                   ),
                 ),
                 SizedBox(height: size.height * 0.008),
 
                 Obx(
-                  () => orderController.buildStep(
-                    width: size.width,
-                    height: size.height,
-                  ),
+                      () {
+                    final status = controller.currentApplicationStatus.value;
+
+                    return orderController.buildStep(
+                      width: size.width,
+                      height: size.height,
+                    );
+                  },
                 ),
                 const Spacer(),
               ],

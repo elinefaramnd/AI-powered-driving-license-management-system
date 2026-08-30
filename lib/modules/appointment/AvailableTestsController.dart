@@ -7,9 +7,9 @@ class AvailableTestsController extends GetxController {
   late int applicationId;
   RxBool loading = false.obs;
   RxList tests = [].obs;
-  RxList appointments = [].obs;
-  RxList results = [].obs;
-  RxBool feePaid = false.obs;
+  // RxList appointments = [].obs;
+  // RxList results = [].obs;
+  // RxBool feePaid = false.obs;
   @override
   void onInit() {
     super.onInit();

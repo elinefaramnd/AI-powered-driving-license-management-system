@@ -86,8 +86,8 @@ class SendMessageFormCard extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: controller.isLoading.value ? null : controller.sendMessage,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.primary,
-                    disabledBackgroundColor: AppColors.primary.withOpacity(0.6),
+                    backgroundColor: AppColors.primaryColor,
+                    disabledBackgroundColor: AppColors.primaryColor.withOpacity(0.6),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16),
                     ),

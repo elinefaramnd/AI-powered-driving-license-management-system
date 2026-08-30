@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../app_theme/app_colors.dart';
+import '../../widgets/app_snackbar.dart';
 import '../../widgets/custom_app_bar.dart';
 import '../../widgets/payment_widget/amount_card.dart';
 import '../../widgets/payment_widget/order_info_card.dart';
@@ -85,7 +86,7 @@ class PaymentScreen extends StatelessWidget {
                       context,
                       applicationId,
                       controller,
-                      () => Get.snackbar("verifying".tr,
+                      () => AppSnackbar.show("verifying".tr,
                         "verifying_payment_status".tr,),
                     ),
                   );

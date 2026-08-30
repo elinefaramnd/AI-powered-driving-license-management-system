@@ -28,16 +28,29 @@ class StepWidget extends StatelessWidget {
       children: [
         Container(
           padding: const EdgeInsets.all(9),
-          decoration: BoxDecoration(color: bgColor, shape: BoxShape.circle),
-          child: Icon(done ? Icons.check : icon, color: Colors.white, size: 16),
+          decoration: BoxDecoration(
+            color: bgColor,
+            shape: BoxShape.circle,
+          ),
+          child: Icon(
+            done ? Icons.check : icon,
+            color: Colors.white,
+            size: 16,
+          ),
         ),
+
         const SizedBox(height: 6),
+
         SizedBox(
           width: 55,
+          height: 26,
           child: Text(
             title,
             textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 10),
+            maxLines: 2,
+            style: const TextStyle(
+              fontSize: 10,
+            ),
           ),
         ),
       ],

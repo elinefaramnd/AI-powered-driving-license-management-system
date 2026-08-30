@@ -15,6 +15,10 @@ class TimelineCardWidget extends StatelessWidget {
     return Obx(() {
       final status = controller.currentApplicationStatus.value;
       final hasApplication = controller.hasApplication.value;
+      final isReplacement =
+          controller.currentServiceCode.value == "lost_replacement" ||
+              controller.currentServiceCode.value == "damaged_replacement"||
+              controller.currentServiceCode.value == "license_unblock";;
       bool createDone = false;
       bool docsDone = false;
       bool paymentDone = false;
@@ -42,7 +46,10 @@ class TimelineCardWidget extends StatelessWidget {
         docsDone = true;
         paymentDone = true;
 
-        testsActive = true;
+        //testsActive = true;
+        if (!isReplacement) {
+          testsActive = true;
+        }
       }
 
       else if (status == "waiting_retest") {
@@ -50,16 +57,26 @@ class TimelineCardWidget extends StatelessWidget {
         createDone = true;
         docsDone = true;
         paymentDone = true;
-        testsActive = true;
-        testsDone = false;
+        // testsActive = true;
+        // testsDone = false;
+        if (!isReplacement) {
+          testsActive = true;
+          testsDone = false;
+        }
       }
       else if (status == "approved") {
         createDone = true;
         docsDone = true;
         paymentDone = true;
-        testsDone = true;
-
-        licenseActive = true;
+        // testsDone = true;
+        //
+        // licenseActive = true;
+        if (isReplacement) {
+          licenseActive = true;
+        } else {
+          testsDone = true;
+          licenseActive = true;
+        }
       }
       return Container(
         padding: EdgeInsets.all(w * 0.035),
@@ -72,7 +89,7 @@ class TimelineCardWidget extends StatelessWidget {
           children: [
             Center(
               child: Text(
-        "application_progress".tr,
+                "application_progress".tr,
                 style: TextStyle(
                   fontSize: w * 0.044,
                   fontWeight: FontWeight.bold,
@@ -84,7 +101,7 @@ class TimelineCardWidget extends StatelessWidget {
             Row(
               children: [
                 StepWidget(
-                  title:"create_request".tr,
+                  title: "create_request".tr,
                   icon: Icons.edit,
                   done: createDone,
                   active: createActive,
@@ -103,13 +120,15 @@ class TimelineCardWidget extends StatelessWidget {
                   done: paymentDone,
                   active: paymentActive,
                 ),
-                LineWidget(),
-                StepWidget(
-                  title: "tests".tr,
-                  icon: Icons.quiz,
-                  done: testsDone,
-                  active: testsActive,
-                ),
+                if (!isReplacement) ...[
+                  LineWidget(),
+                  StepWidget(
+                    title: "tests".tr,
+                    icon: Icons.quiz,
+                    done: testsDone,
+                    active: testsActive,
+                  ),
+                ],
                 LineWidget(),
                 StepWidget(
                   title: "license_issue".tr,

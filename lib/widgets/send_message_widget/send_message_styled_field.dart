@@ -28,7 +28,7 @@ class SendMessageFieldLabel extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
 
       children: [
-        Icon(icon, color: AppColors.mediumGreen, size: 18),
+        Icon(icon, color: AppColors.primaryColor, size: 18),
 
         SizedBox(width: w * 0.02),
 
@@ -42,7 +42,7 @@ class SendMessageFieldLabel extends StatelessWidget {
 
             fontWeight: FontWeight.w600,
 
-            color: AppColors.darkGreen,
+            color: AppColors.primaryColor,
           ),
         ),
       ],
@@ -107,7 +107,7 @@ class SendMessageStyledField extends StatelessWidget {
             ? TextAlign.left
             : (isArabic ? TextAlign.right : TextAlign.left),
 
-        cursorColor: AppColors.primary,
+        cursorColor: AppColors.primaryColor,
 
         decoration: InputDecoration(
           hintText: hint,
@@ -129,7 +129,7 @@ class SendMessageStyledField extends StatelessWidget {
                   child: Icon(
                     Icons.lock_outline_rounded,
 
-                    color: AppColors.mediumGreen,
+                    color: AppColors.primaryColor,
 
                     size: 18,
                   ),
@@ -162,7 +162,7 @@ class SendMessageStyledField extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
 
             borderSide: const BorderSide(
-              color: AppColors.mediumGreen,
+              color: AppColors.primaryColor,
               width: 1.5,
             ),
           ),

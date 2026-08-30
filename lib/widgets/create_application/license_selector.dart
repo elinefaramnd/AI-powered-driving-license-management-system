@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../app_theme/app_colors.dart';
 import '../../modules/create_application/application_controller.dart';
+
 class LicenseSelector extends StatelessWidget {
   final Size size;
   const LicenseSelector({super.key, required this.size});
@@ -18,8 +20,46 @@ class LicenseSelector extends StatelessWidget {
               ? null
               : controller.licenseTypeId.value,
           decoration: InputDecoration(
-            border: InputBorder.none,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(size.width * .025),
+              borderSide: BorderSide(
+                color: AppColors.gold.withOpacity(.45),
+                width: 1,
+              ),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(size.width * .025),
+              borderSide: BorderSide(
+                color: AppColors.gold.withOpacity(.45),
+                width: 1,
+              ),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(size.width * .025),
+              borderSide: BorderSide(
+                color: AppColors.gold.withOpacity(.45),
+                width: 1,
+              ),
+            ),
             hintText: "select_license_type".tr,
+            prefixIcon: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(width: size.width * .025),
+                Icon(
+                  Icons.badge_outlined,
+                  color: AppColors.gold,
+                  size: size.width * .055,
+                ),
+                SizedBox(width: size.width * .02),
+                Container(
+                  width: 1,
+                  height: size.height * .035,
+                  color: AppColors.gold.withOpacity(.45),
+                ),
+                SizedBox(width: size.width * .02),
+              ],
+            ),
           ),
           icon: const Icon(Icons.keyboard_arrow_down),
           items: controller.licenses.map<DropdownMenuItem>((e) {

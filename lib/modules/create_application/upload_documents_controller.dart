@@ -94,9 +94,10 @@ class UploadDocumentsController extends GetxController {
           "upload_document_uploaded".tr,
         );
       } else {
-        final body = await response.stream.bytesToString();
+       // final body = await response.stream.bytesToString();
+        final data = jsonDecode(responseBody);
         AppSnackbar.show(
-            "upload_error".tr, body
+            "upload_error".tr, data["message"],
         );
       }
     } catch (e) {

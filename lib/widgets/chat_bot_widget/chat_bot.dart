@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../app_theme/app_colors.dart';
 import '../../modules/chat_bot/chat_bot_controller.dart';
 import '../../modules/home_page/home_controller.dart';
@@ -8,7 +7,9 @@ import '../app_snackbar.dart';
 
 class ChatBotWidget extends StatelessWidget {
   ChatBotWidget({super.key});
-  final ChatController controller = Get.find();
+  final ChatController controller = Get.isRegistered<ChatController>()
+      ? Get.find<ChatController>()
+      : Get.put(ChatController());
   final HomeController home = Get.find<HomeController>();
   @override
   Widget build(BuildContext context) {
@@ -35,11 +36,9 @@ class ChatBotWidget extends StatelessWidget {
                 ),
               ],
             ),
-
             child: IconButton(
               onPressed: () {
                 final status = home.profileStatus.value;
-
                 if (status != "approved") {
                   AppSnackbar.show(
                     "warning".tr,
@@ -51,7 +50,6 @@ class ChatBotWidget extends StatelessWidget {
                   );
                   return;
                 }
-
                 controller.openChatScreen();
               },
               icon: Icon(

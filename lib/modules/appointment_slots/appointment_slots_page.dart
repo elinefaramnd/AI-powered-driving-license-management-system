@@ -36,14 +36,16 @@ class AppointmentSlotsPage extends StatelessWidget {
     );
     return Scaffold(
       appBar: CustomAppBar(
-        title:  controller.isReschedule
+        title: controller.isReschedule
             ? "edit_test_appointment".tr
             : "book_test_appointment".tr,
       ),
-      backgroundColor:AppColors.background,
+      backgroundColor: AppColors.background,
       body: Obx(() {
         if (controller.loading.value) {
-          return const Center(child: CircularProgressIndicator(color: AppColors.primaryColor,));
+          return const Center(
+            child: CircularProgressIndicator(color: AppColors.primaryColor),
+          );
         }
         if (controller.slots.isEmpty) {
           return Center(child: Text("no_available_slots".tr));
@@ -66,7 +68,7 @@ class AppointmentSlotsPage extends StatelessWidget {
                         horizontal: size.width * .05,
                       ),
                       child: Row(
-                       // textDirection: TextDirection.rtl,
+                        // textDirection: TextDirection.rtl,
                         children: [
                           Icon(
                             Icons.calendar_month_outlined,
@@ -76,7 +78,7 @@ class AppointmentSlotsPage extends StatelessWidget {
                           Align(
                             alignment: Alignment.centerRight,
                             child: Text(
-                             "select_date".tr,
+                              "select_date".tr,
                               style: TextStyle(
                                 fontSize: size.width * .042,
                                 fontWeight: FontWeight.bold,

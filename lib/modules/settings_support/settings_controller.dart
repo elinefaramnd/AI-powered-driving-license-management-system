@@ -1,6 +1,9 @@
 import 'dart:convert';
+import 'dart:ui';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import '../../configuration/http_helpers.dart';
+import '../../widgets/app_snackbar.dart';
 import 'models/settings_model.dart';
 
 class SettingsController extends GetxController {
@@ -53,19 +56,17 @@ class SettingsController extends GetxController {
           settings.value?.preferences.language = language;
           settings.value?.preferences.theme = theme;
           settings.refresh();
-          Get.snackbar(
+          AppSnackbar.show(
             "success".tr,
             "preferences_updated".tr,
-            snackPosition: SnackPosition.BOTTOM,
           );
         }
       }
     } catch (e) {
       print('Error updating preferences: $e');
-      Get.snackbar(
+      AppSnackbar.show(
         "error".tr,
         "preferences_update_failed".tr,
-        snackPosition: SnackPosition.BOTTOM,
       );
     } finally {
       isUpdating.value = false;
@@ -93,38 +94,67 @@ class SettingsController extends GetxController {
         final data = jsonDecode(response.body);
         if (data['success'] == true) {
           Get.back();
-          Get.snackbar(
+          AppSnackbar.show(
             "success".tr,
             "password_changed".tr,
-            snackPosition: SnackPosition.BOTTOM,
           );
         } else {
-          Get.snackbar(
+          AppSnackbar.show(
             "error".tr,
             data['message'] ?? "password_change_failed".tr,
-            snackPosition: SnackPosition.BOTTOM,
           );
         }
       } else {
         final data = jsonDecode(response.body);
-        Get.snackbar(
+        AppSnackbar.show(
           "error".tr,
           data['message'] ?? "password_change_failed".tr,
-          snackPosition: SnackPosition.BOTTOM,
         );
       }
     } catch (e) {
       print('Error changing password: $e');
-      Get.snackbar(
+      AppSnackbar.show(
         "error".tr,
         "password_change_server_error".tr,
-        snackPosition: SnackPosition.BOTTOM,
       );
     } finally {
       isUpdating.value = false;
     }
   }
-
+  Future<void> updateLanguage(String language) async {
+    try {
+      isUpdating.value = true;
+      final response = await HttpHelper.putData(
+        url: "settings/preferences",
+        body: {
+          'language': language,
+        },
+        acceptLanguage: language,
+      );
+      final data = jsonDecode(response.body);
+      if (response.statusCode == 200 && data['success'] == true) {
+        print(
+          "Language updated successfully: ${data['data']['language']}",
+        );
+        print(
+          "Backend message: ${data['message']}",
+        );
+        await GetStorage().write("lang", language);
+        final locale = language == "ar"
+            ? const Locale("ar")
+            : const Locale("en");
+        await Get.updateLocale(locale);
+      } else {
+        print(
+          "Language update failed: ${data['message']}",
+        );
+      }
+    } catch (e) {
+      print("Error updating language: $e");
+    } finally {
+      isUpdating.value = false;
+    }
+  }
   String get profileStatusText {
     final status = settings.value?.account.profileStatus;
     switch (status) {
@@ -138,7 +168,6 @@ class SettingsController extends GetxController {
         return status ?? '';
     }
   }
-
   String get profileStatusDescription {
     return settings.value?.account.profileCompleted == true
         ? "profile_completed".tr

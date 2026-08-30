@@ -5,6 +5,7 @@ import '../../widgets/fines_widget/empty_fines_widget.dart';
 import '../../widgets/fines_widget/fine_card.dart';
 import '../../widgets/fines_widget/fines_summary_card.dart';
 import 'fines_controller.dart';
+
 class FinesScreen extends StatelessWidget {
   FinesScreen({super.key});
   final controller = Get.put(FinesController());
@@ -13,9 +14,7 @@ class FinesScreen extends StatelessWidget {
     final isRtl = Directionality.of(context) == TextDirection.rtl;
     return Scaffold(
       backgroundColor: const Color(0xffF5F5F5),
-      appBar: CustomAppBar(
-        title:  "my_fines".tr,
-      ),
+      appBar: CustomAppBar(title: "my_fines".tr),
       body: Obx(() {
         if (controller.loading.value) {
           return const Center(child: CircularProgressIndicator());
@@ -23,7 +22,8 @@ class FinesScreen extends StatelessWidget {
         return ListView(
           padding: const EdgeInsets.all(18),
           children: [
-            FinesSummaryCard(),
+            if (controller.fines.isNotEmpty)
+              FinesSummaryCard(fineId: controller.fines.first.id),
             const SizedBox(height: 12),
             Text(
               textAlign: TextAlign.start,

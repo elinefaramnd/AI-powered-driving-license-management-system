@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import '../../app_theme/app_colors.dart';
-
 class ApplicationHeader extends StatelessWidget {
   final Size size;
   const ApplicationHeader({super.key, required this.size});
@@ -10,39 +9,31 @@ class ApplicationHeader extends StatelessWidget {
     return Center(
       child: Column(
         children: [
-          Container(
-            width: size.width * .14,
-            height: size.width * .14,
-            decoration: BoxDecoration(
-              color: const Color(0xffF3F5F4),
-              shape: BoxShape.circle,
-            ),
-            child: Icon(
-              Icons.description_outlined,
-              size: size.width * .06,
-              color: AppColors.primary,
+          Transform.scale(
+            scale: 1.2,
+            child: Image.asset(
+              "assets/images/submit_an_application.jpg",
+              width: size.width * .5,
+              height: size.height * .15,
+              fit: BoxFit.contain,
             ),
           ),
-
-          SizedBox(height: size.height * .015),
-
+          SizedBox(height: size.height * .012),
           Text(
             "submit_new_application".tr,
             style: TextStyle(
-              fontSize: size.width * .06,
+              fontSize: size.width * .045,
               fontWeight: FontWeight.w700,
-              color: AppColors.primary,
+              color: AppColors.primaryColor,
             ),
           ),
-
-          SizedBox(height: size.height * .01),
-
+          SizedBox(height: size.height * .008),
           Text(
             "submit_new_application_description".tr,
             textAlign: TextAlign.center,
             style: TextStyle(
               color: Colors.grey.shade600,
-              fontSize: size.width * .032,
+              fontSize: size.width * .031,
             ),
           ),
         ],

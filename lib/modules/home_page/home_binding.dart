@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'home_controller.dart';
+import 'order_card_controller.dart';
 
 class HomeBinding extends Bindings {
   @override
@@ -9,6 +10,9 @@ class HomeBinding extends Bindings {
           () => HomeController(),
       fenix: true,
     );
-
+    Get.lazyPut<OrderCardController>(
+          () => OrderCardController(),
+      fenix: true,
+    );
   }
 }

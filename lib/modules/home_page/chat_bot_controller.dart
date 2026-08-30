@@ -152,5 +152,6 @@ class ChatBotController extends GetxController {
       colorText: Colors.white,
     );
   }
+
 }
 

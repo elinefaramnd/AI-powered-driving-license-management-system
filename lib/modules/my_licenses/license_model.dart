@@ -4,6 +4,7 @@ class LicenseModel {
   final String status;
   final String issueDate;
   final String expiryDate;
+  final bool canRequestUnblock;
   final LicenseType licenseType;
   final Application application;
   final String createdAt;
@@ -14,6 +15,7 @@ class LicenseModel {
     required this.status,
     required this.issueDate,
     required this.expiryDate,
+    required this.canRequestUnblock,
     required this.licenseType,
     required this.application,
     required this.createdAt,
@@ -26,6 +28,7 @@ class LicenseModel {
       status: json["status"],
       issueDate: json["issue_date"],
       expiryDate: json["expiry_date"],
+      canRequestUnblock: json["can_request_unblock"] ?? false,
       licenseType: LicenseType.fromJson(json["license_type"]),
       application: Application.fromJson(json["application"]),
       createdAt: json["created_at"],
@@ -37,13 +40,11 @@ class LicenseType {
   final int id;
   final String name;
   final String code;
-
   LicenseType({
     required this.id,
     required this.name,
     required this.code,
   });
-
   factory LicenseType.fromJson(Map<String, dynamic> json) {
     return LicenseType(
       id: json["id"],
@@ -52,18 +53,15 @@ class LicenseType {
     );
   }
 }
-
 class Application {
   final int id;
   final String applicationNumber;
   final String status;
-
   Application({
     required this.id,
     required this.applicationNumber,
     required this.status,
   });
-
   factory Application.fromJson(Map<String, dynamic> json) {
     return Application(
       id: json["id"],

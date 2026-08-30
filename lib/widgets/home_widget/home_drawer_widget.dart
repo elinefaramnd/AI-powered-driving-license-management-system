@@ -4,6 +4,7 @@ import '../../app_theme/app_colors.dart';
 import '../../modules/home_page/home_controller.dart';
 import '../../modules/logout/logout_controller.dart';
 import '../../modules/my_test_results/TestResultsView.dart';
+import '../../modules/my_transactions/my_transactions_screen.dart';
 import 'drawer_item_widget.dart';
 
 class HomeDrawerWidget extends StatelessWidget {
@@ -54,6 +55,76 @@ class HomeDrawerWidget extends StatelessWidget {
                         Get.toNamed('showPro');
 
                       },
+                    ),
+                    Theme(
+                      data: Theme.of(
+                        context,
+                      ).copyWith(dividerColor: Colors.transparent),
+                      child: Obx(() {
+                        return ExpansionTile(
+                          onExpansionChanged: (value) {
+                            controller.isServicesExpanded.value = value;
+                          },
+                          tilePadding: EdgeInsets.symmetric(
+                            horizontal: size.width * .08,
+                          ),
+                          childrenPadding: EdgeInsets.zero,
+                          iconColor: Colors.white,
+                          collapsedIconColor: Colors.white,
+                          leading: Icon(
+                            Icons.dashboard_customize_outlined,
+                            color: Colors.white,
+                            size: 22 * scale,
+                          ),
+                          title: Text(
+                            "services".tr,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 14 * scale,
+                            ),
+                          ),
+                          trailing: Icon(
+                            controller.isServicesExpanded.value
+                                ? Icons.keyboard_arrow_down
+                                : Directionality.of(context) == TextDirection.rtl
+                                ? Icons.keyboard_arrow_left
+                                : Icons.keyboard_arrow_right,
+                            color: Colors.white,
+                          ),
+                          children: [
+                            Padding(
+                              padding: EdgeInsetsDirectional.only(start: size.width * .05),
+                              child: DrawerItemWidget(
+                                icon: Icons.add_circle_outline,
+                                title: "new_license_request".tr,
+                                index: 2,
+                                controller: controller,
+                                onTap: controller.openNewApplication,
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsetsDirectional.only(start: size.width * .05),
+                              child: DrawerItemWidget(
+                                icon: Icons.refresh,
+                                title: "renew_license".tr,
+                                index: 8,
+                                controller: controller,
+                                onTap: controller.openNewApplication,
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsetsDirectional.only(start: size.width * .05),
+                              child: DrawerItemWidget(
+                                icon: Icons.description_outlined,
+                                title: "replacement_license".tr,
+                                index: 9,
+                                controller: controller,
+                                onTap: controller.openNewApplication,
+                              ),
+                            ),
+                          ],
+                        );
+                      }),
                     ),
                     DrawerItemWidget(
                       icon: Icons.list_alt,
@@ -116,100 +187,39 @@ class HomeDrawerWidget extends StatelessWidget {
                         Get.toNamed("/fines_screen");
                       },
                     ),
-                    DrawerItemWidget(
-                      icon: Icons.credit_card_rounded,
-                      title: "electronic_payment".tr,
-                      index: 7,
-                      controller: controller,
-                    ),
-                    DrawerItemWidget(
-                      icon: Icons.lock_open,
-                      title: "unlock_license".tr,
-                      index: 10,
-                      controller: controller,
-                    ),
+                    // DrawerItemWidget(
+                    //   icon: Icons.credit_card_rounded,
+                    //   title: "electronic_payment".tr,
+                    //   index: 7,
+                    //   controller: controller,
+                    // ),
+                    // DrawerItemWidget(
+                    //   icon: Icons.lock_open,
+                    //   title: "unlock_license".tr,
+                    //   index: 10,
+                    //   controller: controller,
+                    // ),
                     DrawerItemWidget(
                       icon: Icons.notifications_none,
-                      title: "notifications".tr,
+                      title: "my_notifications".tr,
                       index: 11,
                       controller: controller,
+                      onTap: () {
+                        Get.toNamed("/notifications");
+                      },
                     ),
 
-                    Theme(
-                      data: Theme.of(
-                        context,
-                      ).copyWith(dividerColor: Colors.transparent),
-                      child: Obx(() {
-                        return ExpansionTile(
-                          onExpansionChanged: (value) {
-                            controller.isServicesExpanded.value = value;
-                          },
-                          tilePadding: EdgeInsets.symmetric(
-                            horizontal: size.width * .08,
-                          ),
-                          childrenPadding: EdgeInsets.zero,
-                          iconColor: Colors.white,
-                          collapsedIconColor: Colors.white,
-                          leading: Icon(
-                            Icons.dashboard_customize_outlined,
-                            color: Colors.white,
-                            size: 22 * scale,
-                          ),
-                          title: Text(
-                            "services".tr,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 14 * scale,
-                            ),
-                          ),
-                          trailing: Icon(
-                            controller.isServicesExpanded.value
-                                ? Icons.keyboard_arrow_down
-                                : Directionality.of(context) == TextDirection.rtl
-                                ? Icons.keyboard_arrow_left
-                                : Icons.keyboard_arrow_right,
-                            color: Colors.white,
-                          ),
-                          children: [
-                            Padding(
-                              padding: EdgeInsetsDirectional.only(start: size.width * .05),
-                              child: DrawerItemWidget(
-                                icon: Icons.add_circle_outline,
-                                title: "new_license_request".tr,
-                                index: 2,
-                                controller: controller,
-                                onTap: controller.openNewApplication,
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.only(start: size.width * .05),
-                              child: DrawerItemWidget(
-                                icon: Icons.refresh,
-                                title: "renew_license".tr,
-                                index: 8,
-                                controller: controller,
-                                onTap: () {},
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.only(start: size.width * .05),
-                              child: DrawerItemWidget(
-                                icon: Icons.description_outlined,
-                                title: "replacement_license".tr,
-                                index: 9,
-                                controller: controller,
-                                onTap: () {},
-                              ),
-                            ),
-                          ],
-                        );
-                      }),
-                    ),
+
                     DrawerItemWidget(
-                      icon: Icons.support_agent,
-                      title: "support".tr,
+                      icon: Icons.account_balance_wallet_outlined,
+                      title: 'my_payments'.tr,
                       index: 14,
                       controller: controller,
+                      onTap: () {
+                        Get.to(
+                              () => const MyTransactionsScreen(),
+                        );
+                      },
                     ),
                     DrawerItemWidget(
                       icon: Icons.settings_outlined,
@@ -259,13 +269,13 @@ class HomeDrawerWidget extends StatelessWidget {
                       },
                       leading: Icon(
                         Icons.logout,
-                        color: Colors.red,
+                        color: AppColors.gold,
                         size: 22 * scale,
                       ),
                       title: Text(
                         "logout".tr,
                         style: TextStyle(
-                          color: Colors.red,
+                          color: AppColors.gold,
                           fontWeight: FontWeight.bold,
                           fontSize: 14 * scale,
                         ),

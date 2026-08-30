@@ -1,9 +1,11 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:project_2/widgets/app_snackbar.dart';
 import '../../app_theme/app_colors.dart';
 import '../../configuration/http_helpers.dart';
+import '../chat_bot/chat_bot_controller.dart';
 
 class LogOutController extends GetxController {
   LogOutController();
@@ -22,37 +24,8 @@ class LogOutController extends GetxController {
         horizontal: 20,
         vertical: 10,
       ),
-     // textConfirm: 'تأكيد',
-      //buttonColor: AppColors.primaryColor,
       cancelTextColor: AppColors.primaryColor,
       textCancel: "cancel".tr,
-      //confirmTextColor: Colors.white,
-      //   onConfirm: () async {
-      //     try {
-      //       final response = await HttpHelper.postData(url: 'auth/logout');
-      //
-      //       final res = jsonDecode(response.body);
-      //
-      //       Get.back();
-      //
-      //       if (response.statusCode == 200 || response.statusCode == 201) {
-      //         AppSnackbar.show(
-      //           'تم تسجيل الخروج',
-      //           res['message'] ?? 'تم تسجيل الخروج بنجاح',
-      //         );
-      //         await Future.delayed(const Duration(milliseconds: 150));
-      //         Get.offAllNamed('/signIn');
-      //       } else {
-      //         AppSnackbar.show(
-      //           'فشل تسجيل الخروج',
-      //           res['message'] ?? 'حدث خطأ غير متوقع',
-      //         );
-      //       }
-      //     } catch (e) {
-      //       Get.back();
-      //       AppSnackbar.show('خطأ', 'حدث خطأ أثناء العملية');
-      //     }
-      //   },
       confirm: Padding(
         padding: const EdgeInsets.only(bottom: 8.0),
         child: Obx(
@@ -66,6 +39,11 @@ class LogOutController extends GetxController {
               isLoading.value = true;
 
               try {
+                final box = GetStorage();
+                final deviceId = box.read<String>('push_device_id');
+                if (deviceId != null && deviceId.isNotEmpty) {
+                  await deletePushToken(deviceId);
+                }
                 final response =
                 await HttpHelper.postData(url: 'auth/logout');
 
@@ -82,7 +60,9 @@ class LogOutController extends GetxController {
 
                   await Future.delayed(
                       const Duration(milliseconds: 150));
-
+                  if (Get.isRegistered<ChatController>()) {
+                    Get.delete<ChatController>(force: true);
+                  }
                   Get.offAllNamed('/signIn');
                 } else {
                   AppSnackbar.show(
@@ -119,5 +99,26 @@ class LogOutController extends GetxController {
         Get.back();
       },
     );
+  }
+  Future<void> deletePushToken(String deviceId) async {
+    try {
+      final response = await HttpHelper.deleteData(
+        url: 'devices/push-token',
+        body: {
+          'device_id': deviceId,
+        },
+      );
+      print('========== DELETE PUSH TOKEN ==========');
+      print('device_id: $deviceId');
+      print('status: ${response.statusCode}');
+      print('body: ${response.body}');
+      if (response.statusCode == 200 || response.statusCode == 204) {
+        print('PUSH TOKEN DELETED SUCCESSFULLY');
+      } else {
+        print('FAILED TO DELETE PUSH TOKEN');
+      }
+    } catch (e) {
+      print('DELETE PUSH TOKEN ERROR: $e');
+    }
   }
 }

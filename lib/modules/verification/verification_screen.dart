@@ -45,15 +45,18 @@ class VerificationScreen extends StatelessWidget {
                     style: TextStyle(fontSize: size.width * 0.037, color: Colors.grey.shade600),
                   ),
                   SizedBox(height: size.height * 0.06),
-                  OtpTextField(
-                    numberOfFields: 6,
-                    fieldWidth: size.width * 0.12,
-                    borderColor: AppColors.primaryColor,
-                    focusedBorderColor: AppColors.primaryColor,
-                    cursorColor: AppColors.primaryColor,
-                    showFieldAsBox: true,
-                    onCodeChanged: controller.updateCode,
-                    onSubmit: controller.submitCode,
+                  Directionality(
+                    textDirection: TextDirection.ltr,
+                    child: OtpTextField(
+                      numberOfFields: 6,
+                      fieldWidth: size.width * 0.12,
+                      borderColor: AppColors.primaryColor,
+                      focusedBorderColor: AppColors.primaryColor,
+                      cursorColor: AppColors.primaryColor,
+                      showFieldAsBox: true,
+                      onCodeChanged: controller.updateCode,
+                      onSubmit: controller.submitCode,
+                    ),
                   ),
                   SizedBox(height: size.height * 0.043),
                   Obx(

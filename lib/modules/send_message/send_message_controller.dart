@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:project_2/widgets/app_snackbar.dart';
 import '../../configuration/http_helpers.dart';
 import '../../app_theme/app_colors.dart';
 
@@ -72,24 +73,9 @@ class SendMessageController extends GetxController {
   }
 
   void _showError(String msg) {
-    Get.snackbar(
+    AppSnackbar.show(
       '',
-      '',
-      snackPosition: SnackPosition.BOTTOM,
-      backgroundColor: Colors.red.shade600,
-      colorText: Colors.white,
-      duration: const Duration(seconds: 3),
-      margin: const EdgeInsets.all(16),
-      borderRadius: 12,
-      messageText: Text(
-        msg,
-        textDirection:
-        Get.locale?.languageCode == "ar"
-            ? TextDirection.rtl
-            : TextDirection.ltr,
-        style: const TextStyle(color: Colors.white, fontSize: 14),
-      ),
-      titleText: const SizedBox.shrink(),
+      msg,
     );
   }
 
@@ -115,24 +101,9 @@ class SendMessageController extends GetxController {
       if (response.statusCode == 200 || response.statusCode == 201) {
         Get.back();
         await Future.delayed(const Duration(milliseconds: 300));
-        Get.snackbar(
+        AppSnackbar.show(
           '',
-          '',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: AppColors.primary,
-          colorText: Colors.white,
-          duration: const Duration(seconds: 4),
-          margin: const EdgeInsets.all(16),
-          borderRadius: 12,
-          messageText: Text(
             data['message'] ?? "message_sent_success".tr,
-            textDirection:
-            Get.locale?.languageCode == "ar"
-                ? TextDirection.rtl
-                : TextDirection.ltr,
-            style: const TextStyle(color: Colors.white, fontSize: 14),
-          ),
-          titleText: const SizedBox.shrink(),
         );
       } else {
         _showError(data['message'] ??  "message_send_failed".tr);

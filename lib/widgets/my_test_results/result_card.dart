@@ -1,163 +1,78 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_utils/src/extensions/internacionalization.dart';
-import 'package:project_2/widgets/my_test_results/result_header.dart';
-import 'package:project_2/widgets/my_test_results/result_info_block.dart';
-import 'package:project_2/widgets/my_test_results/result_meta_section.dart';
 import '../../app_theme/app_colors.dart';
 import '../../modules/my_test_results/test_result_model.dart';
 import '../../modules/my_test_results/test_results_controller.dart';
+import 'result_header.dart';
+import 'test_type_section.dart';
+import 'details_section.dart';
 
 class ResultCard extends StatelessWidget {
   final Size size;
   final TestResultModel item;
   final TestResultsController controller;
-
   const ResultCard({
     super.key,
     required this.size,
     required this.item,
     required this.controller,
   });
-
   @override
   Widget build(BuildContext context) {
-    final padding = size.width * 0.035;
-    final smallSpace = size.height * 0.012;
-    final mediumSpace = size.height * 0.02;
-
-    final titleFont = size.width * 0.04;
-    final subtitleFont = size.width * 0.032;
-
     final isArabic = Get.locale?.languageCode == "ar";
-
+    final isPassed = item.result == "passed";
+    final isFailed = item.result == "failed";
+    final resultColor = isPassed
+        ? AppColors.primaryColor
+        : isFailed
+        ? const Color(0xff8B2635)
+        : AppColors.gold;
+    final resultText = controller.getResultText(item.result);
+    final notes = controller.getNotes(item.notes);
     return Container(
-      padding: EdgeInsets.all(padding),
+      margin: EdgeInsets.only(bottom: size.height * 0.018),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(size.width * 0.035),
-        border: Border.all(
-          color: Colors.grey.withOpacity(0.19),
-          width: 1,
-        ),
+        color: const Color(0xffFDFDFC),
+        borderRadius: BorderRadius.circular(size.width * 0.04),
+        border: Border.all(color: const Color(0xffE8E4DC)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.04),
-            blurRadius: 8,
-          )
+            color: Colors.black.withOpacity(0.07),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
         ],
       ),
+      clipBehavior: Clip.antiAlias,
       child: Column(
-        mainAxisSize: MainAxisSize.min,
         children: [
           ResultHeader(
             size: size,
-            result: item.result,
+            isArabic: isArabic,
+            isPassed: isPassed,
+            isFailed: isFailed,
+            resultColor: resultColor,
+            resultText: resultText,
           ),
-          Row(
-            textDirection:
-            isArabic ? TextDirection.rtl : TextDirection.ltr,
-            children: [
-              CircleAvatar(
-                radius: size.width * 0.057,
-                backgroundColor: const Color(0xffF2F4F7),
-                child: Icon(
-                  Icons.visibility,
-                  size: size.width * 0.07,
-                  color: Colors.black,
-                ),
-              ),
-
-              SizedBox(width: size.width * 0.025),
-
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: isArabic
-                      ? CrossAxisAlignment.start
-                      : CrossAxisAlignment.end,
-                  children: [
-                    Text(
-                     item.testName,
-                      textAlign:
-                      isArabic ? TextAlign.start : TextAlign.end,
-                      style: TextStyle(
-                        fontSize: titleFont,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(height: smallSpace / 2),
-                Text(controller.getTestDescription(item.testCode),
-                  textAlign:
-                  isArabic ? TextAlign.start : TextAlign.end,
-                      style: TextStyle(
-                        fontSize: subtitleFont,
-                        color: Colors.grey,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-
-              Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: size.width * 0.045,
-                  vertical: size.height * 0.01,
-                ),
-                decoration: BoxDecoration(
-                  color: AppColors.primaryColor,
-                  borderRadius: BorderRadius.circular(size.width * 0.06),
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppColors.primaryColor.withOpacity(0.25),
-                      blurRadius: 8,
-                      offset: const Offset(0, 3),
-                    )
-                  ],
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(
-                      Icons.check,
-                      color: Colors.white,
-                      size: size.width * 0.04,
-                    ),
-                    SizedBox(width: size.width * 0.015),
-                Text(controller.getResultText(item.result),
-                      style: TextStyle(
-                        fontSize: size.width * 0.038,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-
-          SizedBox(height: mediumSpace),
-          ResultMetaSection(
+          SizedBox(height: size.height * 0.008),
+          TestTypeSection(
             size: size,
             item: item,
             controller: controller,
+            isArabic: isArabic,
           ),
-
-          SizedBox(height: mediumSpace),
-          ResultInfoBlock(
+          SizedBox(height: size.height * 0.008),
+          DetailsSection(
             size: size,
-            title: "notes".tr,
-            icon: Icons.notes,
-            value: controller.getNotes(item.notes),
+            isArabic: isArabic,
+            resultText: resultText,
+            resultColor: resultColor,
+            notes: notes,
+            attemptNumber: item.attemptNumber.toString(),
+            date: controller.getDate(item.recordedAt),
+            recordedBy: item.recordedBy,
           ),
-
-          SizedBox(height: smallSpace),
-          ResultInfoBlock(
-            size: size,
-            title: "recorded_by".tr,
-            icon: Icons.badge,
-            value: item.recordedBy,
-          ),
+          SizedBox(height: size.height * 0.025),
         ],
       ),
     );

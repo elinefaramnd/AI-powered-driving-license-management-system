@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:get/get.dart';
+import '../../app/controllers/app_update_controller.dart';
 import '../../configuration/http_helpers.dart';
 import '../../widgets/app_snackbar.dart';
 import 'appointment_model.dart';
@@ -84,7 +85,7 @@ class AppointmentsController extends GetxController {
 
       if (response.statusCode == 200) {
         appointments.removeWhere((item) => item.id == appointmentId);
-
+        Get.find<AppUpdateController>().notifyChange();
         AppSnackbar.show("done".tr,
           "appointment_cancelled_successfully".tr,);
       }

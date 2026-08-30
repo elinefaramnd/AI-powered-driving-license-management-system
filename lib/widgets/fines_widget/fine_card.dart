@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../app_theme/app_colors.dart';
 import '../../modules/fines/fine_model.dart';
 import '../../modules/fines/fines_controller.dart';
@@ -8,9 +7,11 @@ import '../../modules/fines/fines_controller.dart';
 class FineCard extends GetView<FinesController> {
   final FineModel fine;
   const FineCard({super.key, required this.fine});
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final isPaid = fine.status == 'paid' || fine.status == 'completed';
     return Container(
       margin: EdgeInsets.only(bottom: size.height * .018),
       padding: EdgeInsets.all(size.width * .045),
@@ -29,24 +30,26 @@ class FineCard extends GetView<FinesController> {
                   vertical: size.height * .008,
                 ),
                 decoration: BoxDecoration(
-                  color: const Color(0xffFDEAEA),
+                  color: isPaid
+                      ? AppColors.primaryColor.withOpacity(.10)
+                      : const Color(0xffFDEAEA),
                   borderRadius: BorderRadius.circular(40),
                 ),
                 child: Text(
-                  fine.status == "unpaid" ? "unpaid".tr
-                      : "paid".tr,
+                  isPaid ? "paid".tr : "unpaid".tr,
                   style: TextStyle(
-                    color: fine.status == "unpaid" ? Colors.red : Colors.green,
+                    color: isPaid ? AppColors.primaryColor : Colors.red,
                     fontWeight: FontWeight.bold,
                     fontSize: size.width * .035,
                   ),
                 ),
               ),
               const Spacer(flex: 3),
-              Align(
-                alignment: Alignment.centerRight,
+              Expanded(
+                flex: 4,
                 child: Text(
                   fine.reason,
+                  textAlign: TextAlign.right,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: size.width * .047,
@@ -69,20 +72,20 @@ class FineCard extends GetView<FinesController> {
               ),
             ],
           ),
-
           SizedBox(height: size.height * .015),
           Divider(height: size.height * .05),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-              "${fine.amount.toStringAsFixed(2)} ${"currency".tr}",
+                "${fine.amount.toStringAsFixed(2)} ${"currency".tr}",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: AppColors.primary,
                   fontSize: size.width * .045,
                 ),
               ),
+
               Text(
                 "amount".tr,
                 style: TextStyle(
@@ -92,25 +95,27 @@ class FineCard extends GetView<FinesController> {
               ),
             ],
           ),
-
           SizedBox(height: size.height * .02),
           SizedBox(
-            width: size.width * .6,
-            height: size.height * .065,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                elevation: 0,
-                backgroundColor: AppColors.primary,
+            width: double.infinity,
+            height: size.height * .055,
+            child: OutlinedButton.icon(
+              onPressed: () {
+                Get.toNamed('/fine_details', arguments: fine.id);
+              },
+              style: OutlinedButton.styleFrom(
+                foregroundColor: AppColors.primaryColor,
+                side: BorderSide(color: AppColors.primaryColor, width: 1.2),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(50),
                 ),
               ),
-              onPressed: () {},
-              child: Text(
-              "pay_now".tr,
+              icon: Icon(Icons.visibility_outlined, size: size.width * .045),
+              label: Text(
+                "view_details".tr,
                 style: TextStyle(
-                  color: Colors.white,
-                  fontSize: size.width * .045,
+                  fontSize: size.width * .035,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ),

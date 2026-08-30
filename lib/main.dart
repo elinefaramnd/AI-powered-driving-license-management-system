@@ -1,7 +1,11 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:project_2/modules/home_page/chat_bot_controller.dart';
+import 'package:project_2/services/notification_service.dart';
 import 'app/controllers/app_update_controller.dart';
 import 'lang/controllers/language_controller.dart';
 import 'lang/translations/app_translation.dart';
@@ -9,6 +13,7 @@ import 'modules/account_verification/account_verification_screen.dart';
 import 'modules/appointment/AvailableTestsPage.dart';
 import 'modules/chat_bot/chat_bot_controller.dart';
 import 'modules/create_application/upload_documents_page.dart';
+import 'modules/fines/fine_details_screen.dart';
 import 'modules/fines/fines_screen.dart';
 import 'modules/forget_password/forget_password_binding.dart';
 import 'modules/forget_password/forget_password_screen.dart';
@@ -17,6 +22,7 @@ import 'modules/home_page/home_screen.dart';
 import 'modules/my_applications/my_orders/orders_screen.dart';
 import 'modules/my_appointments/my_appointments_screen.dart';
 import 'modules/my_licenses/my_licenses_screen.dart';
+import 'modules/notification/notifications_screen.dart';
 import 'modules/profile/complete_profile/complete_profile_binding.dart';
 import 'modules/profile/complete_profile/complete_profile_screen.dart';
 import 'modules/profile/profile/profile_binding.dart';
@@ -47,31 +53,35 @@ import 'modules/faq/faq_controller.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  await initializeDateFormatting();
   await GetStorage.init();
+  await Firebase.initializeApp();
+  FirebaseMessaging.onBackgroundMessage(
+    firebaseMessagingBackgroundHandler,
+  );
+  await NotificationService.initialize();
   Get.put(ChatBotController());
   Get.put(ChatController());
   Get.put(AppUpdateController());
   Get.put(LanguageController(), permanent: true);
   runApp(const MyApp());
 }
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     final box = GetStorage();
     final language = Get.find<LanguageController>();
-    final hasToken =
-        box.read<String>('token') != null &&
+    final hasToken = box.read<String>('token') != null &&
         box.read<String>('token')!.isNotEmpty;
+    final pendingVerification =
+        box.read<String>('pending_account_verification') != null &&
+            box.read<String>('pending_account_verification')!.isNotEmpty;
     return Obx(
       () => GetMaterialApp(
         locale: language.locale.value,
         translations: AppTranslation(),
         fallbackLocale: const Locale("en"),
-
         builder: (context, child) {
           return Directionality(
             textDirection: language.locale.value.languageCode == "ar"
@@ -80,103 +90,62 @@ class MyApp extends StatelessWidget {
             child: child!,
           );
         },
-
         debugShowCheckedModeBanner: false,
-        initialRoute: hasToken ? '/home' : '/',
-
+        initialRoute: pendingVerification
+            ? '/accountVerify'
+            : hasToken
+            ? '/home'
+            : '/',
         getPages: [
-          GetPage(
-            name: '/signIn',
-            page: () => SignInScreen(),
-            binding: SignInBindings(),
-          ),
+          GetPage(name: '/signIn', page: () => SignInScreen(), binding: SignInBindings(),),
           GetPage(name: '/', page: () => SplashScreen()),
           GetPage(name: '/onboarding', page: () => OnboardingScreen()),
-          GetPage(
-            name: '/signUp',
-            page: () => SignUpScreen(),
-            binding: SignUpBindings(),
+          GetPage(name: '/signUp', page: () => SignUpScreen(), binding: SignUpBindings(),),
+          GetPage(name: '/forgetPass', page: () => ForgetPasswordScreen(), binding: ForgetPasswordBinding(),
           ),
-          GetPage(
-            name: '/forgetPass',
-            page: () => ForgetPasswordScreen(),
-            binding: ForgetPasswordBinding(),
+          GetPage(name: '/emailVerify', page: () => VerificationScreen(), binding: VerificationBinding(),
           ),
-          GetPage(
-            name: '/emailVerify',
-            page: () => VerificationScreen(),
-            binding: VerificationBinding(),
-          ),
-          GetPage(
-            name: '/resetPass',
-            page: () => ResetPasswordScreen(),
-            binding: ResetPasswordBinding(),
+          GetPage(name: '/resetPass', page: () => ResetPasswordScreen(), binding: ResetPasswordBinding(),
           ),
           GetPage(name: '/accountVerify', page: () => OtpVerificationScreen()),
-          GetPage(
-            name: '/home',
-            page: () => HomeScreen(),
-            binding: HomeBinding(),
-          ),
-          GetPage(
-            name: '/completePro',
-            page: () => CompleteProfileScreen(),
-            binding: CompleteProfileBinding(),
-          ),
-          GetPage(
-            name: '/showPro',
-            page: () => ProfileScreen(),
-            binding: ProfileBinding(),
-          ),
-          GetPage(
-            name: '/updatePro',
-            page: () => UpdateProfileScreen(),
-            binding: UpdateProfileBinding(),
-          ),
+          GetPage(name: '/home', page: () => HomeScreen(), binding: HomeBinding(),),
+          GetPage(name: '/completePro', page: () => CompleteProfileScreen(), binding: CompleteProfileBinding(),),
+          GetPage(name: '/showPro', page: () => ProfileScreen(), binding: ProfileBinding(),),
+          GetPage(name: '/updatePro', page: () => UpdateProfileScreen(), binding: UpdateProfileBinding(),),
           GetPage(name: '/upload_documents', page: () => UploadDocumentsPage()),
           GetPage(name: '/order_screen', page: () => OrdersScreen()),
           GetPage(name: '/order_details', page: () => OrderDetailsScreen()),
           GetPage(name: '/fines_screen', page: () => FinesScreen()),
           GetPage(name: '/my_licenses', page: () => MyLicensesScreen()),
          // GetPage(name: '/test_results', page: () => TestResultsScreen()),
-          GetPage(
-            name: '/available_tests_page',
-            page: () => AvailableTestsPage(),
-          ),
+          GetPage(name: '/available_tests_page', page: () => AvailableTestsPage(),),
           GetPage(name: '/settings', page: () => SettingsScreen()),
-          GetPage(
-            name: '/settings/password',
-            page: () => ChangePasswordScreen(),
-          ),
-          GetPage(
-            name: '/privacy_policy',
-            page: () => PrivacyPolicyScreen(),
-            binding: BindingsBuilder(() {
+          GetPage(name: '/settings/password', page: () => ChangePasswordScreen(),),
+          GetPage(name: '/privacy_policy', page: () => PrivacyPolicyScreen(), binding: BindingsBuilder(() {
               Get.lazyPut(() => PrivacyPolicyController(), fenix: true);
             }),
           ),
-          GetPage(
-            name: '/contact_us',
-            page: () => ContactUsScreen(),
-            binding: BindingsBuilder(() {
+          GetPage(name: '/contact_us', page: () => ContactUsScreen(), binding: BindingsBuilder(() {
               Get.lazyPut(() => ContactUsController(), fenix: true);
             }),
           ),
-          GetPage(
-            name: '/send_message',
-            page: () => const SendMessageScreen(),
-            binding: BindingsBuilder(() {
+          GetPage(name: '/send_message', page: () => const SendMessageScreen(), binding: BindingsBuilder(() {
               Get.lazyPut(() => SendMessageController(), fenix: true);
             }),
           ),
-          GetPage(
-            name: '/faq',
-            page: () => FaqScreen(),
-            binding: BindingsBuilder(() {
+          GetPage(name: '/faq', page: () => FaqScreen(), binding: BindingsBuilder(() {
               Get.lazyPut(() => FaqController(), fenix: true);
             }),
           ),
           GetPage(name: '/appointments', page: () => MyAppointmentsScreen()),
+          GetPage(name: "/notifications", page: () => NotificationsScreen()),
+          GetPage(name: "/my_licenses",page: ()=>MyLicensesScreen()),
+          GetPage(
+            name: '/fine_details',
+            page: () => FineDetailsScreen(
+              fineId: Get.arguments,
+            ),
+          ),
         ],
       ),
     );

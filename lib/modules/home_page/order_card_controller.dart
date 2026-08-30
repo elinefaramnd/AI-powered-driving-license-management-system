@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:project_2/modules/my_licenses/my_licenses_screen.dart';
 import 'package:project_2/widgets/app_snackbar.dart';
 import '../../app_theme/app_colors.dart';
 import '../../widgets/home_widget/order_action_button.dart';
@@ -45,12 +46,12 @@ class OrderCardController extends GetxController {
           Text(
         "next_step".tr,
             style: TextStyle(
-              color: Colors.grey,
+              color: AppColors.primaryColor,
               fontWeight: FontWeight.bold,
-              fontSize: width * .039,
+              fontSize: Get.locale?.languageCode == "ar" ? width * .039:width * .036,
             ),
           ),
-          SizedBox(height: height * .006),
+          SizedBox(height: height * .01),
           Text(text, style: TextStyle(fontSize: width * .034)),
           SizedBox(height: height * .02),
           button,
@@ -248,15 +249,54 @@ class OrderCardController extends GetxController {
         text: "license_waiting_message".tr,
         button: OrderActionButton(
           onPressed: canUseServices
-              ? home.openOrderDetails
+              ? () {
+            Get.toNamed("/my_licenses");
+          }
               : () {
-                  AppSnackbar.show("تنبيه", _message());
-                },
+            AppSnackbar.show("تنبيه", _message());
+          },
           text: "waiting_license".tr,
           icon: Icons.check,
           color: canUseServices ? AppColors.primaryColor : Colors.grey.shade400,
           width: width * .47,
           height: height * .055,
+        ),
+      );
+    }
+    if (status == "license_issued") {
+      return section(
+        text: "license_issued_message".tr,
+        button: OrderActionButton(
+          onPressed: canUseServices
+              ? () {
+            Get.toNamed("/my_licenses");
+          }
+              : () {
+            AppSnackbar.show("تنبيه", _message());
+          },
+          text: "license_issued".tr,
+          icon: Icons.badge_outlined,
+          color: canUseServices
+              ? AppColors.primaryColor
+              : Colors.grey.shade400,
+          width: width * .47,
+          height: height * .055,
+        ),
+      );
+    }
+    if (status == "completed") {
+      return section(
+        text: "unblock_license".tr,
+        button: _actionButton(
+          onPressed: () {
+            Get.to(
+                  () => MyLicensesScreen(),
+            );
+          },
+          text: "view_license".tr,
+          icon: Icons.credit_card_outlined,
+          width: width,
+          height: height,
         ),
       );
     }

@@ -2,226 +2,172 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../app_theme/app_colors.dart';
 import '../../widgets/custom_app_bar.dart';
-import 'license_card.dart';
+import '../../widgets/my_licenses_widget/empty_licenses_state.dart';
+import '../../widgets/my_licenses_widget/license_card.dart';
+import '../../widgets/my_licenses_widget/licenses_section_header.dart';
 import 'my_licenses_controller.dart';
 
 class MyLicensesScreen extends StatelessWidget {
   final controller = Get.put(MyLicensesController());
-
   MyLicensesScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
+    final media = MediaQuery.of(context);
     final isArabic = Get.locale?.languageCode == "ar";
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: CustomAppBar(
-        title: "my_licenses".tr,
-      ),
+      backgroundColor: const Color(0xFFF7F8F6),
+      appBar: CustomAppBar(title: "my_licenses".tr),
       body: Obx(() {
         if (controller.loading.value) {
           return const Center(
             child: CircularProgressIndicator(color: AppColors.primaryColor),
           );
         }
-
         if (controller.licenses.isEmpty) {
-          return _buildEmptyState();
+          return const EmptyLicensesState();
         }
-
         return SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          padding: EdgeInsets.fromLTRB(
+            media.size.width * 0.035,
+            media.size.height * 0.012,
+            media.size.width * 0.035,
+            media.size.height * 0.022,
+          ),
           child: Column(
-            crossAxisAlignment:
-            isArabic ? CrossAxisAlignment.start : CrossAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // Stats Row
-              _buildStatsRow(),
-              const SizedBox(height: 24),
-              // Section Header with filter
-              Row(
-                mainAxisAlignment: isArabic
-                    ? MainAxisAlignment.end
-                    : MainAxisAlignment.start,
-                children: [
-                  // Filter button
-                  // Section title
-                  Row(
-                    textDirection:
-                    isArabic ? TextDirection.rtl : TextDirection.ltr,
-                    children: [
-                      Text(
-                        "licenses_list".tr,
-                        style: TextStyle(
-                          color: AppColors.primaryColor,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      Container(
-                        width: 3,
-                        height: 20,
-                        decoration: BoxDecoration(
-                          color: AppColors.primary,
-                          borderRadius: BorderRadius.circular(2),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+              _StatsSection(controller: controller),
+
+              SizedBox(height: media.size.height * 0.02),
+
+              LicensesSectionHeader(isArabic: isArabic),
+
+              SizedBox(height: media.size.height * 0.015),
+
+              ...controller.licenses.map(
+                (license) => LicenseCard(license: license),
               ),
-              const SizedBox(height: 16),
-              // Licenses List
-              ...controller.licenses
-                  .map((license) => LicenseCard(license: license))
-                  .toList(),
-              const SizedBox(height: 20),
+
+              SizedBox(height: media.size.height * 0.005),
             ],
           ),
         );
       }),
     );
   }
+}
 
-  Widget _buildStatsRow() {
-    final isArabic = Get.locale?.languageCode == "ar";
-    return Obx(() {
-      final activeCount =
-          controller.licenses.where((l) => l.status == 'active').length;
-      final totalCount = controller.licenses.length;
+class _StatsSection extends StatelessWidget {
+  final MyLicensesController controller;
 
-      return Row(
-        children: [
-          // Active licenses card
-          Expanded(
-            child: Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: const Color(0xFFE8F5E9),
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Column(
-                crossAxisAlignment:
-                isArabic ? CrossAxisAlignment.start : CrossAxisAlignment.end,
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: AppColors.primary,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: const Icon(
-                      Icons.check,
-                      color: Colors.white,
-                      size: 20,
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  Text(
-                    activeCount.toString(),
-                    style: TextStyle(
-                      color: AppColors.primaryColor,
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    "active_licenses".tr,
-                    style: TextStyle(
-                      color: Colors.grey[600],
-                      fontSize: 12,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+  const _StatsSection({required this.controller});
+
+  @override
+  Widget build(BuildContext context) {
+    final w = MediaQuery.of(context).size.width;
+
+    final activeCount = controller.licenses
+        .where((e) => e.status.toLowerCase() == "active")
+        .length;
+
+    final totalCount = controller.licenses.length;
+
+    return Row(
+      children: [
+        Expanded(
+          child: _StatCard(
+            title: "active_licenses".tr,
+            value: activeCount.toString(),
+            active: true,
           ),
-          const SizedBox(width: 12),
-          // Total licenses card
-          Expanded(
-            child: Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.grey[50],
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Column(
-                crossAxisAlignment:
-                isArabic ? CrossAxisAlignment.start : CrossAxisAlignment.end,
+        ),
+        SizedBox(width: w * .025),
+        Expanded(
+          child: _StatCard(
+            title: "total_licenses".tr,
+            value: totalCount.toString(),
+            active: false,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _StatCard extends StatelessWidget {
+  final String title;
+  final String value;
+  final bool active;
+
+  const _StatCard({
+    required this.title,
+    required this.value,
+    required this.active,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final w = MediaQuery.of(context).size.width;
+
+    return Container(
+      height: w * .19,
+      padding: EdgeInsets.all(w * .02),
+      decoration: BoxDecoration(
+        color: active ? const Color(0xFFF2FAF4) : Colors.white,
+        borderRadius: BorderRadius.circular(18),
+        border: Border.all(
+          color: active ? const Color(0xFFD8ECD9) : Colors.grey.shade200,
+        ),
+      ),
+      child: Stack(
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
                 children: [
                   Container(
-                    padding: const EdgeInsets.all(8),
+                    width: w * .085,
+                    height: w * .085,
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: Colors.grey[200]!),
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(.04),
+                          blurRadius: 6,
+                        ),
+                      ],
                     ),
                     child: Icon(
-                      Icons.badge_outlined,
+                      active ? Icons.verified : Icons.badge_outlined,
                       color: AppColors.primaryColor,
-                      size: 20,
+                      size: w * .045,
                     ),
                   ),
-                  const SizedBox(height: 12),
+                  SizedBox(width: w * .025),
                   Text(
-                    totalCount.toString(),
+                    value,
                     style: TextStyle(
-                      color: AppColors.primaryColor,
-                      fontSize: 28,
+                      fontSize: w * .055,
                       fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    "total_licenses".tr,
-                    style: TextStyle(
-                      color: Colors.grey[600],
-                      fontSize: 12,
+                      color: AppColors.primaryColor,
                     ),
                   ),
                 ],
               ),
-            ),
+              const Spacer(),
+              Text(
+                title,
+                style: TextStyle(
+                  color: AppColors.primaryColor,
+                  fontSize: w * .033,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
           ),
         ],
-      );
-    });
-  }
-
-  Widget _buildEmptyState() {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(40),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.credit_card_off_outlined,
-              size: 64,
-              color: Colors.grey[400],
-            ),
-            const SizedBox(height: 24),
-            Text(
-              "no_licenses".tr,
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: AppColors.primaryColor,
-              ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              "no_licenses_message".tr,
-              style: TextStyle(
-                color: Colors.grey[500],
-                fontSize: 14,
-              ),
-              textAlign: TextAlign.center,
-            ),
-          ],
-        ),
       ),
     );
   }

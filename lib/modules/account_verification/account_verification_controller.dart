@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import '../../configuration/http_helpers.dart';
+import '../../services/notification_service.dart';
 import '../../widgets/app_snackbar.dart';
 
 class EmailVerificationController extends GetxController {
@@ -13,7 +14,13 @@ class EmailVerificationController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    email = Get.arguments['email'];
+
+    final box = GetStorage();
+    final arguments = Get.arguments;
+
+    email = arguments?['email'] ??
+        box.read<String>('pending_account_verification') ??
+        '';
   }
   void updateCode(String code) {
     otpCode.value = code;
@@ -44,6 +51,8 @@ class EmailVerificationController extends GetxController {
         box.write('token', token);
         box.write('userId', userId);
         box.write('roleId', roleId);
+        box.remove('pending_account_verification');
+        await NotificationService.initialize();
         AppSnackbar.show("success".tr, data['message']);
         Get.offNamed('/completePro');
       } else {

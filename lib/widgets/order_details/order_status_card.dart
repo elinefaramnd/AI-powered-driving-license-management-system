@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import '../../../app_theme/app_colors.dart';
+import '../../modules/my_applications/my_orders/order_model.dart';
 
 class OrderStatusCard extends StatelessWidget {
-  const OrderStatusCard({super.key});
+  final OrderModel order;
+
+  const OrderStatusCard({
+    super.key,
+    required this.order,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -11,6 +17,58 @@ class OrderStatusCard extends StatelessWidget {
     final isRtl = Directionality.of(context) == TextDirection.rtl;
     final w = size.width;
     final h = size.height;
+    final status = order.status;
+
+    final documents = order.documents;
+
+    final allDocumentsPendingReview =
+        documents.isNotEmpty &&
+            documents.every(
+                  (doc) => doc["status"] == "pending_review",
+            );
+
+    final hasRejectedDocument = documents.any(
+          (doc) => doc["status"] == "rejected",
+    );
+    String title;
+    String description;
+    String statusText;
+
+    if (hasRejectedDocument) {
+      title = "documents_rejected".tr;
+      description = "documents_rejected_description".tr;
+      statusText = "rejected".tr;
+    } else if (status == "draft") {
+      title = "documents_required".tr;
+      description = "documents_required_description".tr;
+      statusText = "waiting_for_documents".tr;
+    } else if (status == "documents_under_review" &&
+        allDocumentsPendingReview) {
+      title = "documents_completed".tr;
+      description = "documents_completed_description".tr;
+      statusText = "under_review".tr;
+    } else if (status == "payment_pending") {
+      title = "documents_completed".tr;
+      description = "documents_completed_description".tr;
+      statusText = "waiting_for_payment".tr;
+    }  else if (status == "in_testing") {
+      title = "in_testing".tr;
+      description = "in_testing_description".tr;
+      statusText = "in_testing".tr;
+    }else if (status == "approved") {
+      title = "license_approved".tr;
+      description = "license_approved_description".tr;
+      statusText = "waiting_for_license".tr;
+    } else if (status == "license_issued") {
+      title = "license_issued".tr;
+      description = "license_issued_description".tr;
+      statusText = "license_ready".tr;
+    } else {
+      title = "documents_completed".tr;
+      description = "documents_completed_description".tr;
+      statusText = "under_review".tr;
+    }
+
     return Container(
       width: double.infinity,
       height: h * 0.17,
@@ -36,7 +94,7 @@ class OrderStatusCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                  Text(
-                   "documents_completed".tr,
+                   title,
                   textAlign: TextAlign.right,
                   style: TextStyle(
                     color: Colors.white,
@@ -45,7 +103,7 @@ class OrderStatusCard extends StatelessWidget {
                   ),
                 ),
                  Text(
-                   "documents_completed_description".tr,
+                   description,
                    textAlign: isRtl ? TextAlign.right : TextAlign.left,
                   style: TextStyle(
                     color: Colors.white,
@@ -73,7 +131,7 @@ class OrderStatusCard extends StatelessWidget {
                       ),
                       SizedBox(width:  w * 0.013),
                       Text(
-                      "under_review".tr,
+                        statusText,
                         style: TextStyle(
                           color: AppColors.primaryColor,
                           fontWeight: FontWeight.bold,
@@ -86,7 +144,6 @@ class OrderStatusCard extends StatelessWidget {
               ],
             ),
           ),
-
         ],
       ),
     );

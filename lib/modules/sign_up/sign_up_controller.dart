@@ -70,18 +70,39 @@ class SignUpController extends GetxController {
       );
       print("Response Status Code: ${response.statusCode}");
       print("Response Body: ${response.body}");
-      final res = SignUpResponseModel.fromJson(jsonDecode(response.body));
+      final responseData = jsonDecode(response.body);
+      print(jsonEncode(data));
       print(jsonEncode(data));
       if (response.statusCode == 200 || response.statusCode == 201) {
+
+        final res = SignUpResponseModel.fromJson(jsonDecode(response.body));
         GetStorage box = GetStorage();
         box.write('name', name);
+        box.write('pending_account_verification', email);
         AppSnackbar.show('',
           res.message,);
         Get.offNamed('/accountVerify', arguments: {'email': email});
       } else {
-        print(jsonEncode(data));
-        AppSnackbar.show('error'.tr,
-          res.message,);
+        final data = jsonDecode(response.body);
+
+        String errorMessage = data['message'] ?? 'registration_error'.tr;
+        if (responseData['errors'] != null) {
+          final errors = responseData['errors'] as Map<String, dynamic>;
+
+          errorMessage = errors.values
+              .expand((e) => e is List ? e : [e])
+              .join('\n');
+        }
+
+        AppSnackbar.show(
+          'error'.tr,
+          errorMessage,
+        );
+
+        AppSnackbar.show(
+          'error'.tr,
+          errorMessage,
+        );
       }
     } catch (e) {
       print('Register Error: $e');

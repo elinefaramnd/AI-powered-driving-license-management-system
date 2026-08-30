@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:project_2/widgets/app_snackbar.dart';
 import '../../configuration/http_helpers.dart';
+import '../../services/notification_service.dart';
 import 'login_response_model.dart';
 
 class SignInController extends GetxController {
@@ -41,9 +42,16 @@ class SignInController extends GetxController {
         final res = LoginResponseModel.fromJson(jsonDecode(value.body));
         token = res.token;
         int role = res.roleId;
+        int userId = res.userId;
+
         GetStorage box = GetStorage();
         box.write('token', token);
         box.write('id', role);
+        box.write('user_id', userId);
+        await NotificationService.initialize();
+        print('LOGIN USER ID: $userId');
+        print('STORED USER ID: ${box.read('user_id')}');
+        print('LOGIN USER ID: ${res.userId}');
         AppSnackbar.show(
           'success'.tr,
           res.message,

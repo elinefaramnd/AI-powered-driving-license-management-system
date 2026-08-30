@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_2/widgets/custom_app_bar.dart';
 import 'settings_controller.dart';
-import '../../widgets/settings_widget/settings_header_widget.dart';
 import '../../widgets/settings_widget/account_info_card_widget.dart';
 import '../../widgets/settings_widget/language_card_widget.dart';
 import '../../widgets/settings_widget/theme_card_widget.dart';
@@ -17,14 +16,13 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    final isArabic = Get.locale?.languageCode == "ar";
-
 
     return Scaffold(
-      appBar: CustomAppBar(title: 'settings'.tr,),
+      appBar: CustomAppBar(title: 'settings'.tr),
       backgroundColor: const Color(0xFFF5F7FA),
       body: SafeArea(
         child: Obx(() {
+          final isArabic = Get.locale?.languageCode == "ar";
           if (controller.isLoading.value) {
             return const Center(child: CircularProgressIndicator());
           }
@@ -51,8 +49,9 @@ class SettingsScreen extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
                   child: Row(
-                    textDirection:
-                    isArabic ? TextDirection.rtl : TextDirection.ltr,
+                    textDirection: isArabic
+                        ? TextDirection.rtl
+                        : TextDirection.ltr,
                     children: [
                       Container(
                         padding: const EdgeInsets.all(8),
@@ -60,12 +59,19 @@ class SettingsScreen extends StatelessWidget {
                           color: const Color(0xFFE8F5E9),
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        child: Icon(Icons.tune, color: Colors.grey.shade700, size: 22),
+                        child: Icon(
+                          Icons.tune,
+                          color: Colors.grey.shade700,
+                          size: 22,
+                        ),
                       ),
                       const SizedBox(width: 8),
                       Text(
                         "preferences".tr,
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ],
                   ),
@@ -96,8 +102,9 @@ class SettingsScreen extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
                   child: Row(
-                    textDirection:
-                    isArabic ? TextDirection.rtl : TextDirection.ltr,
+                    textDirection: isArabic
+                        ? TextDirection.rtl
+                        : TextDirection.ltr,
                     children: [
                       Container(
                         padding: const EdgeInsets.all(8),
@@ -105,12 +112,19 @@ class SettingsScreen extends StatelessWidget {
                           color: const Color(0xFFE8F5E9),
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        child: Icon(Icons.more_horiz, color: Colors.grey.shade700, size: 22),
+                        child: Icon(
+                          Icons.more_horiz,
+                          color: Colors.grey.shade700,
+                          size: 22,
+                        ),
                       ),
                       const SizedBox(width: 8),
                       Text(
                         "other".tr,
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ],
                   ),
@@ -124,7 +138,6 @@ class SettingsScreen extends StatelessWidget {
                 ),
 
                 SizedBox(height: screenHeight * 0.012),
-
               ],
             ),
           );

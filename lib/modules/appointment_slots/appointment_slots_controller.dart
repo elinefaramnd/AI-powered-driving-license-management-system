@@ -29,6 +29,7 @@ class AppointmentSlotsController extends GetxController {
     super.onInit();
     loadSlots();
   }
+
   Future<void> loadSlots() async {
     loading.value = true;
     final res = await HttpHelper.gettData(
@@ -52,10 +53,7 @@ class AppointmentSlotsController extends GetxController {
     try {
       final res = await HttpHelper.putData(
         url: 'appointments/$appointmentId/reschedule',
-        body: {
-          "appointment_slot_id":
-          selectedSlotId.value.toString(),
-        },
+        body: {"appointment_slot_id": selectedSlotId.value.toString()},
       );
 
       final decoded = jsonDecode(res.body);
@@ -64,16 +62,14 @@ class AppointmentSlotsController extends GetxController {
 
       if (decoded["success"] == true) {
         Get.back(result: true);
+        Get.find<AppUpdateController>().notifyChange();
         AppSnackbar.show(
           "appointment_updated".tr,
           "appointment_updated_successfully".tr,
         );
       } else {
         print(decoded["message"]);
-        AppSnackbar.show(
-          "error".tr,
-          decoded["message"],
-        );
+        AppSnackbar.show("error".tr, decoded["message"]);
       }
     } catch (e) {
       bookingLoading.value = false;
@@ -81,25 +77,18 @@ class AppointmentSlotsController extends GetxController {
   }
 
   List get dates {
-    return slots
-        .map((e) => e["date"])
-        .toSet()
-        .toList();
+    return slots.map((e) => e["date"]).toSet().toList();
   }
+
   List get filteredSlots {
-    return slots
-        .where(
-          (e) => e["date"] == selectedDate.value,
-    )
-        .toList();
+    return slots.where((e) => e["date"] == selectedDate.value).toList();
   }
+
   Future<void> openMap(String url) async {
     print("MAP URL = $url");
-    await launchUrl(
-      Uri.parse(url),
-      mode: LaunchMode.externalApplication,
-    );
+    await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
   }
+
   Future<void> bookAppointment() async {
     if (selectedSlotId.value == 0) return;
 
@@ -108,9 +97,7 @@ class AppointmentSlotsController extends GetxController {
     try {
       final res = await HttpHelper.postData(
         url: 'applications/$applicationId/appointments',
-        body: {
-          "appointment_slot_id": selectedSlotId.value.toString(),
-        },
+        body: {"appointment_slot_id": selectedSlotId.value.toString()},
       );
 
       final decoded = jsonDecode(res.body);
@@ -126,11 +113,8 @@ class AppointmentSlotsController extends GetxController {
         );
 
         print(res.body);
-      }else{
-        AppSnackbar.show(
-          "error".tr,
-          decoded['message'],
-        );
+      } else {
+        AppSnackbar.show("error".tr, decoded['message']);
 
         print(res.body);
       }

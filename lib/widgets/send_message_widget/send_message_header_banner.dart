@@ -15,7 +15,7 @@ class SendMessageHeaderBanner extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: w * 0.055, vertical: h * 0.025),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: const [AppColors.primary, AppColors.darkGreen],
+          colors: const [AppColors.primaryColor, AppColors.darkGreen],
           begin:
           isArabic ? Alignment.topLeft : Alignment.topRight,
 
@@ -25,7 +25,7 @@ class SendMessageHeaderBanner extends StatelessWidget {
         borderRadius: BorderRadius.circular(22),
         boxShadow: [
           BoxShadow(
-            color: AppColors.primary.withOpacity(0.35),
+            color: AppColors.primaryColor.withOpacity(0.35),
             blurRadius: 20,
             offset: const Offset(0, 8),
           ),
